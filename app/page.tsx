@@ -29,37 +29,37 @@ export default function SocialLandingPage() {
 
         <div className="mt-6 flex flex-col gap-4">
           <SocialLink
-            href="https://www.instagram.com/yourhandle"
+            href="https://www.instagram.com/saccofinancial"
             icon={<FaInstagram />}
             platform="Instagram"
           />
           <SocialLink
-            href="https://www.threads.net/@yourhandle"
+            href="https://www.threads.net/@saccofinancial"
             icon={<SiThreads />}
             platform="Threads"
           />
           <SocialLink
-            href="https://www.tiktok.com/@yourhandle"
+            href="https://www.tiktok.com/@saccofinancial"
             icon={<FaTiktok />}
             platform="TikTok"
           />
           <SocialLink
-            href="https://x.com/yourhandle"
+            href="https://x.com/justin_sacco"
             icon={<SiX />}
             platform="X (Twitter)"
           />
           <SocialLink
-            href="https://www.youtube.com/yourchannel"
+            href="https://www.youtube.com/@saccofinancial"
             icon={<FaYoutube />}
             platform="YouTube"
           />
           <SocialLink
-            href="https://www.linkedin.com/in/yourprofile"
+            href="https://www.linkedin.com/in/jmsacco"
             icon={<FaLinkedin />}
             platform="LinkedIn"
           />
           <SocialLink
-            href="https://www.facebook.com/yourpage"
+            href="https://www.facebook.com/people/Justin-Sacco/61573839178096"
             icon={<FaFacebook />}
             platform="Facebook"
           />
