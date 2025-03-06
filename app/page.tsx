@@ -59,7 +59,7 @@ export default function SocialLandingPage() {
             platform="LinkedIn"
           />
           <SocialLink
-            href="https://www.facebook.com/people/Justin-Sacco/61573839178096"
+            href="https://www.facebook.com/people/Sacco-Financial/61573912254568"
             icon={<FaFacebook />}
             platform="Facebook"
           />
