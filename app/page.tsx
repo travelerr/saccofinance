@@ -24,7 +24,9 @@ export default function SocialLandingPage() {
       <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
         <h1 className="mt-4 text-3xl font-bold text-gray-800">Sacco Finance</h1>
         <p className="mt-2 text-gray-600">
-          Helping you break the paycheck-to-paycheck cycle
+          💻📈 15 years of experience in tech & finance<br />
+          🚀 Sharing insights, strategies<br />
+          💡💰 No gatekeeping, just results
         </p>
 
         <div className="mt-6 flex flex-col gap-4">
@@ -81,7 +83,7 @@ function SocialLink({
   return (
     <Link
       href={href}
-      className="flex items-center justify-center w-full px-4 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors duration-300 text-lg font-medium shadow-md"
+      className="flex items-center justify-center w-full px-4 py-3 text-white bg-black rounded-md hover:bg-gray-800 transition-colors duration-300 text-lg font-medium shadow-md"
     >
       <span className="mr-2 text-2xl">{icon}</span>
       {platform}
