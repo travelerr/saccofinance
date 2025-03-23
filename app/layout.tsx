@@ -1,9 +1,14 @@
 import type React from "react"
 import "./globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { DM_Sans } from 'next/font/google'
 
-const inter = Inter({ subsets: ["latin"] })
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'], // choose what you need
+  variable: '--font-dm-sans',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Your Finance Brand - Social Links",
@@ -17,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={dmSans.className}>{children}</body>
     </html>
   )
 }

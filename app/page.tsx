@@ -78,12 +78,11 @@ export default function SocialLandingPage() {
         {/* Content Container */}
         <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
         <h1 className="mt-4 text-3xl font-bold text-gray-800">
-          Justin Sacco <br/> 
-          Sacco Financial <br/> 
-          Finance Tips & Strategies
+          Sacco Financial
         </h1>          
         <p className="mt-2 text-gray-600">
-            💻📈 15 years of experience in tech & finance<br />
+            15 years of experience<br />
+            💻📈 Tech & finance<br />
             🚀 Sharing insights & strategies<br />
             💡💰 No gatekeeping, just results
           </p>
