@@ -3,7 +3,7 @@ import {
   FaInstagram,
   FaTiktok,
   FaYoutube,
-  FaLinkedin,
+  //FaLinkedin,
   FaFacebook,
 } from "react-icons/fa";
 import { SiThreads, SiX } from "react-icons/si";
@@ -113,11 +113,11 @@ export default function SocialLandingPage() {
               icon={<FaYoutube />}
               platform="YouTube"
             />
-            <SocialLink
+            {/* <SocialLink
               href="https://www.linkedin.com/in/jmsacco"
               icon={<FaLinkedin />}
               platform="LinkedIn"
-            />
+            /> */}
             <SocialLink
               href="https://www.facebook.com/people/Sacco-Financial/61573912254568"
               icon={<FaFacebook />}
