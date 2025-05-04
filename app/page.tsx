@@ -5,6 +5,7 @@ import {
   FaYoutube,
   //FaLinkedin,
   FaFacebook,
+  FaFilePdf
 } from "react-icons/fa";
 import { SiThreads, SiX } from "react-icons/si";
 import Head from "next/head";
@@ -77,17 +78,32 @@ export default function SocialLandingPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-gray-900/5"></div>
         {/* Content Container */}
         <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
-        <h1 className="mt-4 text-3xl font-bold text-gray-800">
+          <div className="flex justify-center">
+            <Image
+              src="/profile.jpg"
+              alt="Justin Sacco - Profile Picture"
+              width={120}
+              height={120}
+              className="rounded-full border-4 border-gray-300 shadow-md"
+              priority
+            />
+          </div>
+        <h1 className="mt-4 text-4xl font-bold text-gray-800">
           Sacco Financial
         </h1>          
         <p className="mt-2 text-gray-600">
-            15 years of experience<br />
-            💻📈 Tech & finance<br />
-            🚀 Sharing insights & strategies<br />
-            💡💰 No gatekeeping, just results
+          📈 Investing & Market Education<br/>
+          💡Strategies, Insights & News<br/>
+          🎓15 years exp
           </p>
 
           <div className="mt-6 flex flex-col gap-4">
+            <SocialLink
+              href="https://saccojustin24.systeme.io/2e081b13"
+              icon={<FaFilePdf />}
+              platform="Free Investing PDF"
+              bgColor="#0E3AF6"
+            />
             <SocialLink
               href="https://www.instagram.com/saccofinancial"
               icon={<FaInstagram />}
@@ -134,17 +150,20 @@ function SocialLink({
   href,
   icon,
   platform,
+  bgColor
 }: {
   href: string;
   icon: React.ReactNode;
   platform: string;
+  bgColor?: string
 }) {
   return (
     <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-center w-full px-4 py-3 text-white bg-black rounded-md hover:bg-gray-800 transition-colors duration-300 text-lg font-medium shadow-md"
+      className={`flex items-center justify-center w-full px-4 py-3 text-white rounded-md transition-colors duration-300 text-lg font-medium shadow-md`}
+      style={{ backgroundColor: bgColor || "#000", color: bgColor ? "#fff" : undefined }}
     >
       <span className="mr-2 text-2xl">{icon}</span>
       {platform}
