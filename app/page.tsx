@@ -99,7 +99,7 @@ export default function SocialLandingPage() {
 
           <div className="mt-6 flex flex-col gap-4">
             <SocialLink
-              href="https://join.justinsacco.com/2e081b13"
+              href="https://join.justinsacco.com/free-investing-pdf"
               icon={<FaFilePdf />}
               platform="Free Investing PDF"
               bgColor="#0E3AF6"
