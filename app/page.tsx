@@ -105,7 +105,7 @@ export default function SocialLandingPage() {
               bgColor="#0E3AF6"
             />
             <SocialLink
-              href="hhttps://join.justinsacco.com/investing-kit"
+              href="https://join.justinsacco.com/investing-kit"
               icon={<FaFilePdf />}
               platform="$4 Investing Kit"
               bgColor="#0E3AF6"
