@@ -102,7 +102,7 @@ export default function SocialLandingPage() {
             <SocialLink
               href="https://www.digistore24.com/redir/475469/SOfinancial/"
               icon={<GiTakeMyMoney />}
-              platform="Stock Market Mastery Kit"
+              platform="Master the Market"
               bgColor="red"
             />
             <SocialLink
