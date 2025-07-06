@@ -10,6 +10,7 @@ import {
 import { SiThreads, SiX } from "react-icons/si";
 import Head from "next/head";
 import Image from 'next/image';
+import { GiTakeMyMoney } from "react-icons/gi";
 
 export default function SocialLandingPage() {
   return (
@@ -99,15 +100,21 @@ export default function SocialLandingPage() {
 
           <div className="mt-6 flex flex-col gap-4">
             <SocialLink
-              href="https://join.justinsacco.com/free-investing-pdf"
-              icon={<FaFilePdf />}
-              platform="Free Investing PDF"
-              bgColor="#0E3AF6"
+              href="https://www.digistore24.com/redir/475469/SOfinancial/"
+              icon={<GiTakeMyMoney />}
+              platform="Stock Market Mastery Kit"
+              bgColor="red"
             />
             <SocialLink
               href="https://join.justinsacco.com/investing-kit"
               icon={<FaFilePdf />}
-              platform="$4 Investing Kit"
+              platform="$4 Investing Guide"
+              bgColor="green"
+            />
+            <SocialLink
+              href="https://join.justinsacco.com/free-investing-pdf"
+              icon={<FaFilePdf />}
+              platform="Free Investing PDF"
               bgColor="#0E3AF6"
             />
             <SocialLink
