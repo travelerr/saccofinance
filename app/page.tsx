@@ -5,7 +5,8 @@ import {
   FaYoutube,
   //FaLinkedin,
   FaFacebook,
-  FaFilePdf
+  FaFilePdf,
+  FaDiscord
 } from "react-icons/fa";
 import { SiThreads, SiX } from "react-icons/si";
 import Head from "next/head";
@@ -97,8 +98,13 @@ export default function SocialLandingPage() {
           💡Strategies, Insights & News<br/>
           🎓15 years exp
           </p>
-
           <div className="mt-6 flex flex-col gap-4">
+            <SocialLink
+              href="https://discord.gg/uX6Vqakbhk"
+              icon={<FaDiscord />}
+              platform="Trading Discord"
+              bgColor="#7289DA"
+            />
             <SocialLink
               href="https://www.digistore24.com/redir/475469/SOfinancial/"
               icon={<GiTakeMyMoney />}
