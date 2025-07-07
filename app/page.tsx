@@ -103,7 +103,7 @@ export default function SocialLandingPage() {
               href="https://discord.gg/uX6Vqakbhk"
               icon={<FaDiscord />}
               platform="Trading Discord"
-              bgColor="#7289DA"
+              bgColor="#5865f2"
             />
             <SocialLink
               href="https://www.digistore24.com/redir/475469/SOfinancial/"
