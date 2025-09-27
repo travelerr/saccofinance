@@ -111,12 +111,12 @@ export default function SocialLandingPage() {
               platform="Master the Market"
               bgColor="red"
             />
-            <SocialLink
+            {/* <SocialLink
               href="https://join.justinsacco.com/investing-kit"
               icon={<FaFilePdf />}
               platform="$4 Investing Guide"
               bgColor="green"
-            />
+            /> */}
             <SocialLink
               href="https://join.justinsacco.com/free-investing-pdf"
               icon={<FaFilePdf />}
