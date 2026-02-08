@@ -212,9 +212,8 @@ export default function DiscordBridgePage() {
             radial-gradient(1100px 700px at 50% 100%, rgba(251,191,36,.14), transparent 60%),
             var(--bg);
           color: var(--text);
-          display:flex;
-          align-items:center;
-          justify-content:center;
+            display: block;
+            padding-top: env(safe-area-inset-top, 16px);
           padding: 22px;
         }
 
