@@ -67,14 +67,6 @@ export default function SocialLandingPage() {
             isExternal={false}
           />
 
-           <SocialLink
-            href="/discord-alt"
-            icon={<FaDiscord />}
-            platform="Trading Discord v2"
-            bgColor="#5865f2"
-            isExternal={false}
-          />
-
           <SocialLink
             href="https://www.instagram.com/saccofinancial"
             icon={<FaInstagram />}
