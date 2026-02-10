@@ -75,14 +75,6 @@ export default function DiscordJoinPage() {
           >
             Copy Discord Invite Link
           </button>
-
-          <div className="modalHint">
-            In TikTok, tap <b>•••</b> (top-right) → <b>Open in browser</b>, then paste the link.
-          </div>
-
-          <button className="modalSecondary" onClick={() => setShowIabModal(false)} type="button">
-            I opened Safari/Chrome
-          </button>
         </div>
       </div>
 
@@ -244,7 +236,7 @@ export default function DiscordJoinPage() {
           inset: 0;
           background: rgba(0,0,0,.68);
           display: none;
-          align-items: flex-end;
+          align-items: center;
           justify-content: center;
           padding: 14px;
           z-index: 10001;
