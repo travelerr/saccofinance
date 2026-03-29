@@ -3,19 +3,37 @@
 @tailwind utilities;
 
 :root {
-  --background: #000;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f8fafc;
+  --foreground: #1f2937;
+  --sf-cream: #f4f7f9;
+  --sf-navy: #0f2d4a;
+  --sf-teal: #4ce1e6;
+  --sf-teal-dark: #1ec9cf;
+  --sf-teal-ink: #0f4e5a;
+  --sf-coral: #ff8559;
+  --sf-coral-dark: #f97346;
+  --sf-green: #15803d;
+  --sf-green-dark: #166534;
+  --sf-charcoal: #1f2937;
+  --sf-soft: #dbe7f0;
+  --hub-bg: #060b14;
+  --hub-surface: rgba(255, 255, 255, 0.05);
+  --hub-border: rgba(255, 255, 255, 0.1);
+  --hub-primary: #4ce1e6;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans), "DM Sans", "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.font-brand {
+  font-family: var(--font-brand), "Montserrat", "Avenir Next", "Segoe UI", sans-serif;
+  font-weight: 800;
 }
