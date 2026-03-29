@@ -261,7 +261,7 @@ export default function ReplitHomepage() {
               alt="Sacco Financial"
               width={300}
               height={88}
-              className="h-18 w-auto md:h-20"
+              className="h-12 w-auto sm:h-14 md:h-20"
               priority
             />
           </button>
