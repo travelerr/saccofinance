@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   FaBookOpen,
@@ -9,93 +10,143 @@ import {
 import { SiThreads, SiX } from "react-icons/si";
 import Image from "next/image";
 
+export const metadata: Metadata = {
+  title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
+  description:
+    "Browse the official Sacco Financial link tree for Justin Sacco's investing guide, YouTube, Instagram, TikTok, X, Threads, and more stock market education resources.",
+  keywords: [
+    "Sacco Financial link tree",
+    "sacco finanical",
+    "Justin Sacco links",
+    "Sacco Financial social media",
+    "investing guide",
+    "stock market education",
+  ],
+  alternates: {
+    canonical: "/link-tree",
+  },
+  openGraph: {
+    title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
+    description:
+      "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
+    url: "https://justinsacco.com/link-tree",
+    images: ["/headshot.jpeg"],
+  },
+  twitter: {
+    title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
+    description:
+      "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
+    images: ["/headshot.jpeg"],
+  },
+};
+
 export default function SocialLandingPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Sacco Financial Link Tree",
+    url: "https://justinsacco.com/link-tree",
+    description:
+      "Official Sacco Financial resource hub with social links and investing education from Justin Sacco.",
+    about: {
+      "@type": "Organization",
+      name: "Sacco Financial",
+      url: "https://justinsacco.com",
+    },
+  };
+
   return (
-    <main
-      className="min-h-screen flex items-center justify-center p-6 bg-cover bg-left bg-no-repeat relative bg-black"
-      style={{
-      backgroundImage: "url('/headshot.jpeg')",
-      backgroundSize: "contain",
-      backgroundPosition: "left",
-      backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-gray-900/5" />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <main
+        className="min-h-screen flex items-center justify-center p-6 bg-cover bg-left bg-no-repeat relative bg-black"
+        style={{
+          backgroundImage: "url('/headshot.jpeg')",
+          backgroundSize: "contain",
+          backgroundPosition: "left",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-gray-900/5" />
 
-      {/* Content Container */}
-      <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
-        <div className="flex justify-center">
-          <Image
-            src="/images/profile.jpg"
-            alt="Justin Sacco - Profile Picture"
-            width={120}
-            height={120}
-            className="rounded-full border-4 border-gray-300 shadow-md"
-            priority
-          />
+        {/* Content Container */}
+        <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
+          <div className="flex justify-center">
+            <Image
+              src="/images/profile.jpg"
+              alt="Justin Sacco - Profile Picture"
+              width={120}
+              height={120}
+              className="rounded-full border-4 border-gray-300 shadow-md"
+              priority
+            />
+          </div>
+
+          <h1 className="mt-4 text-4xl font-bold text-gray-800">
+            Sacco Financial
+          </h1>
+
+          <p className="mt-2 text-gray-600">
+            📈 Stock market education for everyday investors
+            <br />
+            💰 Stocks • Options • Passive income
+            <br />
+            🧠 15+ years of market experience
+          </p>
+
+          <div className="mt-6 flex flex-col gap-4">
+            <SocialLink
+              href="https://join.justinsacco.com/free-investing-pdf"
+              icon={<FaBookOpen />}
+              platform="Free Investing Guide"
+              bgColor="#4CE1E6"
+              textColor="#000000"
+              isExternal
+            />
+            <SocialLink
+              href="https://www.instagram.com/saccofinancial"
+              icon={<FaInstagram />}
+              platform="Instagram"
+              isExternal
+            />
+            <SocialLink
+              href="https://www.threads.net/@saccofinancial"
+              icon={<SiThreads />}
+              platform="Threads"
+              isExternal
+            />
+            <SocialLink
+              href="https://www.tiktok.com/@saccofinancial"
+              icon={<FaTiktok />}
+              platform="TikTok"
+              isExternal
+            />
+            <SocialLink
+              href="https://x.com/justin_sacco"
+              icon={<SiX />}
+              platform="X (Twitter)"
+              isExternal
+            />
+            <SocialLink
+              href="https://www.youtube.com/@saccofinancial"
+              icon={<FaYoutube />}
+              platform="YouTube"
+              isExternal
+            />
+            <SocialLink
+              href="https://www.facebook.com/people/Sacco-Financial/61573912254568"
+              icon={<FaFacebook />}
+              platform="Facebook"
+              isExternal
+            />
+          </div>
         </div>
-
-        <h1 className="mt-4 text-4xl font-bold text-gray-800">
-          Sacco Financial
-        </h1>
-
-        <p className="mt-2 text-gray-600">
-          📈 Teaching people the stock market 
-          <br />
-          💰 Stocks • Options • Passive income
-          <br />
-          🧠 15+ yrs in the market 
-        </p>
-
-        <div className="mt-6 flex flex-col gap-4">
-          <SocialLink
-            href="https://join.justinsacco.com/free-investing-pdf"
-            icon={<FaBookOpen />}
-            platform="Free Investing Guide"
-            bgColor="#4CE1E6"
-            textColor="#000000"
-            isExternal
-          />
-          <SocialLink
-            href="https://www.instagram.com/saccofinancial"
-            icon={<FaInstagram />}
-            platform="Instagram"
-            isExternal
-          />
-          <SocialLink
-            href="https://www.threads.net/@saccofinancial"
-            icon={<SiThreads />}
-            platform="Threads"
-            isExternal
-          />
-          <SocialLink
-            href="https://www.tiktok.com/@saccofinancial"
-            icon={<FaTiktok />}
-            platform="TikTok"
-            isExternal
-          />
-          <SocialLink
-            href="https://x.com/justin_sacco"
-            icon={<SiX />}
-            platform="X (Twitter)"
-            isExternal
-          />
-          <SocialLink
-            href="https://www.youtube.com/@saccofinancial"
-            icon={<FaYoutube />}
-            platform="YouTube"
-            isExternal
-          />
-          <SocialLink
-            href="https://www.facebook.com/people/Sacco-Financial/61573912254568"
-            icon={<FaFacebook />}
-            platform="Facebook"
-            isExternal
-          />
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 

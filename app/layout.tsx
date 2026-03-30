@@ -17,25 +17,54 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Justin Sacco shares 15 years of experience in tech & finance. Investing strategies, market insights, and financial education with no gatekeeping.",
+    "Sacco Financial by Justin Sacco shares beginner-friendly investing education, stock market insights, personal finance tips, and long-term wealth-building strategies.",
 
   keywords: [
     "Justin Sacco",
     "Sacco Financial",
+    "sacco finanical",
+    "Sacco Financial investing",
+    "Sacco Financial stock market",
+    "Justin Sacco investing",
     "investing",
     "finance tips",
     "stock market",
+    "stock market education",
+    "beginner investing",
+    "trading education",
+    "personal finance education",
+    "wealth building",
+    "passive income",
+    "options trading education",
     "personal finance",
   ],
 
   authors: [{ name: "Justin Sacco" }],
+  creator: "Justin Sacco",
+  publisher: "Sacco Financial",
+  category: "Finance",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 
   openGraph: {
     title: "Justin Sacco – Sacco Financial",
     description:
-      "Investing strategies, market insights, and financial education from Justin Sacco.",
+      "Sacco Financial delivers stock market education, investing strategies, and personal finance content from Justin Sacco.",
     url: "https://justinsacco.com",
     siteName: "Sacco Financial",
+    locale: "en_US",
     type: "website",
     images: [
       {
@@ -50,7 +79,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Justin Sacco – Sacco Financial",
-    description: "Investing strategies & market education from Justin Sacco.",
+    description: "Stock market education, investing strategies, and personal finance content from Sacco Financial.",
     images: ["/headshot.jpeg"],
   },
 
