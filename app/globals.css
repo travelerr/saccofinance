@@ -37,3 +37,11 @@ html {
   font-family: var(--font-brand), "Montserrat", "Avenir Next", "Segoe UI", sans-serif;
   font-weight: 800;
 }
+
+/* /financial-blueprint — display headings (Montserrat variable from layout) */
+.financial-blueprint-root h1,
+.financial-blueprint-root h2,
+.financial-blueprint-root h3,
+.financial-blueprint-root .font-display {
+  font-family: var(--font-display-fb), "Montserrat", system-ui, sans-serif;
+}
