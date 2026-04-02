@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
@@ -9,7 +10,6 @@ import {
   Briefcase,
   CheckCircle2,
   ChevronDown,
-  GraduationCap,
   Instagram,
   LineChart,
   Mail,
@@ -20,19 +20,17 @@ import {
   TrendingUp,
   Twitter,
   Wallet,
-  Wrench,
   X,
   Youtube,
+  FileText,
 } from "lucide-react";
-
 const LINKS = {
   freeGuide: "https://join.justinsacco.com/free-investing-pdf",
+  financialBlueprint: "/financial-blueprint",
   youtube: "https://www.youtube.com/@saccofinancial",
   tiktok: "https://www.tiktok.com/@saccofinancial",
   instagram: "https://www.instagram.com/saccofinancial",
   x: "https://x.com/saccofinancial",
-  course: "/link-tree#course",
-  tools: "/link-tree#social",
   email: "support@justinsacco.com",
 };
 
@@ -57,81 +55,101 @@ const stats = [
   { value: "5.0", label: "Average Rating" },
 ];
 
-const linkCards = [
+/** Three main paths: free PDF, premium blueprint, then all channels via link hub. */
+const pathCards: {
+  title: string;
+  description: string;
+  href: string;
+  icon: ReactNode;
+  variant: "free" | "premium" | "channels";
+}[] = [
   {
-    title: "Get the Free Investing Guide",
-    description: "Grab the free PDF and join the email list for beginner-friendly investing education.",
+    title: "Free investing guide",
+    description:
+      "Start with the free PDF and email list—beginner-friendly investing education without paying a cent.",
     href: LINKS.freeGuide,
     icon: <Mail className="h-6 w-6 text-[var(--hub-primary)]" />,
-    primary: true,
+    variant: "free",
   },
   {
+    title: "The Financial Base Blueprint",
+    description:
+      "Premium PDF: a step-by-step system for cash flow, debt, your financial base, and long-term habits.",
+    href: LINKS.financialBlueprint,
+    icon: <FileText className="h-6 w-6 text-[var(--hub-primary)]" />,
+    variant: "premium",
+  },
+  {
+    title: "YouTube, TikTok & more",
+    description:
+      "Prefer video and social? Open the link hub for every channel plus the free guide in one place.",
+    href: "/link-tree",
+    icon: <BookOpen className="h-6 w-6 text-blue-400" />,
+    variant: "channels",
+  },
+];
+
+const socialChannelCards = [
+  {
     title: "Watch on YouTube",
-    description: "In-depth investing tutorials, market breakdowns, and beginner lessons.",
+    description: "In-depth tutorials, market breakdowns, and beginner lessons.",
     href: LINKS.youtube,
     icon: <Youtube className="h-6 w-6 text-red-400" />,
   },
   {
     title: "Follow on TikTok",
-    description: "Quick finance tips, market news, and investing strategies in seconds.",
+    description: "Quick finance tips and market context in short form.",
     href: LINKS.tiktok,
     icon: <PlaySquare className="h-6 w-6 text-pink-400" />,
   },
   {
     title: "Follow on Instagram",
-    description: "Charts, trade ideas, and behind-the-scenes content.",
+    description: "Charts, ideas, and behind-the-scenes content.",
     href: LINKS.instagram,
     icon: <Instagram className="h-6 w-6 text-orange-400" />,
   },
   {
     title: "Follow on X",
-    description: "Real-time market commentary and trading insights.",
+    description: "Market commentary and real-time notes.",
     href: LINKS.x,
     icon: <Twitter className="h-6 w-6 text-sky-400" />,
   },
-  {
-    title: "Explore the Link Tree",
-    description: "Browse the original Sacco Financial homepage, services, and embedded content.",
-    href: "/link-tree",
-    icon: <BookOpen className="h-6 w-6 text-blue-400" />,
-  },
-  {
-    title: "Explore the Course",
-    description: "Jump to the flagship course section on the original homepage.",
-    href: LINKS.course,
-    icon: <GraduationCap className="h-6 w-6 text-violet-400" />,
-  },
-  {
-    title: "Tools & Resources",
-    description: "Open the original social and resources section.",
-    href: LINKS.tools,
-    icon: <Wrench className="h-6 w-6 text-amber-400" />,
-  },
 ];
 
-const offers = [
+const offers: {
+  title: string;
+  description: string;
+  badge: string;
+  cta: string;
+  href: string;
+  popular?: boolean;
+  premium?: boolean;
+}[] = [
   {
     title: "Free Beginner Investing Guide",
-    description: "Download the free guide and join the list for practical investing education, market insights, and future updates.",
-    badge: "Free Guide",
-    cta: "Get the Free Guide",
+    description:
+      "Download the free guide and join the list for practical investing education, market insights, and future updates.",
+    badge: "Free",
+    cta: "Get the free guide",
     href: LINKS.freeGuide,
     popular: true,
   },
   {
-    title: "Daily Market Content",
-    description: "Follow along for regular market commentary, chart breakdowns, and beginner-friendly education.",
-    badge: "Free Content",
-    cta: "Watch on YouTube",
-    href: LINKS.youtube,
+    title: "The Financial Base Blueprint",
+    description:
+      "A downloadable PDF system: organize debt and spending, build positive cash flow, fund emergencies the right way, and learn investing fundamentals—with discipline and long-term structure. Not a get-rich-quick pitch.",
+    badge: "Full system",
+    cta: "View the blueprint",
+    href: LINKS.financialBlueprint,
+    premium: true,
   },
   {
-    title: "The Stock Market Blueprint",
-    description: "The flagship premium program is in the works. Join the list now and you’ll be first to hear when it drops.",
-    badge: "Coming Soon",
-    cta: "Launching Soon",
-    href: LINKS.freeGuide,
-    comingSoon: true,
+    title: "Daily market content",
+    description:
+      "Follow along for regular market commentary, chart breakdowns, and beginner-friendly education—always free.",
+    badge: "Channels",
+    cta: "Watch on YouTube",
+    href: LINKS.youtube,
   },
 ];
 
@@ -203,6 +221,11 @@ function primaryButtonClassName() {
 
 function secondaryButtonClassName() {
   return "inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/10";
+}
+
+function offerCtaClassName(offer: { popular?: boolean; premium?: boolean }) {
+  if (offer.popular || offer.premium) return primaryButtonClassName();
+  return secondaryButtonClassName();
 }
 
 function cardClassName(extra = "") {
@@ -362,28 +385,32 @@ export default function ReplitHomepage() {
               long-term wealth through clear education.
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="flex w-full max-w-xl flex-col items-stretch justify-center gap-3 sm:mx-auto sm:max-w-2xl sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
               <a
                 href={LINKS.freeGuide}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${primaryButtonClassName()} h-14 px-8 text-base`}
+                className={`${primaryButtonClassName()} h-14 flex-1 px-8 text-base sm:min-w-[200px] sm:flex-none`}
               >
-                Get the Free Guide
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Get the free guide
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
               </a>
-              <button
-                type="button"
-                onClick={() => scrollToSection("#resources")}
-                className={`${secondaryButtonClassName()} h-14 px-8 text-base`}
+              <a
+                href={LINKS.financialBlueprint}
+                className={`${primaryButtonClassName()} h-14 flex-1 px-8 text-base sm:min-w-[200px] sm:flex-none`}
               >
-                See What&apos;s Inside
-              </button>
+                Get the premium guide
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+              </a>
             </div>
 
-            <p className="mx-auto mt-5 max-w-xl text-sm text-slate-400">
-              Free PDF via email. Perfect for beginner investors who want a clearer first step.
-            </p>
+            <button
+              type="button"
+              onClick={() => scrollToSection("#links")}
+              className="mt-10 text-sm font-medium text-slate-400 underline-offset-4 transition hover:text-[var(--hub-primary)] hover:underline"
+            >
+              Or browse YouTube, TikTok, and more
+            </button>
 
             <div className="mt-14 flex justify-center">
               <button
@@ -399,42 +426,88 @@ export default function ReplitHomepage() {
         </section>
 
         <section id="links" className="px-4 py-24 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-5xl">
             <SectionHeading
-              title="Everything in One Place"
-              subtitle="Pick a path below to get started with Sacco Financial."
+              title="Choose your path"
+              subtitle="Start with the free guide, go deeper with the premium blueprint, or jump straight to the channels you already use."
             />
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              {linkCards.map((card) => (
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5">
+              {pathCards.map((card) => {
+                const ring =
+                  card.variant === "free"
+                    ? "ring-1 ring-cyan-300/25"
+                    : card.variant === "premium"
+                      ? "ring-1 ring-white/20"
+                      : "";
+                return (
+                  <a
+                    key={card.title}
+                    href={card.href}
+                    target={isExternalHref(card.href) ? "_blank" : undefined}
+                    rel={isExternalHref(card.href) ? "noopener noreferrer" : undefined}
+                    className="group block outline-none transition duration-300 hover:-translate-y-1"
+                  >
+                    <div className={cardClassName(`relative h-full overflow-hidden p-6 sm:p-7 ${ring}`)}>
+                      {card.variant === "free" && (
+                        <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-cyan-300/20 blur-[50px]" />
+                      )}
+                      {card.variant === "premium" && (
+                        <>
+                          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br from-cyan-300/25 via-cyan-400/10 to-transparent blur-3xl" />
+                          <div className="pointer-events-none absolute right-2 top-2 h-40 w-40 rounded-full bg-cyan-300/12 blur-[72px]" />
+                        </>
+                      )}
+                      <div className="relative z-10 flex items-start justify-between gap-3">
+                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/8 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-300/10">
+                          {card.icon}
+                        </div>
+                        <div
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-slate-400 shadow-[0_0_28px_rgba(76,225,230,0.12)] backdrop-blur-sm transition duration-300 group-hover:border-[var(--hub-primary)]/35 group-hover:bg-[var(--hub-primary)]/20 group-hover:text-[var(--hub-primary)]"
+                          aria-hidden
+                        >
+                          <ArrowUpRight className="h-4 w-4" />
+                        </div>
+                      </div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                        {card.variant === "free"
+                          ? "Free"
+                          : card.variant === "premium"
+                            ? "Premium"
+                            : "Channels"}
+                      </p>
+                      <h3 className="mt-2 text-lg font-bold text-white transition group-hover:text-[var(--hub-primary)] sm:text-xl">
+                        {card.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+
+            <p className="mt-14 text-center text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Social channels
+            </p>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {socialChannelCards.map((card) => (
                 <a
                   key={card.title}
                   href={card.href}
-                  target={isExternalHref(card.href) ? "_blank" : undefined}
-                  rel={isExternalHref(card.href) ? "noopener noreferrer" : undefined}
-                  className={`group block outline-none transition duration-300 hover:-translate-y-1 ${
-                    card.primary ? "md:col-span-2" : ""
-                  }`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block outline-none transition duration-300 hover:-translate-y-1"
                 >
-                  <div
-                    className={cardClassName(
-                      `relative h-full overflow-hidden p-6 sm:p-8 ${
-                        card.primary ? "ring-1 ring-cyan-300/20" : ""
-                      }`,
-                    )}
-                  >
-                    {card.primary && (
-                      <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 -translate-y-8 translate-x-8 rounded-full bg-cyan-300/20 blur-[50px]" />
-                    )}
-                    <div className="relative z-10 flex items-start justify-between">
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/8 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-300/10">
+                  <div className={cardClassName("relative h-full overflow-hidden p-6 sm:p-7")}>
+                    <div className="flex items-start justify-between">
+                      <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/8 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-300/10">
                         {card.icon}
                       </div>
                       <div className="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition duration-300 group-hover:bg-[var(--hub-primary)] group-hover:text-[var(--hub-bg)]">
                         <ArrowUpRight className="h-4 w-4" />
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-white transition group-hover:text-[var(--hub-primary)]">
+                    <h3 className="text-lg font-bold text-white transition group-hover:text-[var(--hub-primary)]">
                       {card.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
@@ -509,8 +582,8 @@ export default function ReplitHomepage() {
           <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-96 w-96 rounded-full bg-cyan-300/10 blur-[100px]" />
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              title="Resources Built For You"
-              subtitle="From free starter content to community and structured education."
+              title="Resources built for you"
+              subtitle="Free education, daily content on your favorite channel, or the full premium PDF when you want a complete system."
             />
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -520,44 +593,44 @@ export default function ReplitHomepage() {
                   className={cardClassName(
                     `flex h-full flex-col p-8 ${
                       offer.popular ? "border-cyan-300/50 ring-1 ring-cyan-300/20" : ""
-                    } ${offer.comingSoon ? "border-amber-300/30 bg-amber-300/[0.04]" : ""}`,
+                    } ${offer.premium ? "border-white/15 ring-1 ring-white/10" : ""}`,
                   )}
                 >
-                  <div className="mb-6 flex items-start justify-between">
+                  <div className="mb-6 flex items-start justify-between gap-2">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                        offer.popular
+                        offer.popular || offer.premium
                           ? "bg-[var(--hub-primary)] text-[var(--hub-bg)]"
-                          : offer.comingSoon
-                            ? "bg-amber-300 text-slate-950"
-                            : "bg-white/8 text-slate-200"
+                          : "bg-white/8 text-slate-200"
                       }`}
                     >
                       {offer.badge}
                     </span>
                     {offer.popular && (
-                      <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--hub-primary)]">
-                        Most Popular
+                      <span className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-[var(--hub-primary)]">
+                        Start here
+                      </span>
+                    )}
+                    {offer.premium && (
+                      <span className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-[var(--hub-primary)]">
+                        Dominate here
                       </span>
                     )}
                   </div>
 
                   <h3 className="text-2xl font-bold text-white">{offer.title}</h3>
                   <p className="mb-8 mt-4 flex-grow leading-relaxed text-slate-300">{offer.description}</p>
-                  {offer.comingSoon ? (
-                    <div className="inline-flex min-h-11 items-center justify-center rounded-full border border-amber-300/30 bg-white/5 px-6 py-3 text-sm font-semibold text-amber-200">
-                      {offer.cta}
-                    </div>
-                  ) : (
-                    <a
-                      href={offer.href}
-                      target={isExternalHref(offer.href) ? "_blank" : undefined}
-                      rel={isExternalHref(offer.href) ? "noopener noreferrer" : undefined}
-                      className={offer.popular ? primaryButtonClassName() : secondaryButtonClassName()}
-                    >
-                      {offer.cta}
-                    </a>
-                  )}
+                  <a
+                    href={offer.href}
+                    target={isExternalHref(offer.href) ? "_blank" : undefined}
+                    rel={isExternalHref(offer.href) ? "noopener noreferrer" : undefined}
+                    className={offerCtaClassName(offer)}
+                  >
+                    {offer.cta}
+                    {(offer.popular || offer.premium) && (
+                      <ArrowRight className="ml-2 h-4 w-4 shrink-0" aria-hidden />
+                    )}
+                  </a>
                 </div>
               ))}
             </div>
@@ -645,24 +718,30 @@ export default function ReplitHomepage() {
                   <Mail className="h-8 w-8 text-[var(--hub-primary)]" />
                 </div>
                 <h2 className="font-brand text-3xl tracking-tight text-white md:text-5xl">
-                  Get My Free Beginner Investing Guide
+                  Free guide or full blueprint
                 </h2>
                 <p className="mb-10 mt-4 text-lg text-slate-300">
-                  Start here if you want the clearest first step. Grab the free PDF and join the email
-                  list through the guide page.
+                  New here? Grab the free beginner PDF. Ready for a complete step-by-step financial system—including
+                  cash flow, debt, emergency funding, and investing fundamentals—open the Financial Base Blueprint.
                 </p>
 
-                <div className="mx-auto max-w-md space-y-4">
+                <div className="mx-auto flex max-w-md flex-col gap-3">
                   <a
                     href={LINKS.freeGuide}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`${primaryButtonClassName()} flex h-14 w-full items-center justify-center px-8 text-base`}
                   >
-                    Get the Free Guide
+                    Get the free guide
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
-                  <p className="text-xs text-slate-400">Email capture and unsubscribes are handled through the guide page.</p>
+                  <a
+                    href={LINKS.financialBlueprint}
+                    className={`${primaryButtonClassName()} flex h-14 w-full items-center justify-center px-8 text-base`}
+                  >
+                    Get the premium guide
+                    <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+                  </a>
                 </div>
               </div>
             </div>
@@ -705,15 +784,19 @@ export default function ReplitHomepage() {
               <h3 className="mb-4 font-semibold text-white">Quick Links</h3>
               <div className="space-y-3">
                 <a href="#links" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
-                  Resources Hub
+                  Choose your path
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+                <a href={LINKS.financialBlueprint} className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+                  Financial Base Blueprint
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
                 <a href="#about" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
-                  About Me
+                  About
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
-                <a href={LINKS.course} className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
-                  Trading Course
+                <a href="/link-tree" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+                  Link hub
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
               </div>
@@ -738,11 +821,29 @@ export default function ReplitHomepage() {
       </footer>
 
       {showMobileCta && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[rgba(6,11,20,0.88)] p-4 backdrop-blur-xl md:hidden">
-          <a href="/link-tree" className={`${primaryButtonClassName()} flex h-14 w-full items-center justify-center text-base font-bold`}>
-            Explore the Link Tree
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </a>
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[rgba(6,11,20,0.92)] p-3 backdrop-blur-xl md:hidden">
+          <div className="mx-auto grid max-w-lg grid-cols-3 gap-2">
+            <a
+              href={LINKS.freeGuide}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${primaryButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
+            >
+              Free guide
+            </a>
+            <a
+              href={LINKS.financialBlueprint}
+              className={`${secondaryButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
+            >
+              Blueprint
+            </a>
+            <a
+              href="/link-tree"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 bg-white/5 px-2 text-center text-xs font-semibold text-white sm:text-sm"
+            >
+              All links
+            </a>
+          </div>
         </div>
       )}
     </div>
