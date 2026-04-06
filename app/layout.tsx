@@ -43,9 +43,6 @@ export const metadata: Metadata = {
   creator: "Justin Sacco",
   publisher: "Sacco Financial",
   category: "Finance",
-  alternates: {
-    canonical: "/",
-  },
   robots: {
     index: true,
     follow: true,
