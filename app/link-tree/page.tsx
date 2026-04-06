@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Browse the official Sacco Financial link tree for Justin Sacco's investing guide, YouTube, Instagram, TikTok, X, Threads, and more stock market education resources.",
   keywords: [
     "Sacco Financial link tree",
-    "sacco finanical",
+    "sacco financial",
     "Justin Sacco links",
     "Sacco Financial social media",
     "investing guide",
@@ -30,13 +30,28 @@ export const metadata: Metadata = {
     description:
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
     url: "https://justinsacco.com/link-tree",
-    images: ["/headshot.jpeg"],
+    images: [
+      {
+        url: "/headshot.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Sacco Financial Link Tree",
+      },
+    ],
   },
   twitter: {
+    card: "summary_large_image",
     title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
     description:
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
-    images: ["/headshot.jpeg"],
+    images: [
+      {
+        url: "/headshot.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Sacco Financial Link Tree",
+      },
+    ],
   },
 };
 
@@ -167,7 +182,10 @@ function SocialLink({
 }) {
   const className =
     "flex items-center justify-center w-full px-4 py-3 text-white rounded-md transition-colors duration-300 text-lg font-medium shadow-md";
-  const style = { backgroundColor: bgColor || "#000", color: textColor || "#fff" };
+  const style = {
+    backgroundColor: bgColor || "#000",
+    color: textColor || "#fff",
+  };
 
   // External links as <a> for max compatibility inside in-app browsers
   if (isExternal) {

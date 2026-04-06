@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   keywords: [
     "Justin Sacco",
     "Sacco Financial",
-    "sacco finanical",
+    "sacco financial",
     "Sacco Financial investing",
     "Sacco Financial stock market",
     "Justin Sacco investing",

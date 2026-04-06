@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Explore Sacco Financial for beginner investing education, stock market insights, personal finance guidance, and resources from Justin Sacco.",
   keywords: [
     "Sacco Financial",
-    "sacco finanical",
+    "sacco financial",
     "Justin Sacco",
     "stock market education",
     "beginner investing",

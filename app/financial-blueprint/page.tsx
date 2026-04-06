@@ -47,7 +47,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: socialTitle,
     description,
-    images: ["/headshot.jpeg"],
+    images: [
+      {
+        url: "/headshot.jpeg",
+        width: 1200,
+        height: 630,
+        alt: `${PRODUCT_NAME} — Sacco Financial`,
+      },
+    ],
   },
 };
 
@@ -76,7 +83,7 @@ export default function FinancialBlueprintPage() {
         "@type": "Offer",
         price: "29",
         priceCurrency: "USD",
-        availability: "https://schema.org/OnlineOnly",
+        availability: "https://schema.org/InStock",
       },
     },
   };
