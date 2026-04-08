@@ -9,6 +9,15 @@ export const ORDER_PAGE_URL =
 
 export const PRODUCT_NAME = "The Financial Base Blueprint";
 
+/**
+ * Sales video embed (YouTube or Vimeo). Paste the embed URL only — not the watch page.
+ * YouTube: Share → Embed → copy src, e.g. https://www.youtube.com/embed/VIDEO_ID
+ * Vimeo: Share → Embed → copy src from the iframe
+ * Leave null to keep the “video coming soon” placeholder in VideoSalesSection.
+ */
+export const SALES_VIDEO_EMBED_URL: string | null =
+  "https://www.youtube.com/embed/FVwjMZ6Ai-s?si=zT9YrJJJCiySQmcH&controls=0";
+
 export const FOUNDING_PRICE = 29;
 
 export const ANCHOR_PRICE = 79;
