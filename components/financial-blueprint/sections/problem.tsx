@@ -1,36 +1,36 @@
-import { Container, Eyebrow } from "../ui";
-
-const pains = [
-  "You feel stuck living paycheck to paycheck, even when your income is “enough” on paper.",
-  "You do not have a simple financial system—just bills, stress, and hoping the math works out.",
-  "You want to save and invest, but you cannot get traction long enough to see progress.",
-  "Debt, subscriptions, and competing priorities leave you overwhelmed instead of focused.",
-  "You want structure and clarity—not another hype post about getting rich overnight.",
-];
+import { SectionShell } from "../ui";
 
 export function ProblemSection() {
   return (
-    <section className="border-b border-slate-200/80 bg-[#fafbfc] py-16 sm:py-20">
-      <Container>
-        <Eyebrow>The real problem</Eyebrow>
-        <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--sf-navy)] sm:text-3xl lg:text-4xl">
-          Most people were never given a system
-        </h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-          This blueprint is for you if you are tired of piecing together random tips and want a clear base to
-          build from—cash flow first, then stability, then growth.
-        </p>
-        <ul className="mt-10 space-y-4">
-          {pains.map((text) => (
-            <li
-              key={text}
-              className="relative rounded-2xl border border-slate-200/90 bg-white p-5 pl-6 shadow-sm shadow-slate-200/40 before:absolute before:left-0 before:top-5 before:h-[calc(100%-2.5rem)] before:w-1 before:rounded-full before:bg-[var(--sf-teal)]/50"
-            >
-              <span className="text-sm leading-relaxed text-slate-700 sm:text-base">{text}</span>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </section>
+    <SectionShell className="bg-[#fafafa]">
+      <h2 className="font-display text-2xl font-extrabold tracking-tight text-[var(--sf-navy)] sm:text-3xl md:text-4xl">
+        Most People Don’t Have a Money Problem — They Have a System Problem
+      </h2>
+      <p className="mt-6 max-w-3xl text-lg font-medium text-slate-800">
+        You’re not behind because you’re lazy.
+        <br />
+        You’re behind because no one ever showed you how to structure your finances properly.
+      </p>
+      <p className="mt-6 text-base leading-relaxed text-slate-600 sm:text-lg">Most people:</p>
+      <ul className="mt-4 space-y-3 text-base leading-relaxed text-slate-700 sm:text-lg">
+        <li className="flex gap-3">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sf-teal)]" aria-hidden />
+          Don’t know exactly where their money is going
+        </li>
+        <li className="flex gap-3">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sf-teal)]" aria-hidden />
+          Feel like they’re starting over every month
+        </li>
+        <li className="flex gap-3">
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--sf-teal)]" aria-hidden />
+          Try to save or invest… but never gain traction
+        </li>
+      </ul>
+      <p className="mt-8 text-base leading-relaxed text-slate-700 sm:text-lg">
+        Without a system, money feels random.
+        <br />
+        And when money feels random, progress never sticks.
+      </p>
+    </SectionShell>
   );
 }

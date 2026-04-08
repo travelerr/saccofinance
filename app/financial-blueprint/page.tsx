@@ -3,12 +3,12 @@ import { FinancialBlueprintLanding } from "@/components/financial-blueprint/Fina
 import { PRODUCT_NAME } from "@/components/financial-blueprint/config";
 
 const description =
-  "A step-by-step PDF system to organize money, build cash flow and a real financial base, and grow wealth long-term. Founding price $29. Instant download.";
+  "Break out of the paycheck-to-paycheck cycle with a step-by-step PDF system: organize money, reduce stress, build a solid base, and grow wealth long-term. Founding price $29. Instant download.";
 
 /** Uses root layout template: becomes “{PRODUCT_NAME} | Sacco Financial” */
 const title = PRODUCT_NAME;
 
-const socialTitle = `${PRODUCT_NAME} — Break the Paycheck-to-Paycheck Cycle`;
+const socialTitle = `${PRODUCT_NAME} — Build Real Financial Control`;
 
 export const metadata: Metadata = {
   title,
@@ -62,7 +62,7 @@ export default function FinancialBlueprintPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `${PRODUCT_NAME} | Break the Paycheck-to-Paycheck Cycle — Sacco Financial`,
+    name: `${PRODUCT_NAME} | Break Out of the Paycheck-to-Paycheck Cycle — Sacco Financial`,
     description,
     url: "https://justinsacco.com/financial-blueprint",
     isPartOf: {
@@ -74,7 +74,7 @@ export default function FinancialBlueprintPage() {
       "@type": "Product",
       name: PRODUCT_NAME,
       description:
-        "Digital PDF ebook: a structured financial system for cash flow, debt organization, foundation building, and long-term wealth habits.",
+        "Digital PDF: a step-by-step system to organize money, reduce financial stress, build a solid base, and grow wealth with structure and discipline—not hype.",
       brand: {
         "@type": "Brand",
         name: "Sacco Financial",

@@ -1,32 +1,39 @@
-import { BlueprintHeader } from "./blueprint-header";
 import { BlueprintFooter } from "./blueprint-footer";
-import { HeroSection } from "./sections/hero";
-import { VideoSalesSection } from "./sections/video-sales";
-import { ProblemSection } from "./sections/problem";
-import { WhatsInsideSection } from "./sections/whats-inside";
-import { CredibilitySection } from "./sections/credibility";
-import { WhoItsForSection, WhoItsNotForSection } from "./sections/audience";
-import { PricingSection } from "./sections/pricing";
+import { BlueprintHeader } from "./blueprint-header";
+import { StickyMobileCta } from "./StickyMobileCta";
+import { AgitationSection } from "./sections/agitation";
+import { AuthoritySection } from "./sections/authority";
+import { BenefitsSection } from "./sections/benefits";
 import { FaqSection } from "./sections/faq";
 import { FinalCtaSection } from "./sections/final-cta";
+import { FitSection } from "./sections/fit";
+import { HeroSection } from "./sections/hero";
+import { PricingSection } from "./sections/pricing";
+import { ProblemSection } from "./sections/problem";
+import { SolutionIntroSection } from "./sections/solution-intro";
+import { TestimonialsSection } from "./sections/testimonials";
+import { WhatsInsideSection } from "./sections/whats-inside";
 
 export function FinancialBlueprintLanding() {
   return (
     <>
       <BlueprintHeader />
-      <main>
+      <main className="pb-28 md:pb-0">
         <HeroSection />
-        <VideoSalesSection />
         <ProblemSection />
+        <AgitationSection />
+        <SolutionIntroSection />
+        <BenefitsSection />
         <WhatsInsideSection />
-        <CredibilitySection />
-        <WhoItsForSection />
-        <WhoItsNotForSection />
+        <AuthoritySection />
+        <TestimonialsSection />
         <PricingSection />
+        <FitSection />
         <FaqSection />
         <FinalCtaSection />
       </main>
       <BlueprintFooter />
+      <StickyMobileCta />
     </>
   );
 }

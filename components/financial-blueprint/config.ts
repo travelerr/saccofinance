@@ -16,7 +16,7 @@ export const PRODUCT_NAME = "The Financial Base Blueprint";
  * Leave null to keep the “video coming soon” placeholder in VideoSalesSection.
  */
 export const SALES_VIDEO_EMBED_URL: string | null =
-  "https://www.youtube.com/embed/FVwjMZ6Ai-s?si=zT9YrJJJCiySQmcH&controls=0";
+  "https://www.youtube.com/embed/FVwjMZ6Ai-s?si=gib8gTynilXdpKXw";
 
 export const FOUNDING_PRICE = 29;
 

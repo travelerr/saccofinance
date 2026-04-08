@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 export default function FinancialBlueprintLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className={`financial-blueprint-root ${dmSans.variable} ${montserrat.variable} ${dmSans.className} min-h-screen bg-[#fafbfc] text-slate-900 antialiased selection:bg-[var(--sf-teal)]/25 selection:text-[var(--sf-navy)]`}
+      className={`financial-blueprint-root ${dmSans.variable} ${montserrat.variable} ${dmSans.className} min-h-screen bg-[#fafafa] text-slate-900 antialiased selection:bg-[var(--sf-teal)]/20 selection:text-[var(--sf-navy)]`}
     >
       {children}
     </div>
