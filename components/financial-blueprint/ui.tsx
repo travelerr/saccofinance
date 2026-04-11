@@ -53,6 +53,42 @@ export function PrimaryCta({
   );
 }
 
+/** Primary CTA with optional subtext (Replit-style), aligned for hero vs content sections. */
+export function CtaWithSubtext({
+  href = ORDER_PAGE_URL,
+  children,
+  subtext,
+  size = "default",
+  align = "start",
+  subtextClassName = "text-slate-500",
+}: {
+  href?: string;
+  children: ReactNode;
+  subtext?: string;
+  size?: "default" | "lg";
+  align?: "start" | "center";
+  subtextClassName?: string;
+}) {
+  const wrap =
+    align === "center"
+      ? "flex flex-col items-center gap-1.5 text-center"
+      : "flex flex-col items-center gap-1.5 sm:items-start sm:text-left";
+  return (
+    <div className={wrap}>
+      <PrimaryCta
+        href={href}
+        size={size}
+        className={align === "center" ? "mx-auto w-full max-w-md sm:max-w-none" : ""}
+      >
+        {children}
+      </PrimaryCta>
+      {subtext ? (
+        <p className={`max-w-md text-xs sm:text-sm ${subtextClassName}`}>{subtext}</p>
+      ) : null}
+    </div>
+  );
+}
+
 export function Card({
   children,
   className = "",
