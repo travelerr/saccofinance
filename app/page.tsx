@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Sacco Financial | Stock Market Education & Investing Resources",
     description:
       "Beginner-friendly investing education, stock market insights, and personal finance resources from Justin Sacco.",
-    url: "https://justinsacco.com",
+    url: "https://saccofinancial.com",
     images: ["/headshot.jpeg"],
   },
   twitter: {
@@ -39,10 +39,10 @@ export default function HomePage() {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://justinsacco.com/#organization",
+        "@id": "https://saccofinancial.com/#organization",
         name: "Sacco Financial",
-        url: "https://justinsacco.com",
-        logo: "https://justinsacco.com/images/logo.png",
+        url: "https://saccofinancial.com",
+        logo: "https://saccofinancial.com/images/logo.png",
         sameAs: [
           "https://www.instagram.com/saccofinancial",
           "https://www.threads.net/@saccofinancial",
@@ -54,12 +54,12 @@ export default function HomePage() {
       },
       {
         "@type": "Person",
-        "@id": "https://justinsacco.com/#person",
+        "@id": "https://saccofinancial.com/#person",
         name: "Justin Sacco",
-        url: "https://justinsacco.com",
-        image: "https://justinsacco.com/images/profile.jpg",
+        url: "https://saccofinancial.com",
+        image: "https://saccofinancial.com/images/profile.jpg",
         worksFor: {
-          "@id": "https://justinsacco.com/#organization",
+          "@id": "https://saccofinancial.com/#organization",
         },
         sameAs: [
           "https://www.instagram.com/saccofinancial",
@@ -77,26 +77,26 @@ export default function HomePage() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://justinsacco.com/#website",
-        url: "https://justinsacco.com",
+        "@id": "https://saccofinancial.com/#website",
+        url: "https://saccofinancial.com",
         name: "Sacco Financial",
         publisher: {
-          "@id": "https://justinsacco.com/#organization",
+          "@id": "https://saccofinancial.com/#organization",
         },
         inLanguage: "en-US",
       },
       {
         "@type": "WebPage",
-        "@id": "https://justinsacco.com/#webpage",
-        url: "https://justinsacco.com",
+        "@id": "https://saccofinancial.com/#webpage",
+        url: "https://saccofinancial.com",
         name: "Sacco Financial | Stock Market Education & Investing Resources",
         description:
           "Explore Sacco Financial for beginner investing education, stock market insights, personal finance guidance, and resources from Justin Sacco.",
         isPartOf: {
-          "@id": "https://justinsacco.com/#website",
+          "@id": "https://saccofinancial.com/#website",
         },
         about: {
-          "@id": "https://justinsacco.com/#organization",
+          "@id": "https://saccofinancial.com/#organization",
         },
       },
     ],

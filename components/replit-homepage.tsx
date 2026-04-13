@@ -25,13 +25,13 @@ import {
   FileText,
 } from "lucide-react";
 const LINKS = {
-  freeGuide: "https://join.justinsacco.com/free-investing-pdf",
+  freeGuide: "https://join.saccofinancial.com/free-investing-pdf",
   financialBlueprint: "/financial-blueprint",
   youtube: "https://www.youtube.com/@saccofinancial",
   tiktok: "https://www.tiktok.com/@saccofinancial",
   instagram: "https://www.instagram.com/saccofinancial",
   x: "https://x.com/saccofinancial",
-  email: "support@justinsacco.com",
+  email: "justin@saccofinancial.com",
 };
 
 const navLinks = [

@@ -9,7 +9,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://justinsacco.com"),
+  metadataBase: new URL("https://saccofinancial.com"),
 
   title: {
     default: "Justin Sacco – Sacco Financial",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "Justin Sacco – Sacco Financial",
     description:
       "Sacco Financial delivers stock market education, investing strategies, and personal finance content from Justin Sacco.",
-    url: "https://justinsacco.com",
+    url: "https://saccofinancial.com",
     siteName: "Sacco Financial",
     locale: "en_US",
     type: "website",

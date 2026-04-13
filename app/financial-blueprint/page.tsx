@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: socialTitle,
     description,
-    url: "https://justinsacco.com/financial-blueprint",
+    url: "https://saccofinancial.com/financial-blueprint",
     siteName: "Sacco Financial",
     locale: "en_US",
     type: "website",
@@ -64,11 +64,11 @@ export default function FinancialBlueprintPage() {
     "@type": "WebPage",
     name: `${PRODUCT_NAME} | Break Out of the Paycheck-to-Paycheck Cycle — Sacco Financial`,
     description,
-    url: "https://justinsacco.com/financial-blueprint",
+    url: "https://saccofinancial.com/financial-blueprint",
     isPartOf: {
       "@type": "WebSite",
       name: "Sacco Financial",
-      url: "https://justinsacco.com",
+      url: "https://saccofinancial.com",
     },
     about: {
       "@type": "Product",

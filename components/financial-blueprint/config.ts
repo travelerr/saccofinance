@@ -5,7 +5,7 @@
 
 /** Replace with your real order / checkout URL. */
 export const ORDER_PAGE_URL =
-  "https://join.justinsacco.com/f4c92a71";
+  "https://join.saccofinancial.com/f4c92a71";
 
 export const PRODUCT_NAME = "The Financial Base Blueprint";
 

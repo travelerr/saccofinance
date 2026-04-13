@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
     description:
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
-    url: "https://justinsacco.com/link-tree",
+    url: "https://saccofinancial.com/link-tree",
     images: [
       {
         url: "/headshot.jpeg",
@@ -60,13 +60,13 @@ export default function SocialLandingPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Sacco Financial Link Tree",
-    url: "https://justinsacco.com/link-tree",
+    url: "https://saccofinancial.com/link-tree",
     description:
       "Official Sacco Financial resource hub with social links and investing education from Justin Sacco.",
     about: {
       "@type": "Organization",
       name: "Sacco Financial",
-      url: "https://justinsacco.com",
+      url: "https://saccofinancial.com",
     },
   };
 
@@ -115,7 +115,7 @@ export default function SocialLandingPage() {
 
           <div className="mt-6 flex flex-col gap-4">
             <SocialLink
-              href="https://join.justinsacco.com/free-investing-pdf"
+              href="https://join.saccofinancial.com/free-investing-pdf"
               icon={<FaBookOpen />}
               platform="Free Investing Guide"
               bgColor="#4CE1E6"
