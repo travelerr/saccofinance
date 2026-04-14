@@ -1,4 +1,5 @@
 export { ReplitHeroSection } from "./HeroSection";
+export { ReplitVideoSection } from "./VideoSection";
 export { ReplitProblemSection } from "./ProblemSection";
 export { ReplitSolutionSection } from "./SolutionSection";
 export { ReplitWhatsInsideSection } from "./WhatsInsideSection";

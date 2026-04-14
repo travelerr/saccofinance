@@ -32,8 +32,9 @@ export function ReplitHeroSection() {
               <CtaWithSubtext
                 href={ORDER_PAGE_URL}
                 size="lg"
+                ctaVariant="accent"
                 subtext="Instant PDF download — read it today"
-                subtextClassName="text-center text-white/60 sm:text-left"
+                subtextClassName="text-center text-white/70 sm:text-left"
               >
                 Get The Blueprint
               </CtaWithSubtext>

@@ -31,8 +31,9 @@ export function ReplitFinalCtaSection() {
             <CtaWithSubtext
               size="lg"
               align="center"
+              ctaVariant="accent"
               subtext="Instant PDF download — start reading in minutes"
-              subtextClassName="text-white/55"
+              subtextClassName="text-white/65"
             >
               Get The Financial Base Blueprint
             </CtaWithSubtext>

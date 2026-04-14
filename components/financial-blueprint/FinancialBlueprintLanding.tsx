@@ -3,6 +3,7 @@ import {
   ReplitFaqSection,
   ReplitFinalCtaSection,
   ReplitHeroSection,
+  ReplitVideoSection,
   ReplitProblemSection,
   ReplitSolutionSection,
   ReplitTransformationSection,
@@ -15,6 +16,7 @@ export function FinancialBlueprintLanding() {
     <>
       <main className="pb-28 md:pb-0">
         <ReplitHeroSection />
+        <ReplitVideoSection />
         <ReplitProblemSection />
         <ReplitSolutionSection />
         <ReplitWhatsInsideSection />

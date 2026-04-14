@@ -32,20 +32,27 @@ export function PrimaryCta({
   children,
   className = "",
   size = "default",
+  variant = "navy",
 }: {
   href?: string;
   children: ReactNode;
   className?: string;
   size?: "default" | "lg";
+  /** `accent` = high-contrast teal on dark hero bands; `navy` = default pill on light sections */
+  variant?: "navy" | "accent";
 }) {
   const sizeClass =
     size === "lg" ? "min-h-14 px-8 py-3.5 text-base" : "min-h-12 px-6 py-3 text-sm sm:text-base";
+  const variantClass =
+    variant === "accent"
+      ? "bg-gradient-to-b from-[var(--sf-teal)] to-[var(--sf-teal-dark)] font-bold text-[var(--sf-navy)] shadow-[0_8px_32px_rgba(76,225,230,0.45),inset_0_1px_0_rgba(255,255,255,0.35)] ring-2 ring-white/25 transition hover:brightness-105 hover:shadow-[0_12px_40px_rgba(76,225,230,0.55),inset_0_1px_0_rgba(255,255,255,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-teal)] active:brightness-95"
+      : "bg-[var(--sf-navy)] font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:bg-[#0c2438] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-navy)]";
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--sf-navy)] font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:bg-[#0c2438] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-navy)] sm:w-auto ${sizeClass} ${className}`}
+      className={`inline-flex w-full items-center justify-center gap-2 rounded-full ${variantClass} sm:w-auto ${sizeClass} ${className}`}
     >
       {children}
       <ArrowRight className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
@@ -61,6 +68,7 @@ export function CtaWithSubtext({
   size = "default",
   align = "start",
   subtextClassName = "text-slate-500",
+  ctaVariant = "navy",
 }: {
   href?: string;
   children: ReactNode;
@@ -68,6 +76,7 @@ export function CtaWithSubtext({
   size?: "default" | "lg";
   align?: "start" | "center";
   subtextClassName?: string;
+  ctaVariant?: "navy" | "accent";
 }) {
   const wrap =
     align === "center"
@@ -78,6 +87,7 @@ export function CtaWithSubtext({
       <PrimaryCta
         href={href}
         size={size}
+        variant={ctaVariant}
         className={align === "center" ? "mx-auto w-full max-w-md sm:max-w-none" : ""}
       >
         {children}
