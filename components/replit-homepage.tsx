@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FOUNDING_PRICE } from "@/components/financial-blueprint/config";
 import {
   ArrowRight,
   ArrowUpRight,
