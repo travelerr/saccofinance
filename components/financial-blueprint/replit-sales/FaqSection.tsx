@@ -40,7 +40,7 @@ const faqs = [
   {
     question: "Is there a refund policy?",
     answer:
-      "Please review the refund terms on the order page before purchasing. We stand behind the quality of the content — if you have a question about fit before buying, we encourage you to review the 'What's Inside' section above to see exactly what you'll receive.",
+    "We stand behind the quality of this product. If you go through the material and feel it wasn’t the right fit for you, you can request a full refund within 30 days of purchase — no questions asked.",
   },
 ];
 

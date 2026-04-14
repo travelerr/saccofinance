@@ -43,13 +43,10 @@ export function ReplitTrustSection() {
               Finance Knowledge. No Pedestal.
             </h2>
             <p className="mt-5 text-lg leading-relaxed text-slate-600">
-              The Financial Base Blueprint was created by the team at Sacco Financial — a brand built on the belief that
-              financial knowledge should be practical, accessible, and grounded in real-world experience.
+            The Financial Base Blueprint was created by Justin Sacco, the founder of Sacco Financial — a brand built on the belief that financial knowledge should be practical, accessible, and grounded in real-world experience.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              The creator brings direct experience from the banking and financial services industry — the kind of
-              knowledge that comes from working with real accounts, real numbers, and real people navigating real
-              financial challenges.
+            Justin brings direct experience from the banking and financial services industry — working with real accounts, real numbers, and real people navigating real financial challenges.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-slate-600">
               The Blueprint isn&apos;t written by someone who figured out money theory from a book. It&apos;s written by
