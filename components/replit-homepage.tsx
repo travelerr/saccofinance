@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { FOUNDING_PRICE } from "@/components/financial-blueprint/config";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -34,11 +35,10 @@ const LINKS = {
   email: "justin@saccofinancial.com",
 };
 
+/** Minimal nav — full sections still on-page; reduces friction vs. hero CTAs. */
 const navLinks = [
-  { name: "Links", href: "#links" },
+  { name: "Paths", href: "#links" },
   { name: "About", href: "#about" },
-  { name: "Resources", href: "#resources" },
-  { name: "Topics", href: "#topics" },
 ];
 
 const badges = [
@@ -55,7 +55,7 @@ const stats = [
   { value: "5.0", label: "Average Rating" },
 ];
 
-/** Three main paths: free PDF, premium blueprint, then all channels via link hub. */
+/** Paths ordered for funnel: Blueprint → free guide → channels. */
 const pathCards: {
   title: string;
   description: string;
@@ -64,20 +64,20 @@ const pathCards: {
   variant: "free" | "premium" | "channels";
 }[] = [
   {
+    title: "The Financial Base Blueprint",
+    description:
+      "Premium PDF: a step-by-step system for cash flow, debt, your financial base, and long-term habits.",
+    href: LINKS.financialBlueprint,
+    icon: <FileText className="h-6 w-6 text-[var(--sf-coral)]" />,
+    variant: "premium",
+  },
+  {
     title: "Free investing guide",
     description:
       "Start with the free PDF and email list—beginner-friendly investing education without paying a cent.",
     href: LINKS.freeGuide,
     icon: <Mail className="h-6 w-6 text-[var(--hub-primary)]" />,
     variant: "free",
-  },
-  {
-    title: "The Financial Base Blueprint",
-    description:
-      "Premium PDF: a step-by-step system for cash flow, debt, your financial base, and long-term habits.",
-    href: LINKS.financialBlueprint,
-    icon: <FileText className="h-6 w-6 text-[var(--hub-primary)]" />,
-    variant: "premium",
   },
   {
     title: "YouTube, TikTok & more",
@@ -126,22 +126,22 @@ const offers: {
   premium?: boolean;
 }[] = [
   {
-    title: "Free Beginner Investing Guide",
-    description:
-      "Download the free guide and join the list for practical investing education, market insights, and future updates.",
-    badge: "Free",
-    cta: "Get the free guide",
-    href: LINKS.freeGuide,
-    popular: true,
-  },
-  {
     title: "The Financial Base Blueprint",
     description:
       "A downloadable PDF system: organize debt and spending, build positive cash flow, fund emergencies the right way, and learn investing fundamentals—with discipline and long-term structure. Not a get-rich-quick pitch.",
     badge: "Full system",
-    cta: "View the blueprint",
+    cta: "Get the Blueprint",
     href: LINKS.financialBlueprint,
     premium: true,
+  },
+  {
+    title: "Free Beginner Investing Guide",
+    description:
+      "Download the free guide and join the list for practical investing education, market insights, and future updates.",
+    badge: "Free",
+    cta: "Get the Free Guide",
+    href: LINKS.freeGuide,
+    popular: true,
   },
   {
     title: "Daily market content",
@@ -219,12 +219,24 @@ function primaryButtonClassName() {
   return "inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-300/20 bg-[var(--hub-primary)] px-6 py-3 text-sm font-semibold text-[var(--hub-bg)] transition hover:brightness-110";
 }
 
+/** Coral CTA / accents for Financial Base Blueprint only (matches blueprint landing). */
+function blueprintButtonClassName(options?: { hero?: boolean }) {
+  const base =
+    "inline-flex min-h-11 items-center justify-center rounded-full bg-gradient-to-b from-[var(--sf-coral)] to-[var(--sf-coral-dark)] px-6 py-3 text-sm font-bold text-[var(--hub-bg)] shadow-[0_8px_28px_rgba(255,133,89,0.38)] transition hover:brightness-110 hover:shadow-[0_10px_32px_rgba(255,133,89,0.48)]";
+  const heroBoost =
+    options?.hero === true
+      ? " md:min-h-[4.5rem] md:px-12 md:py-4 md:text-xl md:shadow-[0_16px_48px_rgba(255,133,89,0.5)] md:hover:shadow-[0_20px_56px_rgba(255,133,89,0.58)]"
+      : "";
+  return `${base}${heroBoost}`;
+}
+
 function secondaryButtonClassName() {
   return "inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/10";
 }
 
 function offerCtaClassName(offer: { popular?: boolean; premium?: boolean }) {
-  if (offer.popular || offer.premium) return primaryButtonClassName();
+  if (offer.premium) return blueprintButtonClassName();
+  if (offer.popular) return primaryButtonClassName();
   return secondaryButtonClassName();
 }
 
@@ -289,23 +301,24 @@ export default function ReplitHomepage() {
             />
           </button>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 type="button"
                 onClick={() => scrollToSection(link.href)}
-                className="text-sm font-semibold tracking-wide text-slate-300 transition hover:text-white"
+                className="text-sm font-medium tracking-wide text-slate-500 transition hover:text-slate-300"
               >
                 {link.name}
               </button>
             ))}
+            <a
+              href="/link-tree"
+              className="text-sm font-normal text-slate-600 transition hover:text-slate-400"
+            >
+              Link hub
+            </a>
           </nav>
-
-          <a href="/link-tree" className={`${primaryButtonClassName()} hidden md:inline-flex`}>
-            Open Link Tree
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
 
           <button
             type="button"
@@ -325,13 +338,16 @@ export default function ReplitHomepage() {
                   key={link.name}
                   type="button"
                   onClick={() => scrollToSection(link.href)}
-                  className="border-b border-white/10 py-2 text-left text-lg font-semibold text-white"
+                  className="border-b border-white/10 py-2 text-left text-base font-medium text-slate-300"
                 >
                   {link.name}
                 </button>
               ))}
-              <a href="/link-tree" className={`${primaryButtonClassName()} mt-2 justify-center`}>
-                Open the Link Tree
+              <a
+                href="/link-tree"
+                className="mt-3 border-t border-white/10 pt-3 text-center text-sm font-medium text-slate-500 transition hover:text-slate-300"
+              >
+                Link Hub (all channels)
               </a>
             </div>
           </div>
@@ -360,7 +376,23 @@ export default function ReplitHomepage() {
               </div>
             </div>
 
-            <div className="mb-7 flex flex-wrap justify-center gap-2">
+            <h1 className="font-brand text-5xl leading-[1.05] tracking-tight text-white md:text-7xl">
+              Master the Markets.
+              <br />
+              <span className="bg-[linear-gradient(135deg,#4CE1E6_0%,#c8fdff_100%)] bg-clip-text text-transparent">
+                Build Real Wealth.
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-semibold leading-snug text-white md:text-xl">
+            Stop guessing with your money — and finally take control.
+            </p>
+
+            <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-slate-300 md:text-lg">
+            Build a system that actually works.
+            </p>
+
+            <div className="mb-10 mt-8 flex flex-wrap justify-center gap-2">
               {badges.map((badge) => (
                 <span
                   key={badge}
@@ -372,37 +404,36 @@ export default function ReplitHomepage() {
               ))}
             </div>
 
-            <h1 className="font-brand text-5xl leading-[1.05] tracking-tight text-white md:text-7xl">
-              Master the Markets.
-              <br />
-              <span className="bg-[linear-gradient(135deg,#4CE1E6_0%,#c8fdff_100%)] bg-clip-text text-transparent">
-                Build Real Wealth.
-              </span>
-            </h1>
-
-            <p className="mx-auto mb-10 mt-5 max-w-2xl text-lg leading-relaxed text-slate-300 md:text-xl">
-              Helping everyday people understand the stock market, manage personal finances, and build
-              long-term wealth through clear education.
-            </p>
-
-            <div className="flex w-full max-w-xl flex-col items-stretch justify-center gap-3 sm:mx-auto sm:max-w-2xl sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+            <div className="mx-auto flex w-full max-w-lg flex-col items-stretch gap-3">
+              <a
+                href={LINKS.financialBlueprint}
+                className={`${blueprintButtonClassName({ hero: true })} flex h-16 min-h-[4rem] w-full items-center justify-center px-10 text-base font-bold sm:text-lg`}
+              >
+                Get the Blueprint
+                <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+              </a>
               <a
                 href={LINKS.freeGuide}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${primaryButtonClassName()} h-14 flex-1 px-8 text-base sm:min-w-[200px] sm:flex-none`}
+                className={`${secondaryButtonClassName()} mx-auto flex h-12 w-full max-w-[280px] items-center justify-center px-6 text-sm font-semibold sm:max-w-xs`}
               >
-                Get the free guide
-                <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
-              </a>
-              <a
-                href={LINKS.financialBlueprint}
-                className={`${primaryButtonClassName()} h-14 flex-1 px-8 text-base sm:min-w-[200px] sm:flex-none`}
-              >
-                Get the premium guide
-                <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+                Get the Free Guide
+                <ArrowRight className="ml-2 h-4 w-4 shrink-0 opacity-80" aria-hidden />
               </a>
             </div>
+
+            <p className="mx-auto mt-3 max-w-xl text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sf-coral)]">
+              Early access to the Blueprint — limited-time offer
+            </p>
+
+            <p className="mx-auto mt-5 max-w-xl text-center text-sm leading-relaxed text-slate-500">
+              Built from 10+ years in banking and real-world experience
+            </p>
+
+            <p className="mx-auto mt-2 max-w-lg text-center text-xs leading-relaxed text-slate-600">
+              Trusted by thousands of viewers across TikTok, YouTube, and more
+            </p>
 
             <button
               type="button"
@@ -429,7 +460,7 @@ export default function ReplitHomepage() {
           <div className="mx-auto max-w-5xl">
             <SectionHeading
               title="Choose your path"
-              subtitle="Start with the free guide, go deeper with the premium blueprint, or jump straight to the channels you already use."
+              subtitle="Start with the Blueprint when you want the full system, grab the free guide for the list and PDF, or open the link hub for every channel."
             />
 
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5">
@@ -438,7 +469,7 @@ export default function ReplitHomepage() {
                   card.variant === "free"
                     ? "ring-1 ring-cyan-300/25"
                     : card.variant === "premium"
-                      ? "ring-1 ring-white/20"
+                      ? "ring-1 ring-[var(--sf-coral)]/35"
                       : "";
                 return (
                   <a
@@ -454,16 +485,26 @@ export default function ReplitHomepage() {
                       )}
                       {card.variant === "premium" && (
                         <>
-                          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br from-cyan-300/25 via-cyan-400/10 to-transparent blur-3xl" />
-                          <div className="pointer-events-none absolute right-2 top-2 h-40 w-40 rounded-full bg-cyan-300/12 blur-[72px]" />
+                          <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br from-[var(--sf-coral)]/30 via-[var(--sf-coral-dark)]/15 to-transparent blur-3xl" />
+                          <div className="pointer-events-none absolute right-2 top-2 h-40 w-40 rounded-full bg-[var(--sf-coral)]/18 blur-[72px]" />
                         </>
                       )}
                       <div className="relative z-10 flex items-start justify-between gap-3">
-                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/8 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-300/10">
+                        <div
+                          className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/8 transition duration-300 group-hover:scale-110 ${
+                            card.variant === "premium"
+                              ? "group-hover:bg-[var(--sf-coral)]/15"
+                              : "group-hover:bg-cyan-300/10"
+                          }`}
+                        >
                           {card.icon}
                         </div>
                         <div
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-slate-400 shadow-[0_0_28px_rgba(76,225,230,0.12)] backdrop-blur-sm transition duration-300 group-hover:border-[var(--hub-primary)]/35 group-hover:bg-[var(--hub-primary)]/20 group-hover:text-[var(--hub-primary)]"
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-slate-400 backdrop-blur-sm transition duration-300 ${
+                            card.variant === "premium"
+                              ? "shadow-[0_0_28px_rgba(255,133,89,0.18)] group-hover:border-[var(--sf-coral)]/40 group-hover:bg-[var(--sf-coral)]/20 group-hover:text-[var(--sf-coral)]"
+                              : "shadow-[0_0_28px_rgba(76,225,230,0.12)] group-hover:border-[var(--hub-primary)]/35 group-hover:bg-[var(--hub-primary)]/20 group-hover:text-[var(--hub-primary)]"
+                          }`}
                           aria-hidden
                         >
                           <ArrowUpRight className="h-4 w-4" />
@@ -476,7 +517,13 @@ export default function ReplitHomepage() {
                             ? "Premium"
                             : "Channels"}
                       </p>
-                      <h3 className="mt-2 text-lg font-bold text-white transition group-hover:text-[var(--hub-primary)] sm:text-xl">
+                      <h3
+                        className={`mt-2 text-lg font-bold text-white transition sm:text-xl ${
+                          card.variant === "premium"
+                            ? "group-hover:text-[var(--sf-coral)]"
+                            : "group-hover:text-[var(--hub-primary)]"
+                        }`}
+                      >
                         {card.title}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-slate-300">{card.description}</p>
@@ -593,15 +640,17 @@ export default function ReplitHomepage() {
                   className={cardClassName(
                     `flex h-full flex-col p-8 ${
                       offer.popular ? "border-cyan-300/50 ring-1 ring-cyan-300/20" : ""
-                    } ${offer.premium ? "border-white/15 ring-1 ring-white/10" : ""}`,
+                    } ${offer.premium ? "border-[var(--sf-coral)]/25 ring-1 ring-[var(--sf-coral)]/20" : ""}`,
                   )}
                 >
                   <div className="mb-6 flex items-start justify-between gap-2">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                        offer.popular || offer.premium
-                          ? "bg-[var(--hub-primary)] text-[var(--hub-bg)]"
-                          : "bg-white/8 text-slate-200"
+                        offer.premium
+                          ? "bg-gradient-to-b from-[var(--sf-coral)] to-[var(--sf-coral-dark)] text-[var(--hub-bg)]"
+                          : offer.popular
+                            ? "bg-[var(--hub-primary)] text-[var(--hub-bg)]"
+                            : "bg-white/8 text-slate-200"
                       }`}
                     >
                       {offer.badge}
@@ -612,7 +661,7 @@ export default function ReplitHomepage() {
                       </span>
                     )}
                     {offer.premium && (
-                      <span className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-[var(--hub-primary)]">
+                      <span className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-[var(--sf-coral)]">
                         Dominate here
                       </span>
                     )}
@@ -709,40 +758,52 @@ export default function ReplitHomepage() {
         <section className="px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl">
             <div className={cardClassName("relative overflow-hidden p-8 text-center md:p-16")}>
-              <div className="absolute left-0 top-0 h-2 w-full bg-[linear-gradient(90deg,#4CE1E6,#67e8f9,#4CE1E6)]" />
-              <div className="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-cyan-300/20 blur-[80px]" />
-              <div className="pointer-events-none absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-blue-500/10 blur-[80px]" />
+              <div className="absolute left-0 top-0 h-2 w-full bg-[linear-gradient(90deg,var(--sf-coral)_0%,var(--sf-coral)_28%,#4CE1E6_55%,#67e8f9_100%)]" />
+              <div className="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[var(--sf-coral)]/15 blur-[80px]" />
+              <div className="pointer-events-none absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-cyan-300/15 blur-[80px]" />
 
               <div className="relative z-10 mx-auto max-w-2xl">
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-cyan-300/10">
-                  <Mail className="h-8 w-8 text-[var(--hub-primary)]" />
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--sf-coral)]">
+                  Full system first
+                </p>
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--sf-coral)]/15">
+                  <FileText className="h-8 w-8 text-[var(--sf-coral)]" />
                 </div>
                 <h2 className="font-brand text-3xl tracking-tight text-white md:text-5xl">
-                  Free guide or full blueprint
+                  The Financial Base Blueprint
                 </h2>
-                <p className="mb-10 mt-4 text-lg text-slate-300">
-                  New here? Grab the free beginner PDF. Ready for a complete step-by-step financial system—including
-                  cash flow, debt, emergency funding, and investing fundamentals—open the Financial Base Blueprint.
+                <p className="mb-2 mt-4 text-lg font-medium leading-relaxed text-white/95">
+                  When you&apos;re done guessing month to month, this is the step-by-step PDF that organizes cash flow,
+                  debt, your emergency fund, and investing basics in one place—so you can run money with a real system.
+                </p>
+                <p className="mb-10 mt-3 text-base leading-relaxed text-slate-400">
+                  Want something lighter first? Grab the{" "}
+                  <span className="font-medium text-slate-300">free beginner guide</span> for the list and a solid PDF
+                  while you decide—most people come back for the Blueprint when they&apos;re ready to go all in.
                 </p>
 
-                <div className="mx-auto flex max-w-md flex-col gap-3">
+                <div className="mx-auto flex w-full max-w-lg flex-col gap-3">
+                  <a
+                    href={LINKS.financialBlueprint}
+                    className={`${blueprintButtonClassName()} flex h-16 min-h-[4rem] w-full items-center justify-center px-10 text-base font-bold sm:text-lg`}
+                  >
+                    Get the Blueprint
+                    <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+                  </a>
                   <a
                     href={LINKS.freeGuide}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${primaryButtonClassName()} flex h-14 w-full items-center justify-center px-8 text-base`}
+                    className={`${secondaryButtonClassName()} mx-auto flex h-12 w-full max-w-[280px] items-center justify-center px-6 text-sm font-semibold sm:max-w-xs`}
                   >
-                    Get the free guide
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                  <a
-                    href={LINKS.financialBlueprint}
-                    className={`${primaryButtonClassName()} flex h-14 w-full items-center justify-center px-8 text-base`}
-                  >
-                    Get the premium guide
-                    <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
+                    Get the Free Guide
+                    <ArrowRight className="ml-2 h-4 w-4 shrink-0 opacity-80" aria-hidden />
                   </a>
                 </div>
+                <p className="mx-auto mt-5 max-w-md text-center text-xs leading-relaxed text-slate-500">
+                  If you&apos;re tired of flying blind with your money, the Blueprint is the direct next step—same path
+                  we highlight at the top of this page.
+                </p>
               </div>
             </div>
           </div>
@@ -787,7 +848,10 @@ export default function ReplitHomepage() {
                   Choose your path
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
-                <a href={LINKS.financialBlueprint} className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+                <a
+                  href={LINKS.financialBlueprint}
+                  className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--sf-coral)]"
+                >
                   Financial Base Blueprint
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
@@ -796,7 +860,7 @@ export default function ReplitHomepage() {
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
                 <a href="/link-tree" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
-                  Link hub
+                  Link Hub
                   <ArrowUpRight className="h-3 w-3" />
                 </a>
               </div>
@@ -833,7 +897,7 @@ export default function ReplitHomepage() {
             </a>
             <a
               href={LINKS.financialBlueprint}
-              className={`${secondaryButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
+              className={`${blueprintButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
             >
               Blueprint
             </a>

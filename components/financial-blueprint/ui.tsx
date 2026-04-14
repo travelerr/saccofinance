@@ -38,14 +38,14 @@ export function PrimaryCta({
   children: ReactNode;
   className?: string;
   size?: "default" | "lg";
-  /** `accent` = high-contrast teal on dark hero bands; `navy` = default pill on light sections */
+  /** `accent` = coral pill + glow on dark hero bands; `navy` = default pill on light sections */
   variant?: "navy" | "accent";
 }) {
   const sizeClass =
     size === "lg" ? "min-h-14 px-8 py-3.5 text-base" : "min-h-12 px-6 py-3 text-sm sm:text-base";
   const variantClass =
     variant === "accent"
-      ? "bg-gradient-to-b from-[var(--sf-teal)] to-[var(--sf-teal-dark)] font-bold text-[var(--sf-navy)] shadow-[0_8px_32px_rgba(76,225,230,0.45),inset_0_1px_0_rgba(255,255,255,0.35)] ring-2 ring-white/25 transition hover:brightness-105 hover:shadow-[0_12px_40px_rgba(76,225,230,0.55),inset_0_1px_0_rgba(255,255,255,0.4)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-teal)] active:brightness-95"
+      ? "bg-gradient-to-b from-[var(--sf-coral)] to-[var(--sf-coral-dark)] font-bold text-[var(--sf-navy)] shadow-[0_8px_32px_rgba(255,133,89,0.45)] transition hover:brightness-105 hover:shadow-[0_12px_44px_rgba(255,133,89,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-coral)] active:brightness-95"
       : "bg-[var(--sf-navy)] font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:bg-[#0c2438] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-navy)]";
   return (
     <a
