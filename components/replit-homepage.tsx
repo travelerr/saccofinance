@@ -214,8 +214,13 @@ function isExternalHref(href: string) {
   return href.startsWith("http") || href.startsWith("mailto:");
 }
 
-function primaryButtonClassName() {
-  return "inline-flex min-h-11 items-center justify-center rounded-full border border-cyan-300/20 bg-[var(--hub-primary)] px-6 py-3 text-sm font-semibold text-[var(--hub-bg)] transition hover:brightness-110";
+function primaryButtonClassName(options?: { fullWidthMobile?: boolean }) {
+  const base =
+    "min-h-11 items-center justify-center rounded-full border border-cyan-300/20 bg-[var(--hub-primary)] px-6 py-3 text-sm font-semibold text-[var(--hub-bg)] transition hover:brightness-110";
+  if (options?.fullWidthMobile) {
+    return `flex w-full ${base} sm:inline-flex sm:w-auto`;
+  }
+  return `inline-flex ${base}`;
 }
 
 /** Coral CTA / accents for Financial Base Blueprint only (matches blueprint landing). */
@@ -423,7 +428,10 @@ export default function ReplitHomepage() {
             </div>
 
             <p className="mx-auto mt-3 max-w-xl text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sf-coral)]">
-              Early access to the Blueprint — limited-time offer
+              Early access to the Blueprint
+              <br className="md:hidden" aria-hidden="true" />
+              <span className="hidden md:inline"> — </span>
+              limited-time offer
             </p>
 
             <p className="mx-auto mt-5 max-w-xl text-center text-sm leading-relaxed text-slate-500">
@@ -589,7 +597,7 @@ export default function ReplitHomepage() {
                 href={LINKS.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${primaryButtonClassName()} mt-8`}
+                className={`${primaryButtonClassName({ fullWidthMobile: true })} mt-8`}
               >
                 Watch My Content
               </a>
@@ -884,27 +892,14 @@ export default function ReplitHomepage() {
       </footer>
 
       {showMobileCta && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[rgba(6,11,20,0.92)] p-3 backdrop-blur-xl md:hidden">
-          <div className="mx-auto grid max-w-lg grid-cols-3 gap-2">
-            <a
-              href={LINKS.freeGuide}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${primaryButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
-            >
-              Free guide
-            </a>
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[rgba(6,11,20,0.92)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl md:hidden">
+          <div className="mx-auto w-full max-w-lg">
             <a
               href={LINKS.financialBlueprint}
-              className={`${blueprintButtonClassName()} flex h-12 items-center justify-center px-2 text-center text-xs font-semibold sm:text-sm`}
+              className={`${blueprintButtonClassName()} flex h-14 w-full items-center justify-center px-6 text-base font-bold sm:h-16 sm:text-lg`}
             >
-              Blueprint
-            </a>
-            <a
-              href="/link-tree"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 bg-white/5 px-2 text-center text-xs font-semibold text-white sm:text-sm"
-            >
-              All links
+              Get the Blueprint
+              <ArrowRight className="ml-2 h-5 w-5 shrink-0" aria-hidden />
             </a>
           </div>
         </div>
