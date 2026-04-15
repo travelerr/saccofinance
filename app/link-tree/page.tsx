@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 import {
   FaBookOpen,
   FaInstagram,
@@ -10,6 +9,10 @@ import {
 } from "react-icons/fa";
 import { SiThreads, SiX } from "react-icons/si";
 import Image from "next/image";
+import { absoluteUrl, getSiteUrl } from "@/lib/site";
+
+/** Same portrait as the homepage About section (“Watch My Content”). */
+const linkHubHeroImagePath = "/images/headshot.jpg";
 
 export const metadata: Metadata = {
   title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
@@ -33,7 +36,7 @@ export const metadata: Metadata = {
     url: absoluteUrl("/link-tree"),
     images: [
       {
-        url: defaultOgImagePath,
+        url: linkHubHeroImagePath,
         alt: "Sacco Financial Link Tree",
       },
     ],
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
     images: [
       {
-        url: defaultOgImagePath,
+        url: linkHubHeroImagePath,
         alt: "Sacco Financial Link Tree",
       },
     ],
@@ -76,7 +79,7 @@ export default function SocialLandingPage() {
       <main
         className="min-h-screen flex items-center justify-center p-6 bg-cover bg-left bg-no-repeat relative bg-black"
         style={{
-          backgroundImage: `url('${defaultOgImagePath}')`,
+          backgroundImage: `url('${linkHubHeroImagePath}')`,
           backgroundSize: "contain",
           backgroundPosition: "left",
           backgroundRepeat: "no-repeat",
@@ -89,11 +92,11 @@ export default function SocialLandingPage() {
         <div className="relative max-w-md w-full bg-white shadow-lg rounded-lg overflow-hidden text-center p-8">
           <div className="flex justify-center">
             <Image
-              src="/images/profile.jpg"
-              alt="Justin Sacco - Profile Picture"
+              src={linkHubHeroImagePath}
+              alt="Justin Sacco headshot"
               width={120}
               height={120}
-              className="rounded-full border-4 border-gray-300 shadow-md"
+              className="rounded-full border-4 border-gray-300 object-cover object-top shadow-md"
               priority
             />
           </div>

@@ -335,25 +335,26 @@ export default function ReplitHomepage() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="absolute left-0 right-0 top-full border-b border-white/10 bg-[rgba(8,14,24,0.94)] px-4 py-4 backdrop-blur-xl md:hidden">
-            <div className="flex flex-col gap-3">
+          <div className="absolute left-0 right-0 top-full border-b border-white/10 bg-[rgba(8,14,24,0.94)] px-4 py-2 backdrop-blur-xl md:hidden">
+            <nav className="flex flex-col divide-y divide-white/10" aria-label="Mobile">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   type="button"
                   onClick={() => scrollToSection(link.href)}
-                  className="border-b border-white/10 py-2 text-left text-base font-medium text-slate-300"
+                  className="w-full py-3.5 text-left text-lg font-semibold tracking-tight text-white transition hover:text-[var(--hub-primary)]"
                 >
                   {link.name}
                 </button>
               ))}
               <a
                 href="/link-tree"
-                className="mt-3 border-t border-white/10 pt-3 text-center text-sm font-medium text-slate-500 transition hover:text-slate-300"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full py-3.5 text-left text-lg font-semibold tracking-tight text-white transition hover:text-[var(--hub-primary)]"
               >
-                Link Hub (all channels)
+                Link Hub
               </a>
-            </div>
+            </nav>
           </div>
         )}
       </header>
