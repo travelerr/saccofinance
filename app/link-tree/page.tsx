@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 import {
   FaBookOpen,
   FaInstagram,
@@ -29,12 +30,10 @@ export const metadata: Metadata = {
     title: "Sacco Financial Link Tree | Justin Sacco Socials & Resources",
     description:
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
-    url: "https://saccofinancial.com/link-tree",
+    url: absoluteUrl("/link-tree"),
     images: [
       {
-        url: "/headshot.jpeg",
-        width: 1200,
-        height: 630,
+        url: defaultOgImagePath,
         alt: "Sacco Financial Link Tree",
       },
     ],
@@ -46,9 +45,7 @@ export const metadata: Metadata = {
       "Find the official Sacco Financial links, investing guide, and social channels from Justin Sacco.",
     images: [
       {
-        url: "/headshot.jpeg",
-        width: 1200,
-        height: 630,
+        url: defaultOgImagePath,
         alt: "Sacco Financial Link Tree",
       },
     ],
@@ -60,13 +57,13 @@ export default function SocialLandingPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Sacco Financial Link Tree",
-    url: "https://saccofinancial.com/link-tree",
+    url: absoluteUrl("/link-tree"),
     description:
       "Official Sacco Financial resource hub with social links and investing education from Justin Sacco.",
     about: {
       "@type": "Organization",
       name: "Sacco Financial",
-      url: "https://saccofinancial.com",
+      url: getSiteUrl(),
     },
   };
 
@@ -79,7 +76,7 @@ export default function SocialLandingPage() {
       <main
         className="min-h-screen flex items-center justify-center p-6 bg-cover bg-left bg-no-repeat relative bg-black"
         style={{
-          backgroundImage: "url('/headshot.jpeg')",
+          backgroundImage: `url('${defaultOgImagePath}')`,
           backgroundSize: "contain",
           backgroundPosition: "left",
           backgroundRepeat: "no-repeat",

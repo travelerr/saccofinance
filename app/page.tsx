@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ReplitHomepage from "@/components/replit-homepage";
+import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sacco Financial | Stock Market Education & Investing Resources",
@@ -22,14 +23,14 @@ export const metadata: Metadata = {
     title: "Sacco Financial | Stock Market Education & Investing Resources",
     description:
       "Beginner-friendly investing education, stock market insights, and personal finance resources from Justin Sacco.",
-    url: "https://saccofinancial.com",
-    images: ["/headshot.jpeg"],
+    url: getSiteUrl(),
+    images: [defaultOgImagePath],
   },
   twitter: {
     title: "Sacco Financial | Stock Market Education & Investing Resources",
     description:
       "Beginner-friendly investing education, stock market insights, and personal finance resources from Justin Sacco.",
-    images: ["/headshot.jpeg"],
+    images: [defaultOgImagePath],
   },
 };
 
@@ -39,10 +40,10 @@ export default function HomePage() {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://saccofinancial.com/#organization",
+        "@id": absoluteUrl("/#organization"),
         name: "Sacco Financial",
-        url: "https://saccofinancial.com",
-        logo: "https://saccofinancial.com/images/logo.png",
+        url: getSiteUrl(),
+        logo: absoluteUrl("/images/logo.png"),
         sameAs: [
           "https://www.instagram.com/saccofinancial",
           "https://www.threads.net/@saccofinancial",
@@ -54,12 +55,12 @@ export default function HomePage() {
       },
       {
         "@type": "Person",
-        "@id": "https://saccofinancial.com/#person",
+        "@id": absoluteUrl("/#person"),
         name: "Justin Sacco",
-        url: "https://saccofinancial.com",
-        image: "https://saccofinancial.com/images/profile.jpg",
+        url: getSiteUrl(),
+        image: absoluteUrl(defaultOgImagePath),
         worksFor: {
-          "@id": "https://saccofinancial.com/#organization",
+          "@id": absoluteUrl("/#organization"),
         },
         sameAs: [
           "https://www.instagram.com/saccofinancial",
@@ -77,26 +78,26 @@ export default function HomePage() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://saccofinancial.com/#website",
-        url: "https://saccofinancial.com",
+        "@id": absoluteUrl("/#website"),
+        url: getSiteUrl(),
         name: "Sacco Financial",
         publisher: {
-          "@id": "https://saccofinancial.com/#organization",
+          "@id": absoluteUrl("/#organization"),
         },
         inLanguage: "en-US",
       },
       {
         "@type": "WebPage",
-        "@id": "https://saccofinancial.com/#webpage",
-        url: "https://saccofinancial.com",
+        "@id": absoluteUrl("/#webpage"),
+        url: getSiteUrl(),
         name: "Sacco Financial | Stock Market Education & Investing Resources",
         description:
           "Explore Sacco Financial for beginner investing education, stock market insights, personal finance guidance, and resources from Justin Sacco.",
         isPartOf: {
-          "@id": "https://saccofinancial.com/#website",
+          "@id": absoluteUrl("/#website"),
         },
         about: {
-          "@id": "https://saccofinancial.com/#organization",
+          "@id": absoluteUrl("/#organization"),
         },
       },
     ],

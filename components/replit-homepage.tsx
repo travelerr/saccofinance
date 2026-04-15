@@ -850,25 +850,25 @@ export default function ReplitHomepage() {
 
             <div>
               <h3 className="mb-4 font-semibold text-white">Quick Links</h3>
-              <div className="space-y-3">
-                <a href="#links" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+              <div className="flex flex-col gap-3">
+                <a href="#links" className="flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
                   Choose your path
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 shrink-0" />
                 </a>
                 <a
                   href={LINKS.financialBlueprint}
-                  className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--sf-coral)]"
+                  className="flex items-center gap-1 text-slate-300 transition hover:text-[var(--sf-coral)]"
                 >
                   Financial Base Blueprint
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 shrink-0" />
                 </a>
-                <a href="#about" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+                <a href="#about" className="flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
                   About
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 shrink-0" />
                 </a>
-                <a href="/link-tree" className="inline-flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
+                <a href="/link-tree" className="flex items-center gap-1 text-slate-300 transition hover:text-[var(--hub-primary)]">
                   Link Hub
-                  <ArrowUpRight className="h-3 w-3" />
+                  <ArrowUpRight className="h-3 w-3 shrink-0" />
                 </a>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import type React from "react";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import { defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -9,7 +10,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://saccofinancial.com"),
+  metadataBase: new URL(getSiteUrl()),
 
   title: {
     default: "Justin Sacco – Sacco Financial",
@@ -59,15 +60,13 @@ export const metadata: Metadata = {
     title: "Justin Sacco – Sacco Financial",
     description:
       "Sacco Financial delivers stock market education, investing strategies, and personal finance content from Justin Sacco.",
-    url: "https://saccofinancial.com",
+    url: getSiteUrl(),
     siteName: "Sacco Financial",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/headshot.jpeg",
-        width: 1200,
-        height: 630,
+        url: defaultOgImagePath,
         alt: "Justin Sacco – Sacco Financial",
       },
     ],
@@ -77,7 +76,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Justin Sacco – Sacco Financial",
     description: "Stock market education, investing strategies, and personal finance content from Sacco Financial.",
-    images: ["/headshot.jpeg"],
+    images: [defaultOgImagePath],
   },
 
   icons: {

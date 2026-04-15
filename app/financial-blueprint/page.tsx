@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { FinancialBlueprintLanding } from "@/components/financial-blueprint/FinancialBlueprintLanding";
-import { PRODUCT_NAME } from "@/components/financial-blueprint/config";
+import { COVER_IMAGE_PATH, PRODUCT_NAME } from "@/components/financial-blueprint/config";
+import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
+
+const blueprintOgImagePath = COVER_IMAGE_PATH ?? defaultOgImagePath;
 
 const description =
   "Break out of the paycheck-to-paycheck cycle with a step-by-step PDF system: organize money, reduce stress, build a solid base, and grow wealth long-term. Founding price $29. Instant download.";
@@ -30,15 +33,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: socialTitle,
     description,
-    url: "https://saccofinancial.com/financial-blueprint",
+    url: absoluteUrl("/financial-blueprint"),
     siteName: "Sacco Financial",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/headshot.jpeg",
-        width: 1200,
-        height: 630,
+        url: blueprintOgImagePath,
         alt: `${PRODUCT_NAME} — Sacco Financial`,
       },
     ],
@@ -49,9 +50,7 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "/headshot.jpeg",
-        width: 1200,
-        height: 630,
+        url: blueprintOgImagePath,
         alt: `${PRODUCT_NAME} — Sacco Financial`,
       },
     ],
@@ -64,17 +63,18 @@ export default function FinancialBlueprintPage() {
     "@type": "WebPage",
     name: `${PRODUCT_NAME} | Break Out of the Paycheck-to-Paycheck Cycle — Sacco Financial`,
     description,
-    url: "https://saccofinancial.com/financial-blueprint",
+    url: absoluteUrl("/financial-blueprint"),
     isPartOf: {
       "@type": "WebSite",
       name: "Sacco Financial",
-      url: "https://saccofinancial.com",
+      url: getSiteUrl(),
     },
     about: {
       "@type": "Product",
       name: PRODUCT_NAME,
       description:
         "Digital PDF: a step-by-step system to organize money, reduce financial stress, build a solid base, and grow wealth with structure and discipline—not hype.",
+      ...(COVER_IMAGE_PATH ? { image: absoluteUrl(COVER_IMAGE_PATH) } : {}),
       brand: {
         "@type": "Brand",
         name: "Sacco Financial",
