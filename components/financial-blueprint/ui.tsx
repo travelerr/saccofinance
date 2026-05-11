@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ORDER_PAGE_URL } from "./config";
 
@@ -33,6 +34,7 @@ export function PrimaryCta({
   className = "",
   size = "default",
   variant = "navy",
+  openInNewTab = true,
 }: {
   href?: string;
   children: ReactNode;
@@ -40,6 +42,8 @@ export function PrimaryCta({
   size?: "default" | "lg";
   /** `accent` = coral pill + glow on dark hero bands; `navy` = default pill on light sections */
   variant?: "navy" | "accent";
+  /** Use `false` for in-site routes so the thank-you / funnel pages stay in one tab. */
+  openInNewTab?: boolean;
 }) {
   const sizeClass =
     size === "lg" ? "min-h-14 px-8 py-3.5 text-base" : "min-h-12 px-6 py-3 text-sm sm:text-base";
@@ -47,15 +51,23 @@ export function PrimaryCta({
     variant === "accent"
       ? "bg-gradient-to-b from-[var(--sf-coral)] to-[var(--sf-coral-dark)] font-bold text-[var(--sf-navy)] shadow-[0_8px_32px_rgba(255,133,89,0.45)] transition hover:brightness-105 hover:shadow-[0_12px_44px_rgba(255,133,89,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-coral)] active:brightness-95"
       : "bg-[var(--sf-navy)] font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:bg-[#0c2438] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--sf-navy)]";
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`inline-flex w-full items-center justify-center gap-2 rounded-full ${variantClass} sm:w-auto ${sizeClass} ${className}`}
-    >
+  const combinedClass = `inline-flex w-full items-center justify-center gap-2 rounded-full ${variantClass} sm:w-auto ${sizeClass} ${className}`;
+  const inner = (
+    <>
       {children}
       <ArrowRight className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+    </>
+  );
+  if (!openInNewTab) {
+    return (
+      <Link href={href} className={combinedClass}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={combinedClass}>
+      {inner}
     </a>
   );
 }
@@ -69,6 +81,7 @@ export function CtaWithSubtext({
   align = "start",
   subtextClassName = "text-slate-500",
   ctaVariant = "navy",
+  openInNewTab = true,
 }: {
   href?: string;
   children: ReactNode;
@@ -77,6 +90,7 @@ export function CtaWithSubtext({
   align?: "start" | "center";
   subtextClassName?: string;
   ctaVariant?: "navy" | "accent";
+  openInNewTab?: boolean;
 }) {
   const wrap =
     align === "center"
@@ -88,6 +102,7 @@ export function CtaWithSubtext({
         href={href}
         size={size}
         variant={ctaVariant}
+        openInNewTab={openInNewTab}
         className={align === "center" ? "mx-auto w-full max-w-md sm:max-w-none" : ""}
       >
         {children}
