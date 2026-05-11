@@ -25,7 +25,7 @@ import {
   FileText,
 } from "lucide-react";
 const LINKS = {
-  freeGuide: "https://join.saccofinancial.com/free-investing-pdf",
+  freeGuide: "https://join.saccofinancial.com/free-investing-guide",
   financialBlueprint: "/financial-blueprint",
   youtube: "https://www.youtube.com/@saccofinancial",
   tiktok: "https://www.tiktok.com/@saccofinancial",
