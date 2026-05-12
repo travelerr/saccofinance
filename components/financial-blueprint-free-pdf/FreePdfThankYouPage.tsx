@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { FinancialBlueprintMarketingSections } from "@/components/financial-blueprint/FinancialBlueprintLanding";
 import { StickyMobileCta } from "@/components/financial-blueprint/StickyMobileCta";
@@ -35,23 +33,6 @@ export function FreePdfThankYouPage() {
         <section className="relative overflow-hidden bg-gradient-to-br from-[#071525] via-[var(--sf-navy)] to-[#0d3a42] pb-16 pt-0 md:pb-20 md:pt-0">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--sf-teal)_0%,transparent_55%)] opacity-[0.12]" />
           <PageContainer className="relative">
-            <header className="flex items-center justify-between border-b border-white/10 py-4 md:py-5">
-              <Link
-                href="/"
-                className="rounded-md outline-offset-4 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--sf-teal)]"
-                aria-label="Sacco Financial — home"
-              >
-                <Image
-                  src="/images/logo.png"
-                  alt=""
-                  width={220}
-                  height={65}
-                  className="h-9 w-auto sm:h-10"
-                  priority
-                />
-              </Link>
-            </header>
-
             <div className="mt-8 flex items-center gap-3 rounded-2xl border border-[var(--sf-teal)]/30 bg-[var(--sf-teal)]/[0.08] p-4 shadow-sm shadow-black/10 backdrop-blur-sm sm:p-5">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--sf-teal)]/20 text-[var(--sf-teal)]">
                 <CheckCircle2 className="h-5 w-5" aria-hidden />
