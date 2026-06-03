@@ -31,7 +31,7 @@ const LINKS = {
   tiktok: "https://www.tiktok.com/@saccofinancial",
   instagram: "https://www.instagram.com/saccofinancial",
   x: "https://x.com/saccofinancial",
-  email: "justin@saccofinancial.com",
+  email: "saccofinancial@iamsocial.la",
 };
 
 /** Minimal nav — full sections still on-page; reduces friction vs. hero CTAs. */
