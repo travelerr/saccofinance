@@ -115,7 +115,7 @@ export default function SocialLandingPage() {
 
           <div className="mt-6 flex flex-col gap-4">
             <SocialLink
-              href="https://join.saccofinancial.com/free-investing-pdf"
+              href="https://join.saccofinancial.com/free"
               icon={<FaBookOpen />}
               platform="Free Investing Guide"
               bgColor="#4CE1E6"

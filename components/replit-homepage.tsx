@@ -9,7 +9,6 @@ import {
   BookOpen,
   Briefcase,
   CheckCircle2,
-  ChevronDown,
   Instagram,
   LineChart,
   Mail,
@@ -25,7 +24,7 @@ import {
   FileText,
 } from "lucide-react";
 const LINKS = {
-  freeGuide: "https://join.saccofinancial.com/free-investing-pdf",
+  freeGuide: "https://join.saccofinancial.com/free",
   financialBlueprint: "/financial-blueprint",
   youtube: "https://www.youtube.com/@saccofinancial",
   tiktok: "https://www.tiktok.com/@saccofinancial",
@@ -317,6 +316,12 @@ export default function ReplitHomepage() {
               </button>
             ))}
             <a
+              href="/media"
+              className="text-sm font-normal text-slate-600 transition hover:text-slate-400"
+            >
+              Media
+            </a>
+            <a
               href="/link-tree"
               className="text-sm font-normal text-slate-600 transition hover:text-slate-400"
             >
@@ -348,6 +353,13 @@ export default function ReplitHomepage() {
                 </button>
               ))}
               <a
+                href="/media"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full py-3.5 text-left text-lg font-semibold tracking-tight text-white transition hover:text-[var(--hub-primary)]"
+              >
+                Media
+              </a>
+              <a
                 href="/link-tree"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block w-full py-3.5 text-left text-lg font-semibold tracking-tight text-white transition hover:text-[var(--hub-primary)]"
@@ -360,7 +372,7 @@ export default function ReplitHomepage() {
       </header>
 
       <main className="overflow-hidden">
-        <section className="relative flex items-center justify-center px-4 pb-16 pt-28 sm:px-6 lg:px-8">
+        <section className="relative flex items-center justify-center px-4 pb-0 pt-28 sm:px-6 lg:px-8">
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute left-1/2 top-[-10%] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-cyan-300/10 blur-[120px]" />
             <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-cyan-300/5 blur-[100px]" />
@@ -440,31 +452,49 @@ export default function ReplitHomepage() {
             </p>
 
             <p className="mx-auto mt-2 max-w-lg text-center text-xs leading-relaxed text-slate-600">
-              Trusted by thousands of viewers across TikTok, YouTube, and more
+              Trusted by millions of viewers across TikTok, YouTube, and more
             </p>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection("#links")}
-              className="mt-10 text-sm font-medium text-slate-400 underline-offset-4 transition hover:text-[var(--hub-primary)] hover:underline"
-            >
-              Or browse YouTube, TikTok, and more
-            </button>
-
-            <div className="mt-14 flex justify-center">
-              <button
-                type="button"
-                onClick={() => scrollToSection("#links")}
-                className="animate-bounce text-slate-400 transition hover:text-[var(--hub-primary)]"
-                aria-label="Scroll to links"
-              >
-                <ChevronDown className="h-7 w-7" />
-              </button>
-            </div>
           </div>
         </section>
 
-        <section id="links" className="px-4 py-24 sm:px-6 lg:px-8">
+        <section
+          className="my-12 border-y-2 border-[var(--hub-primary)] bg-white/[0.05] px-4 py-12 shadow-[0_0_28px_rgba(76,225,230,0.12)] backdrop-blur-xl sm:my-16 sm:px-6 sm:py-14 lg:my-20 lg:px-8"
+          aria-labelledby="featured-in-heading"
+        >
+          <div className="mx-auto max-w-2xl text-center">
+            <p
+              id="featured-in-heading"
+              className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500"
+            >
+              Featured In
+            </p>
+
+            <a
+              href="/media"
+              className="mt-4 inline-block rounded-sm outline-none transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--hub-primary)]"
+              aria-label="View CNBC media coverage on Sacco Financial"
+            >
+              <span className="font-brand text-2xl tracking-wide text-white/65 transition hover:text-white/90 md:text-[1.75rem]">
+                CNBC
+              </span>
+            </a>
+
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400 md:text-[0.9375rem]">
+              Justin Sacco, founder of Sacco Financial, has been featured by CNBC for commentary on retail
+              investing and the historic SpaceX IPO.
+            </p>
+
+            <a
+              href="/media"
+              className={`${secondaryButtonClassName()} mt-5 inline-flex min-h-10 px-5 py-2.5 text-sm`}
+            >
+              View Media Coverage
+              <ArrowRight className="ml-2 h-4 w-4 shrink-0 opacity-80" aria-hidden />
+            </a>
+          </div>
+        </section>
+
+        <section id="links" className="px-4 pb-24 pt-0 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <SectionHeading
               title="Choose your path"
@@ -747,18 +777,6 @@ export default function ReplitHomepage() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-20 border-t border-white/8 pt-10">
-              <p className="mb-8 text-center text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">
-                As Featured In
-              </p>
-              <div className="flex flex-wrap justify-center gap-8 text-2xl font-bold text-white/55 md:gap-16">
-                <span className="font-brand">Bloomberg</span>
-                <span className="font-brand">Yahoo! Finance</span>
-                <span className="font-brand">MarketWatch</span>
-                <span className="font-brand">TechCrunch</span>
-              </div>
             </div>
           </div>
         </section>
