@@ -3,7 +3,7 @@ import { MediaPressPage } from "@/components/media/MediaPressPage";
 import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
 const description =
-  "CNBC media mentions and press coverage featuring Justin Sacco, founder of Sacco Financial.";
+  "Television appearances and press coverage featuring Justin Sacco on CNBC, tastylive, and financial media.";
 
 export const metadata: Metadata = {
   title: "Media & Press",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   keywords: [
     "Sacco Financial media",
     "Justin Sacco CNBC",
+    "Justin Sacco tastylive",
     "Justin Sacco press",
     "Sacco Financial press",
     "investing education media",
@@ -67,17 +68,33 @@ export default function MediaPage() {
           },
         },
       },
-      ...[
-        {
-          headline: "SpaceX IPO Live Updates",
-          datePublished: "2026-06-12",
-          url: "https://www.cnbc.com/2026/06/12/spacex-ipo-spcx-live-updates.html",
+      {
+        "@type": "VideoObject",
+        name: "Wheel Strategy & SpaceX Options Discussion",
+        description:
+          "Justin Sacco joined tastylive for a live discussion covering the Wheel Strategy, options trading, and SpaceX.",
+        uploadDate: "2026-06-20",
+        embedUrl: "https://www.youtube.com/embed/RF6hsn8AaXg",
+        publisher: {
+          "@type": "Organization",
+          name: "tastylive",
         },
+        mentions: {
+          "@type": "Person",
+          name: "Justin Sacco",
+        },
+      },
+      ...[
         {
           headline:
             "SpaceX IPO Leaves Retail Investors With Too Few Shares And A Tough Hold-Or-Sell Decision",
           datePublished: "2026-06-15",
           url: "https://www.cnbc.com/2026/06/15/spacex-ipo-leaves-retail-investors-with-too-few-shares-and-a-tough-hold-or-sell-decision.html",
+        },
+        {
+          headline: "SpaceX IPO Live Updates",
+          datePublished: "2026-06-12",
+          url: "https://www.cnbc.com/2026/06/12/spacex-ipo-spcx-live-updates.html",
         },
       ].map((article) => ({
         "@type": "NewsArticle",

@@ -23,6 +23,7 @@ import {
   Youtube,
   FileText,
 } from "lucide-react";
+import { OutletLogos, outletLogoPanelClassName } from "@/components/media/OutletLogos";
 const LINKS = {
   freeGuide: "https://join.saccofinancial.com/free",
   financialBlueprint: "/financial-blueprint",
@@ -32,6 +33,10 @@ const LINKS = {
   x: "https://x.com/saccofinancial",
   email: "saccofinancial@iamsocial.la",
 };
+
+/** Toggle hero visibility without removing markup. */
+const SHOW_HERO_CTAS = false;
+const SHOW_HERO_FEATURED_IN = true;
 
 /** Minimal nav — full sections still on-page; reduces friction vs. hero CTAs. */
 const navLinks = [
@@ -47,7 +52,7 @@ const badges = [
 ];
 
 const stats = [
-  { value: "60K+", label: "Subscribers" },
+  { value: "100,000+", label: "Followers" },
   { value: "15+", label: "Years Experience" },
   { value: "50M+", label: "Content Views" },
   { value: "5.0", label: "Average Rating" },
@@ -421,7 +426,7 @@ export default function ReplitHomepage() {
               ))}
             </div>
 
-            <div className="mx-auto flex w-full max-w-lg flex-col items-stretch gap-3">
+            <div className={`mx-auto flex w-full max-w-lg flex-col items-stretch gap-3 ${SHOW_HERO_CTAS ? "" : "hidden"}`}>
               <a
                 href={LINKS.financialBlueprint}
                 className={`${blueprintButtonClassName({ hero: true })} flex h-16 min-h-[4rem] w-full items-center justify-center px-10 text-base font-bold sm:text-lg`}
@@ -440,61 +445,39 @@ export default function ReplitHomepage() {
               </a>
             </div>
 
-            <p className="mx-auto mt-3 max-w-xl text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sf-coral)]">
+            <div
+              className={`mx-auto mt-10 max-w-3xl text-center ${outletLogoPanelClassName} ${SHOW_HERO_FEATURED_IN ? "" : "hidden"}`}
+              aria-labelledby="featured-in-heading"
+            >
+              <p
+                id="featured-in-heading"
+                className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500"
+              >
+                As Featured In
+              </p>
+              <div className="mt-5">
+                <OutletLogos size="lg" linkToMedia />
+              </div>
+            </div>
+
+            <p className={`mx-auto max-w-xl text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sf-coral)] ${SHOW_HERO_CTAS ? "mt-6" : "mt-8 hidden"}`}>
               Early access to the Blueprint
               <br className="md:hidden" aria-hidden="true" />
               <span className="hidden md:inline"> — </span>
               limited-time offer
             </p>
 
-            <p className="mx-auto mt-5 max-w-xl text-center text-sm leading-relaxed text-slate-500">
+            <p className="mx-auto mt-8 max-w-xl text-center text-sm leading-relaxed text-slate-500">
               Built from 10+ years in banking and real-world experience
             </p>
 
             <p className="mx-auto mt-2 max-w-lg text-center text-xs leading-relaxed text-slate-600">
-              Trusted by millions of viewers across TikTok, YouTube, and more
+              100,000+ followers across TikTok, YouTube, and more
             </p>
           </div>
         </section>
 
-        <section
-          className="my-12 border-y-2 border-[var(--hub-primary)] bg-white/[0.05] px-4 py-12 shadow-[0_0_28px_rgba(76,225,230,0.12)] backdrop-blur-xl sm:my-16 sm:px-6 sm:py-14 lg:my-20 lg:px-8"
-          aria-labelledby="featured-in-heading"
-        >
-          <div className="mx-auto max-w-2xl text-center">
-            <p
-              id="featured-in-heading"
-              className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500"
-            >
-              Featured In
-            </p>
-
-            <a
-              href="/media"
-              className="mt-4 inline-block rounded-sm outline-none transition hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--hub-primary)]"
-              aria-label="View CNBC media coverage on Sacco Financial"
-            >
-              <span className="font-brand text-2xl tracking-wide text-white/65 transition hover:text-white/90 md:text-[1.75rem]">
-                CNBC
-              </span>
-            </a>
-
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-400 md:text-[0.9375rem]">
-              Justin Sacco, founder of Sacco Financial, has been featured by CNBC for commentary on retail
-              investing and the historic SpaceX IPO.
-            </p>
-
-            <a
-              href="/media"
-              className={`${secondaryButtonClassName()} mt-5 inline-flex min-h-10 px-5 py-2.5 text-sm`}
-            >
-              View Media Coverage
-              <ArrowRight className="ml-2 h-4 w-4 shrink-0 opacity-80" aria-hidden />
-            </a>
-          </div>
-        </section>
-
-        <section id="links" className="px-4 pb-24 pt-0 sm:px-6 lg:px-8">
+        <section id="links" className="px-4 pb-24 pt-10 sm:px-6 sm:pt-12 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <SectionHeading
               title="Choose your path"
@@ -609,19 +592,11 @@ export default function ReplitHomepage() {
               <h2 className="font-brand text-3xl tracking-tight text-white md:text-5xl">
                 Who is <span className="text-[var(--hub-primary)]">Sacco Financial</span>?
               </h2>
-              <div className="mt-6 space-y-5 text-lg leading-relaxed text-slate-300">
+              <div className="mt-6 text-lg leading-relaxed text-slate-300">
                 <p>
-                  I&apos;m a finance creator and investor focused on making the stock market accessible to
-                  everyone. With a background across finance and software, I break down complex market
-                  mechanics into practical frameworks.
-                </p>
-                <p>
-                  My mission is to help people ignore the noise, understand risk, and build long-term
-                  wealth through structured education and a real community.
-                </p>
-                <p>
-                  Whether you&apos;re buying your first ETF or sharpening an active trading process, this
-                  site is built to give you a clearer next step.
+                  I&apos;m Justin Sacco, founder of Sacco Financial. I create educational content that helps
+                  everyday investors better understand the stock market, options, IPOs, and long-term
+                  investing. My market commentary has been featured by CNBC and tastylive.
                 </p>
               </div>
               <a
