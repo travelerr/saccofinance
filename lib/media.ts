@@ -52,9 +52,9 @@ export const pressItems: PressItem[] = [
     category: "television",
     outlet: "tastylive",
     title: "Wheel Strategy & SpaceX Options Discussion",
-    subtitle: "June 2026",
-    date: "June 2026",
-    dateTime: "2026-06-20",
+    subtitle: "June 24, 2026",
+    date: "June 24, 2026",
+    dateTime: "2026-06-24",
     description:
       "Justin Sacco joined tastylive for a live discussion covering the Wheel Strategy, options trading, and SpaceX.",
     cta: "Watch Interview",
