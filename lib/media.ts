@@ -58,8 +58,8 @@ export const pressItems: PressItem[] = [
     description:
       "Justin Sacco joined tastylive for a live discussion covering the Wheel Strategy, options trading, and SpaceX.",
     cta: "Watch Interview",
-    href: "https://www.youtube.com/watch?v=RF6hsn8AaXg",
-    videoEmbedUrl: "https://www.youtube.com/embed/RF6hsn8AaXg",
+    href: "https://www.youtube.com/watch?v=BuX7F4R_Zbc",
+    videoEmbedUrl: "https://www.youtube.com/embed/BuX7F4R_Zbc?controls=0",
   },
   {
     id: "cnbc-spacex-hold-or-sell",

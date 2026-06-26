@@ -74,7 +74,7 @@ export default function MediaPage() {
         description:
           "Justin Sacco joined tastylive for a live discussion covering the Wheel Strategy, options trading, and SpaceX.",
         uploadDate: "2026-06-24",
-        embedUrl: "https://www.youtube.com/embed/RF6hsn8AaXg",
+        embedUrl: "https://www.youtube.com/embed/BuX7F4R_Zbc?controls=0",
         publisher: {
           "@type": "Organization",
           name: "tastylive",
