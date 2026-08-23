@@ -10,6 +10,8 @@ import {
 import { OutletLogo, OutletLogos } from "@/components/media/OutletLogos";
 
 const CONTACT_EMAIL = "saccofinancial@iamsocial.la";
+const MIZKIF_VIDEO_URL = "https://www.youtube.com/watch?v=D90WnK3k_lM";
+const MIZKIF_EMBED_URL = "https://www.youtube.com/embed/D90WnK3k_lM?si=MtWBEuEAV60UHF0x";
 
 function cardClassName(extra = "") {
   return `rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.24)] ${extra}`;
@@ -173,6 +175,59 @@ export function MediaPressPage() {
           </div>
         </section>
 
+        <section
+          className="px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
+          aria-labelledby="mizkif-feature-heading"
+        >
+          <div className="mx-auto max-w-6xl">
+            <article
+              className={cardClassName(
+                "relative overflow-hidden border-fuchsia-400/20 ring-1 ring-fuchsia-400/10",
+              )}
+            >
+              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-fuchsia-400/10 blur-[90px]" />
+              <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:p-10">
+                <div>
+                  <span className="inline-flex items-center rounded-full border border-fuchsia-300/20 bg-fuchsia-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-fuchsia-200">
+                    Creator Feature
+                  </span>
+                  <h2
+                    id="mizkif-feature-heading"
+                    className="mt-5 font-brand text-3xl leading-tight tracking-tight text-white md:text-4xl"
+                  >
+                    Featured with Mizkif
+                  </h2>
+                  <p className="mt-4 text-base leading-relaxed text-slate-300 md:text-lg">
+                    Watch Justin Sacco&apos;s featured appearance in Mizkif&apos;s $1 Million Investing Challenge.
+                  </p>
+                  <a
+                    href={MIZKIF_VIDEO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-fuchsia-300/20 bg-fuchsia-300 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-110"
+                  >
+                    <Play className="h-4 w-4 shrink-0" aria-hidden />
+                    Watch on YouTube
+                  </a>
+                </div>
+
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-[0_16px_48px_rgba(0,0,0,0.35)]">
+                  <div className="relative aspect-video w-full">
+                    <iframe
+                      src={MIZKIF_EMBED_URL}
+                      title="Sacco Financial on Mizkif's $1 Million Investing Challenge"
+                      className="absolute inset-0 h-full w-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
         {MEDIA_CATEGORIES.map((category) => {
           const items =
             category.id === "television"
@@ -244,8 +299,8 @@ export function MediaPressPage() {
                   </h2>
                   <p className="mt-4 text-base leading-relaxed text-slate-300 md:text-lg">
                     Justin Sacco is a finance educator, investor, and founder of Sacco Financial. His market
-                    commentary has been featured by CNBC and tastylive, where he discusses IPOs, options
-                    strategies, market structure, and retail investor sentiment.
+                    commentary has been featured by CNBC and tastylive, and he has appeared with Mizkif.
+                    He discusses IPOs, options strategies, market structure, and retail investor sentiment.
                   </p>
                 </div>
               </div>

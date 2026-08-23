@@ -3,7 +3,7 @@ import { MediaPressPage } from "@/components/media/MediaPressPage";
 import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
 const description =
-  "Television appearances and press coverage featuring Justin Sacco on CNBC, tastylive, and financial media.";
+  "Media appearances and press coverage featuring Justin Sacco with Mizkif, CNBC, tastylive, and financial media.";
 
 export const metadata: Metadata = {
   title: "Media & Press",
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     "Sacco Financial media",
     "Justin Sacco CNBC",
     "Justin Sacco tastylive",
+    "Justin Sacco Mizkif",
     "Justin Sacco press",
     "Sacco Financial press",
     "investing education media",
@@ -66,6 +67,23 @@ export default function MediaPage() {
             name: "Sacco Financial",
             url: getSiteUrl(),
           },
+        },
+      },
+      {
+        "@type": "VideoObject",
+        name: "Sacco Financial Featured with Mizkif",
+        description:
+          "Justin Sacco of Sacco Financial appears in Mizkif's $1 Million Investing Challenge.",
+        thumbnailUrl: "https://i.ytimg.com/vi/D90WnK3k_lM/maxresdefault.jpg",
+        embedUrl: "https://www.youtube.com/embed/D90WnK3k_lM?si=MtWBEuEAV60UHF0x",
+        contentUrl: "https://www.youtube.com/watch?v=D90WnK3k_lM",
+        publisher: {
+          "@type": "Organization",
+          name: "Mizkif",
+        },
+        mentions: {
+          "@type": "Person",
+          name: "Justin Sacco",
         },
       },
       {

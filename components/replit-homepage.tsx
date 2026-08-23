@@ -458,6 +458,13 @@ export default function ReplitHomepage() {
               <div className="mt-5">
                 <OutletLogos size="lg" linkToMedia />
               </div>
+              <a
+                href="/media#mizkif-feature-heading"
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-fuchsia-300/20 bg-fuchsia-100 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-fuchsia-950 transition hover:bg-fuchsia-200"
+              >
+                Featured with Mizkif
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              </a>
             </div>
 
             <p className={`mx-auto max-w-xl text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--sf-coral)] ${SHOW_HERO_CTAS ? "mt-6" : "mt-8 hidden"}`}>
@@ -596,7 +603,8 @@ export default function ReplitHomepage() {
                 <p>
                   I&apos;m Justin Sacco, founder of Sacco Financial. I create educational content that helps
                   everyday investors better understand the stock market, options, IPOs, and long-term
-                  investing. My market commentary has been featured by CNBC and tastylive.
+                  investing. My market commentary has been featured by CNBC and tastylive, and I&apos;ve
+                  appeared with Mizkif.
                 </p>
               </div>
               <a
