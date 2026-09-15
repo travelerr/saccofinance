@@ -1,6 +1,6 @@
 export const OUTLET_LOGOS = {
-  cnbc: "/images/cnbc-logo.png",
-  tastylive: "/images/tastylive-logo.png",
+  cnbc: "/images/cnbc-logo.jpg",
+  tastylive: "/images/tastylive-logo.jpg",
 } as const;
 
 export type MediaCategory = "television" | "news" | "podcasts" | "speaking";

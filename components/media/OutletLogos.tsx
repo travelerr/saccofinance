@@ -15,21 +15,21 @@ type OutletLogosProps = {
 };
 
 const LOGO_DIMENSIONS = {
-  cnbc: { width: 1000, height: 320 },
-  tastylive: { width: 987, height: 212 },
+  cnbc: { width: 1024, height: 576 },
+  tastylive: { width: 1024, height: 576 },
 } as const;
 
 const sizeClasses = {
-  sm: { cnbc: "h-7 w-auto md:h-8", tastylive: "h-5 w-auto md:h-6" },
-  md: { cnbc: "h-9 w-auto md:h-10", tastylive: "h-6 w-auto md:h-7" },
-  lg: { cnbc: "h-11 w-auto md:h-14", tastylive: "h-8 w-auto md:h-10" },
+  sm: { cnbc: "h-8 w-auto md:h-9", tastylive: "h-8 w-auto md:h-9" },
+  md: { cnbc: "h-10 w-auto md:h-11", tastylive: "h-10 w-auto md:h-11" },
+  lg: { cnbc: "h-12 w-auto md:h-14", tastylive: "h-12 w-auto md:h-14" },
 };
 
 export const outletLogoPanelClassName =
-  "rounded-2xl border border-white/10 bg-slate-100 px-6 py-8 shadow-[0_12px_40px_rgba(0,0,0,0.25)] sm:px-10 sm:py-9";
+  "rounded-2xl border border-white/10 bg-black px-6 py-8 shadow-[0_12px_40px_rgba(0,0,0,0.25)] sm:px-10 sm:py-9";
 
 export const outletLogoBadgeClassName =
-  "inline-flex items-center rounded-xl bg-slate-100 px-3 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.18)] sm:px-4 sm:py-2.5";
+  "inline-flex items-center overflow-hidden rounded-lg border border-white/10";
 
 function LogoImage({
   outlet,

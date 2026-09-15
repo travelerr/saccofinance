@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {useEffect,useRef,useState} from 'react';
 import {Menu,X,ArrowUpRight} from 'lucide-react';
-const navigation=[['Media','/media'],['Research','/research'],['Premium','/premium'],['About','/about']];
+const navigation=[['Media','/media'],['Research','/research'],['About','/about']];
 export default function SiteHeader(){
  const pathname=usePathname();const[open,setOpen]=useState(false);const trigger=useRef<HTMLButtonElement>(null);
  useEffect(()=>{setOpen(false);},[pathname]);

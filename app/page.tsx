@@ -46,9 +46,7 @@ export default function HomePage() {
         logo: absoluteUrl("/images/logo.png"),
         sameAs: [
           "https://www.instagram.com/saccofinancial",
-          "https://www.threads.net/@saccofinancial",
           "https://www.tiktok.com/@saccofinancial",
-          "https://x.com/saccofinancial",
           "https://www.youtube.com/@saccofinancial",
           "https://www.facebook.com/people/Sacco-Financial/61573912254568",
         ],
@@ -65,7 +63,6 @@ export default function HomePage() {
         sameAs: [
           "https://www.instagram.com/saccofinancial",
           "https://www.tiktok.com/@saccofinancial",
-          "https://x.com/saccofinancial",
           "https://www.youtube.com/@saccofinancial",
         ],
         knowsAbout: [
