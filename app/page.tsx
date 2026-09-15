@@ -3,9 +3,9 @@ import ReplitHomepage from "@/components/replit-homepage";
 import { absoluteUrl, defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Sacco Financial | Stock Market Education & Investing Resources",
+  title: "Sacco Financial | Markets, Media & Investment Research",
   description:
-    "Explore Sacco Financial for beginner investing education, stock market insights, personal finance guidance, and resources from Justin Sacco.",
+    "Creator-led financial media and investment research from Justin Sacco. Explore stocks, market narratives, AI, technology, and deeper Premium research.",
   keywords: [
     "Sacco Financial",
     "sacco financial",
@@ -20,16 +20,16 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Sacco Financial | Stock Market Education & Investing Resources",
+    title: "Sacco Financial | Markets, Media & Investment Research",
     description:
-      "Beginner-friendly investing education, stock market insights, and personal finance resources from Justin Sacco.",
+      "Market stories, individual stocks, and investment research from Justin Sacco.",
     url: getSiteUrl(),
     images: [defaultOgImagePath],
   },
   twitter: {
-    title: "Sacco Financial | Stock Market Education & Investing Resources",
+    title: "Sacco Financial | Markets, Media & Investment Research",
     description:
-      "Beginner-friendly investing education, stock market insights, and personal finance resources from Justin Sacco.",
+      "Market stories, individual stocks, and investment research from Justin Sacco.",
     images: [defaultOgImagePath],
   },
 };
@@ -90,9 +90,9 @@ export default function HomePage() {
         "@type": "WebPage",
         "@id": absoluteUrl("/#webpage"),
         url: getSiteUrl(),
-        name: "Sacco Financial | Stock Market Education & Investing Resources",
+        name: "Sacco Financial | Markets, Media & Investment Research",
         description:
-          "Explore Sacco Financial for beginner investing education, stock market insights, personal finance guidance, and resources from Justin Sacco.",
+          "Creator-led financial media and investment research from Justin Sacco. Explore stocks, market narratives, AI, technology, and deeper Premium research.",
         isPartOf: {
           "@id": absoluteUrl("/#website"),
         },

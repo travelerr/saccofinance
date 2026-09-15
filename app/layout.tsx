@@ -1,5 +1,11 @@
 import type React from "react";
 import "./globals.css";
+import "@/components/brand/brand.css";
+import SiteHeader from "@/components/site-header";
+import {SiteFooter} from "@/components/brand/editorial";
+import {Barlow_Condensed, Manrope} from "next/font/google";
+const display=Barlow_Condensed({subsets:["latin"],weight:["600","700","800"],display:"swap",variable:"--font-editorial"});
+const body=Manrope({subsets:["latin"],display:"swap",variable:"--font-reading"});
 import type { Metadata, Viewport } from "next";
 import { defaultOgImagePath, getSiteUrl } from "@/lib/site";
 
@@ -18,7 +24,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Sacco Financial by Justin Sacco shares beginner-friendly investing education, stock market insights, personal finance tips, and long-term wealth-building strategies.",
+    "Creator-led financial media and investment research from Justin Sacco. Individual stocks, market narratives, AI, technology, and the ideas worth investigating.",
 
   keywords: [
     "Justin Sacco",
@@ -103,7 +109,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${display.variable} ${body.variable} brand`}><SiteHeader/>{children}<SiteFooter/></body>
     </html>
   );
 }

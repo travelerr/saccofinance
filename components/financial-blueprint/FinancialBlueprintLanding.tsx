@@ -1,40 +1,7 @@
-import { StickyMobileCta } from "./StickyMobileCta";
-import {
-  ReplitFaqSection,
-  ReplitFinalCtaSection,
-  ReplitHeroSection,
-  ReplitVideoSection,
-  ReplitProblemSection,
-  ReplitSolutionSection,
-  ReplitTransformationSection,
-  ReplitTrustSection,
-  ReplitWhatsInsideSection,
-} from "./replit-sales";
-
-/** Full sales funnel (hero through final CTA). Used on `/financial-blueprint` and merged thank-you flows. */
-export function FinancialBlueprintMarketingSections() {
-  return (
-    <>
-      <ReplitHeroSection />
-      <ReplitVideoSection />
-      <ReplitProblemSection />
-      <ReplitSolutionSection />
-      <ReplitWhatsInsideSection />
-      <ReplitTransformationSection />
-      <ReplitTrustSection />
-      <ReplitFaqSection />
-      <ReplitFinalCtaSection />
-    </>
-  );
-}
-
-export function FinancialBlueprintLanding() {
-  return (
-    <>
-      <main className="pb-28 md:pb-0">
-        <FinancialBlueprintMarketingSections />
-      </main>
-      <StickyMobileCta />
-    </>
-  );
-}
+import Image from 'next/image';
+import {ArrowUpRight} from 'lucide-react';
+import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
+import {chapters,faqs} from '@/lib/blueprint-content';
+import {ORDER_PAGE_URL,PRODUCT_NAME,FOUNDING_PRICE,COVER_IMAGE_PATH,SALES_VIDEO_EMBED_URL} from './config';
+export function FinancialBlueprintMarketingSections(){return <><section className="blueprint-hero"><div><Eyebrow>Sacco Financial / The foundation</Eyebrow><h1>BUILD YOUR<br/><span>FINANCIAL BASE.</span></h1><p>A practical framework for cash flow, debt, savings, and the habits that support long-term investing.</p><div className="actions"><a className="button" href={ORDER_PAGE_URL}>Get the Blueprint · ${FOUNDING_PRICE}<ArrowUpRight size={18}/></a><a className="text-link" href="#chapters">Explore the chapters ↓</a></div><span className="support-note">PDF download / One-time purchase / Read on any device</span></div><div className="book-cover">{COVER_IMAGE_PATH&&<Image src={COVER_IMAGE_PATH} alt={PRODUCT_NAME} width={1000} height={1400} sizes="(max-width: 700px) 80vw, 35vw" priority/>}</div></section><section className="section split-copy"><div><Eyebrow>A note from Justin</Eyebrow><h2>A system you<br/>can build on.</h2></div><div><p>The Blueprint draws on my experience in banking and financial services. It starts with the financial picture in front of you: what comes in, what goes out, what you owe, and what you want to build.</p><p>The goal is to organize those pieces into a repeatable process—then create room to save and invest consistently.</p></div></section>{SALES_VIDEO_EMBED_URL&&<section className="section blueprint-video"><SectionHeader label="An introduction" title="Walk through the framework."/><div className="video-frame"><iframe src={SALES_VIDEO_EMBED_URL.replace('controls=0','controls=1')} title="Justin Sacco introduces the Financial Base Blueprint" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen/></div></section>}<section id="chapters" className="section"><SectionHeader label="What’s inside" title="Six chapters. A clear sequence."/><div className="chapter-list">{chapters.map((c,i)=><details key={c.chapter} open={i===0}><summary><span>0{i+1}</span><h3>{c.title}</h3><b>+</b></summary><ul>{c.bullets.map(b=><li key={b}>{b}</li>)}</ul></details>)}</div><p className="support-note">Includes a quick-start reference guide for putting each step into practice.</p></section><section className="section faq-section"><SectionHeader label="Before you buy" title="Straight answers."/>{faqs.map(f=><details key={f.question}><summary>{f.question}<span>+</span></summary><p>{f.answer}</p></details>)}</section><section className="premium-bottom"><Eyebrow>Your next step</Eyebrow><h2>Get the foundation in place.</h2><a className="button" href={ORDER_PAGE_URL}>Get the Blueprint · ${FOUNDING_PRICE}<ArrowUpRight size={18}/></a><p className="support-note">Instant PDF access after purchase. A separate product from Sacco Premium.</p></section></>}
+export function FinancialBlueprintLanding(){return <main id="main-content" className="container"><FinancialBlueprintMarketingSections/></main>}

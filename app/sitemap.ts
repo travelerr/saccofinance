@@ -3,6 +3,7 @@ import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
+    ...["/research", "/about", "/contact", "/disclosures"].map(path => ({url:absoluteUrl(path),changeFrequency:"monthly" as const,priority:0.7})),
     {
       url: absoluteUrl("/"),
       lastModified: new Date(),

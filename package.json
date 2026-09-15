@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "data:refresh": "python3 scripts/refresh-market-strength.py"
   },
   "dependencies": {
     "lucide-react": "^0.475.0",
