@@ -1,0 +1,9 @@
+'use client';
+import Link from 'next/link';
+import './navigation.css';
+import {usePathname} from 'next/navigation';
+const destinations=[['Dashboard','/premium/dashboard'],['Weekly Outlook','/premium/weekly-outlook'],['Sector Gauge','/premium/market-strength'],['Opportunities','/premium/opportunities']] as const;
+export default function PremiumNavigation({variant='tabs'}:{variant?:'tabs'|'subnav'}){
+ const pathname=usePathname();
+ return <header className={`premium-product-header premium-product-${variant}`}><div className="premium-product-label"><strong><span>PREMIUM</span></strong></div><nav className={variant==='tabs'?'premium-tabs':'premium-subnav'} aria-label="Sacco Premium product navigation">{destinations.map(([label,href])=><Link key={href} href={href} aria-current={pathname===href||pathname.startsWith(href+'/')?'page':undefined}>{label}</Link>)}</nav></header>;
+}

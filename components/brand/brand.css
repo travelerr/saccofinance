@@ -10,3 +10,5 @@ body.brand{background:var(--brand-bg);color:var(--brand-text);font-family:var(--
 /* Keep an opened mobile menu out of the desktop layout after resizing. */
 @media(min-width:801px){.mobile-navigation{display:none!important}}
 @media print{.brand-header,.brand-footer,.premium-subnav,.premium-tabs,.skip-link{display:none!important}.brand{background:white!important;color:#111!important}.brand .sf-site{background:white;color:#111}.brand .sf-site h1,.brand .sf-site h2,.brand .sf-site h3,.brand .sf-site p{color:#111}.sf-reading{display:block}.sf-reading aside{display:none}}
+
+.brand-header .header-premium-link{color:var(--brand-cyan);font-weight:600;text-decoration:none;white-space:nowrap}.brand-header .header-premium-link:hover{text-decoration:underline}.brand-header .header-premium-link:focus-visible{outline:2px solid var(--brand-cyan);outline-offset:5px}

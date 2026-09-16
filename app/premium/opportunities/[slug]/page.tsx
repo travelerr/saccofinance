@@ -1,0 +1,17 @@
+import Link from 'next/link';
+import Image from 'next/image';
+import {notFound} from 'next/navigation';
+import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
+import PremiumNavigation from '@/components/premium/navigation';
+import OpportunityUpdates from '@/components/premium/opportunity-updates';
+import {getPublishedOpportunity,getOpportunityUpdates} from '@/lib/premium-opportunities';
+import {premiumDate} from '@/lib/premium-content';
+import {pageMetadata} from '@/lib/page-metadata';
+import '@/components/premium/opportunities.css';
+type Props={params:Promise<{slug:string}>};
+export async function generateMetadata({params}:Props){const{slug}=await params;const o=getPublishedOpportunity(slug);return o?pageMetadata(`${o.ticker} — ${o.title}`,o.setupThesis,`/premium/opportunities/${o.slug}`,true):{title:'Opportunity unavailable',robots:{index:false,follow:false}};}
+export default async function Page({params}:Props){
+ const{slug}=await params;const o=getPublishedOpportunity(slug);if(!o)notFound();
+ const levels=[['Confirmation / breakout',o.confirmation],['Preferred entry framework',o.entryFramework],['Secondary entry',o.secondaryEntry],['Risk / invalidation',o.riskInvalidation]].filter(([,value])=>value?.trim());
+ return <main id="main-content" className="container"><PremiumNavigation/><article><header className="page-hero"><Eyebrow>{o.ticker} / {o.company}</Eyebrow><h1>{o.title}</h1><p>{o.sector}{o.etfTickers?.length?` / ${o.etfTickers.join(', ')}`:''}</p><p className="opportunity-meta">{o.status} / {o.stage}<br/>First published {premiumDate(o.publishedAt)} · Updated {premiumDate(o.updatedAt)}</p><Link className="text-link" href="/premium/opportunities">← Opportunity Board</Link></header><section className="section opportunity-detail-section"><SectionHeader title="Why It Surfaced"/><p>{o.whySurfaced}</p></section><section className="section opportunity-detail-section"><SectionHeader title="The Setup"/><p>{o.setupThesis}</p>{o.chart&&<figure className="opportunity-detail-chart"><Image src={o.chart.src} alt={o.chart.alt} width={1200} height={800}/><figcaption className="opportunity-meta">Chart as of {premiumDate(o.chart.asOf)}</figcaption></figure>}</section><section className="section opportunity-detail-section"><SectionHeader title="What We’re Waiting For"/><div className="opportunity-next"><p>{o.nextCondition}</p></div></section>{(levels.length||o.targets?.some(t=>t.trim()))&&<section className="section opportunity-detail-section"><SectionHeader title="Trade Framework"/>{levels.map(([label,value])=><div key={label}><h3>{label}</h3><p>{value}</p></div>)}{o.targets?.some(t=>t.trim())&&<><h3>Targets</h3><ul>{o.targets.filter(t=>t.trim()).map(t=><li key={t}>{t}</li>)}</ul></>}</section>}<section className="section opportunity-detail-section"><SectionHeader title="Why We’d Want to Own It"/><p>{o.fundamentalCase}</p></section>{o.catalysts?.some(c=>c.trim())&&<section className="section opportunity-detail-section"><SectionHeader title="Catalysts"/><ul>{o.catalysts.filter(c=>c.trim()).map(c=><li key={c}>{c}</li>)}</ul></section>}<section className="section opportunity-detail-section"><SectionHeader title="What Changes the Thesis"/><p>{o.thesisChanges}</p></section><section className="section opportunity-detail-section"><SectionHeader title="Justin’s Take"/><p>{o.justinsTake}</p></section><section id="updates" className="section opportunity-detail-section"><SectionHeader title="Opportunity Updates"/><OpportunityUpdates updates={getOpportunityUpdates(o.id)}/></section></article></main>;
+}
