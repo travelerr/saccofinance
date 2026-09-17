@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "data:refresh": "python3 scripts/refresh-market-strength.py"
+    "data:refresh": "python3 scripts/refresh-market-strength.py",
+    "stripe:listen": "node --env-file=.env.local scripts/stripe-listen.cjs",
+    "test:billing": "node --test scripts/test-billing.cjs"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1134.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.116.0",
     "lucide-react": "^0.475.0",
@@ -17,10 +20,13 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
-    "simple-icons": "^14.6.0"
+    "simple-icons": "^14.6.0",
+    "stripe": "^22.6.2"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@eslint/eslintrc": "^3",
+    "@stripe/cli": "^1.50.11",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

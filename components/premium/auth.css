@@ -1,1 +1,25 @@
 .premium-auth{max-width:720px}.premium-auth h1{font-size:clamp(36px,6vw,64px)}.premium-auth-form{display:grid;gap:22px;max-width:460px;margin-bottom:48px}.premium-auth-form label{display:grid;gap:10px;color:var(--brand-text)}.premium-auth-form input{width:100%;box-sizing:border-box;padding:14px 16px;border:1px solid var(--brand-line);background:var(--brand-surface);color:var(--brand-text);font:inherit;border-radius:0}.premium-auth-form input:focus{outline:2px solid var(--brand-cyan);outline-offset:2px}.premium-auth-form .button{justify-content:center;cursor:pointer}.premium-auth-message{padding:16px;border:1px solid var(--brand-line);line-height:1.6}.premium-auth-links{display:flex;gap:24px;flex-wrap:wrap;margin:24px 0 48px}.premium-logout{border:0;background:none;color:var(--brand-muted);font:inherit;cursor:pointer;padding:0;margin-left:auto}.premium-logout:hover{color:var(--brand-cyan)}
+
+.premium-auth-form select{width:100%;box-sizing:border-box;padding:14px 16px;background:var(--brand-surface);color:var(--brand-text);border:1px solid var(--brand-line);border-radius:0;font:inherit;}
+
+.premium-auth-form select:focus{outline:2px solid var(--brand-cyan);outline-offset:2px;}
+
+/* Shared rhythm for member-access pages; product layouts stay unchanged. */
+.premium-auth-body{display:flex;flex-direction:column;align-items:flex-start;gap:24px;margin-bottom:64px}
+.premium-auth-body>form,.premium-auth-body>.premium-auth-links{margin:0}
+.premium-auth-body>.premium-auth-form{width:100%}
+.premium-auth-body>p{margin:0}
+.premium-auth-body>.premium-auth-message{width:100%;box-sizing:border-box}
+.premium-auth-body details{width:100%}
+.premium-auth-body summary{cursor:pointer;line-height:1.6}
+.premium-auth-body details>p{margin:16px 0 24px}
+.premium-auth-body details>.premium-auth-form{margin:0}
+.premium-account>.premium-auth-message{margin-bottom:24px}
+.premium-account .section>h3+p,.premium-dashboard .section>h3+p{margin-top:16px}
+.premium-account .section>p+p,.premium-dashboard .section>p+p{margin-top:16px}
+.premium-account .section>p+.premium-auth-form,.premium-account .section>.premium-auth-form+.premium-auth-form{margin-top:24px}
+.premium-account .section>.premium-auth-form{margin-bottom:0}
+.premium-account .property-grid .premium-auth-form{margin-top:24px;margin-bottom:0}
+.premium-account .section>.property-grid+p{margin-top:24px}
+.premium-dashboard .section>p+.text-link{margin-top:24px}
+@media(max-width:600px){.premium-auth-body{gap:24px;margin-bottom:48px}}

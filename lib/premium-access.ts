@@ -1,16 +1,15 @@
 import 'server-only';
-import {hasPremiumAccess} from './premium-membership';
+import {sessionPremiumAccess} from './premium-session-access';
 import {cache} from 'react';
 import {redirect} from 'next/navigation';
 import {createSupabaseServerClient} from './supabase/server';
 export const premiumAccess=cache(async()=>{
  const client=await createSupabaseServerClient();
- if(!client) return {user:null,allowed:false,unavailable:true};
+ if(!client) return {user:null,allowed:false,manualAllowed:false,grant:null,subscriptions:[],unavailable:true};
  const {data:{user},error}=await client.auth.getUser();
- if(error||!user) return {user:null,allowed:false,unavailable:false};
- const {data,error:accessError}=await client.from('premium_memberships').select('enabled,access_expires_at').eq('user_id',user.id).maybeSingle();
- const allowed=!accessError && hasPremiumAccess(data);
- return {user,allowed:Boolean(allowed),unavailable:Boolean(accessError)};
+ if(error||!user) return {user:null,allowed:false,manualAllowed:false,grant:null,subscriptions:[],unavailable:false};
+ const access=await sessionPremiumAccess(client,user.id);
+ return {user,...access};
 });
 export async function requirePremium(){
  const access=await premiumAccess();
