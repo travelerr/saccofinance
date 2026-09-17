@@ -1,3 +1,4 @@
+import {premiumAccess} from '@/lib/premium-access';
 import { NextResponse } from 'next/server';
 import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
@@ -10,6 +11,8 @@ async function readSnapshot():Promise<StrengthSnapshot|null>{
   try{return JSON.parse(await readFile(path.join(process.cwd(),'data/market-strength/latest.json'),'utf8'));}catch{return null;}
 }
 export async function GET(){
+  const access=await premiumAccess();
+  if(!access.allowed) return NextResponse.json({error:access.user?"Premium access required":"Authentication required"},{status:access.user?403:401,headers:{"Cache-Control":"private, no-store"}});
   const snapshot=await readSnapshot();
   if(process.env.VERCEL){
     return NextResponse.json({snapshot,refreshing:false,refreshFailed:false},{headers:{'Cache-Control':'no-store'}});

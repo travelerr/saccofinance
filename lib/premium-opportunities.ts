@@ -24,7 +24,7 @@ export const opportunities:Opportunity[]=[{
  ],
  thesisChanges:'Strengthens the thesis\nZS sustains the breakout above the ~$190–$195 base. Higher highs join the existing higher-low structure. The 30-week moving average turns decisively higher. Cybersecurity remains an area of relative market strength.\n\nWeakens the thesis\nThe breakout fails back into the prior range, relative strength deteriorates materially, or business growth decelerates more aggressively than expected.\n\nInvalidates the current trade\nThe $160 stop/invalidation level is reached.',
  justinsTake:'I don’t need Zscaler to return to $336 or start growing 40% again. I’m looking for the combination of a reset valuation, a business that’s still growing, strength in cybersecurity and a technical transition into Stage 2. I bought my first position at $190. Now the stock has to prove the breakout.',
- chart:{src:'/images/opportunities/zs-2026-09-16.png',asOf:'2026-09-16',alt:'Justin’s weekly Zscaler TradingView chart dated September 16, 2026, showing historical stages, the current base, resistance near $190–$195, support near $160, higher lows and the 30-week SMA.'}
+ chart:{src:'/api/premium/chart/zs-2026-09-16',asOf:'2026-09-16',alt:'Justin’s weekly Zscaler TradingView chart dated September 16, 2026, showing historical stages, the current base, resistance near $190–$195, support near $160, higher lows and the 30-week SMA.'}
 }];
 export const opportunityUpdates:OpportunityUpdate[]=[{
  id:'opportunity-001-initial',opportunityId:'opportunity-001',publishedAt:'2026-09-16',publicationState:'published',

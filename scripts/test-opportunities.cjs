@@ -36,7 +36,9 @@ test('one real ZS record, one initial update, and Dashboard/board share server-o
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190,160,230]);
  assert.equal(zs.trade.quantity,undefined);assert.equal(zs.trade.exitedAt,undefined);assert.equal(zs.secondaryEntry,undefined);assert.equal(zs.catalysts,undefined);assert.equal(zs.targets,undefined);
  assert.equal(data.getOpportunityUpdates(zs.id)[0].tradeStatusBefore,null);
- assert.ok(fs.existsSync(require('node:path').join(__dirname,'../public',zs.chart.src)));
+ assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/zs-2026-09-16.png')));
+ assert.equal(zs.chart.src,'/api/premium/chart/zs-2026-09-16');
+ assert.equal(fs.existsSync(require('node:path').join(__dirname,'../public/images/opportunities/zs-2026-09-16.png')),false);
  const source=fs.readFileSync(require('node:path').join(__dirname,'../lib/premium-opportunities.ts'),'utf8');assert.match(source,/import 'server-only'/);
  for(const file of ['app/premium/dashboard/page.tsx','app/premium/opportunities/page.tsx'])assert.match(fs.readFileSync(require('node:path').join(__dirname,'..',file),'utf8'),/getPublishedOpportunities\(\)/);
 });

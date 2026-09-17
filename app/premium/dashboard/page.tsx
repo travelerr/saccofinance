@@ -1,3 +1,4 @@
+import {requirePremium} from '@/lib/premium-access';
 import OpportunityCard,{OpportunityEmptyState} from '@/components/premium/opportunity-card';
 import {getPublishedOpportunities} from '@/lib/premium-opportunities';
 import {isCurrentOpportunity} from '@/lib/premium-content';
@@ -10,6 +11,7 @@ import {formatDate,type StrengthSnapshot} from '@/lib/market-strength';
 export const metadata=pageMetadata('Premium Dashboard','The Sacco Premium research process: market context, sector strength, setups and weekly outlook.','/premium/dashboard',true);
 export const dynamic='force-dynamic';
 export default async function Dashboard(){
+ await requirePremium();
  const current=getPublishedOpportunities().filter(isCurrentOpportunity).slice(0,3);
  let snapshot:StrengthSnapshot|null=null;
  try{snapshot=JSON.parse(await readFile(path.join(process.cwd(),'data/market-strength/latest.json'),'utf8'));}catch{}
