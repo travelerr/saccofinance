@@ -6,7 +6,7 @@ import {billingEnabled,billingMode} from '@/lib/billing/model';
 import {beginCheckout} from './actions';
 export const dynamic='force-dynamic';
 export const metadata={title:'Join Premium | Sacco Financial',robots:{index:false,follow:false}};
-export default async function Page({searchParams}:{searchParams:Promise<{error?:string;checkout?:string}>}){
+export default async function Page({searchParams}:{searchParams:Promise<{error?:string;checkout?:string;plan?:string}>}){
  if(!billingEnabled())redirect('/premium/login');const params=await searchParams;
  const errors:Record<string,string>={details:'Choose a plan and accept the Terms to continue.',guest:'Checkout is temporarily unavailable. Please try again shortly.',pending:'Your previous checkout is pending. Retry the original plan or wait 31 minutes before choosing another.',billing:'Checkout is temporarily unavailable. Please try again.'};
  return <AuthShell title="JOIN PREMIUM." description="Choose your plan, pay securely, and start exploring Premium. Save your login afterward.">
@@ -14,7 +14,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{error?:
  {params.error&&<p role="alert" className="premium-auth-message">{errors[params.error]||errors.billing}</p>}
  {params.checkout==='canceled'&&<p>Payment wasn’t completed. You can return to checkout below.</p>}
  <form action={beginCheckout} className="premium-auth-form">
- <label>Membership<select name="plan" defaultValue="monthly"><option value="monthly">Monthly — $10 / month</option><option value="annual">Annual — $100 / year (save $20)</option></select></label>
+ <label>Membership<select name="plan" defaultValue={params.plan==='annual'?'annual':'monthly'}><option value="monthly">Monthly — $10 / month</option><option value="annual">Annual — $100 / year (save $20)</option></select></label>
  <label><span><input type="checkbox" name="terms" required style={{width:'auto'}}/> I agree to the <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.</span></label>
  <Submit>Continue to secure checkout</Submit>
  </form>

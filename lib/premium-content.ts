@@ -27,7 +27,9 @@ export type OpportunityUpdate={
 export type WeeklyOutlook={
  id:string;slug:string;title:string;weekOf:string;publishedAt:string;
  publicationState:PublicationState;marketContext:string;thesisChanges:string;
- sectorFocus:string;gamePlan:string;opportunityIds:string[];videoUrl?:string;
+ sectorFocus:string;gamePlan:string;opportunityIds:string[];videoUrl?:string;perspectiveDate?:string;summary?:string;
+ historicalContext?:string;events?:{day:string;title:string;description:string}[];
+ sources?:{label:string;url:string}[];
 };
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
 const date=(value:unknown)=>text(value)&&Number.isFinite(Date.parse(value));
