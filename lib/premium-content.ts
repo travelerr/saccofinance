@@ -2,25 +2,26 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt:string;entryPrice:number;documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
+export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
  | {tradeStatus:'Active';trade:TradeEntry}
  | {tradeStatus:'Closed';trade:TradeEntry & TradeExit};
+export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number};
 export type Opportunity={
  id:string;slug:string;ticker:string;company:string;title:string;
- publicationState:PublicationState;publishedAt:string;updatedAt:string;
- sector:string;etfTickers?:string[];technicalStage:string;whySurfaced:string;
+ publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
+ sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
- riskInvalidation?:string;targets?:string[];catalysts?:string[];
- thesisChanges:string;justinsTake:string;chart?:{src:string;asOf:string;alt:string};
+ setupRange?:string;nextAreaToWatch?:string;riskInvalidation?:string;targets?:string[];catalysts?:string[];
+ thesisChanges:string;justinsTake:string;chart?:OpportunityChart;charts?:OpportunityChart[];
 } & OpportunityLifecycle;
 export type OpportunityUpdate={
  id:string;opportunityId:string;publishedAt:string;publicationState:PublicationState;
- tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
+ eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
 } & ({tradeStatusAfter:Exclude<OpportunityStatus,'Active'|'Closed'>;trade?:never}
  | {tradeStatusAfter:'Active';trade:TradeEntry}
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});
@@ -33,11 +34,11 @@ export type WeeklyOutlook={
 };
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
 const date=(value:unknown)=>text(value)&&Number.isFinite(Date.parse(value));
-function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&date(trade.enteredAt)&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0&&text(trade.documentation));}
+function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&date(trade.enteredAt)&&((typeof trade.entryPrice==='number'&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0)||(trade.entryType==='accumulation'&&trade.entryPrice===undefined))&&text(trade.documentation));}
 function hasExit(trade:(TradeEntry & Partial<TradeExit>)|undefined){return Boolean(hasEntry(trade)&&trade&&date(trade.exitedAt)&&Number.isFinite(trade.exitPrice)&&Number(trade.exitPrice)>0&&Date.parse(trade.exitedAt!)>=Date.parse(trade.enteredAt));}
 export function isPublishableOpportunity(record:Opportunity):boolean{
- const required=[record.id,record.slug,record.ticker,record.company,record.title,record.sector,record.technicalStage,record.whySurfaced,record.setupThesis,record.nextCondition,record.fundamentalCase,record.thesisChanges,record.justinsTake];
- return record.publicationState==='published'&&required.every(text)&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug)&&date(record.publishedAt)&&date(record.updatedAt)&&Date.parse(record.updatedAt)>=Date.parse(record.publishedAt)&&opportunityStatuses.includes(record.tradeStatus)&&
+ const required=[record.id,record.slug,record.ticker,record.company,record.title,record.sector,record.whySurfaced,record.setupThesis,record.nextCondition,record.fundamentalCase,record.thesisChanges,record.justinsTake];
+ return record.publicationState==='published'&&required.every(text)&&(record.technicalStage===null||text(record.technicalStage))&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug)&&date(record.publishedAt)&&date(record.updatedAt)&&Date.parse(record.updatedAt)>=Date.parse(record.publishedAt)&&opportunityStatuses.includes(record.tradeStatus)&&
   (record.tradeStatus!=='Active'||hasEntry(record.trade))&&(record.tradeStatus!=='Closed'||hasExit(record.trade));
 }
 export function getPublishedOpportunities(records:Opportunity[]){
@@ -49,8 +50,8 @@ export function filterOpportunities(records:Opportunity[],view:'current'|'archiv
  return records.filter(record=>(view==='current'?isCurrentOpportunity(record):!isCurrentOpportunity(record))&&(tradeStatus==='All'||record.tradeStatus===tradeStatus));
 }
 export function getOpportunityUpdates(id:string,records:OpportunityUpdate[]){
- return records.filter(record=>record.opportunityId===id&&record.publicationState==='published'&&date(record.publishedAt)&&text(record.id)&&text(record.title)&&text(record.explanation)&&(record.tradeStatusBefore===null||opportunityStatuses.includes(record.tradeStatusBefore))&&opportunityStatuses.includes(record.tradeStatusAfter)&&
+ return records.filter(record=>record.opportunityId===id&&record.publicationState==='published'&&date(record.publishedAt)&&(record.eventDate===undefined||(date(record.eventDate)&&Date.parse(record.eventDate)<=Date.parse(record.publishedAt)))&&text(record.id)&&text(record.title)&&text(record.explanation)&&(record.tradeStatusBefore===null||opportunityStatuses.includes(record.tradeStatusBefore))&&opportunityStatuses.includes(record.tradeStatusAfter)&&
   (record.tradeStatusAfter!=='Active'||hasEntry(record.trade))&&(record.tradeStatusAfter!=='Closed'||hasExit(record.trade)))
-  .sort((a,b)=>a.publishedAt.localeCompare(b.publishedAt));
+  .sort((a,b)=>(a.eventDate||a.publishedAt).localeCompare(b.eventDate||b.publishedAt));
 }
 export function premiumDate(value:string){return new Date(value.length===10?value+'T12:00:00Z':value).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});}

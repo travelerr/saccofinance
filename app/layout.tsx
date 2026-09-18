@@ -1,6 +1,7 @@
 import type React from "react";
 import "./globals.css";
 import "@/components/brand/brand.css";
+import PremiumProductFrame from '@/components/premium/product-frame';
 import SiteHeader from "@/components/site-header";
 import {SiteFooter} from "@/components/brand/editorial";
 import {Barlow_Condensed, Manrope} from "next/font/google";
@@ -109,7 +110,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${body.variable} brand`}><SiteHeader/>{children}<SiteFooter/></body>
+      <body className={`${display.variable} ${body.variable} brand`}><PremiumProductFrame publicHeader={<SiteHeader/>} publicFooter={<SiteFooter/>}>{children}</PremiumProductFrame></body>
     </html>
   );
 }

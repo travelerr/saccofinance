@@ -11,7 +11,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{sent?:s
  const access=await premiumAccess();if(!access.user)redirect('/premium/login');const params=await searchParams;
  if(!access.user.is_anonymous&&!params.error)redirect('/premium/set-password');
  let email:string|null=null;try{email=(await purchaseForBrowser(access.user.id))?.email||null;}catch{}
- return <AuthShell title="SAVE YOUR LOGIN." description="Your paid access is already available in this browser. Save your login so you can return from any device.">
+ return <AuthShell productNavigation title="SAVE YOUR LOGIN." description="Your paid access is already available in this browser. Save your login so you can return from any device.">
  {params.error==='claim'?<p role="alert">We couldn’t attach this purchase to your verified login. Contact Sacco Financial with your Stripe receipt so we can help; do not purchase again.</p>:params.error&&<p role="alert">We couldn’t send your welcome link. Please try again shortly.</p>}
  <p>{email?`Use the welcome link sent to ${email} to confirm your email and choose a password.`:'Your welcome link will arrive at the email address entered in Checkout.'}</p>
  <p>You can keep exploring Premium while the email arrives. Until you save your login, avoid logging out or clearing your browser data.</p>

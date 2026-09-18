@@ -8,8 +8,7 @@ import {
   getPressItemsByCategory,
 } from "@/lib/media";
 import { OutletLogo, OutletLogos } from "@/components/media/OutletLogos";
-
-const CONTACT_EMAIL = "saccofinancial@iamsocial.la";
+import { brandLinks } from "@/lib/editorial";
 const MIZKIF_VIDEO_URL = "https://www.youtube.com/watch?v=D90WnK3k_lM";
 const MIZKIF_EMBED_URL = "https://www.youtube.com/embed/D90WnK3k_lM?si=MtWBEuEAV60UHF0x";
 
@@ -328,7 +327,7 @@ export function MediaPressPage() {
                   ))}
                 </ul>
                 <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Media Inquiry — Sacco Financial")}`}
+                  href={`mailto:${brandLinks.pressEmail}?subject=${encodeURIComponent("Media Inquiry — Sacco Financial")}`}
                   className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[var(--sf-coral)] to-[var(--sf-coral-dark)] px-8 py-3 text-sm font-bold text-[var(--hub-bg)] shadow-[0_8px_28px_rgba(255,133,89,0.38)] transition hover:brightness-110 sm:w-auto sm:text-base"
                 >
                   Contact for Media Inquiries
