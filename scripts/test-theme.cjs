@@ -1,0 +1,7 @@
+const fs=require('node:fs');const ts=require('typescript');const vm=require('node:vm');const assert=require('node:assert/strict');const {test}=require('node:test');
+const compiled=ts.transpileModule(fs.readFileSync(require('node:path').join(__dirname,'../lib/theme.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
+const moduleFixture={exports:{}};vm.runInNewContext(compiled,{exports:moduleFixture.exports,module:moduleFixture});const theme=moduleFixture.exports;
+function firstPaint(stored,prefersDark,storageBlocked=false){const document={documentElement:{dataset:{}}};vm.runInNewContext(theme.themeBootstrap,{document,localStorage:{getItem(){if(storageBlocked)throw Error('Storage blocked');return stored;}},window:{matchMedia:()=>({matches:prefersDark})}});return document.documentElement.dataset.theme;}
+test('saved preferences survive opposite system themes before the first paint',()=>{assert.equal(firstPaint('light',true),'light');assert.equal(firstPaint('dark',false),'dark');});
+test('new visitors and invalid preferences follow their system theme',()=>{for(const stored of [null,'bad-value']){assert.equal(firstPaint(stored,true),'dark');assert.equal(firstPaint(stored,false),'light');}});
+test('blocked browser storage still produces a usable system theme',()=>{assert.equal(firstPaint(null,false,true),'light');assert.equal(firstPaint(null,true,true),'dark');});

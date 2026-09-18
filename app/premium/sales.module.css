@@ -3,7 +3,7 @@
 .heroCopy h1{font-size:clamp(48px,4.8vw,76px);line-height:1.02}
 .heroCopy>p:not(:first-child){margin-top:24px;font-size:17px;max-width:650px}
 .heroPrice{margin-top:28px}.heroPrice>strong{font-family:var(--brand-display);font-size:40px;line-height:1.2}.heroPrice strong span{font-family:var(--brand-body);font-size:16px;color:var(--brand-muted);font-weight:400}.heroPrice p{font-size:13px;margin-top:5px}
-.heroResearch{background:var(--brand-surface);border:1px solid var(--brand-line);border-top:3px solid var(--brand-cyan);box-shadow:0 24px 80px #0003;padding:26px;min-width:0}
+.heroResearch{background:var(--brand-surface);border:1px solid var(--brand-line);border-top:3px solid var(--brand-cyan);box-shadow:var(--theme-panel-shadow,0 24px 80px #0003);padding:26px;min-width:0}
 .previewTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:var(--brand-mono);font-size:10px;letter-spacing:1px}.previewTop b{color:var(--brand-cyan)}.previewTop>span:last-child{color:var(--brand-muted)}
 .page .previewLabel{font:10px/1.8 var(--brand-mono);margin:22px 0;color:var(--brand-muted)}
 .heroOutlook{padding:22px 0;border-top:1px solid var(--brand-line);border-bottom:1px solid var(--brand-line)}.heroOutlook :global(.eyebrow){font-size:10px;margin-bottom:12px}.heroOutlook h3{font-size:27px}.heroOutlook>p:last-child{margin-top:14px;font-size:14px}
@@ -29,3 +29,9 @@
 .proofNote,.billing,.closing .note{text-align:center;margin-left:auto!important;margin-right:auto!important}
 
 .processSection{padding-bottom:32px}
+
+/* Keep the existing two-plan layout within narrow mobile screens. */
+.offer>div,.plans article{min-width:0}
+.plans{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:700px){.plans h3{font-size:clamp(30px,9vw,46px);white-space:normal}}
+@media(max-width:360px){.plans{grid-template-columns:1fr}}

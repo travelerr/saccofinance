@@ -1,6 +1,9 @@
 import type React from "react";
 import "./globals.css";
 import "@/components/brand/brand.css";
+import ThemeProvider from '@/components/theme-provider';
+import {themeBootstrap} from '@/lib/theme';
+import '@/components/theme.css';
 import PremiumProductFrame from '@/components/premium/product-frame';
 import SiteHeader from "@/components/site-header";
 import {SiteFooter} from "@/components/brand/editorial";
@@ -109,8 +112,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${display.variable} ${body.variable} brand`}><PremiumProductFrame publicHeader={<SiteHeader/>} publicFooter={<SiteFooter/>}>{children}</PremiumProductFrame></body>
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{__html:themeBootstrap}}/></head>
+      <body className={`${display.variable} ${body.variable} brand`}><ThemeProvider><PremiumProductFrame publicHeader={<SiteHeader/>} publicFooter={<SiteFooter/>}>{children}</PremiumProductFrame></ThemeProvider></body>
     </html>
   );
 }
