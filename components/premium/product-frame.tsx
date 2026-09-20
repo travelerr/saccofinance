@@ -3,7 +3,7 @@ import {usePathname} from 'next/navigation';
 import type {ReactNode} from 'react';
 import Link from 'next/link';
 import './research.css';
-const memberRoots=['/premium/dashboard','/premium/weekly-outlook','/premium/market-strength','/premium/opportunities','/premium/account'];
+const memberRoots=['/premium/dashboard','/premium/issue-001','/premium/weekly-outlook','/premium/market-strength','/premium/opportunities','/premium/account'];
 export default function PremiumProductFrame({children,publicHeader,publicFooter}:{children:ReactNode;publicHeader:ReactNode;publicFooter:ReactNode}){
  const pathname=usePathname();
  const member=memberRoots.some(root=>pathname===root||pathname.startsWith(root+'/'));

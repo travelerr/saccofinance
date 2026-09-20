@@ -100,15 +100,104 @@ opportunityUpdates.push({
 });
 
 export const weeklyOutlooks:WeeklyOutlook[]=[{
- id:'weekly-outlook-001',slug:'fed-decision-september-14-2026',title:'The hike is only half the story.',weekOf:'2026-09-14',perspectiveDate:'2026-09-13',publishedAt:'2026-09-17',publicationState:'published',opportunityIds:[],
- summary:'A Fed hike could land better than expected if investors see progress against inflation. The bigger question is how much tightening comes next.',
- marketContext:'We head into a major Fed decision on Wednesday, followed just two days later by triple witching. Last week’s inflation reading was roughly in line to slightly hotter than expected, yet the market handled it better than I would have expected.\n\nHigher rates tighten financial conditions and put pressure on valuations. That does not mean stocks have to fall on the announcement. Investors may prefer to rip the Band-Aid off: if a hike makes the path toward controlling inflation more credible, the reaction could be neutral to slightly positive.\n\nI do not think one hike will magically fix sticky inflation. My working view is gradual tightening, rather than a one-and-done move or an aggressive tightening cycle. That is a thesis to test, not a prediction to trade blindly. Wednesday is about the decision and, more importantly, what the Fed tells us comes next.',
- thesisChanges:'Supports my view\nThe Fed describes a measured path, inflation starts responding, and stocks absorb the decision without broad deterioration. A neutral or positive reaction would support the idea that some tightening was already anticipated.\n\nWeakens my view\nThe Fed signals multiple additional hikes with a more aggressive pace, inflation stays sticky, or tighter conditions begin damaging growth and earnings. A relief rally alone would not prove inflation is under control.\n\nWhat I will reassess\nThe language around future policy, the market’s follow-through after the press conference, and whether strength remains broad enough to support individual setups.',
- sectorFocus:'Software is an area I’m watching as stocks show signs of life again. I want to understand what companies are saying about AI and enterprise spending, then use the Sector Gauge and ETF holdings to focus further research. Nuclear energy also remains on my radar. Neither theme automatically produces a qualifying stock setup.',
- gamePlan:'Do not assume a hike guarantees a selloff—or that a positive reaction means the inflation problem is solved. Let the decision, guidance, and subsequent price action establish the next step.\n\nCompare sector performance, investigate the relevant ETFs, and make stock candidates survive both technical and fundamental review. Keep confirmation conditions and invalidation separate from the market narrative.\n\nFriday’s expiration can bring heavy volume and unusual flows as positions are rolled and rebalanced. I will be careful about treating that activity as durable conviction. I want follow-through beyond the immediate event reaction, not a forced trade because the calendar is busy.',
- historicalContext:'LPL Research’s six-cycle sample since 1994 found average S&P 500 returns below zero in months one through four after an initial hike, with recovery around months five and six. At 12 months, the average was +6.7% and the median +10.7%.\n\nMarch 2022 was the cautionary case: the index fell in the following two months and stayed below its starting level for more than a year. The 1997 cycle was an upside outlier. This is a small historical sample, not a forecast; economic conditions and the speed of tightening matter.',
- events:[{day:'Wednesday / September 16',title:'Retail sales, then the Fed',description:'August Retail Sales at 8:30 a.m. Eastern. The Fed decision at 2:00 p.m., followed by the 2:30 p.m. press conference. Focus on the implied path of policy, not just the size of the move.'},{day:'Thursday / September 17',title:'The move toward 24-hour trading',description:'The SEC hosts a roundtable on preparations for 24-hour U.S. equity trading. I’m watching the implications for market access, operations, and resilience.'},{day:'Friday / September 18',title:'Triple witching',description:'Stock options, stock-index options, and stock-index futures expire. Position closing, rolling, and rebalancing can amplify volume and complicate the reading of price action.'}],
- sources:[{label:'Fed meeting calendar',url:'https://www.federalreserve.gov/newsevents/2026-september.htm'},{label:'Retail sales release schedule',url:'https://www.census.gov/retail/release_schedule.html'},{label:'SEC 24-hour trading roundtable',url:'https://www.sec.gov/newsroom/press-releases/2026-69-sec-announces-roundtable-preparations-24-hour-trading'},{label:'Historical rate-hike research / LPL',url:'https://www.lpl.com/research/weekly-market-commentary/what-history-says-about-fed-hikes-and-stocks.html'}]
+  "id": "weekly-outlook-001",
+  "slug": "market-survived-rate-hike-september-21-2026",
+  "title": "The Market Survived the Rate Hike. Now It Has to Prove It.",
+  "weekOf": "2026-09-21",
+  "weekEnd": "2026-09-25",
+  "perspectiveDate": "2026-09-20",
+  "publishedAt": "2026-09-20",
+  "publicationState": "published",
+  "summary": "The market absorbed the Fed's first 25-basis-point hike without breaking its broader structure. This week we're watching whether higher yields finally begin affecting equities, investigating persistent strength in shipping and air cargo, and managing our existing RKLB, NOW and ZS trades while SpaceX tests its breakout.",
+  "read": "The Federal Reserve raised rates by 25 basis points last week, and the market took it surprisingly well.\n\nThe S&P 500 and Nasdaq finished the week without any real technical damage. Friday was noticeably more volatile than Thursday, but we also had triple witching, and nothing happened that changed my view of the broader trend.\n\nFor now, both the S&P 500 and Nasdaq Composite still look healthy.\n\nThe Dow is a different story. It has been trending lower while technology-heavy indexes have held up much better. That tells me this isn't necessarily a market where everything is working. Leadership is becoming more selective.\n\nAnd that's important.\n\nBecause the biggest question this week isn't whether the market survived the initial rate hike.\n\nIt's whether we've actually felt the impact of that rate hike yet.\n\nThe 10-year Treasury yield initially moved lower after the Fed decision before rebounding toward 5%. That's the number I'm watching closely.\n\nThe Fed has already moved. Stocks absorbed it. Now we get to see what happens when the market has had several days to process higher rates and yields sitting around 5%.\n\nI'm not getting defensive yet.\n\nBut I'm also not interested in aggressively adding exposure Monday morning.\n\nI want the market to prove it can live with these rates first.",
+  "marketContext": "As long as those levels hold and the broader structure remains intact, I'm comfortable continuing to look for long setups.\n\nA break doesn't automatically mean the market is falling apart, but it would cause me to reassess how much risk I want to take.\n\nI'm also watching breadth more closely.\n\nLast week's strength wasn't uniform across the market. Technology continued to hold up better while the Dow weakened, and participation underneath the indexes was more selective.\n\nThat's something we're going to start incorporating into these Outlooks every week.\n\nIf SPY and the Nasdaq keep moving higher but fewer and fewer stocks participate, that's information we shouldn't ignore.",
+  "marketPosture": "Selective / Waiting for confirmation",
+  "marketLevels": [
+    {
+      "index": "S&P 500",
+      "support": 7507
+    },
+    {
+      "index": "Nasdaq Composite",
+      "support": 25800
+    }
+  ],
+  "sectorFocus": "This is where the Sector Gauge gave us something I wasn't expecting.\n\nShipping and air cargo keeps showing up.\n\nIt's appearing near the top of our rankings across the 1-week, 1-month, 3-month, 6-month, 9-month and 12-month periods.\n\nThis is not an area I normally trade.\n\nAnd that's exactly why I built the Sector Gauge.\n\nI don't want us starting with stocks we already like and then searching for reasons to buy them. I want the process to show us where money is actually moving — even when it sends us somewhere we weren't looking.\n\nSo this week I'm going deeper into shipping and air cargo to see whether there are individual stocks beginning to form setups worth researching.\n\nThat doesn't mean we're buying something simply because the sector ranks well.\n\nIt means we've found a new pool to investigate.\n\nSpace and robotics are also beginning to appear on the 1-week rankings.\n\nThat's particularly interesting because we're already active in Rocket Lab.\n\nSoftware and cybersecurity remain strong as well, but I'm not interested in loading the portfolio with five different versions of the same trade.\n\nWe already have exposure through ServiceNow and Zscaler.\n\nFor now, that's enough.\n\nAnd energy stays on the radar as long as oil remains elevated.",
+  "sectorAreas": [
+    {
+      "classification": "Investigating",
+      "area": "Shipping & Air Cargo"
+    },
+    {
+      "classification": "Improving short term",
+      "area": "Space & Robotics"
+    },
+    {
+      "classification": "Current leadership / existing exposure",
+      "area": "Software & Cybersecurity"
+    },
+    {
+      "classification": "Watching",
+      "area": "Energy"
+    }
+  ],
+  "gamePlan": "We're waiting.\n\nAt least initially.\n\nI want to see how the market trades Monday and Tuesday before getting more aggressive.\n\nThe Fed already raised rates.\n\nThe 10-year is back around 5%.\n\nBut the S&P 500 and Nasdaq haven't really shown us the consequences yet.\n\nMaybe there aren't any.\n\nMaybe investors have accepted that rates need to remain higher to bring inflation under control.\n\nOr maybe last week's resilience was the calm before higher yields finally start weighing on equities.\n\nWe don't need to guess.\n\nWe have our levels.\n\nWe have our active trades.\n\nWe know which sectors are showing strength.\n\nAnd now we let the market give us more information.\n\nIf the S&P and Nasdaq continue holding their structure, leadership remains intact, and new setups make it through the process, we can add exposure.\n\nIf weakness starts spreading and our support levels begin failing, we get more selective.\n\nIn the meantime, I'm digging into something I probably wouldn't have looked at without the Sector Gauge:\n\nShipping and air cargo.\n\nThat's where the process is pointing us.\n\nNow we need to find out whether there's actually a trade hiding inside it.",
+  "opportunityIds": [
+    "opportunity-002",
+    "opportunity-004",
+    "opportunity-001",
+    "opportunity-003"
+  ],
+  "opportunityCommentary": [
+    {
+      "opportunityId": "opportunity-002",
+      "body": "Nothing has changed.\n\nRocket Lab continues to hold, and the appearance of space and robotics in the short-term Sector Gauge adds some additional support to the environment around the trade.\n\nThat doesn't change our levels.\n\nThe trade remains active with the same $55 invalidation and $85 initial target."
+    },
+    {
+      "opportunityId": "opportunity-004",
+      "body": "Software continues to show strength, and I'm sticking with the exposure we already have.\n\nI'm not looking to pile into every software stock that starts moving.\n\nServiceNow remains one of the names I want exposure to, and nothing has changed in the current trade framework."
+    },
+    {
+      "opportunityId": "opportunity-001",
+      "body": "The breakout thesis remains intact.\n\nCybersecurity continues to show leadership, and Zscaler is still holding the area we wanted to see hold.\n\nWednesday's Okta Investor Summit is particularly relevant here. Okta is another major cybersecurity/identity company, so I'll be listening for anything that changes how we're thinking about enterprise security, AI identity and spending across the group."
+    },
+    {
+      "opportunityId": "opportunity-003",
+      "body": "This one just got more interesting.\n\nOur original range was roughly $105 to $150.\n\nWe identified ~$122 as the pullback area I preferred, ~$150 as the breakout level, and ~$105 as the level that would invalidate the developing Stage 1 thesis.\n\nSpaceX is now above $150.\n\nThat does not mean I'm chasing it.\n\nNow I want to see whether it can actually hold the breakout.\n\nHigher rates are exactly the type of environment that can pressure stocks where investors are paying heavily for growth far into the future. If yields remain elevated and SpaceX falls straight back into its previous range, that tells us something.\n\nIf it holds above $150 and begins building on the breakout, that tells us something too.\n\nFor now, it stays WATCHING."
+    }
+  ],
+  "events": [
+    {
+      "day": "Monday / September 21",
+      "title": "S&P Index Rebalance",
+      "description": "Bloom Energy, Everpure and Illumina join the S&P 500.\n\nDell, Palo Alto Networks, Arista Networks and SanDisk join the S&P 100.",
+      "relevance": "Watch for unusual price action created by index-tracking funds adjusting holdings."
+    },
+    {
+      "day": "Tuesday / September 22",
+      "title": "UiPath Investor Day",
+      "description": "",
+      "relevance": "Software remains an area of strength. Listen for commentary around enterprise AI, automation, demand and spending that could inform the broader environment around the ServiceNow thesis."
+    },
+    {
+      "day": "Wednesday / September 23",
+      "title": "Okta Investor Summit",
+      "description": "",
+      "relevance": "Cybersecurity remains strong and Zscaler is already an active Opportunity. Watch identity/security spending, AI identity, enterprise demand and anything that changes the broader cybersecurity thesis."
+    },
+    {
+      "day": "Thursday / September 24",
+      "title": "Costco Q4 2026 Earnings",
+      "description": "",
+      "relevance": "Another read on consumer spending while inflation remains a central market concern."
+    },
+    {
+      "day": "Thursday / September 24",
+      "title": "U.S.–China Summit",
+      "description": "President Donald Trump and Chinese President Xi Jinping are scheduled to meet in Washington.",
+      "relevance": "Trade, tariffs, technology restrictions, critical minerals and AI are among the issues surrounding the talks."
+    }
+  ]
 }];
 export function getPublishedOpportunities(){return selectPublished(opportunities);}
 export function getPublishedOpportunity(slug:string){return selectOpportunity(slug,opportunities);}
@@ -116,4 +205,13 @@ export function getOpportunityUpdates(id:string){return selectUpdates(id,opportu
 export function getRecentOpportunityUpdates(limit=3){
  return getPublishedOpportunities().flatMap(opportunity=>getOpportunityUpdates(opportunity.id).map(update=>({opportunity,update})))
   .sort((a,b)=>b.update.publishedAt.localeCompare(a.update.publishedAt)).slice(0,limit);
+}
+
+export function getPublishedWeeklyOutlooks(){
+ return weeklyOutlooks.filter(o=>o.publicationState==='published').sort((a,b)=>b.weekOf.localeCompare(a.weekOf));
+}
+export function getLatestWeeklyOutlook(){return getPublishedWeeklyOutlooks()[0];}
+export function getWeeklyOutlookOpportunities(outlook:WeeklyOutlook){
+ const records=getPublishedOpportunities();
+ return outlook.opportunityIds.flatMap(id=>{const record=records.find(o=>o.id===id);return record?[record]:[];});
 }

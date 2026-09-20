@@ -27,9 +27,13 @@ export type OpportunityUpdate={
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});
 export type WeeklyOutlook={
  id:string;slug:string;title:string;weekOf:string;publishedAt:string;
- publicationState:PublicationState;marketContext:string;thesisChanges:string;
+ publicationState:PublicationState;marketContext:string;thesisChanges?:string;
  sectorFocus:string;gamePlan:string;opportunityIds:string[];videoUrl?:string;perspectiveDate?:string;summary?:string;
- historicalContext?:string;events?:{day:string;title:string;description:string}[];
+ weekEnd?:string;read?:string;marketPosture?:string;
+ marketLevels?:{index:string;support:number}[];
+ sectorAreas?:{classification:string;area:string}[];
+ opportunityCommentary?:{opportunityId:string;body:string}[];
+ historicalContext?:string;events?:{day:string;title:string;description:string;relevance?:string}[];
  sources?:{label:string;url:string}[];
 };
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
@@ -55,3 +59,8 @@ export function getOpportunityUpdates(id:string,records:OpportunityUpdate[]){
   .sort((a,b)=>(a.eventDate||a.publishedAt).localeCompare(b.eventDate||b.publishedAt));
 }
 export function premiumDate(value:string){return new Date(value.length===10?value+'T12:00:00Z':value).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});}
+
+export function weeklyOutlookHref(outlook:WeeklyOutlook){
+ const issue=outlook.id.match(/-(\d+)$/)?.[1];
+ return issue?`/premium/issue-${issue}`:'/premium/weekly-outlook';
+}
