@@ -1,3 +1,5 @@
+import {redirect} from 'next/navigation';
+import {premiumAccess} from '@/lib/premium-access';
 import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowDown,ArrowUpRight,Check} from 'lucide-react';
@@ -28,7 +30,9 @@ const faqs=[
  ['Is this investment advice?','No. Premium provides educational and informational research, not personalized investment advice. You make your own decisions. Investing involves risk, including loss of principal, and no investment result is guaranteed.'],
 ];
 
-export default function Premium(){
+export default async function Premium(){
+ const access=await premiumAccess();
+ if(access.user&&access.allowed)redirect('/premium/dashboard');
  const enabled=billingEnabled();
  const join=enabled?'/premium/join':'/premium/login';
  // Selected public marketing excerpts only. Never pass whole member records to a client component.
