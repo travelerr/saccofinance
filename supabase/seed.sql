@@ -1,0 +1,1 @@
+-- Auth fixtures are created safely through the LOCAL admin API by npm run local:seed.

@@ -1,3 +1,5 @@
+Local development: see [the dedicated local environment guide](docs/local-development.md). Use `npm run local:start` then `npm run dev`; the development command is isolated from production credentials.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

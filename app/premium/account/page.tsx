@@ -1,3 +1,4 @@
+import ResearchPreferences from './research-preferences';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {syncMemberBilling} from '@/lib/billing/sync';
 import Link from 'next/link';
@@ -32,5 +33,6 @@ export default async function Page({searchParams}:{searchParams:Promise<{checkou
  </section>
  {!access.manualAllowed&&!ongoing&&billing&&!access.unavailable&&<section className="section"><SectionHeader title="Subscribe to Premium"/><div className="property-grid"><article><Eyebrow>Monthly</Eyebrow><h3>$10 / month</h3><p>Recurring monthly membership.</p><form action={subscribe}><input type="hidden" name="plan" value="monthly"/><Submit>Choose monthly</Submit></form></article><article><Eyebrow>Annual</Eyebrow><h3>$100 / year</h3><p>Recurring annual membership. Save $20 compared with twelve monthly payments.</p><form action={subscribe}><input type="hidden" name="plan" value="annual"/><Submit>Choose annual</Submit></form></article></div><p>Subscriptions renew automatically. Cancel through Manage Subscription; access continues through the paid period. Renewal payment failures receive a seven-day grace period.</p><p><Link href="/terms">Terms</Link> · <Link href="/privacy">Privacy</Link></p></section>}
  {!billing&&!access.manualAllowed&&<p>Paid subscriptions are not open yet.</p>}
+ <ResearchPreferences/>
  </main>;
 }

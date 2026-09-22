@@ -1,3 +1,4 @@
+import {localDevelopment} from '@/lib/local-development';
 import {premiumAccess} from '@/lib/premium-access';
 import { NextResponse } from 'next/server';
 import { readFile } from 'node:fs/promises';
@@ -14,7 +15,7 @@ export async function GET(){
   const access=await premiumAccess();
   if(!access.allowed) return NextResponse.json({error:access.user?"Premium access required":"Authentication required"},{status:access.user?403:401,headers:{"Cache-Control":"private, no-store"}});
   const snapshot=await readSnapshot();
-  if(process.env.VERCEL){
+  if(process.env.VERCEL||localDevelopment()){
     return NextResponse.json({snapshot,refreshing:false,refreshFailed:false},{headers:{'Cache-Control':'no-store'}});
   }
   const today=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());

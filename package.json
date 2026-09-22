@@ -3,13 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "node scripts/local-development.cjs dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "data:refresh": "python3 scripts/refresh-market-strength.py",
-    "stripe:listen": "node --env-file=.env.local scripts/stripe-listen.cjs",
-    "test:billing": "node --test scripts/test-billing.cjs"
+    "stripe:listen": "node scripts/local-development.cjs stripe",
+    "test:billing": "node --test scripts/test-billing.cjs",
+    "local:setup": "node scripts/local-development.cjs setup",
+    "local:start": "node scripts/local-development.cjs start",
+    "local:stop": "node scripts/local-development.cjs stop",
+    "local:seed": "node scripts/local-development.cjs seed",
+    "local:reset": "node scripts/local-development.cjs reset",
+    "local:status": "node scripts/local-development.cjs status",
+    "test:offline": "node --test scripts/test-premium-access.cjs scripts/test-billing.cjs scripts/test-payment-first.cjs scripts/test-opportunities.cjs scripts/test-weekly-outlook.cjs scripts/test-theme.cjs scripts/test-research-email.cjs scripts/test-local-environment.cjs scripts/test-research-preference.cjs scripts/test-developer-email.cjs && node --test scripts/test-research-safeguards.cjs scripts/test-research-delivery.cjs",
+    "test:local": "node scripts/test-local-stack.cjs",
+    "email:test": "node scripts/research-email-test.cjs"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1134.0",
@@ -21,7 +30,8 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "simple-icons": "^14.6.0",
-    "stripe": "^22.6.2"
+    "stripe": "^22.6.2",
+    "svix": "^2.5.0"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -33,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "^15.5.25",
     "postcss": "^8.5.28",
+    "supabase": "2.117.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

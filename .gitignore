@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Machine-local test configuration, credentials and logs
+/.local-development/
+/.next-local/
