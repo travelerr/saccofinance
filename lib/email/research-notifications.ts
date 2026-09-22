@@ -8,14 +8,15 @@ import {renderResearchEmail} from './templates';
 import {resolveResearchRecipients,resolveResearchRecipientRecords} from './recipient-resolution';
 import {createResearchUnsubscribe} from './unsubscribe';
 import {executeNotification} from './notification-run';
+import {emailSecrets} from './secrets';
 import {researchSendMode} from './policy';
 import {deliverResearchBatch,resendPersonalizedWithTransport} from './resend-client';
 export const availableResearchEvents=()=>researchEvents(weeklyOutlooks,opportunities,opportunityUpdates);
 export async function notificationPreview(key:string){
  await requireResearchAdmin();
  const event=availableResearchEvents().find(e=>e.key===key);if(!event)throw new Error('PUBLISHED_EVENT_REQUIRED');
- const mode=researchSendMode(process.env);
- const db=emailDatabase();
+ const mode=researchSendMode({...process.env,...await emailSecrets()});
+ const db=await emailDatabase();
  const recipients=await resolveResearchRecipients(db);
  const {data:log,error}=await db.from('research_notification_log').select('status,created_at,recipient_count').eq('event_key',key).eq('mode',mode).maybeSingle();
  if(error)throw new Error('LOG_UNAVAILABLE');
@@ -29,7 +30,7 @@ export async function runResearchNotification(key:string,fingerprint:string,mate
  if(preview.fingerprint!==fingerprint)throw new Error('PREVIEW_CHANGED');
  if(preview.event.type==='OPPORTUNITY_MATERIAL_UPDATE'&&!materialConfirmed)throw new Error('MATERIAL_CONFIRMATION_REQUIRED');
  const mode=preview.mode;
- const db=emailDatabase();const recipients=await resolveResearchRecipients(db);
+ const db=await emailDatabase();const recipients=await resolveResearchRecipients(db);
  if(createHash('sha256').update(JSON.stringify({event:preview.event,email:preview.email,mode,recipients:[...recipients].sort()})).digest('hex')!==fingerprint)throw new Error('PREVIEW_CHANGED');
  return executeNotification(preview.event,recipients,{
   async reserve(event,count){
@@ -47,13 +48,15 @@ export async function runResearchNotification(key:string,fingerprint:string,mate
    const unsubscribe=await createResearchUnsubscribe(db,recipient.userId,process.env.AUTH_SITE_URL||'http://localhost:3082');
    messages.push({to:recipient.email,email:renderResearchEmail(preview.event,process.env.AUTH_SITE_URL||'http://localhost:3082',unsubscribe)});
   }
-  if(researchSendMode(process.env)!==mode)throw new Error('PREVIEW_CHANGED');
+  if(researchSendMode({...process.env,...await emailSecrets()})!==mode)throw new Error('PREVIEW_CHANGED');
   const finalRecipients=await resolveResearchRecipients(db);
   if(JSON.stringify([...finalRecipients].sort())!==JSON.stringify([...recipients].sort()))throw new Error('PREVIEW_CHANGED');
   const {data:limits,error:limitsError}=await db.from('research_email_limits').select('paused').eq('singleton',true).single();
   if(limitsError||!limits||limits.paused)throw new Error('EMAIL_PAUSED');
   if(mode==='live'){
-   const providerIds=await resendPersonalizedWithTransport({from:process.env.RESEARCH_EMAIL_FROM!,apiKey:process.env.RESEND_API_KEY!,key:createHash('sha256').update('research-live:'+preview.event.key).digest('hex'),messages},fetch);
+   const secrets=await emailSecrets();
+   researchSendMode({...process.env,...secrets});
+   const providerIds=await resendPersonalizedWithTransport({from:process.env.RESEARCH_EMAIL_FROM!,apiKey:secrets.RESEND_API_KEY!,key:createHash('sha256').update('research-live:'+preview.event.key).digest('hex'),messages},fetch);
    return {status:'sent',providerIds};
   }
   return deliverResearchBatch({mode:'dry-run',emails:recipients,email:preview.email,key:preview.event.key});

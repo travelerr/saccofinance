@@ -15,7 +15,7 @@ export async function POST(request:Request){
  try{
   const form=await request.formData();
   if(form.get('List-Unsubscribe')!=='One-Click')return page('<p>Please confirm using the unsubscribe button.</p>',400);
-  const {data,error}=await emailDatabase().rpc('unsubscribe_research',{p_hash:hash});
+  const {data,error}=await (await emailDatabase()).rpc('unsubscribe_research',{p_hash:hash});
   if(error)throw error;
   if(!data)return page('<p>This unsubscribe link is invalid.</p>',400);
   return page('<p>Research notifications are now off. Account and billing emails are unaffected. You can opt back in from your account.</p>');

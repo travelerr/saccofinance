@@ -16,7 +16,7 @@
     "local:seed": "node scripts/local-development.cjs seed",
     "local:reset": "node scripts/local-development.cjs reset",
     "local:status": "node scripts/local-development.cjs status",
-    "test:offline": "node --test scripts/test-premium-access.cjs scripts/test-billing.cjs scripts/test-payment-first.cjs scripts/test-opportunities.cjs scripts/test-weekly-outlook.cjs scripts/test-theme.cjs scripts/test-research-email.cjs scripts/test-local-environment.cjs scripts/test-research-preference.cjs scripts/test-developer-email.cjs && node --test scripts/test-research-safeguards.cjs scripts/test-research-delivery.cjs",
+    "test:offline": "node --test scripts/test-premium-access.cjs scripts/test-billing.cjs scripts/test-payment-first.cjs scripts/test-opportunities.cjs scripts/test-weekly-outlook.cjs scripts/test-theme.cjs scripts/test-research-email.cjs scripts/test-local-environment.cjs scripts/test-research-preference.cjs scripts/test-developer-email.cjs && node --test scripts/test-research-safeguards.cjs scripts/test-research-delivery.cjs scripts/test-email-secrets.cjs",
     "test:local": "node scripts/test-local-stack.cjs",
     "email:test": "node scripts/research-email-test.cjs"
   },

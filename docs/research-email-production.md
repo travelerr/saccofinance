@@ -4,7 +4,7 @@ The personalized sending path and signed suppression webhook are implemented loc
 
 ## Production settings to prepare
 
-Use the hosting provider's server environment settings, never NEXT_PUBLIC keys or committed files:
+Use Amplify environment variables for the non-secret settings below. Credentials belong in AWS Secrets Manager, not Amplify variables or committed files:
 
 - RESEARCH_EMAIL_ENABLED=true enables preferences, unsubscribe handling and webhook persistence. Keep this enabled once messages have been sent, even when sending is paused.
 - EMAIL_SEND_MODE=dry-run initially.
@@ -13,12 +13,16 @@ Use the hosting provider's server environment settings, never NEXT_PUBLIC keys o
 - RESEARCH_ADMIN_USER_IDS=the production administrator's Supabase user UUID. The local test admin UUID is different.
 - AUTH_SITE_URL=https://saccofinancial.com and the production Supabase URL/service key must already be correct.
 - RESEARCH_EMAIL_FROM=the verified Resend sender, such as noreply@saccofinancial.com.
-- RESEND_API_KEY=the existing sending key, securely stored on the server.
-- RESEND_WEBHOOK_SECRET=the signing secret for the production webhook, separate from the API key.
+
+In AWS Secrets Manager, edit the existing JSON secret identified by Amplify's BILLING_SECRETS_ARN. Preserve every existing key and add RESEND_API_KEY and RESEND_WEBHOOK_SECRET. SUPABASE_SECRET_KEY must also be present (already used by billing). The email reader falls back to BILLING_SECRETS_ARN and BILLING_AWS_REGION and returns only these three email-related keys. It caches them for up to 60 seconds. Billing logic is unchanged.
+
+Alternatively, set EMAIL_SECRETS_ARN and EMAIL_AWS_REGION in Amplify to a separate JSON secret containing those three keys; the Amplify SSR compute role then needs secretsmanager:GetSecretValue permission for that secret and kms:Decrypt if using a customer-managed KMS key. Reusing the existing secret avoids changing the current access policy.
+
+The build exports only the non-secret email flags, test address, admin IDs, sender, ARN and region to the server environment. Raw Resend/Supabase secret values are never copied by the build script. Production email has no fallback to plain environment credentials. Local simulation uses only its local database key and never calls AWS.
 
 Deploy the reviewed code with sending disabled and apply migrations 202609220001, 202609220002 and 202609220003 to the correct production database after checking which are already present. Local migrations have been applied; no production migration has been run.
 
-Create a Resend webhook targeting https://saccofinancial.com/api/email/resend-webhook and subscribe to email.bounced, email.complained and email.suppressed. Copy its signing secret into the server settings. The handler verifies the raw body's Svix signature and timestamp before writing. It acknowledges only after the transaction succeeds; database failures return 503 for provider retry. Signed unrelated events are ignored. It never stores raw payloads or recipient addresses in webhook logs.
+Create a Resend webhook targeting https://saccofinancial.com/api/email/resend-webhook and subscribe to email.bounced, email.complained and email.suppressed. Add its signing secret as RESEND_WEBHOOK_SECRET in the Secrets Manager JSON entry. The handler verifies the raw body's Svix signature and timestamp before writing. It acknowledges only after the transaction succeeds; database failures return 503 for provider retry. Signed unrelated events are ignored. It never stores raw payloads or recipient addresses in webhook logs.
 
 Suppression hashes use normalized addresses and are shared across all research sends. Duplicate webhook deliveries are harmless. Opting back into preferences does not clear a bounce/complaint suppression. Suppressions do not alter billing or authentication settings. Events from authentication emails using the same Resend account can also suppress that address from future research mail.
 
@@ -32,7 +36,7 @@ Before broad sending, confirm the business contact/footer details, real account 
 
 ## Validation and limits
 
-49 automated tests cover existing functionality and the added safeguards. They include real signed fixture verification, tampering and stale signatures, suppression persistence/privacy/replay, fail-closed lookup errors, individualized payloads and default-off gates. No real email is sent by these tests.
+51 automated tests cover existing functionality and the added safeguards. They include real signed fixture verification, tampering and stale signatures, suppression persistence/privacy/replay, fail-closed lookup errors, individualized payloads and default-off gates. No real email is sent by these tests.
 
 `sent` in the notification log means provider acceptance, not inbox delivery. Ambiguous outcomes remain reserved with no automatic retry. Budget accounting covers research sends, not external SMTP/developer sends. A suppression or opt-out arriving after the final eligibility check cannot recall a request already sent to Resend.
 
