@@ -1,4 +1,4 @@
-import {localDevelopment} from '../local-development';
+import {localDevelopment,localStripeEnabled} from '../local-development';
 import 'server-only';
 import {createClient} from '@supabase/supabase-js';
 import {authConfig} from '@/lib/supabase/config';
@@ -50,7 +50,7 @@ export async function claimPurchase(purchaseId:string,memberId:string){
 }
 
 export async function claimVerifiedPurchases(memberId:string){
- if(localDevelopment())return; // Local users are already explicitly seeded; no external purchase claims.
+ if(localDevelopment()&&!localStripeEnabled())return; // Local users are already explicitly seeded; no external purchase claims.
  const {admin,mode}=await billingServices();const {data,error}=await admin.auth.admin.getUserById(memberId);
  const user=data.user;if(error||!user||user.is_anonymous||!user.email_confirmed_at||!user.email)return;
  const {data:pending,error:pendingError}=await admin.from('billing_purchase_claims').select('id').eq('mode',mode).eq('email',user.email.trim().toLowerCase()).is('claimed_user_id',null);

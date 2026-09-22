@@ -63,13 +63,13 @@ Dry-run does NOT produce a delivered email in the inbox. The inbox captures loca
 
 The launcher starts with a small OS-environment allowlist, masks keys found in Next dotenv files without copying their values, and supplies generated local keys. Existing .env.local and billing-live files are preserved. Next may still announce that .env.local exists; its values are overridden/blanked in the protected launcher. Keep using npm run dev, not a bare next command.
 
-SACCO_LOCAL_DEVELOPMENT enables only verified local fixture behavior. Canonical Premium-access calculations still read actual local subscription rows. Stripe network operations are rejected; account billing sync and purchase-claim lookup skip external reconciliation only in verified local mode. Stripe webhook forwarding/checkout is disabled until a separate sandbox is configured. `stripe:listen` now fails with an explanation instead of loading the old live environment file. Market Strength uses the saved snapshot without triggering a Yahoo refresh locally. There are no changes to production access rules when the local flag is absent.
+SACCO_LOCAL_DEVELOPMENT enables only verified local fixture behavior. Canonical Premium-access calculations still read actual local subscription rows. When `.local-development/stripe-sandbox.json` exists, the launcher enables only its verified `sk_test_` key and uses the local Supabase database. `npm run dev` starts Stripe webhook forwarding automatically before starting Next.js. Without that file the fixture-only behavior remains. Seeded `sub_local_` subscriptions are excluded from Stripe reconciliation. Market Strength uses the saved snapshot without triggering a Yahoo refresh locally. There are no changes to production access rules when the local flag is absent.
 
 Publish code and SQL migrations through a separately approved release. Never promote seed data, local credentials, Supabase test volumes, or .local-development files. No automatic migration/push/deploy workflow was added. Existing production hosting/billing remains separate.
 
 ## What's intentionally not enabled
 - Real research email delivery, sender DNS verification, and live Resend quota management.
-- Stripe sandbox checkout integration (current local memberships are fixtures).
+- Live Stripe payments (local supports sandbox payments only).
 - Hosted staging / a public preview URL.
 - Automatic production migrations or deployments.
 
@@ -85,3 +85,13 @@ Local rendering does not prove Amplify behavior or email-client deliverability. 
 - Standardized the website origin on localhost to prevent Next development redirects from crossing cookie hostnames. Database remains 127.0.0.1.
 - Test-created Weekly Outlook dry-run log cleared and admin opt-in restored OFF so the first manual walkthrough is fresh.
 - No production data/infrastructure changed; no commit, push, deployment, real payment or subscriber email.
+
+## Stripe sandbox checkout
+
+The existing test key, monthly/annual prices and portal configuration were copied selectively to ignored `.local-development/stripe-sandbox.json`. The old `.env.local` is not loaded or modified; its hosted Supabase credentials are not used. The listener writes its current signing secret only to this private sandbox file. No production keys are permitted.
+
+Start Docker Desktop, then run `npm run local:start` and `npm run dev`. The second command starts both the webhook listener and app; do not start a second listener. Stopping dev stops its listener. If the listener stops unexpectedly, the app stops rather than leaving an apparently working checkout. `npm run stripe:listen` is available only for standalone debugging.
+
+Use http://localhost:3082/premium/join in a fresh/private browser session. Seeded paid accounts already have fixture memberships and cannot represent a fresh purchase. Use Stripe's test Visa 4242 4242 4242 4242, any future expiry and any three-digit CVC. Use a synthetic address such as checkout-demo@sacco.test. The welcome email appears at http://127.0.0.1:54324; open its “Save your Premium login” link, choose the notification preference, and finish account setup. Test accounts/payments live only in local Supabase and the Stripe sandbox.
+
+Local magic-link and confirmation templates are configured in supabase/config.toml and do not alter production templates. After changing templates, stop/start local Supabase without resetting its database. Existing captured emails retain their old links; request a new welcome email.

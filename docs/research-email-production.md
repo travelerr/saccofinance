@@ -43,3 +43,9 @@ Before broad sending, confirm the business contact/footer details, real account 
 Protocol/provider references:
 - https://resend.com/changelog/managing-webhooks-via-api
 - https://www.rfc-editor.org/rfc/rfc8058
+
+## Member enrollment and signup
+
+The administrator page offers an enrollment preview and button for verified, eligible existing members with no preference row. It excludes saved ON/OFF preferences and suppressed addresses, and never overwrites a preference created after preview. A changed candidate list requires a refreshed preview. Enrollment sends no email and applies to all eligible members even with the test-recipient sending restriction active. No new database migration is required.
+
+New members can opt in with an unchecked optional checkbox in the welcome-link “Save your login” step. The verified POST saves their choice after the purchase is claimed. An unchecked choice creates OFF for a new member without overriding an existing preference; a checked choice explicitly enables notifications. Suppressions remain independent. If saving the preference fails, account creation continues and displays a message linking to Account settings.

@@ -1,11 +1,11 @@
-import {localDevelopment} from '../local-development';
+import {localDevelopment,localStripeEnabled} from '../local-development';
 import 'server-only';
 import Stripe from 'stripe';
 import {createClient} from '@supabase/supabase-js';
 import {billingSecrets} from './secrets';
 import {billingMode,billingEnabled,type BillingPlan} from './model';
 export async function billingServices(){
- if(localDevelopment())throw new Error('LOCAL_CHECKOUT_DISABLED');
+ if(localDevelopment()&&!localStripeEnabled())throw new Error('LOCAL_CHECKOUT_DISABLED');
  if(!billingEnabled())throw new Error('BILLING_DISABLED');
  const secrets=await billingSecrets();const mode=billingMode();
  if(!secrets.STRIPE_SECRET_KEY?.startsWith(mode==='test'?'sk_test_':'sk_live_')||!secrets.SUPABASE_SECRET_KEY||!process.env.NEXT_PUBLIC_SUPABASE_URL)throw new Error('BILLING_UNAVAILABLE');

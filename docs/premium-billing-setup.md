@@ -4,6 +4,10 @@ Implementation verified locally; production Stripe resources and AWS runtime set
 
 ## Local sandbox
 
+The isolated local setup now supersedes the legacy steps below: see [local development](local-development.md#stripe-sandbox-checkout). Do not run with `--env-file=.env.local`; it may contain hosted Supabase credentials. `npm run dev` starts its sandbox listener automatically.
+
+### Legacy setup reference (do not use for the isolated local stack)
+
 1. Apply `supabase/migrations/202609170001_premium_billing.sql` in Supabase SQL Editor once. Manual grants stay in `premium_memberships`; Stripe never writes that table.
 2. Fill `.env.local` with the sandbox `STRIPE_SECRET_KEY` and server-only `SUPABASE_SECRET_KEY`. Both are private. Keep `STRIPE_MODE=test`; monthly and annual sandbox price IDs are already configured.
 3. Run `npm run stripe:listen`. The official Stripe CLI forwards only billing events to `http://127.0.0.1:3082/api/stripe/webhook`. Its signing secret is captured directly into `.env.local` without being printed. The script enables local sandbox billing. Keep that process running while testing and restart the app after the first listener setup.

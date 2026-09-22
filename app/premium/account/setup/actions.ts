@@ -1,5 +1,6 @@
 'use server';
 import {redirect} from 'next/navigation';
+import {saveSignupResearchPreference} from '@/lib/email/signup-preference';
 import {premiumAccess} from '@/lib/premium-access';
 import {purchaseForBrowser,sendPurchaseWelcome} from '@/lib/billing/purchases';
 import {billingServices,authOrigin} from '@/lib/billing/server';
@@ -26,7 +27,9 @@ export async function savePurchaseLogin(form:FormData){
  try{
   const {claimPurchase}=await import('@/lib/billing/purchases');await claimPurchase(purchaseId,data.user.id);
  }catch{redirect('/premium/account/setup?error=claim');}
- redirect(new URL('/premium/set-password',authOrigin()).toString());
+ let preferenceFailed=false;
+ try{await saveSignupResearchPreference(client,data.user,form.get('research_notifications')==='on',form.get('research_offered')==='1');}catch{preferenceFailed=true;}
+ redirect(new URL('/premium/set-password'+(preferenceFailed?'?research=failed':''),authOrigin()).toString());
 }
 
 export async function changeWelcomeEmail(form:FormData){
