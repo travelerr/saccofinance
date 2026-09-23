@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS remains unchanged and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,4);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
+ assert.equal(data.opportunities.length,5);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Active');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190,160,230]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,4);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,4);
+ assert.equal(d.getPublishedOpportunities().length,5);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,5);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Active');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,55,85]);
@@ -88,9 +88,23 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,5);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,8);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
  assert.doesNotMatch(fs.readFileSync(path.join(__dirname,'../app/premium/dashboard/page.tsx'),'utf8'),/filter\(isCurrentOpportunity\)\.slice/);
+});
+
+test('MSTR preserves the starter trade separately from its unfilled add zone and dated chart evidence',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');
+ assert.equal(o.id,'opportunity-005');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 2');
+ assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],['2026-09-23',10,160,123,196]);
+ assert.equal(o.preferredAddZone,'$144–$148');assert.equal(o.trade.exitedAt,undefined);assert.equal(o.targets,undefined);
+ assert.deepEqual(o.discoveryChain,['Crypto','Bitcoin','Technical setup','MSTR','Trade']);
+ assert.equal(o.fundamentalHeading,'Why MSTR / The Equity Vehicle');
+ assert.deepEqual(o.charts.map(c=>c.placement),['origin','framework','confirmation']);
+ assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
+ assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
+ const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,1);assert.deepEqual(updates[0].trade,o.trade);
+ assert.equal(d.getPublishedOpportunities()[0].id,o.id);
 });

@@ -8,12 +8,13 @@ type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
  | {tradeStatus:'Active';trade:TradeEntry}
  | {tradeStatus:'Closed';trade:TradeEntry & TradeExit};
-export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number};
+export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation';source?:string};
 export type Opportunity={
  id:string;slug:string;ticker:string;company:string;title:string;
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
+ companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
  setupRange?:string;nextAreaToWatch?:string;riskInvalidation?:string;targets?:string[];catalysts?:string[];

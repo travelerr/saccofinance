@@ -3,3 +3,5 @@
 .opportunity-card h3,.opportunity-detail-section p{overflow-wrap:anywhere}@media(max-width:600px){.opportunity-board-page .page-hero h1{font-size:clamp(34px,9vw,54px)}}
 
 .opportunity-status{text-transform:uppercase}.opportunity-card .watch-top{gap:12px;flex-wrap:wrap}.opportunity-detail-page .page-hero h1{overflow-wrap:anywhere}.opportunity-detail-page .opportunity-next p{white-space:pre-line}
+
+.opportunity-research-path{margin:20px 0}.opportunity-research-path p{margin:8px 0;line-height:1.8}

@@ -79,6 +79,104 @@ opportunities.push({
  chart:{src:'/api/premium/chart/now-2026-09-18',asOf:'2026-09-18',width:1600,height:837,caption:'Justin’s ServiceNow daily research chart.',alt:'Justin’s ServiceNow daily TrendSpider chart dated September 18, 2026, with price history, the 50-day moving average, revenue-growth annotations and marked historical regions. Original attribution is preserved.'}
 });
 
+opportunities.push({
+  "id": "opportunity-005",
+  "slug": "strategy-005",
+  "ticker": "MSTR",
+  "company": "Strategy",
+  "companyNote": "Formerly MicroStrategy",
+  "title": "MSTR / The Bitcoin thesis. A starter position.",
+  "publicationState": "published",
+  "publishedAt": "2026-09-23",
+  "updatedAt": "2026-09-23",
+  "tradeStatus": "Active",
+  "technicalStage": "Stage 2",
+  "trade": {
+    "enteredAt": "2026-09-23",
+    "entryPrice": 160,
+    "quantity": 10,
+    "stopPrice": 123,
+    "firstTargetPrice": 196,
+    "documentation": "Justin documented a 10-share MSTR starter position at $160 in his September 23, 2026 Opportunity brief. The annotated trade-plan chart establishes the $123 stop and $196 first target."
+  },
+  "sector": "Crypto / Bitcoin",
+  "discoveryLabel": "Research path",
+  "discoveryChain": [
+    "Crypto",
+    "Bitcoin",
+    "Technical setup",
+    "MSTR",
+    "Trade"
+  ],
+  "summary": "Bitcoin has broken higher after a major drawdown and bullish consolidation. MSTR’s Stage 2 transition supports the equity trade: 10 shares at $160, with a conditional $144–$148 add zone.",
+  "nextStepSummary": "Reassess adding at $144–$148 if Bitcoin’s breakout and MSTR’s structure hold. If the move continues, the starter position provides exposure without chasing.",
+  "whySurfaced": "This trade starts with Bitcoin. I own Bitcoin separately for the long term in cold storage; those coins are not part of this swing strategy. For this move, I want an equity vehicle. That leads to Strategy, formerly MicroStrategy.\n\nAfter Bitcoin’s decline from roughly $125,000 to $57,000, the character of price action began changing. Buyers appeared near the lows, the structure improved through July and August, and price accelerated from the low-$60,000s toward $80,000. Buyers were willing to pay materially higher prices in a short period.\n\nThe advance was followed by a controlled, downward-sloping consolidation that I interpret as a potential bull flag. Earlier buyers could take profits while new demand absorbed the selling. Rather than collapsing, price held together and broke higher again. The September 23 chart shows Bitcoin above the recent ~$82,500 resistance area, around the mid-$80,000s at capture.",
+  "setupThesis": "My working thesis is that roughly $57,000 may have marked a major Bitcoin cycle floor. The scale of the decline, buyers appearing near the lows, improving structure, upside acceleration and renewed breakout support that view. Bitcoin’s cyclical history and potential demand for alternative assets amid global inflation concerns add context; neither establishes a guaranteed floor or appreciation.\n\nMSTR gives me an equity vehicle for that thesis. Its higher lows and the transition from Stage 1 into Stage 2 in my TrendSpider phase analysis support a new markup phase. Stage 2 is a documented research classification, not a promise of continued upside.\n\nI opened 10 shares at $160—approximately $1,600 of initial capital. This is deliberately a starter position, not my full intended allocation. I like the thesis more than the entry: the move has already started, and $160 offers less attractive reward/risk than the $144–$148 area. A small position gives me exposure if the move continues while leaving room to reassess a better entry.",
+  "nextCondition": "Preferred scenario — a controlled pullback\nMSTR returns toward $144–$148 while Bitcoin holds its breakout and MSTR’s technical structure remains constructive. I would reassess potentially adding capital. Reaching the zone alone is not a buy decision, and no purchase there has been made.\n\nContinuation scenario — no preferred pullback\nMSTR keeps moving higher. The 10-share starter already provides limited exposure; I do not need to chase with my full intended capital simply because price rises.",
+  "preferredAddZone": "$144–$148",
+  "entryFramework": "The 10-share starter at $160 is already established. The preferred $144–$148 add / reassessment zone is conditional on the thesis remaining intact; it has not been filled.",
+  "riskInvalidation": "The documented stop / current trade invalidation is $123. Target 1 is $196, corresponding to prior resistance on the trade-plan chart. It is a first swing target, not a guaranteed outcome. No higher target or exit has been documented.",
+  "fundamentalHeading": "Why MSTR / The Equity Vehicle",
+  "fundamentalCase": "MSTR’s equity valuation is heavily influenced by its Bitcoin exposure, following its transformation from primarily a software company. That sensitivity makes it the vehicle I’m using for this Bitcoin swing thesis. It does not perfectly track Bitcoin and is not identical to holding coins.\n\nThis is a deliberate exception to the usual company-ownership research question. I’m not building the same long-term operating-business case used for ZS, NOW or RKLB. The analysis here is Bitcoin’s structure, MSTR’s technical structure and the additional risks of expressing the thesis through a company’s equity.\n\nFinancing decisions, leverage, capital structure and changes in the stock’s valuation premium can change the outcome even if Bitcoin behaves as expected. The research still follows the same principle: find where the move is occurring, choose the vehicle, define the setup, risk and target.",
+  "technicalConfirmation": "My TrendSpider phase analysis has recently transitioned MSTR from the lighter Stage 1 area into the darker green Stage 2 area. That is additional evidence for a potential markup phase.\n\nThe chart also shows a previously valid Bottom Catcher signal at $166.97, near the $167.33 price displayed at capture. This is separate technical corroboration around the research price area—not my $160 entry, a newly dated signal, or proof that a bottom will hold. Neither the phase transition nor Bottom Catcher guarantees that the trade will work. All chart prices are September 23 research context, not live quotes.",
+  "primaryRisks": [
+    {
+      "title": "Bitcoin’s breakout or floor thesis fails",
+      "explanation": "Bitcoin could lose the recent breakout and break its improving structure. The roughly $57,000 cycle-floor thesis remains a working interpretation that can be wrong."
+    },
+    {
+      "title": "Amplified volatility",
+      "explanation": "MSTR can amplify Bitcoin’s moves. This is a high-volatility equity trade, and the small starter position reflects the less attractive reward/risk at $160 compared with the preferred $144–$148 area."
+    },
+    {
+      "title": "Financing, leverage and valuation premium",
+      "explanation": "Company-specific financing and capital-structure decisions, leverage and compression of MSTR’s valuation premium can cause the equity to underperform Bitcoin."
+    },
+    {
+      "title": "Broader market conditions",
+      "explanation": "Equity-market weakness, higher rates and a broader retreat from risk can pressure MSTR independently of Bitcoin."
+    },
+    {
+      "title": "Technical confirmation can fail",
+      "explanation": "The Stage 2 transition and Bottom Catcher signal are supporting evidence. False signals and failed continuation patterns remain possible."
+    }
+  ],
+  "thesisChanges": "Strengthens the thesis\nBitcoin holds its breakout, keeps forming higher lows and sustains the bull-flag continuation toward the next resistance areas. MSTR maintains constructive sensitivity to Bitcoin and its Stage 2 structure. A controlled pullback toward $144–$148 with both structures intact would provide an area to reassess adding.\n\nWeakens the thesis\nBitcoin loses its recent breakout or materially breaks its improving structure. MSTR underperforms for company-specific reasons, the Stage 2 transition fails, or broader risk assets deteriorate. A move toward $123 brings the trade closer to its documented invalidation.\n\nCurrent trade invalidation\nThe stop remains $123. A price move alone does not establish an executed exit or an additional purchase.",
+  "justinsTake": "Bitcoin looks materially different than it did during the decline from roughly $125,000 to $57,000. Buyers appeared around the lows, price started improving, we got a major upside move, a controlled consolidation and now another breakout.\n\nI hold Bitcoin separately for the long term and don’t actively trade those coins. For this swing setup, I’m using MSTR as the equity vehicle. TrendSpider has moved MSTR from Stage 1 into Stage 2, and its Bottom Catcher previously identified a valid signal around $166.97—near the price shown when I captured this research. That’s additional confirmation, but it doesn’t mean I’m going all in.\n\nI opened a small 10-share starter position at $160 because this move may continue without giving me the pullback I want. But $160 isn’t my ideal entry. The setup gets much more attractive to me around $144–$148. If we get that pullback and the Bitcoin thesis remains intact, that’s where I’ll reassess putting more capital behind the trade. My first target is $196. My stop is $123.\n\nThis is a little different from our normal Sector Gauge → ETF → stock process because crypto is effectively its own market and MSTR is being used as a Bitcoin proxy. The underlying framework is the same: find where the move is happening, find the vehicle, define the setup, risk and target. Then take the trade.",
+  "charts": [
+    {
+      "src": "/api/premium/chart/btc-2026-09-23",
+      "asOf": "2026-09-23",
+      "placement": "origin",
+      "source": "TradingView",
+      "width": 3266,
+      "height": 1752,
+      "caption": "Bitcoin’s daily chart shows the advance from the ~$57,000 area, controlled bull-flag consolidation and renewed breakout above ~$82,500. The $85,462 quote is the price at capture.",
+      "alt": "Bitcoin daily TradingView chart dated September 23, 2026, with green annotations around the advance and bull flag, and red resistance lines near $82,500, $90,000 and $98,000."
+    },
+    {
+      "src": "/api/premium/chart/mstr-trade-plan-2026-09-23",
+      "asOf": "2026-09-23",
+      "placement": "framework",
+      "source": "TradingView",
+      "width": 3266,
+      "height": 1752,
+      "caption": "MSTR trade plan: higher lows, a preferred $144–$148 reassessment area, $123 stop and $196 first target. The 10-share starter was established at $160.",
+      "alt": "MSTR daily TradingView chart with higher lows, a purple pullback framework, a $123 stop and $196 target. The preferred add zone is $144–$148; it is not a completed purchase."
+    },
+    {
+      "src": "/api/premium/chart/mstr-trendspider-2026-09-23",
+      "asOf": "2026-09-23",
+      "placement": "confirmation",
+      "source": "TrendSpider",
+      "width": 1600,
+      "height": 837,
+      "caption": "Stage 1-to-Stage 2 phase transition and a previously valid Bottom Catcher signal at $166.97, near the $167.33 quote at capture. These are research observations, not live prices or trade performance.",
+      "alt": "MSTR daily TrendSpider chart dated September 23, 2026, showing phase colors transitioning to dark green and the Bottom Catcher panel with BC Price $166.97 and capture price $167.33."
+    }
+  ]
+});
+
 export const opportunityUpdates:OpportunityUpdate[]=[{
  id:'opportunity-001-initial',opportunityId:'opportunity-001',publishedAt:'2026-09-16',publicationState:'published',
  tradeStatusBefore:null,tradeStatusAfter:'Active',technicalStage:'Stage 1 → Stage 2',trade:zsTrade,
@@ -97,6 +195,27 @@ opportunityUpdates.push({
 },{
  id:'opportunity-004-current',opportunityId:'opportunity-004',publishedAt:'2026-09-18',eventDate:'2026-09-18',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:nowTrade,
  title:'Current position and trade framework documented',explanation:'As of September 18, Justin owns 45 shares of NOW, with a $130 stop and $175 first target / initial lock-in zone. Accumulation began May 28. Average entry price is not supplied, and no intermediate purchase history is invented. The position remains Active; no additional targets or exit have been documented.'
+});
+
+opportunityUpdates.push({
+  "id": "opportunity-005-initial",
+  "opportunityId": "opportunity-005",
+  "publishedAt": "2026-09-23",
+  "eventDate": "2026-09-23",
+  "publicationState": "published",
+  "tradeStatusBefore": null,
+  "tradeStatusAfter": "Active",
+  "technicalStage": "Stage 2",
+  "trade": {
+    "enteredAt": "2026-09-23",
+    "entryPrice": 160,
+    "quantity": 10,
+    "stopPrice": 123,
+    "firstTargetPrice": 196,
+    "documentation": "Justin documented a 10-share MSTR starter position at $160 in his September 23, 2026 Opportunity brief. The annotated trade-plan chart establishes the $123 stop and $196 first target."
+  },
+  "title": "Initial MSTR position opened",
+  "explanation": "Justin opened an initial 10-share MSTR position at $160, approximately $1,600 of initial capital. The starter is intentionally small because the current entry is not the preferred reward/risk setup. The preferred add / reassessment zone is $144–$148, conditional on the Bitcoin/MSTR thesis remaining intact. Stop: $123. Target 1: $196. TrendSpider’s phase analysis has transitioned from Stage 1 into Stage 2, while Bottom Catcher previously identified a valid signal around $166.97. No additional purchase has been made at the preferred reassessment zone."
 });
 
 export const weeklyOutlooks:WeeklyOutlook[]=[{
