@@ -8,5 +8,5 @@ export const metadata=pageMetadata('Weekly Outlook','Justin’s market thesis, w
 export default async function Page(){
  await requirePremium();
  const outlooks=getPublishedWeeklyOutlooks();
- return <main id="main-content" className="container"><PremiumNavigation/>{outlooks[0]?<WeeklyOutlookResearch outlook={outlooks[0]}/>:<PremiumResearchHeader kind="Weekly Outlook" title="No published Weekly Outlook yet."/>}<WeeklyOutlookArchive outlooks={outlooks}/></main>;
+ return <main id="main-content" className="container"><PremiumNavigation/>{outlooks[0]?<WeeklyOutlookResearch outlook={outlooks[0]}/>:<PremiumResearchHeader kind="Weekly Outlook" title="No published Weekly Outlook yet."/>}<WeeklyOutlookArchive outlooks={outlooks.slice(1)}/></main>;
 }

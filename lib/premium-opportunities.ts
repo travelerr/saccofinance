@@ -318,6 +318,341 @@ export const weeklyOutlooks:WeeklyOutlook[]=[{
     }
   ]
 }];
+weeklyOutlooks.push({
+  "id": "weekly-outlook-002",
+  "slug": "market-strong-rate-hike-september-28-2026",
+  "title": "The Market Still Looks Strong. I Don’t Think the Rate Hike Has Hit Yet.",
+  "publishedAt": "2026-09-26",
+  "weekOf": "2026-09-28",
+  "weekEnd": "2026-10-02",
+  "perspectiveDate": "2026-09-26",
+  "publicationState": "published",
+  "summary": "Major indexes remain strong, but leadership is narrowing and I believe the full impact of higher rates may not yet be reflected in stock prices.",
+  "notificationSummary": "Leadership is narrowing while rates remain elevated. This week we're watching Micron, inflation, jobs, semiconductor strength, Zscaler's pullback and the improving Bitcoin/MSTR setup.",
+  "marketPosture": "Selective / Expecting higher volatility",
+  "read": "The market continues to look stronger than I would have expected given where interest rates are.\n\nThe Nasdaq is sitting near all-time highs. The S&P 500 is still holding its broader structure. And even after the Fed raised rates, we still haven’t seen the kind of widespread selloff you might expect when borrowing costs move higher.\n\nBut I don’t think that means the risk disappeared.\n\nI think there’s a decent chance we simply haven’t felt the full impact yet.\n\nHigher rates work through the economy slowly. Companies refinance debt. Consumers face higher borrowing costs. Valuations get harder to justify. And eventually some combination of that can start showing up in stock prices.\n\nThat’s why I’m becoming more selective here.\n\nI’m not bearish on the market.\n\nI’m not liquidating everything.\n\nBut I also don’t want to assume that because stocks survived the first week after the rate hike, they’re automatically going straight higher.\n\nThis week gives us several major tests: Micron, Core PCE and the jobs report.\n\nIf AI demand remains strong, inflation cooperates, and the labor market continues holding up, the market could continue absorbing higher rates.\n\nIf those pieces start moving the wrong direction at the same time, I think the odds of a pullback increase significantly.\n\nFor now, I’m staying invested — but I want better setups before I add a lot more risk.",
+  "marketContext": "Higher rates, elevated yields, inflation, corporate valuations and labor-market data are beginning to interact. I think the odds of a broader pullback are increasing, but the timing and outcome remain uncertain.\n\nMicron, inflation and the jobs report are this week’s major tests. Strong AI demand, improving inflation and a resilient labor market could help equities continue absorbing higher rates. Deterioration across those inputs would make me more cautious. I’m staying invested and preserving capital for better setups.",
+  "sectorFocus": "Leadership is narrowing. SPY gained +0.85% over the last week, and only three tracked groups outperformed it: semiconductors (SMH, +7.12%), cybersecurity (CIBR, +1.51%) and software (IGV, +1.30%).\n\nThe same three groups lead the one-month rankings: cybersecurity at +10.69%, semiconductors at +9.82% and software at +4.59%. These are the September 26 editorial snapshots for this issue; the full Sector Gauge carries the complete rankings.",
+  "sectorHeading": "Sector Gauge",
+  "sectorAreas": [
+    {
+      "classification": "Leading",
+      "area": "Semiconductors · Cybersecurity · Software"
+    },
+    {
+      "classification": "Investigating",
+      "area": "Semiconductors for new Stage 1 → Stage 2 setups"
+    },
+    {
+      "classification": "Cooling",
+      "area": "Shipping & Air Cargo"
+    },
+    {
+      "classification": "Watching",
+      "area": "Crypto / Bitcoin"
+    }
+  ],
+  "gamePlan": "This week, I'm not trying to force another trade.\n\nWe already have exposure.\n\nSemiconductors, cybersecurity and software are showing the strongest short-term leadership.\n\nCrypto is finally improving.\n\nShipping's short-term momentum just deteriorated dramatically.\n\nAnd the broader market still hasn't really reacted to higher rates.\n\nThat combination tells me to stay selective.\n\nI'm watching semiconductors for new Stage 1 → Stage 2 candidates.\n\nI'm continuing to manage the exposure we already have in software and cybersecurity.\n\nI'm giving MSTR room to develop while waiting for the better $144–$148 add zone.\n\nAnd I'm watching whether the market finally starts pricing in the consequences of higher borrowing costs.\n\nBecause I still think a pullback is coming.\n\nI just don't know whether it starts Monday, next month, or after stocks move another 5% higher first.\n\nAnd we don't need to predict the exact day.\n\nWe need to make sure we're positioned so that if it comes, we have capital available to take advantage of it.",
+  "opportunityIds": [
+    "opportunity-001",
+    "opportunity-004",
+    "opportunity-002",
+    "opportunity-003",
+    "opportunity-005"
+  ],
+  "sectorSnapshots": [
+    {
+      "name": "Semiconductors",
+      "ticker": "SMH",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 7.12,
+          "rank": 1
+        },
+        {
+          "period": "1M",
+          "returnPct": 9.82,
+          "rank": 2
+        },
+        {
+          "period": "3M",
+          "returnPct": -2.97,
+          "rank": 11
+        },
+        {
+          "period": "6M",
+          "returnPct": 52.19,
+          "rank": 2
+        },
+        {
+          "period": "9M",
+          "returnPct": 64.9,
+          "rank": 1
+        },
+        {
+          "period": "12M",
+          "returnPct": 87.6,
+          "rank": 1
+        }
+      ],
+      "commentary": "Semiconductors are the largest change in the rankings. Three-month weakness followed by a sharp return to short-term leadership makes the group particularly interesting for the Stage 1 → Stage 2 framework. I want to investigate individual holdings for potential setups. Micron earnings become especially important against that renewed leadership."
+    },
+    {
+      "name": "Cybersecurity",
+      "ticker": "CIBR",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 1.51,
+          "rank": 2
+        },
+        {
+          "period": "1M",
+          "returnPct": 10.69,
+          "rank": 1
+        },
+        {
+          "period": "3M",
+          "returnPct": 23.25,
+          "rank": 3
+        },
+        {
+          "period": "6M",
+          "returnPct": 64.02,
+          "rank": 1
+        },
+        {
+          "period": "9M",
+          "returnPct": 42.02,
+          "rank": 3
+        },
+        {
+          "period": "12M",
+          "returnPct": 37.03,
+          "rank": 7
+        }
+      ],
+      "commentary": "Persistent leadership across multiple timeframes supports the broader sector thesis behind ZS. Sector strength does not override company-specific problems; Zscaler still has to prove its own execution."
+    },
+    {
+      "name": "Software",
+      "ticker": "IGV",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 1.3,
+          "rank": 3
+        },
+        {
+          "period": "1M",
+          "returnPct": 4.59,
+          "rank": 3
+        },
+        {
+          "period": "3M",
+          "returnPct": 24.35,
+          "rank": 1
+        },
+        {
+          "period": "6M",
+          "returnPct": 32.6,
+          "rank": 3
+        },
+        {
+          "period": "9M",
+          "returnPct": -0.98,
+          "rank": 16
+        },
+        {
+          "period": "12M",
+          "returnPct": -6.99,
+          "rank": 21
+        }
+      ],
+      "commentary": "Recent leadership contrasts sharply with poor longer-term returns, making software an interesting rotation and recovery area. That supports the broader logic behind NOW. I’m comfortable maintaining existing exposure rather than adding several more software trades and overconcentrating."
+    },
+    {
+      "name": "Shipping & Air Cargo",
+      "ticker": "SEA",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": -4.29,
+          "rank": 22
+        },
+        {
+          "period": "1M",
+          "returnPct": -1.96,
+          "rank": 6
+        },
+        {
+          "period": "3M",
+          "returnPct": 17.78,
+          "rank": 4
+        },
+        {
+          "period": "6M",
+          "returnPct": 17.98,
+          "rank": 6
+        },
+        {
+          "period": "9M",
+          "returnPct": 38.01,
+          "rank": 4
+        },
+        {
+          "period": "12M",
+          "returnPct": 46.03,
+          "rank": 5
+        }
+      ],
+      "commentary": "Long-term leader experiencing sharp short-term deterioration. SEA fell 19 places to rank #22 over one week. Last week’s research into persistent shipping strength can continue, but this week’s data does not support blindly chasing the sector. This is why we evaluate multiple timeframes."
+    }
+  ],
+  "opportunityCommentary": [
+    {
+      "opportunityId": "opportunity-001",
+      "body": "ZS pulled back sharply following the Chief Revenue Officer transition. I was surprised by the magnitude of the reaction. My interpretation is that the market is particularly sensitive to revenue leadership when Zscaler is already guiding toward slower growth. I don’t currently believe the CRO change alone destroys the long-term thesis.\n\nOctober 6 Investor Day could provide the next major catalyst or clarification. I want management to address long-term growth, revenue execution, sales productivity and the financial outlook. The event does not guarantee a rally."
+    },
+    {
+      "opportunityId": "opportunity-004",
+      "body": "No material change. Software remains strong in the Sector Gauge, and I’m comfortable maintaining our existing exposure rather than adding several more software trades. Average cost has not been documented."
+    },
+    {
+      "opportunityId": "opportunity-002",
+      "body": "Space is not showing strong short-term Sector Gauge leadership, so I’m not using the rankings as support for RKLB this week. Google’s Project Suncatcher is a longer-term industry development worth watching: an early experiment testing TPU / AI compute hardware in orbit.\n\nIf orbital computing eventually becomes viable, it could create additional demand for launch capacity, satellite manufacturing, orbital power, communications and space infrastructure. The immediate experiment is small. I’m not pricing hypothetical future demand into Rocket Lab today."
+    },
+    {
+      "opportunityId": "opportunity-003",
+      "body": "SpaceX remains above the previous breakout level in this week’s research, but I’m not chasing it. The existing pullback, breakout and base-invalidation framework remains in place. Project Suncatcher creates another possible future use case for launch infrastructure; one prototype does not justify changing the framework. No position has been opened."
+    },
+    {
+      "opportunityId": "opportunity-005",
+      "body": "Bitcoin’s structure has improved substantially after its major drawdown. I opened a starter MSTR position to gain equity exposure to the Bitcoin swing thesis and have not committed my full intended capital. The preferred add / reassessment zone remains conditional on the thesis holding. Reaching it does not automatically add shares."
+    }
+  ],
+  "bitcoinScenario": {
+    "heading": "What if Bitcoin returns to $125,000?",
+    "bitcoinReference": 77288,
+    "bitcoinScenario": 125000,
+    "netBitcoinValuePerShare": 118.99,
+    "mnav": 1.1,
+    "displayRange": "~$210–$212",
+    "assumptions": [
+      "Bitcoin-per-share exposure remains approximately constant.",
+      "mNAV remains 1.10x.",
+      "No major dilution or capital-structure changes.",
+      "No major changes in Strategy’s Bitcoin holdings."
+    ],
+    "explanation": "This is a simplified constant-mNAV scenario using the research inputs supplied for this issue, not a live valuation. MSTR can trade at materially different mNAV multiples. Strategy can purchase more Bitcoin, issue securities, change its capital structure or experience company-specific price changes. The scenario does not replace the documented trade target."
+  },
+  "longTermRadar": [
+    {
+      "title": "Long-term accumulation philosophy",
+      "body": "I view Alphabet / Google, Microsoft, Amazon and Apple differently from short-term swing trades. My confidence in their staying power makes me comfortable treating large pullbacks as potential long-term accumulation opportunities. Meta can sometimes fit that category depending on valuation and setup. This is my investment philosophy, not a guarantee that these stocks rise over time."
+    },
+    {
+      "title": "Meta / Muse — radar only",
+      "body": "Muse has helped clarify Meta’s AI strategy for me. ChatGPT and Claude have substantial professional and productivity adoption; I see Muse as aimed more directly at a broad consumer audience through Meta’s enormous existing distribution.\n\nI’ve tried Muse and liked it, and I joined the waitlist for Muse Charm. But the stock has already made a significant move. I don’t want to chase it here. A meaningful pullback or a better entry setup would make me more interested again. There is no new Opportunity, entry, stop or target."
+    },
+    {
+      "title": "Google / Project Suncatcher",
+      "body": "Google remains a long-term holding / radar item. Project Suncatcher is an experimental attempt to test machine-learning compute hardware in orbit, including Google’s TPUs.\n\nI’m interested in the implications for Alphabet, SpaceX, Rocket Lab and the broader orbital-infrastructure ecosystem. A prototype test is an early-stage industry catalyst; it does not establish that orbital data centers are commercially viable or that revenue will increase materially."
+    }
+  ],
+  "events": [
+    {
+      "day": "Monday / September 28",
+      "title": "Jefferies · Vail Resorts",
+      "description": "Earnings are on the research calendar. Oura’s IPO remains a developing market story; this is not a confirmed Monday trading debut.",
+      "relevance": "Watch financial-market activity and consumer demand."
+    },
+    {
+      "day": "Tuesday / September 29",
+      "title": "OpenAI DevDay 2026",
+      "description": "Sam Altman’s opening keynote and the developer program.",
+      "relevance": "AI developer ecosystem, new tools and APIs, and possible downstream opportunities."
+    },
+    {
+      "day": "Tuesday / September 29",
+      "title": "NetApp INSIGHT begins",
+      "description": "Enterprise data and AI infrastructure are in focus.",
+      "relevance": "Watch storage demand and what customers need to deploy AI."
+    },
+    {
+      "day": "Wednesday / September 30",
+      "title": "Micron earnings",
+      "description": "One of the most important events of the week. I’ll be live with TrendSpider at 4:00 PM Eastern on YouTube to cover Micron earnings.",
+      "relevance": "AI memory, HBM and data-center demand are especially relevant as semiconductors return to short-term leadership."
+    },
+    {
+      "day": "Wednesday / September 30",
+      "title": "Core PCE / Personal Income & Outlays",
+      "description": "Inflation remains central to the higher-rate thesis.",
+      "relevance": "Is inflation moving enough to support a less restrictive future rate path? We’re watching the release, not predicting it."
+    },
+    {
+      "day": "Wednesday / September 30",
+      "title": "Oura IPO — expected / tentative",
+      "description": "Oura is expected to begin trading under OURA around this date. The exact debut date remains tentative.",
+      "relevance": "Watch demand for new listings; timing may change."
+    },
+    {
+      "day": "Thursday / October 1",
+      "title": "Accenture · Nike · McCormick",
+      "description": "Earnings across enterprise consulting and consumer businesses.",
+      "relevance": "Watch spending, demand and the effect of higher borrowing costs."
+    },
+    {
+      "day": "Thursday / October 1",
+      "title": "Project Suncatcher — tentative launch watch",
+      "description": "A prototype carrying Google AI / TPU hardware is expected to launch aboard a SpaceX Falcon 9. Treat the October 1 timing as tentative pending launch confirmation.",
+      "relevance": "An early experiment in orbital computing, with possible long-term implications for launch and satellite infrastructure."
+    },
+    {
+      "day": "Friday / October 2",
+      "title": "September jobs report",
+      "description": "Can the labor market continue absorbing higher borrowing costs?",
+      "relevance": "The report is a key test of economic resilience. No jobs number or consensus forecast is assumed."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Micron earnings announcement",
+      "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-to-Report-Fiscal-Fourth-Quarter-Results-on-September-30-2026/default.aspx"
+    },
+    {
+      "label": "BEA release schedule",
+      "url": "https://www.bea.gov/news/schedule"
+    },
+    {
+      "label": "BLS Employment Situation schedule",
+      "url": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "label": "Zscaler Investor Day",
+      "url": "https://ir.zscaler.com/news-releases/news-release-details/zscaler-host-investor-day-october-6"
+    },
+    {
+      "label": "Project Suncatcher research",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/google-project-suncatcher-facts/"
+    },
+    {
+      "label": "OpenAI DevDay",
+      "url": "https://devday.openai.com/"
+    },
+    {
+      "label": "NetApp INSIGHT",
+      "url": "https://www.netapp.com/insight/agenda/"
+    },
+    {
+      "label": "Meta Muse",
+      "url": "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/"
+    }
+  ]
+});
+
 export function getPublishedOpportunities(){return selectPublished(opportunities);}
 export function getPublishedOpportunity(slug:string){return selectOpportunity(slug,opportunities);}
 export function getOpportunityUpdates(id:string){return selectUpdates(id,opportunityUpdates);}
