@@ -1,3 +1,4 @@
+import AnalyticsProvider from '@/components/analytics/analytics-provider';
 import {localDevelopment} from '@/lib/local-development';
 import type React from "react";
 import "./globals.css";
@@ -115,7 +116,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{__html:themeBootstrap}}/></head>
-      <body className={`${display.variable} ${body.variable} brand`}><ThemeProvider>{localDevelopment()&&<div style={{background:"#ffd479",color:"#171717",padding:"8px 16px",textAlign:"center",fontSize:14,fontWeight:700}}>LOCAL TEST SITE · Fake accounts · No real payments or research emails</div>}<PremiumProductFrame publicHeader={<SiteHeader/>} publicFooter={<SiteFooter/>}>{children}</PremiumProductFrame></ThemeProvider></body>
+      <body className={`${display.variable} ${body.variable} brand`}><ThemeProvider>{localDevelopment()&&<div style={{background:"#ffd479",color:"#171717",padding:"8px 16px",textAlign:"center",fontSize:14,fontWeight:700}}>LOCAL TEST SITE · Fake accounts · No real payments or research emails</div>}<PremiumProductFrame publicHeader={<SiteHeader/>} publicFooter={<SiteFooter/>}>{children}</PremiumProductFrame><AnalyticsProvider/></ThemeProvider></body>
     </html>
   );
 }

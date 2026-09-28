@@ -1,3 +1,4 @@
+import {reportPurchase} from '@/lib/analytics/server';
 import {NextResponse} from 'next/server';
 import type Stripe from 'stripe';
 import {billingServices} from '@/lib/billing/server';
@@ -15,5 +16,6 @@ export async function POST(request:Request){
  let event:Stripe.Event;
  try{event=services.stripe.webhooks.constructEvent(body,signature,services.secrets.STRIPE_WEBHOOK_SECRET);}catch{return NextResponse.json({error:'Invalid signature'},{status:400});}
  if(handled.has(event.type)){try{await reconcileBillingEvent(event);if(event.type==='checkout.session.completed')await completeGuestCheckout((event.data.object as Stripe.Checkout.Session).id);}catch{console.error('Stripe webhook processing failed; event will be retried.',event.id);return NextResponse.json({error:'Processing failed'},{status:500});}}
+ if(event.type==='checkout.session.completed')await reportPurchase(event.data.object as Stripe.Checkout.Session,services.secrets.GA_MEASUREMENT_API_SECRET);
  return NextResponse.json({received:true},{headers:{'Cache-Control':'no-store'}});
 }

@@ -1,3 +1,4 @@
+import {checkoutAnalytics} from '@/lib/analytics/server';
 import 'server-only';
 import type {User} from '@supabase/supabase-js';
 import {billingServices,checkedPrice,priceId,authOrigin} from './server';
@@ -17,6 +18,7 @@ export async function portalUrl(userId:string,subscriptionId?:string){
 }
 export async function checkoutUrl(user:User,plan:BillingPlan){
  const {stripe,admin,mode}=await billingServices();await checkedPrice(stripe,plan);
+ const analytics=await checkoutAnalytics(user);
  if(user.is_anonymous){const {data,error}=await admin.from('billing_purchase_claims').select('claimed_user_id').eq('original_user_id',user.id).eq('mode',mode).not('claimed_user_id','is',null).maybeSingle();if(error)throw new Error('BILLING_DATABASE');if(data)throw new Error('GUEST_CLAIMED');}
  const owned=await ownedBillingCustomers(user.id);
  for(const customer of owned){
@@ -25,7 +27,7 @@ export async function checkoutUrl(user:User,plan:BillingPlan){
   if(subscriptions.data.some(s=>blocksNewSubscription(s.status)&&s.items.data.some(i=>[priceId('monthly'),priceId('annual')].includes(i.price.id))))return portalUrl(user.id);
   const open=await stripe.checkout.sessions.list({customer,status:'open',limit:100});
   if(open.has_more)throw new Error('BILLING_UNAVAILABLE');
-  const existing=open.data.find(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id);if(existing?.url)return existing.url;
+  const existing=open.data.find(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id);if(existing?.url){try{await stripe.checkout.sessions.update(existing.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}return existing.url;}
  }
  const {data:record,error}=await admin.rpc('reserve_premium_checkout',{p_user:user.id,p_mode:mode,p_plan:plan});
  if(error||!record)throw new Error('BILLING_DATABASE');
@@ -39,5 +41,8 @@ export async function checkoutUrl(user:User,plan:BillingPlan){
  const guest=user.is_anonymous===true;
  const metadata={sacco_user_id:user.id,...(guest?{guest_checkout:'true'}:{})};
  const session=await stripe.checkout.sessions.create({mode:'subscription',customer,client_reference_id:user.id,line_items:[{price:priceId(selected),quantity:1}],payment_method_types:['card'],allow_promotion_codes:false,metadata,subscription_data:{metadata},success_url:authOrigin()+(guest?'/premium/welcome?session_id={CHECKOUT_SESSION_ID}':'/premium/account?checkout=success'),cancel_url:authOrigin()+(guest?'/premium/join?checkout=canceled':'/premium/account?checkout=canceled')},{idempotencyKey:`sacco-checkout-${mode}-${record.checkout_token}`});
- if(!session.url)throw new Error('BILLING_UNAVAILABLE');return session.url;
+ if(!session.url)throw new Error('BILLING_UNAVAILABLE');
+ // Keep optional telemetry out of Stripe's idempotent create payload.
+ try{await stripe.checkout.sessions.update(session.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}
+ return session.url;
 }

@@ -4,7 +4,9 @@ export function renderResearchEmail(event:ResearchEvent,origin:string,unsubscrib
  const base=new URL(origin);
  if(!['http:','https:'].includes(base.protocol)||base.username||base.password)throw new Error('INVALID_ORIGIN');
  if(!/^\/premium\/[a-z0-9/#-]+$/.test(event.path))throw new Error('INVALID_RESEARCH_PATH');
- const url=new URL(event.path,base.origin).href;
+ const destination=new URL(event.path,base.origin);
+ destination.searchParams.set('utm_source','newsletter');destination.searchParams.set('utm_medium','email');destination.searchParams.set('utm_campaign',event.entityId);destination.searchParams.set('utm_content',event.type.toLowerCase());
+ const url=destination.href;
  const preferences=new URL('/premium/account#research-notifications',base.origin).href;
  if(unsubscribe){const link=new URL(unsubscribe);if(link.origin!==base.origin||link.pathname!=='/email/unsubscribe'||!/^\w{64}$/.test(link.searchParams.get('token')||''))throw new Error('INVALID_UNSUBSCRIBE_URL');}
  const text=['SACCO PREMIUM',event.label,event.headline,...event.details,event.summary,event.cta+': '+url,'Manage Email Preferences: '+preferences,unsubscribe?'Unsubscribe: '+unsubscribe:'','You opted into Premium research notifications. Turn these off in your Account. Account and billing emails are unaffected.'].filter(Boolean).join('\n\n');

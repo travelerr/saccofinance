@@ -13,7 +13,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{error?:
  {billingMode()==='test'&&<p className="premium-auth-message">Sandbox checkout. Test payments only; no real charges.</p>}
  {params.error&&<p role="alert" className="premium-auth-message">{errors[params.error]||errors.billing}</p>}
  {params.checkout==='canceled'&&<p>Payment wasn’t completed. You can return to checkout below.</p>}
- <form action={beginCheckout} className="premium-auth-form">
+ <form data-analytics-form="checkout" action={beginCheckout} className="premium-auth-form">
  <label>Membership<select name="plan" defaultValue={params.plan==='annual'?'annual':'monthly'}><option value="monthly">Monthly — $10 / month</option><option value="annual">Annual — $100 / year (save $20)</option></select></label>
  <label><span><input type="checkbox" name="terms" required style={{width:'auto'}}/> I agree to the <Link href="/terms">Terms</Link> and <Link href="/privacy">Privacy Policy</Link>.</span></label>
  <Submit>Continue to secure checkout</Submit>

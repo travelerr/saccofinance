@@ -1,4 +1,5 @@
 'use server';
+import {reportMemberMilestone} from '@/lib/analytics/server';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {assertResearchInfrastructure} from '@/lib/email/policy';
 export type PreferenceResult={status:'idle'|'saved'|'error';message:string};
@@ -11,6 +12,7 @@ export async function saveResearchPreference(_previous:PreferenceResult,form:For
   const enabled=form.get('enabled')==='on';
   const {error}=await client.from('research_email_preferences').upsert({user_id:user.id,enabled,updated_at:new Date().toISOString()});
   if(error)return {status:'error',message:'We couldn’t save your preference. Please try again.'};
+  await reportMemberMilestone(user,'notification_preference_saved',enabled);
   return {status:'saved',message:`Email preference saved. Research notifications are ${enabled?'ON':'OFF'}.`};
  }catch{
   return {status:'error',message:'Email preferences are temporarily unavailable. Please try again.'};

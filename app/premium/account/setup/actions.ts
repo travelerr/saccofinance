@@ -1,4 +1,5 @@
 'use server';
+import {reportMemberMilestone} from '@/lib/analytics/server';
 import {redirect} from 'next/navigation';
 import {saveSignupResearchPreference} from '@/lib/email/signup-preference';
 import {premiumAccess} from '@/lib/premium-access';
@@ -27,6 +28,7 @@ export async function savePurchaseLogin(form:FormData){
  try{
   const {claimPurchase}=await import('@/lib/billing/purchases');await claimPurchase(purchaseId,data.user.id);
  }catch{redirect('/premium/account/setup?error=claim');}
+ await reportMemberMilestone(data.user,'account_claimed');
  let preferenceFailed=false;
  try{await saveSignupResearchPreference(client,data.user,form.get('research_notifications')==='on',form.get('research_offered')==='1');}catch{preferenceFailed=true;}
  redirect(new URL('/premium/set-password'+(preferenceFailed?'?research=failed':''),authOrigin()).toString());

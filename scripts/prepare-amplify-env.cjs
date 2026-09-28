@@ -7,6 +7,9 @@ const values=keys.map(key=>{
  if(!value || /[\r\n]/.test(value))throw new Error(`Missing or invalid Amplify environment variable: ${key}`);
  return [key,value];
 });
+const analyticsEnabled=process.env.GA_ANALYTICS_ENABLED||'false';
+if(!['true','false'].includes(analyticsEnabled))throw new Error('Invalid GA_ANALYTICS_ENABLED');
+values.push(['GA_ANALYTICS_ENABLED',analyticsEnabled]);
 const env=Object.fromEntries(values);
 const site=new URL(env.AUTH_SITE_URL);
 if(site.protocol!=='https:' || site.origin!=='https://saccofinancial.com')throw new Error('AUTH_SITE_URL must be https://saccofinancial.com for production');

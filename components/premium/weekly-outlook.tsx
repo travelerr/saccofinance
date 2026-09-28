@@ -19,6 +19,7 @@ export default function WeeklyOutlookResearch({outlook}:{outlook:WeeklyOutlook})
  const scenario=outlook.bitcoinScenario;
  const scenarioNet=scenario?scenario.netBitcoinValuePerShare*(scenario.bitcoinScenario/scenario.bitcoinReference):0;
  return <>
+ <span hidden data-research-id={outlook.id} data-research-type="weekly_outlook"/>
  <PremiumResearchHeader kind="Weekly Outlook" identifier={`Issue ${researchNumber(outlook.id)}`} title={outlook.title} metadata={[{label:'Week',value:`${premiumDate(outlook.weekOf)}${outlook.weekEnd?` – ${premiumDate(outlook.weekEnd)}`:''}`},{label:'Published',value:premiumDate(outlook.publishedAt)}]}/>
  {outlook.marketPosture&&<div className="outlook-posture"><Eyebrow>Market posture</Eyebrow><p>{outlook.marketPosture}</p></div>}
  <section className="section"><SectionHeader label="01" title="The Read"/><Prose text={outlook.read||outlook.summary||outlook.marketContext}/></section>

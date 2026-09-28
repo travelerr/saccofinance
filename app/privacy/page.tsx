@@ -73,8 +73,10 @@ export default function Page() {
         Sacco Financial may use cookies and similar technologies necessary to operate the website, maintain sessions, remember preferences, understand website usage, and support functionality.
       </p>
       <p>
-        Additional analytics or advertising technologies may be introduced in the future. This Privacy Policy may be updated as Sacco Financial’s technology and services evolve.
+        With your permission, we use Google Analytics to understand traffic sources, important website actions, research engagement, and subscription conversions. We send selected usage information and may use a pseudonymous account identifier; we do not intentionally send your name, email address, password, or payment-card details to Google Analytics. Advertising personalization is disabled.
       </p>
+
+      <p>You can allow or decline optional analytics and change your choice using Analytics preferences. Declining does not affect membership access or email notification preferences. We honor Global Privacy Control by disabling optional analytics. Withdrawing permission stops future analytics collection in this browser; it does not automatically delete previously collected data.</p>
 
       <h2>Service Providers</h2>
       <p>

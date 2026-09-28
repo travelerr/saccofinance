@@ -62,7 +62,7 @@ test('Issue 002 email is prepared once with its own copy and existing stable dup
  const events=researchEvents(data.weeklyOutlooks,data.opportunities,data.opportunityUpdates).filter(e=>e.entityId==='weekly-outlook-002');assert.equal(events.length,1);
  const event=events[0];assert.equal(event.key,'WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-002');assert.equal(event.subject,'New Weekly Outlook: '+data.getLatestWeeklyOutlook().title);
  assert.equal(event.cta,'READ THE WEEKLY OUTLOOK');assert.equal(event.path,'/premium/issue-002');assert.equal(event.summary,data.getLatestWeeklyOutlook().notificationSummary);
- const email=renderResearchEmail(event,'https://saccofinancial.com');assert.equal(email.url,'https://saccofinancial.com/premium/issue-002');assert.match(email.text,/Leadership is narrowing while rates remain elevated/);
+ const email=renderResearchEmail(event,'https://saccofinancial.com');assert.equal(new URL(email.url).origin+new URL(email.url).pathname,'https://saccofinancial.com/premium/issue-002');assert.equal(new URL(email.url).searchParams.get('utm_campaign'),'weekly-outlook-002');assert.match(email.text,/Leadership is narrowing while rates remain elevated/);
 });
 
 test('Issue 002 uses the existing member shell and active Weekly Outlook navigation',()=>{

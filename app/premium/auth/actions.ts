@@ -1,4 +1,5 @@
 'use server';
+import {reportMemberMilestone} from '@/lib/analytics/server';
 import {billingEnabled} from '@/lib/billing/model';
 import {redirect} from 'next/navigation';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
@@ -9,8 +10,9 @@ export async function login(form:FormData){
  const client=await createSupabaseServerClient();
  const next=safePremiumReturn(field(form,'next'));
  if(!client) redirect('/premium/login?error=unavailable');
- const {error}=await client.auth.signInWithPassword({email:field(form,'email').trim(),password:field(form,'password')});
+ const {data,error}=await client.auth.signInWithPassword({email:field(form,'email').trim(),password:field(form,'password')});
  if(error) redirect('/premium/login?error=invalid&next='+encodeURIComponent(next));
+ if(data.user)await reportMemberMilestone(data.user,'login');
  if(billingEnabled()){const {data:{user}}=await client.auth.getUser();if(user){try{await claimVerifiedPurchases(user.id);}catch{redirect('/premium/account/setup?error=claim');}}}
  redirect(next);
 }
@@ -66,6 +68,7 @@ export async function completeEmailSignIn(form:FormData){
  const client=await createSupabaseServerClient();if(!client)redirect('/premium/login?error=unavailable');
  const {data,error}=await client.auth.verifyOtp({token_hash:token,type:'email'});
  if(error||!data.user)redirect('/premium/login?error=expired');
+ await reportMemberMilestone(data.user,'login');
  if(billingEnabled()){try{await claimVerifiedPurchases(data.user.id);}catch{redirect('/premium/account/setup?error=claim');}}
  redirect('/premium/dashboard');
 }
