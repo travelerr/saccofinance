@@ -2,19 +2,20 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
+export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
  | {tradeStatus:'Active';trade:TradeEntry}
  | {tradeStatus:'Closed';trade:TradeEntry & TradeExit};
 export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation';source?:string};
+export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'};
 export type Opportunity={
  id:string;slug:string;ticker:string;company:string;title:string;
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
- originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ positionOrigin?:'Legacy';strategy?:'Wheel Strategy';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
  setupRange?:string;nextAreaToWatch?:string;riskInvalidation?:string;targets?:string[];catalysts?:string[];
@@ -22,7 +23,7 @@ export type Opportunity={
 } & OpportunityLifecycle;
 export type OpportunityUpdate={
  id:string;opportunityId:string;publishedAt:string;publicationState:PublicationState;
- notification?:{subject:string;headline:string;summary:string;cta:string};eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
+ suppressNotification?:boolean;notification?:{subject:string;headline:string;summary:string;cta:string};eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
 } & ({tradeStatusAfter:Exclude<OpportunityStatus,'Active'|'Closed'>;trade?:never}
  | {tradeStatusAfter:'Active';trade:TradeEntry}
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});

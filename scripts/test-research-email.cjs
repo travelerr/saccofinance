@@ -34,7 +34,7 @@ test('all three templates use canonical published content and authenticated rout
  assert.ok(email.html.includes(event.cta));assert.ok(email.text.includes(event.summary));assert.ok(email.url.startsWith('https://saccofinancial.com/premium/'));assert.ok(email.preferences.endsWith('/premium/account#research-notifications'));
  assert.match(email.html,/max-width:600px/);assert.match(email.html,/width=device-width/);
  }
- assert.equal(events.find(e=>e.type==='WEEKLY_OUTLOOK_PUBLISHED').path,'/premium/issue-001');
+ assert.equal(events.find(e=>e.key==='WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-001').path,'/premium/issue-001');
  const noStage=events.find(e=>e.entityId==='opportunity-002'&&e.type==='OPPORTUNITY_PUBLISHED');assert.deepEqual(noStage.details,['Active']);
  const sample=renderResearchEmail({...events[0],headline:'<script>alert("x")</script>',summary:''},'http://localhost:3000');assert.ok(!sample.html.includes('<script>'));assert.ok(!sample.text.includes('undefined'));assert.ok(!sample.text.includes('Target:'));
  assert.equal(researchEvents(records.weeklyOutlooks.map(o=>({...o,publicationState:'draft'})),[],[]).length,0);
@@ -75,4 +75,11 @@ test('server administrator guard rejects unauthorized authenticated sessions',as
  const {requireResearchAdmin}=require('../lib/email/admin.ts');
  for(const user of [null,{...member,id:'22222222-2222-4222-8222-222222222222'},{...member,email_confirmed_at:null}]){authUser=user;await assert.rejects(requireResearchAdmin(),/ADMIN_REQUIRED/);}
  authUser=member;assert.equal((await requireResearchAdmin()).id,id);
+});
+
+test('notification picker sorts publication dates newest first without redating original opportunities',()=>{
+ assert.equal(events[0].updateId,'opportunity-004-closed-2026-09-28');
+ for(let i=1;i<events.length;i++)assert.ok(Date.parse(events[i-1].publishedAt)>=Date.parse(events[i].publishedAt));
+ const original=events.find(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-004');assert.equal(original.publishedAt,'2026-09-18');
+ const keys=events.map(e=>e.key);assert.equal(new Set(keys).size,keys.length);
 });

@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS remains unchanged and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,5);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
+ assert.equal(data.opportunities.length,6);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Active');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190,160,230]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,5);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,5);
+ assert.equal(d.getPublishedOpportunities().length,6);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,6);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Active');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,55,85]);
@@ -120,4 +120,14 @@ test('NOW closes with verified gross results, preserves history and prepares a u
  for(const other of d.opportunities.filter(x=>x.id!==o.id))assert.equal(m.realizedTradeResult(other),null);
  const closed={...o,trade:{...o.trade,exitPrice:100}};assert.equal(m.realizedTradeResult(closed).realizedDollarPnL,-855);
  assert.equal(m.realizedTradeResult({...o,trade:{...o.trade,entryPrice:undefined}}),null);
+});
+
+test('IONQ is a legacy wheel with distinct broker basis, open credits and no launch notification',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('ionq-006');
+ assert.equal(d.opportunities.filter(x=>x.ticker==='IONQ').length,1);assert.equal(o.id,'opportunity-006');assert.equal(o.tradeStatus,'Active');assert.equal(o.positionOrigin,'Legacy');assert.equal(o.strategy,'Wheel Strategy');assert.equal(o.technicalStage,null);
+ assert.equal(o.publishedAt,'2026-09-28');assert.equal(o.trade.entryPrice,45);assert.equal(o.trade.quantity,100);assert.equal(o.trade.entryType,'put-assignment');assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.firstTargetPrice,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.deepEqual(o.wheel.fills.map(f=>[f.filledAt,f.optionType,f.strike,f.expiresAt,f.premiumPerShare,f.outcome]),[['2026-06-22','Put',45,'2026-07-17',1.1,'Assigned'],['2026-07-30','Call',45,'2026-08-28',1.45,'Not verified'],['2026-09-08','Call',50,'2026-10-09',2,'Open']]);
+ assert.equal(o.wheel.fills.reduce((sum,f)=>sum+Math.round(f.premiumPerShare*100)*f.contracts*f.multiplier,0)/100,455);assert.equal(o.wheel.fills.find(f=>f.id===o.wheel.currentCallId).outcome,'Open');assert.ok(m.isCurrentOpportunity(o));
+ const {researchEvents}=require('../lib/email/events.ts');assert.equal(researchEvents([],d.opportunities,d.opportunityUpdates).some(e=>e.entityId===o.id),false);
+ const future={...d.getOpportunityUpdates(o.id)[0],id:'test-future-management',suppressNotification:false};assert.ok(researchEvents([],[o],[future]).some(e=>e.updateId===future.id));
 });

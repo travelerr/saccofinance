@@ -180,12 +180,123 @@ opportunities.push({
   ]
 });
 
+opportunities.push({
+  "id": "opportunity-006",
+  "slug": "ionq-006",
+  "ticker": "IONQ",
+  "company": "IonQ",
+  "title": "IONQ / A long-term quantum thesis. An existing wheel.",
+  "publicationState": "published",
+  "publishedAt": "2026-09-28",
+  "updatedAt": "2026-09-28",
+  "positionOrigin": "Legacy",
+  "strategy": "Wheel Strategy",
+  "tradeStatus": "Active",
+  "technicalStage": null,
+  "trade": {
+    "enteredAt": "2026-06-22",
+    "entryType": "put-assignment",
+    "entryPrice": 45,
+    "quantity": 100,
+    "documentation": "Justin’s supplied September 28 brief documents an existing 100-share position from put assignment at a $45 broker share basis. June 22 is the first documented put sale and start of the wheel, not an inferred share-assignment date. The exact assignment date is not supplied. Premium is kept separate from broker basis."
+  },
+  "sector": "Quantum Computing",
+  "summary": "An existing pre-launch position: 100 IONQ shares at a $45 broker share basis, with one $50 covered call expiring October 9, 2026. Follow Justin’s management from this point forward.",
+  "nextStepSummary": "Monitor the October 9 $50 covered call. If shares are called away, reassess potentially restarting the wheel with cash-secured puts. No new put has been opened.",
+  "whySurfaced": "This position was established before Sacco Premium launched. It was not originally published as a Premium trade. I’m adding it now so members can follow how I manage it going forward.\n\nThe historical fills provide context, not a claim that Premium identified the original entry. June 22 marks the documented put sale; the exact share-assignment date is not supplied.",
+  "setupThesis": "I’m very bullish on quantum computing over approximately the next five years. My working view is that quantum could become the next major technology investment cycle after AI. I currently view IonQ as the strongest pure-play quantum name and the company in this space I’m most comfortable owning. That is my opinion, not an objective industry ranking.\n\nThis is an ownership and options-management strategy, not a Stage 1 → Stage 2 swing trade. I’m comfortable with substantial volatility, but the long horizon does not eliminate the risk of loss.",
+  "nextCondition": "Manage the existing 100 shares and the open October 9, 2026 $50 covered call. If the shares are called away at $50, the stock-price gain relative to the $45 broker share basis would be $500, before any fees or taxes. That is a conditional stock-only result, not current realized profit or total wheel performance.\n\nAfter any assignment, I would reassess the stock and potentially sell another cash-secured put. No future strike, expiration, premium or new position has been established.",
+  "fundamentalCase": "The attraction is my multi-year quantum-computing thesis and willingness to own IonQ while that theme develops. I want to generate option premium while holding a company I already want exposure to. This is a personal conviction, not proof of fair value or a guarantee that quantum commercialization will succeed. The business still has to execute and justify that conviction.",
+  "wheel": {
+    "fills": [
+      {
+        "id": "ionq-put-june22",
+        "filledAt": "2026-06-22",
+        "action": "Sell to open",
+        "contracts": 1,
+        "optionType": "Put",
+        "strike": 45,
+        "expiresAt": "2026-07-17",
+        "premiumPerShare": 1.1,
+        "multiplier": 100,
+        "outcome": "Assigned"
+      },
+      {
+        "id": "ionq-call-july30",
+        "filledAt": "2026-07-30",
+        "action": "Sell to open",
+        "contracts": 1,
+        "optionType": "Call",
+        "strike": 45,
+        "expiresAt": "2026-08-28",
+        "premiumPerShare": 1.45,
+        "multiplier": 100,
+        "outcome": "Not verified"
+      },
+      {
+        "id": "ionq-call-september8",
+        "filledAt": "2026-09-08",
+        "action": "Sell to open",
+        "contracts": 1,
+        "optionType": "Call",
+        "strike": 50,
+        "expiresAt": "2026-10-09",
+        "premiumPerShare": 2,
+        "multiplier": 100,
+        "outcome": "Open"
+      }
+    ],
+    "currentCallId": "ionq-call-september8",
+    "ownershipFramework": "Below approximately $40: I become especially interested and may view the stock as undervalued.\n\nApproximately $40–$45: an ownership range I’m comfortable with.\n\nAbove approximately $45: I’m more willing to actively manage the position and allow shares to be called away at attractive strikes.\n\nThese are my personal valuation/trading zones, not objective fair values or a formal valuation model.",
+    "process": "1. Sell cash-secured puts at prices where I’m comfortable owning the stock.\n2. Receive option premium.\n3. If assigned, accept 100 shares per contract.\n4. While holding shares, sell covered calls and receive additional premium.\n5. If shares are called away, determine the stock result and applicable option economics from the completed records.\n6. Reassess and potentially begin selling puts again.\n\nThere is no conventional price target or documented stop for this position. The $50 strike is an assignment term, not a standard price target. The wheel does not remove downside risk."
+  },
+  "primaryRisks": [
+    {
+      "title": "Stock downside and volatility",
+      "explanation": "IONQ could fall materially below the $45 share basis. Quantum stocks can be extremely volatile, and option premiums may fail to offset stock losses. This is not a low-risk strategy."
+    },
+    {
+      "title": "Commercialization, execution and financing",
+      "explanation": "Quantum commercialization may take longer than expected. Company fundamentals could deteriorate, execution could disappoint, or financing needs could impair the investment thesis."
+    },
+    {
+      "title": "Limited upside and opportunity cost",
+      "explanation": "Covered calls cap upside while open. Shares can be called away during a large rally, and the strategy may underperform simply holding the stock or other investments."
+    },
+    {
+      "title": "Assignment during severe downside",
+      "explanation": "Selling puts can require buying shares during a sharp decline. Being comfortable owning the company does not protect against further losses."
+    }
+  ],
+  "thesisChanges": "Stronger execution and evidence of progress toward quantum commercialization would support my long-term conviction. Deteriorating fundamentals, delays, financing pressure or an unfavorable risk/reward balance would require reassessment.\n\nFuture assignments, rolls and new option fills will be documented when they actually occur. No option outcome is inferred solely because an expiration date has passed.",
+  "justinsTake": "IonQ is a little different from most of the trades on this board.\n\nI didn't start this position through Sacco Premium. I was already running the Wheel Strategy on IONQ before Premium launched, so I don't want to pretend this was a trade we called ahead of time.\n\nBut I do want members to be able to follow how I manage it from here.\n\nI'm very bullish on quantum computing over the next five years. My view is that quantum has the potential to become the next major technology boom after AI, and right now IonQ is the pure-play quantum company I'm most comfortable owning.\n\nMy personal framework is that below roughly $40 I become especially interested, and somewhere around $40–$45 I'm comfortable owning the shares.\n\nAbove that, I'm perfectly willing to manage the position more aggressively.\n\nThe original position started by selling a $45 put. I was assigned and now own 100 shares with a $45 broker cost basis.\n\nSince then I've been selling covered calls against the shares.\n\nRight now I have a $50 covered call expiring October 9.\n\nIf the shares get called away at $50, that's fine with me.\n\nFrom the share position alone, that would lock in $500 between the $45 basis and $50 strike, and we've also been collecting option premium along the way.\n\nOnce we have the full completed trade history, we'll calculate the exact total result.\n\nIf the shares get called away, my likely next step is to begin looking for another put to sell and start the wheel again.\n\nThe reason I like using this strategy on IonQ is simple:\n\nI already want to own the stock.\n\nQuantum is a multi-year thesis for me.\n\nSo instead of simply sitting on the shares through every up and down, I'm trying to generate income while we wait for that longer-term thesis to play out."
+});
+
 export const opportunityUpdates:OpportunityUpdate[]=[{
  id:'opportunity-001-initial',opportunityId:'opportunity-001',publishedAt:'2026-09-16',publicationState:'published',
  tradeStatusBefore:null,tradeStatusAfter:'Active',technicalStage:'Stage 1 → Stage 2',trade:zsTrade,
  title:'Initial position opened / Opportunity added',
  explanation:'Justin entered his initial ZS position at $190 as the stock began pushing through the multi-month ~$190 resistance area. The next confirmation is sustained price action above the breakout area with continued improvement in the 30-week moving average and overall structure.'
 }];
+opportunityUpdates.push({
+  "id": "opportunity-006-legacy-added",
+  "opportunityId": "opportunity-006",
+  "publishedAt": "2026-09-28",
+  "publicationState": "published",
+  "tradeStatusBefore": null,
+  "tradeStatusAfter": "Active",
+  "trade": {
+    "enteredAt": "2026-06-22",
+    "entryType": "put-assignment",
+    "entryPrice": 45,
+    "quantity": 100,
+    "documentation": "Justin’s supplied September 28 brief documents an existing 100-share position from put assignment at a $45 broker share basis. June 22 is the first documented put sale and start of the wheel, not an inferred share-assignment date. The exact assignment date is not supplied. Premium is kept separate from broker basis."
+  },
+  "suppressNotification": true,
+  "title": "Legacy wheel position added for transparency",
+  "explanation": "This position predates Sacco Premium and was not originally published as a Premium trade. Justin documents 100 shares at a $45 broker share basis and an open October 9 $50 covered call. Historical filled orders are included as context; only subsequent management decisions should be treated as live Premium updates. This archive addition is not a new entry today."
+});
+
 opportunityUpdates.push({...{"id": "opportunity-004-closed-2026-09-28", "opportunityId": "opportunity-004", "publishedAt": "2026-09-28", "eventDate": "2026-09-28", "publicationState": "published", "tradeStatusBefore": "Active", "tradeStatusAfter": "Closed", "title": "ServiceNow Position Closed — +9.9%", "explanation": "My ServiceNow stop was triggered this morning,closing all 45 shares at $130.79.\n\nMy average cost was $119, which gives this trade a realized gain of approximately 9.9%, or $530.55, before any fees or taxes.\n\nWe didn't reach the original $175 target.\n\nThe stock pulled back into the stop we had already established, so the trade is closed.\n\nThat's exactly why I want the risk defined before we enter a position. The goal isn't to force every trade to reach its target. When the setup changes, we follow the plan.\n\nI still really like ServiceNow as a company.\n\nThis isn't a stock I'm walking away from permanently.\n\nWe're seeing another pullback now, and I plan to keep watching NOW closely for another setup and a potential re-entry.\n\nClosing this position also frees up some capital at a time when I'm becoming more cautious about the broader market.\n\nTreasury yields remain elevated, interest rates are higher, and oil prices remain another potential source of inflation pressure.\n\nIf those forces begin putting more pressure on stocks, having additional cash available gives us more flexibility to reposition into better setups rather than forcing ourselves to stay fully invested.\n\nSo this specific NOW trade is finished.\n\nBut ServiceNow remains firmly on my radar.\n\nIf another setup develops, we'll treat that as a new Opportunity and build the trade again from scratch.", "notification": {"subject": "Opportunity Update: ServiceNow Position Closed +9.9%", "headline": "SERVICENOW POSITION CLOSED", "summary": "My NOW stop was triggered this morning, closing all 45 shares at $130.79.\n\nAverage cost: $119.00\nRealized return: +9.9%\nRealized profit: +$530.55\n\nThese are the results of my NOW trade before any fees or taxes, not subscriber returns.\n\nThe trade did not reach my $175 target, but the stop protected the gain already built into the position.\n\nI’m continuing to watch ServiceNow for another setup and potential re-entry.\n\nClosing the position also frees up capital while I remain cautious about elevated Treasury yields, higher rates and oil/inflation pressure.", "cta": "VIEW THE FULL UPDATE"}},trade:nowClosedTrade});
 
 opportunityUpdates.push({

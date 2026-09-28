@@ -23,3 +23,14 @@
 .premium-account .section>.property-grid+p{margin-top:24px}
 .premium-dashboard .section>p+.text-link{margin-top:24px}
 @media(max-width:600px){.premium-auth-body{gap:24px;margin-bottom:48px}}
+
+/* Account research notifications: distinct admin action, opt-in and save steps. */
+.premium-account .research-preferences>h2{margin-bottom:24px}
+.premium-account .research-preferences .research-preferences-admin{margin:28px 0 32px}
+.research-preferences-admin .button{min-height:52px;padding:18px 24px;line-height:1.5;text-align:center;white-space:normal}
+.research-preference-form{display:flex;flex-direction:column;align-items:flex-start;gap:24px;margin-top:28px;max-width:720px}
+.research-preference-form>label{display:flex;align-items:flex-start;gap:12px;line-height:1.7;cursor:pointer}
+.research-preference-form input[type=checkbox]{width:18px;height:18px;flex-shrink:0;margin-top:5px;accent-color:var(--brand-cyan)}
+.research-preference-form>p{margin:0;line-height:1.8}
+.research-preference-form>.button{margin-top:4px;cursor:pointer}
+@media(max-width:600px){.research-preferences-admin .button{width:100%;box-sizing:border-box}.research-preference-form{gap:22px}}
