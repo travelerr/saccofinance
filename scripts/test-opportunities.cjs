@@ -59,11 +59,11 @@ test('the three backfilled records preserve explicit trade facts and omit unavai
  assert.equal(r.trade.quantity,undefined);assert.equal(r.targets,undefined);assert.equal(r.trade.exitedAt,undefined);
  assert.equal(r.researchPublishedAt,'2026-09-13');assert.equal(r.addedToArchiveAt,'2026-09-18');
  const n=d.getPublishedOpportunity('servicenow-004');
- assert.equal(n.id,'opportunity-004');assert.equal(n.tradeStatus,'Active');assert.equal(n.technicalStage,null);
+ assert.equal(n.id,'opportunity-004');assert.equal(n.tradeStatus,'Closed');assert.equal(n.technicalStage,null);
  assert.deepEqual([n.trade.enteredAt,n.trade.quantity,n.trade.stopPrice,n.trade.firstTargetPrice],['2026-05-28',45,130,175]);
- assert.equal(n.trade.entryPrice,undefined);assert.equal(n.trade.entryType,'accumulation');assert.equal(n.targets,undefined);
- const nu=d.getOpportunityUpdates(n.id);assert.equal(nu.length,2);
- assert.deepEqual(nu.map(u=>u.eventDate),['2026-05-28','2026-09-18']);
+ assert.equal(n.trade.entryPrice,119);assert.equal(n.trade.entryType,'accumulation');assert.equal(n.targets,undefined);
+ const nu=d.getOpportunityUpdates(n.id);assert.equal(nu.length,3);
+ assert.deepEqual(nu.map(u=>u.eventDate),['2026-05-28','2026-09-18','2026-09-28']);
  for(const key of ['quantity','entryPrice','stopPrice','firstTargetPrice'])assert.equal(nu[0].trade[key],undefined);
  assert.equal(nu[1].trade.quantity,45);
  assert.deepEqual(d.getOpportunityUpdates(r.id).map(u=>u.eventDate),['2026-09-04']);
@@ -106,5 +106,18 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,1);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,o.id);
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-004');
+});
+
+test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('servicenow-004');
+ assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.exitPrice,130.79);assert.equal(o.trade.exitedAt,'2026-09-28');assert.equal(o.trade.exitTime,'9:11:43 AM');assert.equal(o.trade.exitReason,'Stop triggered');
+ const result=m.realizedTradeResult(o);assert.equal(result.costBasis,5355);assert.equal(result.saleProceeds,5885.55);assert.equal(result.realizedDollarPnL,530.55);assert.equal(result.realizedPercentReturn.toFixed(1),'9.9');
+ assert.equal(m.isCurrentOpportunity(o),false);assert.equal(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed')[0].id,o.id);
+ assert.equal(d.getOpportunityUpdates(o.id)[1].trade.entryPrice,undefined);assert.equal(o.originalResearchAt,'2026-09-18');assert.equal(o.followUp,'Watching for re-entry');
+ const events=require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates);const event=events.find(e=>e.updateId==='opportunity-004-closed-2026-09-28');
+ assert.equal(event.subject,'Opportunity Update: ServiceNow Position Closed +9.9%');assert.equal(event.type,'OPPORTUNITY_MATERIAL_UPDATE');assert.equal(event.path,'/premium/opportunities/servicenow-004');assert.match(event.summary,/before any fees or taxes/);
+ for(const other of d.opportunities.filter(x=>x.id!==o.id))assert.equal(m.realizedTradeResult(other),null);
+ const closed={...o,trade:{...o.trade,exitPrice:100}};assert.equal(m.realizedTradeResult(closed).realizedDollarPnL,-855);
+ assert.equal(m.realizedTradeResult({...o,trade:{...o.trade,entryPrice:undefined}}),null);
 });

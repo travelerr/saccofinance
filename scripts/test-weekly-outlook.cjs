@@ -17,7 +17,7 @@ test('weekly opportunity references resolve to canonical objects without copying
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
  for(const c of o.opportunityCommentary)assert.deepEqual(Object.keys(c).sort(),['body','opportunityId']);
  const s=records[3];assert.equal(s.tradeStatus,'Watching');assert.equal(s.trade,undefined);assert.equal(s.targets,undefined);
- assert.equal(records[1].trade.entryPrice,undefined);assert.equal(records[0].trade.quantity,undefined);
+ assert.equal(records[1].trade.entryPrice,119);assert.equal(records[0].trade.quantity,undefined);
  assert.deepEqual(records.slice(0,3).map(r=>[r.trade.stopPrice,r.trade.firstTargetPrice]),[[55,85],[130,175],[160,230]]);
 });
 test('both routes require Premium and use the same research renderer; dashboard consumes the selector',()=>{
@@ -42,12 +42,12 @@ test('Issue 002 is the single latest issue with dated editorial sector snapshots
  assert.match(o.sectorSnapshots[3].commentary,/19 places/);
  const index=fs.readFileSync(path.join(__dirname,'../app/premium/weekly-outlook/page.tsx'),'utf8');assert.match(index,/outlooks=\{outlooks.slice\(1\)\}/);
 });
-test('Issue 002 references all five unchanged trades; scenario and radar cannot create positions',()=>{
+test('Issue 002 references all five canonical trades; scenario and radar cannot create positions',()=>{
  const o=data.getLatestWeeklyOutlook(),records=data.getWeeklyOutlookOpportunities(o);
  assert.deepEqual(records.map(r=>r.ticker),['ZS','NOW','RKLB','SPCX','MSTR']);
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
- assert.equal(records[3].tradeStatus,'Watching');assert.equal(records[3].trade,undefined);assert.equal(records[1].trade.entryPrice,undefined);
+ assert.equal(records[3].tradeStatus,'Watching');assert.equal(records[3].trade,undefined);assert.equal(records[1].trade.entryPrice,119);
  assert.deepEqual(records.filter(r=>r.trade).map(r=>[r.ticker,r.trade.stopPrice,r.trade.firstTargetPrice]),[['ZS',160,230],['NOW',130,175],['RKLB',55,85],['MSTR',123,196]]);
  assert.deepEqual([records[4].trade.quantity,records[4].trade.entryPrice,records[4].preferredAddZone],[10,160,'$144–$148']);
  assert.equal(data.opportunities.length,5);assert.ok(!data.opportunities.some(r=>['GOOG','GOOGL','META'].includes(r.ticker)));

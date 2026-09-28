@@ -3,7 +3,7 @@ export const opportunityStatuses=['Watching','Developing','Confirmed','Active','
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
 export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
-export type TradeExit={exitedAt:string;exitPrice:number;documentation:string};
+export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
  | {tradeStatus:'Active';trade:TradeEntry}
@@ -14,7 +14,7 @@ export type Opportunity={
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
- companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
  setupRange?:string;nextAreaToWatch?:string;riskInvalidation?:string;targets?:string[];catalysts?:string[];
@@ -22,7 +22,7 @@ export type Opportunity={
 } & OpportunityLifecycle;
 export type OpportunityUpdate={
  id:string;opportunityId:string;publishedAt:string;publicationState:PublicationState;
- eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
+ notification?:{subject:string;headline:string;summary:string;cta:string};eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
 } & ({tradeStatusAfter:Exclude<OpportunityStatus,'Active'|'Closed'>;trade?:never}
  | {tradeStatusAfter:'Active';trade:TradeEntry}
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});
@@ -67,4 +67,14 @@ export function premiumDate(value:string){return new Date(value.length===10?valu
 export function weeklyOutlookHref(outlook:WeeklyOutlook){
  const issue=outlook.id.match(/-(\d+)$/)?.[1];
  return issue?`/premium/issue-${issue}`:'/premium/weekly-outlook';
+}
+
+/** Gross result of the documented position only; no fees, taxes or annualization inferred. */
+export function realizedTradeResult(o:Opportunity){
+ if(o.tradeStatus!=='Closed')return null;
+ const {entryPrice,exitPrice,quantity}=o.trade;
+ if(entryPrice===undefined||quantity===undefined||![entryPrice,exitPrice,quantity].every(Number.isFinite)||entryPrice<=0||exitPrice<=0||quantity<=0)return null;
+ const costCents=Math.round(entryPrice*100)*quantity;
+ const proceedsCents=Math.round(exitPrice*100)*quantity;
+ return {costBasis:costCents/100,saleProceeds:proceedsCents/100,realizedDollarPnL:(proceedsCents-costCents)/100,realizedPercentReturn:(exitPrice-entryPrice)/entryPrice*100};
 }
