@@ -1,9 +1,9 @@
 import ResearchPreferences from './research-preferences';
+import {isResearchAdmin} from '@/lib/email/policy';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {syncMemberBilling} from '@/lib/billing/sync';
 import Link from 'next/link';
 import {redirect} from 'next/navigation';
-import PremiumNavigation from '@/components/premium/navigation';
 import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
 import Submit from '@/components/premium/submit';
 import {premiumAccess} from '@/lib/premium-access';
@@ -21,7 +21,8 @@ export default async function Page({searchParams}:{searchParams:Promise<{checkou
  const ongoingSubscriptions=access.subscriptions.filter(s=>blocksNewSubscription(s.status));
  const ongoing=ongoingSubscriptions.length>0;
  const lifetime=access.manualAllowed&&access.grant?.access_expires_at===null;
- return <main id="main-content" className="container premium-account"><PremiumNavigation/><section className="page-hero"><Eyebrow>Sacco Premium / Your membership</Eyebrow><h1>ACCOUNT &<br/><span>BILLING.</span></h1><p>{access.user.email||'Your checkout membership'}</p></section>
+ return <main id="main-content" className="container premium-account"><section className="page-hero"><Eyebrow>Sacco Premium / Your membership</Eyebrow><h1>ACCOUNT &<br/><span>BILLING.</span></h1><p>{access.user.email||'Your checkout membership'}</p></section>
+ {isResearchAdmin(access.user,process.env.RESEARCH_ADMIN_USER_IDS||'')&&<section className="account-admin-tools" aria-labelledby="admin-tools-heading"><Eyebrow>Administrator</Eyebrow><h2 id="admin-tools-heading">Admin tools</h2><nav aria-label="Administration"><Link className="button" href="/premium/admin/notifications">Manage research notifications</Link><Link className="button" href="/premium/admin/analytics">Analytics</Link></nav></section>}
  {billing&&billingMode()==='test'&&<p className="premium-auth-message">Sandbox billing: checkout uses test payments. No real charges.</p>}
  {syncPending&&<p role="status" className="premium-auth-message">We couldn’t refresh your latest billing changes. The details below show the last verified state. Refresh shortly; do not purchase again.</p>}
  {params.error&&<p role="alert" className="premium-auth-message">{params.error==='pending'?'A previous checkout attempt is pending. Retry the original plan or wait 31 minutes before choosing another plan.':'Billing is temporarily unavailable. Please try again later.'}</p>}

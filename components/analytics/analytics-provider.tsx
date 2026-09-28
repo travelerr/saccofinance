@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import {createPortal} from 'react-dom';
 import {usePathname} from 'next/navigation';
 import {clearAnalytics,hasConsent,pauseTracking,readCookie,setConsent,startPage,track} from '@/lib/analytics/browser';
 import {CONSENT_COOKIE,engagementReached,safePage} from '@/lib/analytics/policy';
@@ -7,6 +8,8 @@ import './analytics.css';
 type Config={mode:'disabled'|'preview'|'live';userId?:string|null};
 export default function AnalyticsProvider(){
  const pathname=usePathname();
+ const [settingsTarget,setSettingsTarget]=useState<HTMLElement|null>(null);
+ useEffect(()=>{setSettingsTarget(document.getElementById('analytics-preferences-slot'));},[pathname]);
  const [gpcActive,setGpcActive]=useState(false);
  const [choice,setChoice]=useState(0);const [show,setShow]=useState(false);const [available,setAvailable]=useState(false);const [preview,setPreview]=useState(false);const [events,setEvents]=useState<string[]>([]);
  const landing=useRef<{url:string;referrer:string}|null>(null);
@@ -63,7 +66,7 @@ export default function AnalyticsProvider(){
  if(!available)return null;
  return <>
  {show&&<aside className="analytics-choice" aria-label="Optional analytics"><strong>Help us improve Sacco Financial</strong><p>Allow optional analytics to help us understand visits, subscriptions, and which research gets read. Your choice won’t affect your account or email preferences. <a href="/privacy">Privacy policy</a></p>{gpcActive&&<p>Your browser’s Global Privacy Control keeps analytics disabled.</p>}<div><button onClick={()=>choose(false)}>Decline</button><button disabled={gpcActive} onClick={()=>choose(true)}>Allow analytics</button><button onClick={()=>setShow(false)} aria-label="Close analytics choices">Close</button></div></aside>}
- <button className="analytics-settings" onClick={()=>setShow(true)}>Analytics preferences</button>
+ {settingsTarget&&createPortal(<button className="analytics-settings" onClick={()=>setShow(true)}>Analytics preferences</button>,settingsTarget)}
  {preview&&<details className="analytics-preview"><summary>Local analytics preview · {events.length} events</summary><p>Nothing is sent to Google. {hasConsent()?'Analytics allowed in this browser.':'Allow analytics to preview events.'}</p><ol>{events.slice(-12).map((event,index)=><li key={index}>{event}</li>)}</ol></details>}
  </>;
 }

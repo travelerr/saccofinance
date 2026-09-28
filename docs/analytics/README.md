@@ -86,3 +86,25 @@ Delivery/open/click metrics need Resend webhook/reporting work beyond the existi
 - Production Next.js build, TypeScript and lint passed with production analytics disabled and loopback test configuration.
 - Safari local preview: zero events before consent, exactly page_view + premium_landing_view after allowing, revocation stopped events on a subsequent About navigation. Preview confirmed no Google delivery.
 - Live GA receipt, actual production admin exclusion and a live Stripe conversion remain rollout checks; no production configuration or paid test transaction was performed.
+
+## Admin reporting dashboard
+
+`/premium/admin/analytics` uses the same verified-user UUID allowlist as email administration (`RESEARCH_ADMIN_USER_IDS`). Each data entrypoint checks authorization before reading credentials or cached reports. Links are available from Account and the email administration page. No database migration is required.
+
+Production configuration:
+
+- Amplify runtime setting: `GA_PROPERTY_ID=556204658` (the numeric property ID, not the G- measurement ID). The build whitelist now preserves this setting.
+- Existing `BILLING_SECRETS_ARN` secret: `GOOGLE_ANALYTICS_SERVICE_ACCOUNT_JSON`, whose **string value** is the entire service account JSON document. It is fetched at runtime, never written into the browser bundle or Amplify environment artifact.
+- Service account has GA property **Viewer** permission; Google Analytics Data API is enabled in its Cloud project. No Cloud project IAM role is required for report reading.
+- `GA_MEASUREMENT_API_SECRET` remains separate and supports server event collection, not report reading. Collection still requires `GA_ANALYTICS_ENABLED=true` with the existing production guards.
+- Keep the stream's Enhanced measurement OFF to retain the intentional event allowlist.
+
+Reports use OAuth's `analytics.readonly` scope, fixed Google endpoints, bounded timeouts and an in-process five-minute cache. No new paid service or dependency was introduced. Six small requests fetch overview, session attribution, selected events, research pages, devices and daily sessions. Date filters are 7/28/90 completed days through yesterday in the property's time zone. Top tables are limited to 20 rows and disclose truncation. API failures are unavailable, never zero; partial failures leave other panels usable. This is not realtime reporting.
+
+Membership health uses the existing access rules and unique access owners. It includes manual grants and payment grace, isolates live/test billing, and distinguishes saved ON, saved OFF and missing preferences. These are current snapshots, not historical churn. Email records are the latest ten operations: accepted sends are not delivered messages, and intended recipients are not verified inbox deliveries. There is no email open/click report yet. No member emails or individual browsing histories are exposed.
+
+Local mode never loads Google/AWS reporting credentials. It displays real **local test database** membership and email records with explicit disconnected Google panels. The preview launcher masks both Google credential variables and property configuration. Local browser preview events are not sent to GA and cannot populate these reports.
+
+Validation: `npm run test:analytics` includes report parsing, partial failures, caching, signed read-only OAuth claims, malformed properties, local isolation, authorization before credentials, and deduplicated access/preference counts. `npm run test:offline` and the production build pass. A real Google report request still needs to be verified in the approved production deployment; configuring credentials alone does not prove access.
+
+Reference: [Google Data API schema](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema), [service-account OAuth](https://developers.google.com/identity/protocols/oauth2/service-account).

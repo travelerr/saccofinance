@@ -20,7 +20,7 @@
     "test:local": "node scripts/test-local-stack.cjs",
     "email:test": "node scripts/research-email-test.cjs",
     "analytics:preview": "node scripts/analytics-preview.cjs",
-    "test:analytics": "node --test scripts/test-analytics.cjs"
+    "test:analytics": "node --test scripts/test-analytics.cjs scripts/test-analytics-reporting.cjs"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1134.0",
