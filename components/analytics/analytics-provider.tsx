@@ -5,6 +5,7 @@ import {usePathname} from 'next/navigation';
 import {clearAnalytics,hasConsent,pauseTracking,readCookie,setConsent,startPage,track} from '@/lib/analytics/browser';
 import {CONSENT_COOKIE,engagementReached,safePage} from '@/lib/analytics/policy';
 import './analytics.css';
+import {affiliateClickParams} from '@/lib/affiliate-tools';
 type Config={mode:'disabled'|'preview'|'live';userId?:string|null};
 export default function AnalyticsProvider(){
  const pathname=usePathname();
@@ -36,7 +37,7 @@ export default function AnalyticsProvider(){
     const click=(event:MouseEvent)=>{
      activity();const a=event.target instanceof Element?event.target.closest('a'):null;if(!a)return;
      try{
-      const url=new URL(a.href);if(url.origin!==location.origin){const destinations:Record<string,string>={'youtube.com':'youtube','www.youtube.com':'youtube','youtu.be':'youtube','instagram.com':'instagram','www.instagram.com':'instagram','tiktok.com':'tiktok','www.tiktok.com':'tiktok','facebook.com':'facebook','www.facebook.com':'facebook','join.saccofinancial.com':'free_guide'};const destination=destinations[url.hostname];if(destination)track('outbound_click',{destination});return;}
+      const url=new URL(a.href);const affiliate=affiliateClickParams(url.href,a.dataset.affiliatePlacement);if(affiliate){track('affiliate_link_click',affiliate);return;}if(url.origin!==location.origin){const destinations:Record<string,string>={'youtube.com':'youtube','www.youtube.com':'youtube','youtu.be':'youtube','instagram.com':'instagram','www.instagram.com':'instagram','tiktok.com':'tiktok','www.tiktok.com':'tiktok','facebook.com':'facebook','www.facebook.com':'facebook','join.saccofinancial.com':'free_guide'};const destination=destinations[url.hostname];if(destination)track('outbound_click',{destination});return;}
       if(url.pathname==='/premium/join')track('subscribe_click',{placement:pathname,plan:url.searchParams.get('plan')==='annual'?'annual':'monthly'});
       else if(url.pathname.startsWith('/api/premium/chart/')&&research)track('chart_open',research);
       else {const destination=safePage(url.pathname);if(destination)track('navigation_click',{destination});}

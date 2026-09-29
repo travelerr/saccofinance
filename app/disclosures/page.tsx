@@ -89,7 +89,7 @@ export default function Page() {
       </p>
       <p>Sponsored content will be identified when appropriate.</p>
       <p>
-        Some links may be affiliate or referral links. Sacco Financial may receive compensation if you use those links or take certain actions after following them.
+        Sacco Financial participates in affiliate programs with certain financial research and trading platforms. If you purchase a product or subscription through an affiliate link, Sacco Financial may receive compensation at no additional cost to you. Affiliate relationships do not determine the research, opinions, or tools discussed on Sacco Financial.
       </p>
       <p>Compensation does not change the fundamental obligation to provide opinions that reflect Sacco Financial’s actual views.</p>
 

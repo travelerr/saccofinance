@@ -51,3 +51,10 @@ test('browser consent gates scripts and events; preview sends nothing; revocatio
  b.startPage({mode:'live'},'/premium','https://saccofinancial.com/premium?token_hash=secret','https://other.invalid?email=secret');assert.equal(scripts.length,1);assert.equal(scripts[0].referrerPolicy,'no-referrer');assert.ok(!JSON.stringify(window.dataLayer).includes('token_hash'));assert.ok(!JSON.stringify(window.dataLayer).includes('other.invalid'));
  sandbox.navigator.globalPrivacyControl=true;assert.equal(b.hasConsent(),false);const size=window.dataLayer.length;b.track('research_view');assert.equal(window.dataLayer.length,size);
 });
+
+test('affiliate clicks preserve exact partner URLs and expose only fixed reporting labels',()=>{
+ const {affiliateTools,affiliateClickParams}=require('../lib/affiliate-tools.ts');
+ assert.deepEqual(affiliateTools.map(t=>t.url),['https://trendspider.com?_go=justin-4f7fc2','https://link.seekingalpha.com/5FNXWBJ/4G6SHH/']);
+ for(const tool of affiliateTools){assert.deepEqual(affiliateClickParams(new URL(tool.url).href,'premium_tools'),{affiliate_partner:tool.id,placement:'premium_tools',destination:tool.destination});assert.equal(affiliateClickParams(tool.url+'?email=private@example.com','premium_tools'),null);}
+ assert.equal(affiliateClickParams('https://example.com','premium_tools'),null);assert.equal(affiliateClickParams(new URL(affiliateTools[0].url).href,'unknown'),null);
+});

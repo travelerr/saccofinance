@@ -1,0 +1,18 @@
+.brand .tools-intro{max-width:800px;line-height:1.8;margin:0 0 30px}
+.tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.tool-card{min-width:0;border:1px solid var(--brand-line);background:var(--brand-surface);padding:28px;display:flex;flex-direction:column;align-items:flex-start}
+.tool-logo{height:60px;display:flex;align-items:center;margin-bottom:24px;max-width:100%}
+.tool-logo img{width:260px;max-width:100%;height:auto;object-fit:contain}
+.tool-logo-seeking_alpha{background:#fff;padding:10px 12px;border-radius:3px;box-sizing:border-box}
+.tool-logo-seeking_alpha img{width:225px}
+.tool-logo .tool-logo-light{display:none}
+html[data-theme=light] .tool-logo .tool-logo-light{display:block}
+html[data-theme=light] .tool-logo .tool-logo-dark{display:none}
+.tool-card h3{font-size:28px;line-height:1.2;margin:0 0 12px}
+.brand .tool-category{font:11px/1.7 var(--brand-mono);color:var(--brand-cyan);margin:0 0 18px}
+.brand .tool-description{font-size:15px;line-height:1.8;margin:0 0 24px}
+.tool-access{margin-top:auto;width:100%}
+.tool-access .text-link{line-height:1.7;display:inline-flex;gap:8px;align-items:center;max-width:100%}
+.tool-access svg{flex-shrink:0}
+.brand .tool-disclosure{font-size:12px;line-height:1.8;color:var(--brand-muted);margin:18px 0 0}
+@media(max-width:700px){.tools-grid{grid-template-columns:1fr}.tool-card{padding:22px}.tools-i-use .section-heading h2{font-size:34px}.tool-access .text-link{font-size:12px}}
