@@ -785,3 +785,29 @@ export function getWeeklyOutlookOpportunities(outlook:WeeklyOutlook){
  const records=getPublishedOpportunities();
  return outlook.opportunityIds.flatMap(id=>{const record=records.find(o=>o.id===id);return record?[record]:[];});
 }
+
+const mstrTechnicalRecord=opportunities.find(o=>o.id==='opportunity-005');
+if(!mstrTechnicalRecord||mstrTechnicalRecord.tradeStatus!=='Active')throw new Error('MSTR active position required for technical update');
+opportunityUpdates.push({...{
+  "id": "opportunity-005-technical-2026-10-01",
+  "opportunityId": "opportunity-005",
+  "publishedAt": "2026-10-01",
+  "eventDate": "2026-10-01",
+  "publicationState": "published",
+  "tradeStatusBefore": "Active",
+  "tradeStatusAfter": "Active",
+  "technicalStage": "Stage 2",
+  "updateType": "Research / Technical Confirmation",
+  "suppressNotification": true,
+  "title": "Technical Confirmation — Stage 2 Now Showing Daily & Weekly",
+  "explanation": "MSTR is startingto give us some additional technical confirmation for the existing trade.\n\nThe Weinstein Stage Analysis scanner is now identifying MSTR in Stage 2 on both the daily and weekly scans.\n\nOn my TrendSpider phase analysis, that’s the dark-green markup phase we’re generally trying to participate in after a stock moves out of Stage 1.\n\nI’m also getting confirmation from the TrendSpider strategy backtest. The latest long-entry signal shown on the strategy is approximately $164.58.\n\nThe screenshot shows approximately $153.09 at capture, distinct from the $164.58 strategy signal. The signal occurred in the same general setup area; it is a separate strategy/backtest confirmation, not my executed entry, a new buy order or an automatic add signal.\n\nIn my phase framework, red is Stage 4, light green is Stage 1 and dark green is Stage 2. Daily and weekly scanner confirmation is my reported observation; the supplied image is the daily chart. Stage 2 does not guarantee upside.\n\nNeither of these changes my trade.\n\nI’m still holding the original position, and I’m not adding shares or changing my stop or target based on these signals alone.\n\nWhat they do is give us another piece of evidence that lines up with the original thesis:\n\nMSTR’s technical structure is improving, and we’re now seeing that improvement confirmed across multiple systems and timeframes.\n\nThe trade remains:\n\n10 shares at $160\n\nPreferred add / reassessment:\n$144–$148\n\nStop:\n$123\n\nTarget 1:\n$196\n\nFor now, I’m letting the setup develop.",
+  "chart": {
+    "src": "/api/premium/chart/mstr-technical-2026-10-01",
+    "width": 1319,
+    "height": 544,
+    "asOf": "2026-10-01",
+    "source": "TrendSpider",
+    "alt": "MSTR TrendSpider daily chart showing dark-green Stage 2 phase, strategy long-entry signal at $164.58 and chart price $153.09 at capture. Strategy markers are not Justin’s executions.",
+    "caption": "Original TrendSpider daily chart captured October 1, 2026 at 7:57 AM EDT. Strategy entry/exit markers and percentages are system outputs, not Justin’s trade fills or realized returns. Weekly confirmation is reported from Justin’s scanner; no weekly chart is supplied."
+  }
+},trade:mstrTechnicalRecord.trade});

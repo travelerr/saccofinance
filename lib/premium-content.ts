@@ -23,7 +23,7 @@ export type Opportunity={
 } & OpportunityLifecycle;
 export type OpportunityUpdate={
  id:string;opportunityId:string;publishedAt:string;publicationState:PublicationState;
- suppressNotification?:boolean;notification?:{subject:string;headline:string;summary:string;cta:string};eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
+ chart?:OpportunityChart;updateType?:'Research / Technical Confirmation';suppressNotification?:boolean;notification?:{subject:string;headline:string;summary:string;cta:string};eventDate?:string;tradeStatusBefore:OpportunityStatus|null;title:string;explanation:string;technicalStage?:string;
 } & ({tradeStatusAfter:Exclude<OpportunityStatus,'Active'|'Closed'>;trade?:never}
  | {tradeStatusAfter:'Active';trade:TradeEntry}
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});

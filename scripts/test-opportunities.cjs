@@ -105,7 +105,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.deepEqual(o.charts.map(c=>c.placement),['origin','framework','confirmation']);
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
- const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,1);assert.deepEqual(updates[0].trade,o.trade);
+ const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
  assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-004');
 });
 
@@ -130,4 +130,11 @@ test('IONQ is a legacy wheel with distinct broker basis, open credits and no lau
  assert.equal(o.wheel.fills.reduce((sum,f)=>sum+Math.round(f.premiumPerShare*100)*f.contracts*f.multiplier,0)/100,455);assert.equal(o.wheel.fills.find(f=>f.id===o.wheel.currentCallId).outcome,'Open');assert.ok(m.isCurrentOpportunity(o));
  const {researchEvents}=require('../lib/email/events.ts');assert.equal(researchEvents([],d.opportunities,d.opportunityUpdates).some(e=>e.entityId===o.id),false);
  const future={...d.getOpportunityUpdates(o.id)[0],id:'test-future-management',suppressNotification:false};assert.ok(researchEvents([],[o],[future]).some(e=>e.updateId===future.id));
+});
+
+test('MSTR technical update preserves execution and remains outside material emails',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');const u=d.getOpportunityUpdates(o.id).at(-1);
+ assert.equal(d.opportunities.filter(x=>x.ticker==='MSTR').length,1);assert.equal(u.eventDate,'2026-10-01');assert.equal(u.title,'Technical Confirmation — Stage 2 Now Showing Daily & Weekly');assert.deepEqual(u.trade,o.trade);assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.suppressNotification,true);assert.match(u.explanation,/daily and weekly scans/);assert.match(u.explanation,/153.09/);assert.match(u.explanation,/164.58/);
+ assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/mstr-technical-2026-10-01.png')));assert.equal(u.chart.src,'/api/premium/chart/mstr-technical-2026-10-01');
+ assert.equal(require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates).some(e=>e.updateId===u.id),false);
 });
