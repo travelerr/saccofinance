@@ -2,7 +2,7 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number};
+export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
@@ -15,7 +15,8 @@ export type Opportunity={
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
- positionOrigin?:'Legacy';strategy?:'Wheel Strategy';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
  setupRange?:string;nextAreaToWatch?:string;riskInvalidation?:string;targets?:string[];catalysts?:string[];

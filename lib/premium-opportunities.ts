@@ -272,6 +272,230 @@ opportunities.push({
   "justinsTake": "IonQ is a little different from most of the trades on this board.\n\nI didn't start this position through Sacco Premium. I was already running the Wheel Strategy on IONQ before Premium launched, so I don't want to pretend this was a trade we called ahead of time.\n\nBut I do want members to be able to follow how I manage it from here.\n\nI'm very bullish on quantum computing over the next five years. My view is that quantum has the potential to become the next major technology boom after AI, and right now IonQ is the pure-play quantum company I'm most comfortable owning.\n\nMy personal framework is that below roughly $40 I become especially interested, and somewhere around $40–$45 I'm comfortable owning the shares.\n\nAbove that, I'm perfectly willing to manage the position more aggressively.\n\nThe original position started by selling a $45 put. I was assigned and now own 100 shares with a $45 broker cost basis.\n\nSince then I've been selling covered calls against the shares.\n\nRight now I have a $50 covered call expiring October 9.\n\nIf the shares get called away at $50, that's fine with me.\n\nFrom the share position alone, that would lock in $500 between the $45 basis and $50 strike, and we've also been collecting option premium along the way.\n\nOnce we have the full completed trade history, we'll calculate the exact total result.\n\nIf the shares get called away, my likely next step is to begin looking for another put to sell and start the wheel again.\n\nThe reason I like using this strategy on IonQ is simple:\n\nI already want to own the stock.\n\nQuantum is a multi-year thesis for me.\n\nSo instead of simply sitting on the shares through every up and down, I'm trying to generate income while we wait for that longer-term thesis to play out."
 });
 
+opportunities.push({
+  "id": "opportunity-007",
+  "slug": "epam-007",
+  "ticker": "EPAM",
+  "company": "EPAM Systems",
+  "title": "Can AI Drive EPAM’s Next Growth Cycle?",
+  "publicationState": "published",
+  "publishedAt": "2026-10-01",
+  "updatedAt": "2026-10-01",
+  "tradeStatus": "Active",
+  "technicalStage": "Stage 1 / Early transition",
+  "positionOrigin": "Sacco Premium",
+  "strategy": "Turnaround / Stage 1 → Stage 2 candidate",
+  "sector": "Enterprise technology / IT services",
+  "trade": {
+    "enteredAt": "2026-10-01",
+    "entryPrice": 116,
+    "quantity": 15,
+    "stopPrice": 100,
+    "firstTargetPrice": 145,
+    "secondTargetPrice": 220,
+    "documentation": "Justin confirmed an exact $116 entry for 15 shares on October 1, 2026. This is a new Sacco Premium-originated starter position, not a legacy trade."
+  },
+  "summary": "AI helped create EPAM’s problem. Can AI become the thing that drives its next growth cycle? I opened 15 shares at $116, with a $100 stop, $145 first target and $220 stretch target. This is an early turnaround, not a proven growth story.",
+  "discoveryLabel": "Research path",
+  "discoveryChain": [
+    "Bottom Catcher",
+    "ACN read-through",
+    "EPAM research",
+    "Starter position"
+  ],
+  "nextStepSummary": "Hold the improving recovery structure and watch for a sustained Stage 2 transition. Q3 earnings are the next fundamental checkpoint; $100 remains the documented stop.",
+  "whySurfaced": "EPAM independently appeared in my TrendSpider Bottom Catcher scanner. Accenture had also surfaced through the same process. I watched ACN but never published it to Premium and never took the trade. After its strong earnings reaction, I went back through the scanner to investigate other enterprise transformation companies.\n\nACN was a clue, not a reason to chase EPAM. The companies are different, but both participate in technology transformation, consulting, software engineering, cloud modernization and AI implementation. ACN’s earnings gave me another reason to investigate whether enterprise technology spending may be healthier than the market feared. Its results do not guarantee EPAM’s results.",
+  "setupThesis": "EPAM has endured a major long-term decline, with a summer 2026 low near $70 followed by a recovery toward $115–$116. Higher lows are developing, Bottom Catcher surfaced the stock, and the current light-green phase reflects Stage 1 / an early transition. I am not treating this as confirmed Stage 2.\n\nSeveral earlier light-green transitions eventually developed into meaningful Stage 2 advances, including roughly September 2023–March 2024, October 2024–February 2025, and October 2025–January 2026. The chart also includes volatility and temporary or failed transitions. Neither the phase color nor the scanner guarantees a successful trade.\n\nI entered 15 shares at $116 on October 1. This is a starter position, not a full-conviction allocation. EPAM moved somewhat around ACN’s earnings reaction, and that sympathy move could fade. The technical setup is early, the fundamental turnaround remains unproven, and earnings will be an important test.",
+  "nextCondition": "The trade has time to develop over the next several weeks. I want higher lows to hold and the early transition to develop into sustained Stage 2 markup. A modest pullback does not automatically invalidate the thesis.\n\nI am not automatically adding on a pullback. Any future addition must be documented separately. The current technical stop remains $100; the next major fundamental reassessment is Q3 earnings, expected in early November with the date pending company confirmation.",
+  "entryFramework": "15 shares at the confirmed $116 entry: $1,740 initial capital. New Sacco Premium position entered October 1, 2026. No additional purchase is documented.",
+  "riskInvalidation": "The $100 stop gives room below the recent higher-low structure while this early turnaround develops. It is not an arbitrary percentage stop. A material break below that area weakens the setup. No executable order details or automatic intraday-touch rule have been documented. Gaps or execution slippage can produce a loss larger than the scenario amount.",
+  "targets": [
+    "Target 1 — $145: prior resistance and the first swing objective, approximately 25.0% above entry.",
+    "Target 2 / Stretch — $220: near the major prior high before the latest drawdown, approximately 89.7% above entry. This requires a much more successful fundamental and technical turnaround and is not the expected base case."
+  ],
+  "fundamentalHeading": "AI Helped Create EPAM’s Problem. Can AI Drive Its Next Growth Cycle?",
+  "fundamentalCase": "EPAM’s traditional outsourced software-engineering model faces a legitimate threat from AI coding tools, automation and low-code/no-code development. If customers can produce more software with fewer engineers, demand for outsourced labor can fall.\n\nEPAM is trying to become the implementation layer between frontier AI models and large enterprises: modernizing legacy systems, preparing data, integrating models, redesigning workflows and moving AI experiments into production. The thesis is not that this transformation has already succeeded. It is that the market heavily punished the disruption risk while a new implementation business could eventually restart growth.",
+  "researchSections": [
+    {
+      "title": "Building the AI Implementation Business",
+      "body": "EPAM announced a multi-year Anthropic partnership in May 2026. More than 20,000 employees had completed Anthropic Academy training. The company is building toward 10,000 Claude-certified architects, including approximately 250 specialized forward-deployed Black Belt experts. These are capability-building goals, not a claim that all certifications are already complete.\n\nIn July, EPAM became an OpenAI Advanced Partner, helping enterprises connect models to applications, proprietary data and workflows while addressing governance, security and compliance. Training thousands of consultants and building implementation expertise matters more than simply using ChatGPT.\n\nThe aim is to modernize legacy systems, prepare enterprise data, integrate frontier models, redesign workflows and deploy AI agents into production. This is a material investment in delivery capability; partnerships alone do not establish financial success.",
+      "sources": [
+        {
+          "label": "EPAM / Anthropic partnership — May 6, 2026",
+          "url": "https://www.epam.com/about/newsroom/press-releases/2026/epam-and-anthropic-team-up-to-build-the-future-of-enterprise-transformation-with-safe-applied-ai"
+        },
+        {
+          "label": "EPAM / OpenAI partnership — July 28, 2026",
+          "url": "https://investors.epam.com/news/news-details/2026/EPAM-and-OpenAI-Partner-to-Help-Enterprises-Unlock-Higher-Value-Through-Applied-AI/default.aspx"
+        }
+      ]
+    },
+    {
+      "title": "From Partnerships to Production",
+      "body": "EPAM also works with Cursor on AI-native software development, has developed its AI/Run framework, and was named Databricks’ 2026 Consulting and Systems Integrator AI Partner of the Year.\n\nIts work with telecom company 1&1 includes an agentic-AI customer-service implementation. Separately, OpenAI’s EPAM partner profile describes a production solution with more than 20 AI agents. These are useful signs of implementation activity beyond partnership announcements. One deployment does not prove that the entire company has turned around.",
+      "sources": [
+        {
+          "label": "EPAM / Cursor",
+          "url": "https://www.epam.com/services/partners/cursor"
+        },
+        {
+          "label": "Databricks award",
+          "url": "https://investors.epam.com/news/news-details/2026/EPAM-Awarded-2026-Databricks-Consulting-and-Systems-Integrator-AI-Partner-of-the-Year-for-Helping-Enterprises-Scale-AI-into-Measurable-Business-Impact/default.aspx"
+        },
+        {
+          "label": "EPAM / 1&1 case study",
+          "url": "https://www.epam.com/services/client-work/an-agentic-ai-customer-service-breakthrough"
+        },
+        {
+          "label": "OpenAI / EPAM partner profile",
+          "url": "https://openai.com/business/partners/epam/"
+        }
+      ]
+    },
+    {
+      "title": "The Financial Proof Is Still Missing",
+      "body": "Q2 2026 revenue was approximately $1.415 billion, up 4.5% year over year and 3.4% on an organic constant-currency basis. Management’s full-year organic constant-currency growth expectation was approximately 2%–3%. That is still weak growth.\n\nProfitability was more resilient: GAAP operating margin improved from 9.3% to 10.8%, non-GAAP operating margin from 15.0% to 16.4%, and non-GAAP EPS increased approximately 22%. Better margins are encouraging, but they do not resolve the growth question.\n\nThis is a business-model transformation thesis, not a financial-rescue thesis. EPAM’s strong balance sheet and relatively low debt provide context, but the central test remains whether AI implementation becomes large enough to offset disruption to traditional outsourced engineering and reaccelerate company-wide growth.",
+      "sources": [
+        {
+          "label": "EPAM Q2 2026 results and guidance",
+          "url": "https://investors.epam.com/news/news-details/2026/EPAM-Reports-Results-for-Second-Quarter-2026/default.aspx"
+        }
+      ]
+    },
+    {
+      "title": "Selective Institutional Buying — Not Broad Accumulation",
+      "body": "The latest comparable March 31 and June 30, 2026 holdings show substantial buying AND selling. BlackRock and Ameriprise increased their reported shares, while Capital World and Invesco reduced theirs. Figures below are rounded from the filing comparison supplied with this research.\n\nThe evidence supports selective institutional buying and activist interest. It does not establish broad institutional accumulation. EPAM’s June index switch also means some changes can reflect index-fund rebalancing. These delayed disclosures cannot tell us definitively who is buying today.",
+      "sources": [
+        {
+          "label": "BlackRock — March",
+          "url": "https://www.sec.gov/Archives/edgar/data/2012383/000201238326001841/form13fInfoTable.xml"
+        },
+        {
+          "label": "BlackRock — June",
+          "url": "https://www.sec.gov/Archives/edgar/data/2012383/000201238326003238/form13fInfoTable.xml"
+        },
+        {
+          "label": "Ameriprise — March",
+          "url": "https://www.sec.gov/Archives/edgar/data/820027/000119312526307051/55745.xml"
+        },
+        {
+          "label": "Ameriprise — June",
+          "url": "https://www.sec.gov/Archives/edgar/data/820027/000119312526351426/57194.xml"
+        },
+        {
+          "label": "Capital World — March",
+          "url": "https://www.sec.gov/Archives/edgar/data/1422849/000142284926000046/form13fInfoTable.xml"
+        },
+        {
+          "label": "Capital World — June",
+          "url": "https://www.sec.gov/Archives/edgar/data/1422849/000142284926000113/form13fInfoTable.xml"
+        },
+        {
+          "label": "Invesco — March",
+          "url": "https://www.sec.gov/Archives/edgar/data/914208/000091420826000193/form13fInfoTable.xml"
+        },
+        {
+          "label": "Invesco — June",
+          "url": "https://www.sec.gov/Archives/edgar/data/914208/000091420826000343/13fq2v2.xml"
+        },
+        {
+          "label": "S&P index change announcement",
+          "url": "https://www.prnewswire.com/news-releases/fedex-freight-holding-company-set-to-join-sp-500-epam-systems-and-dave-to-join-sp-smallcap-600-302783723.html"
+        }
+      ],
+      "table": {
+        "headers": [
+          "Manager",
+          "Mar. 31 shares",
+          "Jun. 30 shares",
+          "Change"
+        ],
+        "rows": [
+          [
+            "BlackRock",
+            "4.09M",
+            "6.64M",
+            "+62%"
+          ],
+          [
+            "Ameriprise",
+            "3.78M",
+            "5.46M",
+            "+44%"
+          ],
+          [
+            "Capital World",
+            "6.84M",
+            "4.83M",
+            "−29%"
+          ],
+          [
+            "Invesco",
+            "4.38M",
+            "2.41M",
+            "−45%"
+          ]
+        ]
+      }
+    },
+    {
+      "title": "Engine Capital / An Additional Catalyst",
+      "body": "Engine’s June holdings did not list EPAM. Its August 31 disclosure described an approximately 1.5% activist stake, suggesting a new position during July–August. That timing is an inference from the disclosures, not a verified transaction history.\n\nEngine pressed for aggressive share repurchases and strategic alternatives, including a possible sale. Activist pressure may influence capital allocation, but neither a sale nor appreciation is assured.",
+      "sources": [
+        {
+          "label": "Engine June holdings",
+          "url": "https://www.sec.gov/Archives/edgar/data/1665590/000166559026000006/xslForm13F_X02/13F.xml"
+        },
+        {
+          "label": "Engine August 31 letter",
+          "url": "https://enginecap.com/wp-content/uploads/2026/08/PR-and-Letter-to-the-EPAM-Board_8.31.2026.pdf"
+        }
+      ]
+    },
+    {
+      "title": "Next Fundamental Checkpoint / Q3 Earnings",
+      "body": "Expected early November 2026 — date pending company confirmation as of October 1. November 5 is not presented as an official date.\n\nIs EPAM’s AI transformation beginning to reaccelerate the business? Watch AI-native bookings and engagement commentary, organic constant-currency growth, the revenue trajectory, forward guidance, margins, utilization and productivity. Look for Anthropic/OpenAI implementation demand and evidence that enterprise AI projects are moving from pilots into production.\n\nImproving growth and stronger AI-driven demand would strengthen the thesis. Growth stuck in low single digits without meaningful AI contribution would weaken it.",
+      "sources": [
+        {
+          "label": "EPAM investor-relations news",
+          "url": "https://investors.epam.com/news/default.aspx"
+        }
+      ]
+    }
+  ],
+  "showTradeScenarios": true,
+  "primaryRisks": [
+    {
+      "title": "The old business shrinks faster than the new one grows",
+      "explanation": "Customers may use AI to reduce outsourced engineering faster than EPAM can replace that demand with implementation work."
+    },
+    {
+      "title": "An early technical transition can fail",
+      "explanation": "The ACN-related move may fade, higher lows may fail, and light green may not develop into sustained Stage 2. The $100 stop remains the documented invalidation."
+    },
+    {
+      "title": "Partnerships do not equal revenue acceleration",
+      "explanation": "Training, certifications and deployments must translate into meaningful bookings and company-wide growth. Low-single-digit organic growth remains a concern."
+    },
+    {
+      "title": "Earnings and enterprise spending",
+      "explanation": "Weak guidance, contracting margins or softer transformation budgets can undermine the thesis. Earnings can also gap through a stop."
+    }
+  ],
+  "thesisChanges": "Strengthens: higher lows persist, a confirmed Stage 2 develops, enterprise spending remains resilient, AI implementation bookings accelerate, organic growth improves and margins hold. Production deployments and better capital allocation would add evidence.\n\nWeakens: recovery structure fails, price breaks toward/below $100, Stage 2 fails to develop, organic growth deteriorates, margins contract or AI partnerships fail to generate meaningful revenue. Institutional disclosures are supporting context, not a real-time buy signal.\n\nThe documented technical stop is $100. Q3 earnings may prompt a fundamental reassessment, but no trade terms change without a separately documented decision.",
+  "justinsTake": "Accenture was one of the stocks I had been watching through my TrendSpider Bottom Catcher scanner. I never posted it to Premium and I never took the trade. Then earnings came out and the stock made a massive move. Looking back, I wish I had taken it, but I’m not interested in chasing ACN after the move.\n\nEPAM was independently showing up through the same process. Once I started digging, the story became more interesting than another technical signal. Its old business model has a legitimate AI problem. If companies can build software with fewer engineers, that threatens outsourced development.\n\nEPAM is trying to turn that threat into its next business: implementation practices around Anthropic and OpenAI, employee training, and integration into legacy systems, data and workflows. That’s the bet. AI helped create the problem. Can it drive the next growth cycle? We don’t know yet.\n\nRevenue growth is still weak, which is why I’m treating this as a turnaround rather than a proven growth story. The technical structure is improving while the fundamental story is changing. Bottom Catcher prompted the research; it does not remove the risk. I’m starting with 15 shares at $116 and letting the evidence develop.",
+  "chart": {
+    "src": "/api/premium/chart/epam-2026-10-01",
+    "asOf": "2026-10-01",
+    "width": 1580,
+    "height": 844,
+    "placement": "setup",
+    "source": "TrendSpider",
+    "alt": "EPAM daily TrendSpider chart showing the long-term decline, light-green early transition, higher lows and revenue-growth overlay",
+    "caption": "Original chart captured October 1, 2026 at 12:15 PM EDT. The $115.75 chart price is a snapshot, not the confirmed $116 fill. Chart annotations near $100.26, $145.13 and $220.92 are reference levels; the documented plan is $100 / $145 / $220. Phase colors and historical signals do not guarantee an outcome."
+  }
+});
+
 export const opportunityUpdates:OpportunityUpdate[]=[{
  id:'opportunity-001-initial',opportunityId:'opportunity-001',publishedAt:'2026-09-16',publicationState:'published',
  tradeStatusBefore:null,tradeStatusAfter:'Active',technicalStage:'Stage 1 → Stage 2',trade:zsTrade,
@@ -811,3 +1035,19 @@ opportunityUpdates.push({...{
     "caption": "Original TrendSpider daily chart captured October 1, 2026 at 7:57 AM EDT. Strategy entry/exit markers and percentages are system outputs, not Justin’s trade fills or realized returns. Weekly confirmation is reported from Justin’s scanner; no weekly chart is supplied."
   }
 },trade:mstrTechnicalRecord.trade});
+
+const epamRecord=opportunities.find(o=>o.id==='opportunity-007');
+if(!epamRecord||epamRecord.tradeStatus!=='Active')throw new Error('EPAM active position required');
+opportunityUpdates.push({
+  "id": "opportunity-007-initial",
+  "opportunityId": "opportunity-007",
+  "publishedAt": "2026-10-01",
+  "eventDate": "2026-10-01",
+  "publicationState": "published",
+  "tradeStatusBefore": null,
+  "tradeStatusAfter": "Active",
+  "technicalStage": "Stage 1 / Early transition",
+  "title": "New Premium Position — 15 Shares at $116",
+  "explanation": "Opened a 15-share EPAM starter position at $116 on October 1, 2026. Stop $100; Target 1 $145; Target 2 / stretch $220. Early turnaround / Stage 1 → Stage 2 candidate, not confirmed Stage 2. No additional purchase is documented.",
+  "suppressNotification": true
+,trade:epamRecord.trade});

@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS remains unchanged and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,6);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
+ assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Active');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190,160,230]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,6);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,6);
+ assert.equal(d.getPublishedOpportunities().length,7);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,7);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Active');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,55,85]);
@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,8);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,9);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-004');
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-007');
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -137,4 +137,23 @@ test('MSTR technical update preserves execution and remains outside material ema
  assert.equal(d.opportunities.filter(x=>x.ticker==='MSTR').length,1);assert.equal(u.eventDate,'2026-10-01');assert.equal(u.title,'Technical Confirmation — Stage 2 Now Showing Daily & Weekly');assert.deepEqual(u.trade,o.trade);assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.suppressNotification,true);assert.match(u.explanation,/daily and weekly scans/);assert.match(u.explanation,/153.09/);assert.match(u.explanation,/164.58/);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/mstr-technical-2026-10-01.png')));assert.equal(u.chart.src,'/api/premium/chart/mstr-technical-2026-10-01');
  assert.equal(require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates).some(e=>e.updateId===u.id),false);
+});
+
+test('EPAM is a single Premium-originated starter with one new-position notification',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('epam-007');
+ assert.equal(d.opportunities.filter(o=>o.ticker==='EPAM').length,1);assert.equal(o.positionOrigin,'Sacco Premium');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 1 / Early transition');
+ assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice,o.trade.secondTargetPrice],['2026-10-01',15,116,100,145,220]);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(d.getOpportunityUpdates(o.id).length,1);assert.deepEqual(d.getOpportunityUpdates(o.id)[0].trade,o.trade);
+ const {researchEvents}=require('../lib/email/events.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);
+ assert.equal(events.length,1);assert.equal(events[0].type,'OPPORTUNITY_PUBLISHED');assert.equal(events[0].path,'/premium/opportunities/epam-007');assert.match(events[0].summary,/15 shares at \$116/);
+ assert.match(o.researchSections.find(s=>s.title.startsWith('Selective')).body,/does not establish broad institutional accumulation/);
+ assert.match(o.researchSections.find(s=>s.title.startsWith('Next Fundamental')).body,/date pending company confirmation/);
+ assert.equal(o.researchSections.find(s=>s.table).table.rows.length,4);
+ assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/epam-2026-10-01.png')));
+});
+test('EPAM scenarios derive from execution levels and never report realized profit',()=>{
+ const {tradeScenarios}=require('../lib/trade-scenarios.ts');const d=require('../lib/premium-opportunities.ts');const t=d.getPublishedOpportunity('epam-007').trade;const s=tradeScenarios(t);
+ assert.equal(s.capital,1740);assert.equal(s.riskTotal,240);assert.equal(s.riskPerShare,16);assert.equal(s.riskPct.toFixed(1),'13.8');
+ assert.deepEqual(s.targets.map(t=>[t.gainPerShare,t.gainTotal,t.gainPct.toFixed(1),t.rewardRisk.toFixed(2)]),[[29,435,'25.0','1.81'],[104,1560,'89.7','6.50']]);
+ assert.equal(tradeScenarios({...t,entryPrice:120}).capital,1800);assert.equal(tradeScenarios({...t,stopPrice:120}),null);assert.equal(tradeScenarios(undefined),null);
 });
