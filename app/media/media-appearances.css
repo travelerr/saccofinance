@@ -1,0 +1,5 @@
+.appearance-trendspider-logo{width:280px;max-width:100%;margin-bottom:24px}
+.appearance-trendspider-logo img{width:100%;height:auto}
+.appearance-trendspider-logo .appearance-logo-light{display:none}
+html[data-theme=light] .appearance-trendspider-logo .appearance-logo-light{display:block}
+html[data-theme=light] .appearance-trendspider-logo .appearance-logo-dark{display:none}
