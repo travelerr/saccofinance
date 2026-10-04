@@ -32,6 +32,7 @@ export type WeeklyOutlook={
  id:string;slug:string;title:string;weekOf:string;publishedAt:string;
  publicationState:PublicationState;marketContext:string;thesisChanges?:string;
  sectorFocus:string;gamePlan:string;opportunityIds:string[];videoUrl?:string;perspectiveDate?:string;summary?:string;
+ secondaryPosture?:string;marketHeading?:string;planHeading?:string;macroWatch?:{title:string;body:string};gaugeSummary?:{asOf:string;benchmarkReturn:number;groups:{name:string;ticker:string;returnPct:number;rankChange:number}[]};researchNotes?:{title:string;body:string}[];separateClosedPositions?:boolean;
  weekEnd?:string;read?:string;marketPosture?:string;notificationSummary?:string;sectorHeading?:string;
  sectorSnapshots?:{name:string;ticker:string;periods:{period:string;returnPct:number;rank:number}[];commentary:string}[];
  bitcoinScenario?:{heading:string;bitcoinReference:number;bitcoinScenario:number;netBitcoinValuePerShare:number;mnav:number;displayRange:string;assumptions:string[];explanation:string};

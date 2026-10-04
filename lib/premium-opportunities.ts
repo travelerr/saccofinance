@@ -1051,3 +1051,333 @@ opportunityUpdates.push({
   "explanation": "Opened a 15-share EPAM starter position at $116 on October 1, 2026. Stop $100; Target 1 $145; Target 2 / stretch $220. Early turnaround / Stage 1 → Stage 2 candidate, not confirmed Stage 2. No additional purchase is documented.",
   "suppressNotification": true
 ,trade:epamRecord.trade});
+
+weeklyOutlooks.push({
+  "id": "weekly-outlook-003",
+  "slug": "the-economy-is-finally-slowing-but-ai-still-isnt",
+  "title": "The Economy Is Finally Slowing. But AI Still Isn't.",
+  "weekOf": "2026-10-05",
+  "weekEnd": "2026-10-09",
+  "publishedAt": "2026-10-03",
+  "perspectiveDate": "2026-10-03",
+  "publicationState": "published",
+  "marketPosture": "Selective",
+  "secondaryPosture": "Watching rates / Following AI leadership",
+  "summary": "Employment is cooling and Treasury yields remain elevated, but AI-related market leadership continues to hold. This week we’re watching Zscaler Investor Day, Fed minutes, jobless claims, semiconductor strength, and whether weaker economic data finally takes pressure off rates.",
+  "read": "Higher interest rates may finally be producing some economic cooling. That could reduce the need for additional Federal Reserve rate hikes and relieve some pressure on Treasury yields. At the same time, AI-related demand remains extremely strong, with Micron’s latest earnings reinforcing the strength of AI infrastructure demand.\n\nThese are the two forces I’m weighing: higher rates and Treasury yields pressuring valuations, while strong AI-related demand and earnings support selected technology stocks. I’m not broadly bearish.\n\nCan enough economic cooling occur to reduce pressure on the Fed and Treasury yields while AI-related corporate demand remains strong?",
+  "marketHeading": "The Big Picture",
+  "marketContext": "For the last few weeks, my concern has been pretty simple:\n\nI don't think the market has fully felt the impact of higher interest rates yet.\n\nWe may finally be starting to see some of it.\n\nThe easiest way to think about the relationship between employment, interest rates and Treasury yields is that they're all giving the Fed information about how much pressure the economy can handle.\n\nWhen employment is strong, inflation remains elevated and the economy keeps growing, the Fed has more room to keep rates high — or raise them again.\n\nThat expectation can push Treasury yields higher.\n\nAnd higher Treasury yields matter to stocks because investors suddenly have an alternative.\n\nIf government bonds are paying around 5%, investors don't have to accept nearly as much risk to generate a return.\n\nHigher yields also put pressure on stock valuations, particularly growth companies whose valuations depend heavily on profits expected years into the future.\n\nNow we're starting to see the other side.\n\nIf hiring slows and jobless claims begin moving higher, that's evidence that higher rates are finally doing some of the work the Fed wanted.\n\nThat could reduce the need for additional rate hikes.\n\nAnd if the market begins expecting fewer hikes, Treasury yields could start coming down with those expectations.\n\nThat's the relationship I'm watching this week:\n\nJOBS\n→ FED EXPECTATIONS\n→ TREASURY YIELDS\n→ STOCK VALUATIONS\n\nWe don't need the economy to suddenly become incredibly strong.\n\nAt this point, some cooling could actually be helpful if it gives the Fed room to stop pushing rates higher.",
+  "macroWatch": {
+    "title": "10-Year Treasury",
+    "body": "The 10-year Treasury yield has recently traded above 5%. This is one of the most important market variables I’m watching. This is research context, not a live yield quote.\n\nIf weaker employment and economic data bring yields lower, that could relieve valuation pressure on equities, particularly growth stocks. If the data cool but yields remain extremely elevated, the valuation headwind remains."
+  },
+  "sectorHeading": "Sector Gauge / Leadership and the Research List",
+  "sectorFocus": "The figures below are Justin’s supplied October 1, 2026 Gauge snapshot. SPY fell 0.42% over the one-week period. Shipping recovered sharply and semiconductors continued to lead, while software and cybersecurity held up. These are dated editorial observations; the full Sector Gauge remains available on its dedicated page.",
+  "gaugeSummary": {
+    "asOf": "2026-10-01",
+    "benchmarkReturn": -0.42,
+    "groups": [
+      {
+        "name": "Shipping & Air Cargo",
+        "ticker": "SEA",
+        "returnPct": 3.42,
+        "rankChange": 21
+      },
+      {
+        "name": "Semiconductors",
+        "ticker": "SMH",
+        "returnPct": 2.88,
+        "rankChange": -1
+      },
+      {
+        "name": "Software",
+        "ticker": "IGV",
+        "returnPct": 1.01,
+        "rankChange": 0
+      },
+      {
+        "name": "Robotics & AI",
+        "ticker": "BOTZ",
+        "returnPct": 0.6,
+        "rankChange": 0
+      },
+      {
+        "name": "Cybersecurity",
+        "ticker": "CIBR",
+        "returnPct": 0.57,
+        "rankChange": -3
+      },
+      {
+        "name": "Energy",
+        "ticker": "XLE",
+        "returnPct": 0.16,
+        "rankChange": 9
+      },
+      {
+        "name": "Homebuilders & Suppliers",
+        "ticker": "XHB",
+        "returnPct": -0.02,
+        "rankChange": -2
+      }
+    ]
+  },
+  "sectorAreas": [
+    {
+      "classification": "Leading",
+      "area": "Semiconductors / Shipping & Air Cargo"
+    },
+    {
+      "classification": "Holding",
+      "area": "Software / Cybersecurity"
+    },
+    {
+      "classification": "Research",
+      "area": "Micron / Semiconductors / Shipping & Air Cargo"
+    },
+    {
+      "classification": "Macro watch",
+      "area": "10-Year Treasury Yield"
+    }
+  ],
+  "sectorSnapshots": [
+    {
+      "name": "Shipping & Air Cargo",
+      "ticker": "SEA",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 3.42,
+          "rank": 1
+        },
+        {
+          "period": "1M",
+          "returnPct": 5.13,
+          "rank": 3
+        },
+        {
+          "period": "3M",
+          "returnPct": 25.46,
+          "rank": 1
+        },
+        {
+          "period": "6M",
+          "returnPct": 20.43,
+          "rank": 4
+        },
+        {
+          "period": "9M",
+          "returnPct": 44.19,
+          "rank": 3
+        },
+        {
+          "period": "12M",
+          "returnPct": 53.26,
+          "rank": 2
+        }
+      ],
+      "commentary": "Shipping’s sharp short-term deterioration in the prior Gauge made me back away from chasing it. The October 1 snapshot shows an equally sharp recovery: back to #1 over one week, up 21 ranking places, while remaining among the strongest groups across nearly every longer timeframe. That puts shipping firmly back on the research list. It does not create a new Opportunity or trade."
+    },
+    {
+      "name": "Semiconductors",
+      "ticker": "SMH",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 2.88,
+          "rank": 2
+        },
+        {
+          "period": "1M",
+          "returnPct": 13.31,
+          "rank": 1
+        },
+        {
+          "period": "6M",
+          "returnPct": 57.62,
+          "rank": 2
+        },
+        {
+          "period": "9M",
+          "returnPct": 71.55,
+          "rank": 1
+        },
+        {
+          "period": "12M",
+          "returnPct": 85.72,
+          "rank": 1
+        }
+      ],
+      "commentary": "Semiconductors strengthened while SPY fell 0.42% over the latest one-week period. Micron’s earnings reinforced strong AI memory, HBM and data-center demand. Gauge leadership plus that fundamental evidence makes semiconductors one of my highest-priority areas for new research."
+    },
+    {
+      "name": "Software",
+      "ticker": "IGV",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 1.01,
+          "rank": 3
+        },
+        {
+          "period": "1M",
+          "returnPct": 1.93,
+          "rank": 4
+        },
+        {
+          "period": "3M",
+          "returnPct": 15.95,
+          "rank": 3
+        },
+        {
+          "period": "6M",
+          "returnPct": 35.7,
+          "rank": 3
+        }
+      ],
+      "commentary": "Software’s recovery remains intact. That supports the broader enterprise-software and AI-implementation research process without automatically creating another Opportunity."
+    },
+    {
+      "name": "Cybersecurity",
+      "ticker": "CIBR",
+      "periods": [
+        {
+          "period": "1W",
+          "returnPct": 0.57,
+          "rank": 5
+        },
+        {
+          "period": "1M",
+          "returnPct": 7.88,
+          "rank": 2
+        },
+        {
+          "period": "3M",
+          "returnPct": 13.91,
+          "rank": 5
+        },
+        {
+          "period": "6M",
+          "returnPct": 64.48,
+          "rank": 1
+        },
+        {
+          "period": "9M",
+          "returnPct": 45.63,
+          "rank": 2
+        },
+        {
+          "period": "12M",
+          "returnPct": 36.34,
+          "rank": 7
+        }
+      ],
+      "commentary": "Cybersecurity cooled slightly in the very short term but remains strong over medium-term periods. The sector has not broadly broken down. That makes it important to distinguish Zscaler’s company-specific weakness from the sector backdrop."
+    }
+  ],
+  "researchNotes": [
+    {
+      "title": "Micron Is Going Back on the Research List",
+      "body": "Micron’s latest earnings reinforced that AI memory, HBM and data-center demand remain extremely strong. That supports the semiconductor leadership visible in the Gauge.\n\nI don’t want to chase MU immediately after earnings. The next research question is whether a future technical pullback or setup creates an attractive entry. I’m not adding Micron to the Opportunity Board today. But I think we need to start looking at it again. No entry, stop, target or position is being established."
+    },
+    {
+      "title": "AI Is Acting Differently",
+      "body": "Higher Treasury yields are generally a valuation headwind for growth stocks. AI-related stocks are not immune. But strong fundamental demand appears to be offsetting some of that pressure in selected groups.\n\nSemiconductors remain extremely strong. Software remains strong. Cybersecurity is holding up across medium-term periods, and Robotics & AI stayed positive in a week when SPY declined. Micron’s earnings add fundamental evidence.\n\nAI trades aren’t immune to interest rates. But so far, the strongest AI-related businesses are proving more resilient to them than a lot of the rest of the market."
+    }
+  ],
+  "opportunityIds": [
+    "opportunity-001",
+    "opportunity-007",
+    "opportunity-005",
+    "opportunity-002",
+    "opportunity-006",
+    "opportunity-004"
+  ],
+  "opportunityCommentary": [
+    {
+      "opportunityId": "opportunity-001",
+      "body": "Tuesday’s Investor Day is the major checkpoint. Cybersecurity remains strong in the Gauge, so I am treating the recent ZS weakness primarily as company-specific unless the evidence changes. I want clarity on growth, sales execution and productivity, the CRO transition, financial expectations and the long-term opportunity. I don’t need a gigantic announcement. I need evidence that the fundamental thesis hasn’t changed. No trade terms change automatically after the event."
+    },
+    {
+      "opportunityId": "opportunity-007",
+      "body": "No immediate action is required. EPAM is a starter position, and I expect the thesis to take time. It may be volatile or pull back after the recent ACN-related move. Q3 earnings in early November remain the main fundamental checkpoint, with the date pending company confirmation. No shares are being added and the documented stop and targets are unchanged."
+    },
+    {
+      "opportunityId": "opportunity-005",
+      "body": "The technical thesis strengthened last week: MSTR now appears in Stage 2 on my daily and weekly Weinstein scans. TrendSpider’s strategy also produced a long signal in the same general setup area. Those signals did not change the position, entry, add/reassessment zone, stop or target."
+    },
+    {
+      "opportunityId": "opportunity-002",
+      "body": "No reason to manufacture an update here. The trade remains intact and we’ll continue letting it develop."
+    },
+    {
+      "opportunityId": "opportunity-006",
+      "body": "The current covered call expires this week. If the shares are called away, the stock component is the difference between the documented broker basis and assignment price, shown below. That is a conditional scenario, not a realized result. Option economics must be evaluated separately from verified fills; the available credits do not establish complete final Wheel profit. If assignment occurs, I plan to reassess restarting with cash-secured puts. No new put trade or assignment is being recorded now."
+    },
+    {
+      "opportunityId": "opportunity-004",
+      "body": "ServiceNow remains closed. The verified gross stock result is shown below. I am still watching for a future re-entry, but there is no new NOW trade."
+    }
+  ],
+  "separateClosedPositions": true,
+  "events": [
+    {
+      "day": "Monday / October 5",
+      "title": "ISM Services PMI",
+      "description": "Also on the calendar: final S&P Global Services and Composite PMIs.",
+      "relevance": "Is the recent employment cooling appearing elsewhere in the economy? Services represent a large portion of U.S. activity and offer another read on whether higher rates are cooling demand. One PMI reading will not settle the question."
+    },
+    {
+      "day": "Tuesday / October 6",
+      "title": "Zscaler Investor Day / 8:30 AM ET",
+      "description": "A major company-specific checkpoint for Premium: long-term growth, sales execution and productivity, AI/security demand, the financial outlook, margins and the recent CRO transition.",
+      "relevance": "I don’t need some gigantic announcement. I need evidence that the fundamental thesis hasn’t changed. I am not predicting a rally or automatically changing the ZS position."
+    },
+    {
+      "day": "Wednesday / October 7",
+      "title": "Federal Reserve September Meeting Minutes",
+      "description": "Minutes from the September meeting, when the Fed raised rates by 25 basis points.",
+      "relevance": "How concerned were policymakers about inflation? How divided were they? How much support was there for additional hikes, and what could lead to a pause? Connect the discussion back to employment → Fed expectations → Treasury yields → equity valuations."
+    },
+    {
+      "day": "Thursday / October 8",
+      "title": "Weekly Initial Jobless Claims",
+      "description": "Claims deserve more attention this week because employment data recently weakened.",
+      "relevance": "Do claims confirm broader labor-market cooling or remain relatively contained? One weekly reading is not definitive."
+    },
+    {
+      "day": "Friday / October 9",
+      "title": "Preliminary University of Michigan Consumer Sentiment",
+      "description": "Consumers still face higher borrowing costs, elevated energy prices and persistent inflation pressure. Delta earnings provide a secondary read on travel demand and consumer spending.",
+      "relevance": "Watch whether those pressures are affecting sentiment and spending intentions. Delta is supporting context rather than the main focus of the week."
+    }
+  ],
+  "planHeading": "The Plan This Week",
+  "gamePlan": "The market is giving us conflicting information.\n\nEmployment is cooling.\n\nTreasury yields remain extremely high.\n\nLeadership is concentrated.\n\nBut the strongest AI-related areas continue to produce real fundamental growth.\n\nSo rather than trying to predict whether the entire market goes up or down this week, I want to focus on where the evidence is strongest.\n\nWatch the 10-year.\n\nWatch whether jobless claims confirm the employment slowdown.\n\nListen closely to the Fed minutes.\n\nGet answers from Zscaler on Tuesday.\n\nStart digging back into Micron and semiconductors.\n\nAnd put shipping back on the research list.\n\nIf weaker employment data takes some pressure off the Fed and Treasury yields begin moving lower, that could remove one of the biggest headwinds facing growth stocks.\n\nUntil then, I'm staying selective and letting the data tell us where the next trade should come from.",
+  "notificationSummary": "Employment is cooling and Treasury yields remain elevated, but AI-related market leadership continues to hold. This week we’re watching Zscaler Investor Day, Fed minutes, jobless claims, semiconductor strength after Micron’s earnings, and the sharp return of Shipping & Air Cargo to the top of the Sector Gauge.",
+  "sources": [
+    {
+      "label": "Zscaler Investor Day announcement",
+      "url": "https://zscaler.gcs-web.com/news-releases/news-release-details/zscaler-host-investor-day-october-6"
+    },
+    {
+      "label": "Federal Reserve October calendar",
+      "url": "https://www.federalreserve.gov/newsevents/2026-october.htm"
+    },
+    {
+      "label": "September Fed policy statement",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+    },
+    {
+      "label": "ISM release calendar",
+      "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/"
+    },
+    {
+      "label": "Micron fiscal Q4 2026 results",
+      "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Fiscal-Fourth-Quarter-and-Full-Year-2026-Results/"
+    },
+    {
+      "label": "Delta investor calendar",
+      "url": "https://ir.delta.com/events-and-presentations/"
+    }
+  ]
+});
