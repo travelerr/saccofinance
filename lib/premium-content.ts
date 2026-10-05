@@ -15,6 +15,7 @@ export type Opportunity={
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
+ riskUpdate?:{date:string;previousStop:number;title:string;warning:string};nextCatalyst?:string;
  positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];

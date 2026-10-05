@@ -28,13 +28,13 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
  const records=[update,{...update,id:'earlier',publishedAt:'2026-01-02'},{...update,id:'draft',publicationState:'draft'},{...update,id:'active',tradeStatusAfter:'Active'}];
  assert.deepEqual(m.getOpportunityUpdates(base.id,records).map(u=>u.id),['earlier','update']);
 });
-test('ZS remains unchanged and Dashboard/board share canonical server-only selectors',()=>{
+test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,1);
+ assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,2);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Active');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
- assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190,160,230]);
- assert.equal(zs.trade.quantity,undefined);assert.equal(zs.trade.exitedAt,undefined);assert.equal(zs.secondaryEntry,undefined);assert.equal(zs.catalysts,undefined);assert.equal(zs.targets,undefined);
+ assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,195,230]);
+ assert.equal(zs.trade.quantity,10);assert.equal(zs.trade.exitedAt,undefined);assert.equal(zs.secondaryEntry,undefined);assert.equal(zs.catalysts,undefined);assert.equal(zs.targets,undefined);
  assert.equal(data.getOpportunityUpdates(zs.id)[0].tradeStatusBefore,null);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/zs-2026-09-16.png')));
  assert.equal(zs.chart.src,'/api/premium/chart/zs-2026-09-16');
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-007');
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-001');
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -156,4 +156,14 @@ test('EPAM scenarios derive from execution levels and never report realized prof
  assert.equal(s.capital,1740);assert.equal(s.riskTotal,240);assert.equal(s.riskPerShare,16);assert.equal(s.riskPct.toFixed(1),'13.8');
  assert.deepEqual(s.targets.map(t=>[t.gainPerShare,t.gainTotal,t.gainPct.toFixed(1),t.rewardRisk.toFixed(2)]),[[29,435,'25.0','1.81'],[104,1560,'89.7','6.50']]);
  assert.equal(tradeScenarios({...t,entryPrice:120}).capital,1800);assert.equal(tradeScenarios({...t,stopPrice:120}),null);assert.equal(tradeScenarios(undefined),null);
+});
+
+test('ZS October 5 risk update preserves history, verifies the position and prepares one manual event',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const u=d.getOpportunityUpdates(o.id);assert.equal(d.opportunities.filter(o=>o.ticker==='ZS').length,1);
+ assert.equal(o.tradeStatus,'Active');assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,195,230]);assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitedAt,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.updatedAt,'2026-10-05');assert.equal(u.length,2);assert.deepEqual([u[0].trade.entryPrice,u[0].trade.stopPrice,u[0].trade.firstTargetPrice],[190,160,230]);assert.equal(u[0].trade.quantity,undefined);
+ const update=u[1];assert.deepEqual(update.trade,o.trade);assert.equal(update.tradeStatusBefore,'Active');assert.equal(update.tradeStatusAfter,'Active');assert.match(update.explanation,/49.30/);assert.match(update.explanation,/conditional calculation, not realized profit or a guaranteed outcome/);assert.match(update.explanation,/does not trigger during extended-hours/);assert.match(o.riskUpdate.warning,/NOT a guaranteed exit price/);assert.equal(o.riskUpdate.previousStop,160);
+ assert.match(o.nextCatalyst,/Oct. 6, 2026 · 8:30 AM ET/);assert.doesNotMatch(o.riskInvalidation,/stop and technical invalidation are \$160/);
+ const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.updateId===update.id);assert.equal(events.length,1);
+ assert.equal(events[0].subject,'Opportunity Update: ZS Stop Raised Ahead of Investor Day');assert.equal(events[0].cta,'VIEW THE ZSCALER UPDATE');assert.equal(events[0].path,'/premium/opportunities/zscaler-001');const email=renderResearchEmail(events[0],'https://saccofinancial.com');assert.match(email.text,/does not trigger during premarket or extended-hours/);assert.match(email.text,/Investing involves risk/);assert.doesNotMatch(email.text,/our 10 shares|guaranteed profit|profit locked in/);
 });

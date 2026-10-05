@@ -78,7 +78,7 @@ test('server administrator guard rejects unauthorized authenticated sessions',as
 });
 
 test('notification picker sorts publication dates newest first without redating original opportunities',()=>{
- assert.equal(events[0].key,'WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-003');
+ assert.equal(events[0].key,'OPPORTUNITY_MATERIAL_UPDATE:opportunity-001:opportunity-001-risk-2026-10-05');
  for(let i=1;i<events.length;i++)assert.ok(Date.parse(events[i-1].publishedAt)>=Date.parse(events[i].publishedAt));
  const original=events.find(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-004');assert.equal(original.publishedAt,'2026-09-18');
  const keys=events.map(e=>e.key);assert.equal(new Set(keys).size,keys.length);
