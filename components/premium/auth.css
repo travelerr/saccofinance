@@ -36,3 +36,11 @@
 .research-preference-form>p{margin:0;line-height:1.8}
 .research-preference-form>.button{margin-top:4px;cursor:pointer}
 @media(max-width:600px){.account-admin-tools .button{width:100%;box-sizing:border-box}.research-preference-form{gap:22px}}
+
+/* Keep account login controls readable and comfortably spaced. */
+.premium-account .account-login{display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+.premium-account .account-login>h2{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.2;letter-spacing:-.025em}
+.premium-account .account-login>p{margin:0;max-width:680px;line-height:1.8}
+.premium-account .account-login>.premium-auth-links{margin:8px 0 0;max-width:100%}
+.premium-account .account-login .button{padding:18px 24px;line-height:1.5;white-space:normal;text-align:center}
+@media(max-width:600px){.premium-account .account-login>.premium-auth-links{width:100%}.premium-account .account-login .button{width:100%;box-sizing:border-box}}
