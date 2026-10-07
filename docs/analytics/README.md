@@ -6,12 +6,12 @@ No production settings have been changed. No migration is needed for this founda
 
 ## What is implemented
 
-- Basic opt-in analytics: no Google script or analytics events before permission. Optional cookies can be declined or revoked; Global Privacy Control also disables collection.
+- Analytics starts by default for new visitors. The footer Analytics preferences control allows declining or re-enabling tracking. Saved declines and Global Privacy Control disable collection; the preference dialog does not open automatically.
 - Production requires GA_ANALYTICS_ENABLED=true, canonical HTTPS AUTH_SITE_URL and live Stripe mode. All other environments fail closed. Local preview never sends to Google even with a production ID present.
 - Verified research administrators are excluded in production. Authentication, password, unsubscribe, administrator, API, and unknown routes are excluded from page tracking. Existing billing and access controls are unchanged.
 - Server checks identity before enabling the client. Verified members use a SHA-256 pseudonym of their Supabase UUID. Names, emails, passwords, tokens, free-form text and full URLs are not collected by our events.
 - Explicit page and navigation events; known social/free-guide outbound destinations are categories, not full URLs. Google enhanced measurement MUST be disabled before rollout to avoid duplicate SPA page views and automatic form/link collection.
-- First touch and latest non-direct campaign persist for 90 days after consent. Only approved source/medium values and short campaign/content slugs are accepted. Internal/Stripe/Supabase returns never replace attribution. Users without consent or blocked GA are not attributed in GA; Stripe remains the total-payment authority.
+- First touch and latest non-direct campaign persist for 90 days while analytics is enabled. Only approved source/medium values and short campaign/content slugs are accepted. Internal/Stripe/Supabase returns never replace attribution. Users who decline analytics or block GA are not attributed in GA; Stripe remains the total-payment authority.
 - Once per page mount, `research_engaged` requires 30 seconds of active/visible reading and >=50% document depth. It is an engagement estimate, not proof of completion. Only one custom engagement milestone is sent; the one-second timer never emits heartbeat events.
 - Email research CTA links receive non-personal UTM tags; unsubscribe URLs and auth links do not. Existing notification event keys and duplicate protections are preserved. Previously sent email links cannot be retroactively tagged.
 - Checkout consent/context is attached to Stripe Checkout metadata separately from the idempotent session-create payload. Updating analytics metadata cannot block checkout. It is a checkout-time consent snapshot, not a global cross-device consent registry.
@@ -108,3 +108,12 @@ Local mode never loads Google/AWS reporting credentials. It displays real **loca
 Validation: `npm run test:analytics` includes report parsing, partial failures, caching, signed read-only OAuth claims, malformed properties, local isolation, authorization before credentials, and deduplicated access/preference counts. `npm run test:offline` and the production build pass. A real Google report request still needs to be verified in the approved production deployment; configuring credentials alone does not prove access.
 
 Reference: [Google Data API schema](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema), [service-account OAuth](https://developers.google.com/identity/protocols/oauth2/service-account).
+
+## October 6 preference update
+
+Analytics now defaults on for new visitors without an automatic popup. Earlier opt-in validation notes above describe the previous behavior. Saved declines remain effective, as do Global Privacy Control, administrator exclusion, and local isolation. Browser and server milestones use the same preference policy; server events still require a valid browser-generated analytics context.
+
+
+## October 7 Google command delivery fix
+
+The browser wrapper now queues native `Arguments` objects using Google's documented `function gtag(){dataLayer.push(arguments)}` convention. Ordinary arrays are interpreted as data-layer method calls, not gtag commands, so the previous wrapper could load the tag without processing our configuration or events. The browser regression test checks command type and the queued config/page-view commands. Production receipt still requires checking GA Realtime after deployment; local preview intentionally sends nothing to Google.

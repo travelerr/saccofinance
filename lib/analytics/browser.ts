@@ -1,5 +1,5 @@
 'use client';
-import {campaignFromUrl,campaignParams,CONSENT_COOKIE,CONTEXT_COOKIE,MEASUREMENT_ID,parseContext,safePage,updateAttribution,type Attribution} from './policy';
+import {analyticsAllowed,campaignFromUrl,campaignParams,CONSENT_COOKIE,CONTEXT_COOKIE,MEASUREMENT_ID,parseContext,safePage,updateAttribution,type Attribution} from './policy';
 type Params=Record<string,string|number|boolean|null>;
 type Gtag=(...args:unknown[])=>void;
 declare global {interface Window {dataLayer?:unknown[];gtag?:Gtag;__saccoAnalyticsPreview?:Array<{event:string;params:Params}>;}}
@@ -10,7 +10,7 @@ let scriptStarted=false;
 let loadFailed=false;
 export function readCookie(name:string){try{return decodeURIComponent(document.cookie.split('; ').find(c=>c.startsWith(name+'='))?.slice(name.length+1)||'');}catch{return '';}}
 function writeCookie(name:string,value:string,seconds:number){document.cookie=`${name}=${encodeURIComponent(value)}; Path=/; Max-Age=${seconds}; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`;}
-export function hasConsent(){return readCookie(CONSENT_COOKIE)==='granted'&&!(navigator as Navigator&{globalPrivacyControl?:boolean}).globalPrivacyControl;}
+export function hasConsent(){return analyticsAllowed(readCookie(CONSENT_COOKIE),Boolean((navigator as Navigator&{globalPrivacyControl?:boolean}).globalPrivacyControl));}
 export function setConsent(granted:boolean){writeCookie(CONSENT_COOKIE,granted?'granted':'denied',15552000);if(!granted)clearAnalytics();}
 function disableTag(disabled:boolean){(window as unknown as Record<string,unknown>)[`ga-disable-${MEASUREMENT_ID}`]=disabled;}
 export function pauseTracking(){mode='disabled';currentPath=null;disableTag(true);}
@@ -47,7 +47,9 @@ export function startPage(config:{mode:'preview'|'live';userId?:string|null},pat
  if(mode==='live'){
   if(loadFailed){pauseTracking();return;}
   window.dataLayer=window.dataLayer||[];
-  window.gtag=window.gtag||((...args:unknown[])=>{window.dataLayer!.push(args);});
+  // Google distinguishes Arguments commands from ordinary data-layer arrays.
+  // eslint-disable-next-line prefer-rest-params -- gtag requires Arguments, not an array.
+  window.gtag=window.gtag||function(){window.dataLayer!.push(arguments);};
   const settings={send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false,cookie_domain:'none',cookie_expires:7776000,user_id:config.userId||null,page_location:'https://saccofinancial.com'+clean,page_referrer:'',page_title:clean,...campaignParams(attribution)};
   // Set sanitized defaults BEFORE loading Google. Enhanced measurement must also be OFF in GA.
   window.gtag('set',settings);

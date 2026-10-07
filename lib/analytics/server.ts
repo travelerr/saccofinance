@@ -1,13 +1,13 @@
 import 'server-only';
 import {cookies,headers} from 'next/headers';
-import {analyticsMode,CONSENT_COOKIE,CONTEXT_COOKIE,MEASUREMENT_ID,parseContext} from './policy';
+import {analyticsAllowed,analyticsMode,CONSENT_COOKIE,CONTEXT_COOKIE,MEASUREMENT_ID,parseContext} from './policy';
 import {purchaseEvent} from './purchase';
 import {isResearchAdmin} from '@/lib/email/policy';
 /** Analytics must never prevent authentication, payment, or membership access. */
 export async function checkoutAnalytics(user:{id:string;email_confirmed_at?:string|null;is_anonymous?:boolean}){
  try{
   if(analyticsMode(process.env)!=='live'||isResearchAdmin(user,process.env.RESEARCH_ADMIN_USER_IDS||''))return {sf_ga_context:''};
-  const store=await cookies();if((await headers()).get('sec-gpc')==='1'||store.get(CONSENT_COOKIE)?.value!=='granted')return {sf_ga_context:''};
+  const store=await cookies();if(!analyticsAllowed(store.get(CONSENT_COOKIE)?.value,(await headers()).get('sec-gpc')==='1'))return {sf_ga_context:''};
   const context=parseContext(store.get(CONTEXT_COOKIE)?.value);
   // Stripe limits each metadata value to 500 characters. Keep only source/medium
   // and campaign here; detailed content placement stays in the browser events.

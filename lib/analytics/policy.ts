@@ -48,3 +48,8 @@ export function safePage(path:string):string|null {
 }
 export function campaignParams(attribution:Attribution){return {first_source:attribution.first.source,first_medium:attribution.first.medium,first_campaign:attribution.first.campaign,last_source:attribution.last.source,last_medium:attribution.last.medium,last_campaign:attribution.last.campaign,campaign_source:attribution.last.source,campaign_medium:attribution.last.medium,campaign_name:attribution.last.campaign,campaign_content:attribution.last.content};}
 export function engagementReached(activeMs:number,depth:number){return activeMs>=30000&&depth>=50;}
+
+/** New visitors default to enabled; saved declines and privacy signals take precedence. */
+export function analyticsAllowed(preference:string|undefined,globalPrivacyControl=false){
+ return !globalPrivacyControl&&(!preference||preference==='granted');
+}

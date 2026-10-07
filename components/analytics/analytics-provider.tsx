@@ -2,8 +2,8 @@
 import {useEffect,useRef,useState} from 'react';
 import {createPortal} from 'react-dom';
 import {usePathname} from 'next/navigation';
-import {clearAnalytics,hasConsent,pauseTracking,readCookie,setConsent,startPage,track} from '@/lib/analytics/browser';
-import {CONSENT_COOKIE,engagementReached,safePage} from '@/lib/analytics/policy';
+import {clearAnalytics,hasConsent,pauseTracking,setConsent,startPage,track} from '@/lib/analytics/browser';
+import {engagementReached,safePage} from '@/lib/analytics/policy';
 import './analytics.css';
 import {affiliateClickParams} from '@/lib/affiliate-tools';
 type Config={mode:'disabled'|'preview'|'live';userId?:string|null};
@@ -24,7 +24,6 @@ export default function AnalyticsProvider(){
     if(canceled)return;
     const enabled=config.mode==='live'||config.mode==='preview';setAvailable(enabled);setPreview(config.mode==='preview');
     if(!enabled){clearAnalytics();setShow(false);return;}
-    setShow(!readCookie(CONSENT_COOKIE)&&!gpc);
     if(!hasConsent()||!safePage(pathname))return;
     startPage(config as Config&{mode:'live'|'preview'},pathname,landing.current!.url,landing.current!.referrer);
     let activeMs=0,maxDepth=0,lastActivity=Date.now(),lastTick=Date.now(),engaged=false;
@@ -66,7 +65,7 @@ export default function AnalyticsProvider(){
  function choose(granted:boolean){setConsent(granted);setShow(false);setChoice(n=>n+1);}
  if(!available)return null;
  return <>
- {show&&<aside className="analytics-choice" aria-label="Optional analytics"><strong>Help us improve Sacco Financial</strong><p>Allow optional analytics to help us understand visits, subscriptions, and which research gets read. Your choice won’t affect your account or email preferences. <a href="/privacy">Privacy policy</a></p>{gpcActive&&<p>Your browser’s Global Privacy Control keeps analytics disabled.</p>}<div><button onClick={()=>choose(false)}>Decline</button><button disabled={gpcActive} onClick={()=>choose(true)}>Allow analytics</button><button onClick={()=>setShow(false)} aria-label="Close analytics choices">Close</button></div></aside>}
+ {show&&<aside className="analytics-choice" aria-label="Optional analytics"><strong>Analytics preferences</strong><p>Analytics is enabled by default to help us understand visits, subscriptions, and which research gets read. You can turn it off here. Your choice won’t affect your account or email preferences. <a href="/privacy">Privacy policy</a></p><p>Analytics is currently {hasConsent()?'on':'off'} in this browser.</p>{gpcActive&&<p>Your browser’s Global Privacy Control keeps analytics disabled.</p>}<div><button onClick={()=>choose(false)}>Decline</button><button disabled={gpcActive} onClick={()=>choose(true)}>Allow analytics</button><button onClick={()=>setShow(false)} aria-label="Close analytics choices">Close</button></div></aside>}
  {settingsTarget&&createPortal(<button className="analytics-settings" onClick={()=>setShow(true)}>Analytics preferences</button>,settingsTarget)}
  {preview&&<details className="analytics-preview"><summary>Local analytics preview · {events.length} events</summary><p>Nothing is sent to Google. {hasConsent()?'Analytics allowed in this browser.':'Allow analytics to preview events.'}</p><ol>{events.slice(-12).map((event,index)=><li key={index}>{event}</li>)}</ol></details>}
  </>;

@@ -37,18 +37,25 @@ test('local preview shares no production secrets even when they exist in parent 
  const {safeBaseEnv}=require('./local-environment.cjs');const old=process.env.GA_MEASUREMENT_API_SECRET;process.env.GA_MEASUREMENT_API_SECRET='SENTINEL';try{assert.equal(safeBaseEnv().GA_MEASUREMENT_API_SECRET,'');assert.equal(safeBaseEnv().GA_ANALYTICS_ENABLED,'');}finally{if(old===undefined)delete process.env.GA_MEASUREMENT_API_SECRET;else process.env.GA_MEASUREMENT_API_SECRET=old;}
 });
 
-test('browser consent gates scripts and events; preview sends nothing; revocation clears tracking',()=>{
+test('analytics defaults on; saved declines and GPC stop collection; preview sends nothing',()=>{
  const vm=require('node:vm');const jar=new Map();const scripts=[];const events=[];
  const document={head:{appendChild:script=>scripts.push(script)},createElement:()=>({})};
  Object.defineProperty(document,'cookie',{get:()=>[...jar].map(([k,v])=>k+'='+v).join('; '),set:raw=>{const [pair,...options]=raw.split('; ');const split=pair.indexOf('=');const key=pair.slice(0,split),value=pair.slice(split+1);if(options.includes('Max-Age=0'))jar.delete(key);else jar.set(key,value);}});
  const window={dispatchEvent:event=>events.push(event)};const sandbox={exports:{},require:id=>{if(id==='./policy')return p;throw Error(id);},document,window,navigator:{},location:{protocol:'http:',origin:'http://localhost:3083'},Event};
  vm.runInNewContext(ts.transpileModule(fs.readFileSync(require.resolve('../lib/analytics/browser.ts'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,sandbox);
- const b=sandbox.exports;b.startPage({mode:'preview'},'/premium','https://saccofinancial.com/premium?utm_source=youtube&utm_medium=organic_social','');assert.equal(window.__saccoAnalyticsPreview,undefined);assert.equal(scripts.length,0);
+ const b=sandbox.exports;b.startPage({mode:'preview'},'/premium','https://saccofinancial.com/premium?utm_source=youtube&utm_medium=organic_social','');assert.equal(window.__saccoAnalyticsPreview.length,2);assert.equal(scripts.length,0);
+ b.setConsent(false);b.startPage({mode:'preview'},'/premium','https://saccofinancial.com/premium','');assert.equal(window.__saccoAnalyticsPreview.length,2);
+ window.__saccoAnalyticsPreview=[];
  b.setConsent(true);b.startPage({mode:'preview'},'/premium','https://saccofinancial.com/premium?utm_source=youtube&utm_medium=organic_social&email=private@example.com','');assert.equal(window.__saccoAnalyticsPreview.length,2);assert.equal(window.__saccoAnalyticsPreview[0].params.first_source,'youtube');assert.ok(!JSON.stringify(window.__saccoAnalyticsPreview).includes('@'));assert.equal(scripts.length,0);
  b.setConsent(false);const count=window.__saccoAnalyticsPreview.length;b.track('research_view');assert.equal(window.__saccoAnalyticsPreview.length,count);assert.ok(!jar.has('sf_analytics_attribution'));
  b.setConsent(true);b.startPage({mode:'live'},'/premium','https://saccofinancial.com/premium','');assert.equal(scripts.length,0,'localhost cannot load live GA even if configured accidentally');
  sandbox.location={protocol:'https:',origin:'https://saccofinancial.com'};b.startPage({mode:'live'},'/premium/auth/claim/private','https://saccofinancial.com/premium/auth/claim/private?token_hash=secret','');assert.equal(scripts.length,0);
  b.startPage({mode:'live'},'/premium','https://saccofinancial.com/premium?token_hash=secret','https://other.invalid?email=secret');assert.equal(scripts.length,1);assert.equal(scripts[0].referrerPolicy,'no-referrer');assert.ok(!JSON.stringify(window.dataLayer).includes('token_hash'));assert.ok(!JSON.stringify(window.dataLayer).includes('other.invalid'));
+ // Google dispatches gtag commands only from Arguments objects; arrays take a different path.
+ assert.ok(window.dataLayer.length>0);
+ for(const command of window.dataLayer)assert.equal(Object.prototype.toString.call(command),'[object Arguments]');
+ assert.ok(window.dataLayer.some(command=>command[0]==='config'&&command[1]===p.MEASUREMENT_ID));
+ assert.ok(window.dataLayer.some(command=>command[0]==='event'&&command[1]==='page_view'));
  sandbox.navigator.globalPrivacyControl=true;assert.equal(b.hasConsent(),false);const size=window.dataLayer.length;b.track('research_view');assert.equal(window.dataLayer.length,size);
 });
 
@@ -57,4 +64,10 @@ test('affiliate clicks preserve exact partner URLs and expose only fixed reporti
  assert.deepEqual(affiliateTools.map(t=>t.url),['https://trendspider.com?_go=justin-4f7fc2','https://link.seekingalpha.com/5FNXWBJ/4G6SHH/']);
  for(const tool of affiliateTools){assert.deepEqual(affiliateClickParams(new URL(tool.url).href,'premium_tools'),{affiliate_partner:tool.id,placement:'premium_tools',destination:tool.destination});assert.equal(affiliateClickParams(tool.url+'?email=private@example.com','premium_tools'),null);}
  assert.equal(affiliateClickParams('https://example.com','premium_tools'),null);assert.equal(affiliateClickParams(new URL(affiliateTools[0].url).href,'unknown'),null);
+});
+
+test('browser and server share default-on preference policy',()=>{
+ for(const preference of [undefined,'','granted'])assert.equal(p.analyticsAllowed(preference),true);
+ for(const preference of ['denied','invalid'])assert.equal(p.analyticsAllowed(preference),false);
+ for(const preference of [undefined,'','granted','denied'])assert.equal(p.analyticsAllowed(preference,true),false);
 });
