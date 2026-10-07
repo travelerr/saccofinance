@@ -30,11 +30,11 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,4);
+ assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
- assert.equal(zs.tradeStatus,'Active');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
+ assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
- assert.equal(zs.trade.quantity,10);assert.equal(zs.trade.exitedAt,undefined);assert.equal(zs.secondaryEntry,undefined);assert.equal(zs.catalysts,undefined);assert.equal(zs.targets,undefined);
+ assert.equal(zs.trade.quantity,10);assert.equal(zs.trade.exitedAt,'2026-10-07');assert.equal(zs.secondaryEntry,undefined);assert.equal(zs.catalysts,undefined);assert.equal(zs.targets,undefined);
  assert.equal(data.getOpportunityUpdates(zs.id)[0].tradeStatusBefore,null);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/zs-2026-09-16.png')));
  assert.equal(zs.chart.src,'/api/premium/chart/zs-2026-09-16');
@@ -43,7 +43,7 @@ test('ZS current position and Dashboard/board share canonical server-only select
  for(const file of ['app/premium/dashboard/page.tsx','app/premium/opportunities/page.tsx'])assert.match(fs.readFileSync(require('node:path').join(__dirname,'..',file),'utf8'),/getPublishedOpportunities\(\)/);
 });
 test('technical-stage edits never change Active trade status or current visibility',()=>{
- const data=require('../lib/premium-opportunities.ts');const zs=data.opportunities[0];
+ const data=require('../lib/premium-opportunities.ts');const zs=data.opportunities.find(o=>o.tradeStatus==='Active');
  for(const technicalStage of ['Stage 2 Confirmed','Technically invalidated']){
   const edited={...zs,technicalStage};assert.equal(edited.tradeStatus,'Active');assert.ok(m.isPublishableOpportunity(edited));assert.ok(m.isCurrentOpportunity(edited));
  }
@@ -113,11 +113,11 @@ test('NOW closes with verified gross results, preserves history and prepares a u
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('servicenow-004');
  assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.exitPrice,130.79);assert.equal(o.trade.exitedAt,'2026-09-28');assert.equal(o.trade.exitTime,'9:11:43 AM');assert.equal(o.trade.exitReason,'Stop triggered');
  const result=m.realizedTradeResult(o);assert.equal(result.costBasis,5355);assert.equal(result.saleProceeds,5885.55);assert.equal(result.realizedDollarPnL,530.55);assert.equal(result.realizedPercentReturn.toFixed(1),'9.9');
- assert.equal(m.isCurrentOpportunity(o),false);assert.equal(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed')[0].id,o.id);
+ assert.equal(m.isCurrentOpportunity(o),false);assert.ok(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').some(r=>r.id===o.id));
  assert.equal(d.getOpportunityUpdates(o.id)[1].trade.entryPrice,undefined);assert.equal(o.originalResearchAt,'2026-09-18');assert.equal(o.followUp,'Watching for re-entry');
  const events=require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates);const event=events.find(e=>e.updateId==='opportunity-004-closed-2026-09-28');
  assert.equal(event.subject,'Opportunity Update: ServiceNow Position Closed +9.9%');assert.equal(event.type,'OPPORTUNITY_MATERIAL_UPDATE');assert.equal(event.path,'/premium/opportunities/servicenow-004');assert.match(event.summary,/before any fees or taxes/);
- for(const other of d.opportunities.filter(x=>x.id!==o.id))assert.equal(m.realizedTradeResult(other),null);
+ for(const other of d.opportunities.filter(x=>x.tradeStatus!=='Closed'))assert.equal(m.realizedTradeResult(other),null);
  const closed={...o,trade:{...o.trade,exitPrice:100}};assert.equal(m.realizedTradeResult(closed).realizedDollarPnL,-855);
  assert.equal(m.realizedTradeResult({...o,trade:{...o.trade,entryPrice:undefined}}),null);
 });
@@ -158,32 +158,33 @@ test('EPAM scenarios derive from execution levels and never report realized prof
  assert.equal(tradeScenarios({...t,entryPrice:120}).capital,1800);assert.equal(tradeScenarios({...t,stopPrice:120}),null);assert.equal(tradeScenarios(undefined),null);
 });
 
-test('ZS October 5 risk update preserves history, verifies the position and prepares one manual event',()=>{
- const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const u=d.getOpportunityUpdates(o.id);assert.equal(d.opportunities.filter(o=>o.ticker==='ZS').length,1);
- assert.equal(o.tradeStatus,'Active');assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210,220]);assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitedAt,undefined);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(o.updatedAt,'2026-10-07');assert.equal(u.length,4);assert.deepEqual([u[0].trade.entryPrice,u[0].trade.stopPrice,u[0].trade.firstTargetPrice],[190,160,220]);assert.equal(u[0].trade.quantity,undefined);
- const update=u[1];assert.equal(update.trade.stopPrice,195);assert.equal(update.tradeStatusBefore,'Active');assert.equal(update.tradeStatusAfter,'Active');assert.match(update.explanation,/49.30/);assert.match(update.explanation,/conditional calculation, not realized profit or a guaranteed outcome/);assert.match(update.explanation,/does not trigger during extended-hours/);assert.match(o.riskUpdate.warning,/NOT a guaranteed exit price/);assert.equal(o.riskUpdate.previousStop,205);
- assert.equal(o.nextCatalyst,undefined);assert.doesNotMatch(o.riskInvalidation,/stop and technical invalidation are \$160/);
- const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.updateId===update.id);assert.equal(events.length,1);
- assert.equal(events[0].subject,'Opportunity Update: ZS Stop Raised Ahead of Investor Day');assert.equal(events[0].cta,'VIEW THE ZSCALER UPDATE');assert.equal(events[0].path,'/premium/opportunities/zscaler-001');const email=renderResearchEmail(events[0],'https://saccofinancial.com');assert.match(email.text,/does not trigger during premarket or extended-hours/);assert.match(email.text,/Investing involves risk/);assert.doesNotMatch(email.text,/our 10 shares|guaranteed profit|profit locked in/);
-});
-
-test('ZS October 6 stop is 205 with immutable 160/195 history and a distinct manual email',()=>{
- const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const history=d.getOpportunityUpdates(o.id);assert.deepEqual(history.map(u=>u.trade.stopPrice),[160,195,205,210]);assert.deepEqual(history.map(u=>u.publishedAt),['2026-09-16','2026-10-05','2026-10-06','2026-10-07']);
- assert.equal(o.tradeStatus,'Active');assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210,220]);assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(m.realizedTradeResult(o),null);assert.equal(history[2].trade.stopPrice,205);assert.notEqual(history[2].trade,o.trade);assert.notEqual(history[1].trade,o.trade);
- assert.equal(Math.round((history[2].trade.stopPrice-history[2].trade.entryPrice)*history[2].trade.quantity*100)/100,149.30);assert.equal(((205/190.07-1)*100).toFixed(2),'7.86');assert.match(history[2].explanation,/hypothetical, not realized profit/);assert.match(history[2].explanation,/not a live quote/);assert.equal(o.nextCatalyst,undefined);
- const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history[2].id);assert.equal(events.filter(e=>e.updateId===history[2].id).length,1);assert.equal(e.subject,'Opportunity Update: ZS Stop Raised to $205');assert.equal(e.cta,'VIEW THE ZSCALER UPDATE');assert.equal(e.path,'/premium/opportunities/zscaler-001');assert.notEqual(e.key,events.find(e=>e.updateId===history[1].id).key);const email=renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/actual fill may differ/);assert.match(email.text,/hypothetical, not guaranteed or realized/);assert.doesNotMatch(email.text,/profit locked in|risk-free|cannot lose|target achieved/);
+test('ZS October 5 and 6 stop snapshots and emails remain intact after closure',()=>{
+ const d=require('../lib/premium-opportunities.ts');const history=d.getOpportunityUpdates('opportunity-001');
+ assert.deepEqual(history.map(u=>u.trade.stopPrice),[160,195,205,210,210]);
+ const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);
+ for(const [index,stop,amount] of [[1,195,'49.30'],[2,205,'149.30']]){const u=history[index];assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.trade.stopPrice,stop);assert.equal(u.trade.exitedAt,undefined);assert.equal(u.trade.exitPrice,undefined);assert.ok(u.explanation.includes(amount));assert.equal(events.filter(e=>e.updateId===u.id).length,1);}
+ assert.equal(history[0].trade.stopPrice,160);assert.equal(history[0].trade.entryPrice,190);
 });
 
 test('ZS target is consistently 220 in every snapshot and prepared email',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const updates=d.getOpportunityUpdates(o.id);assert.equal(o.trade.firstTargetPrice,220);
  for(const u of updates){assert.equal(u.trade.firstTargetPrice,220);assert.doesNotMatch(JSON.stringify(u),/\$230|target correction|corrected target|previously published/i);}
- assert.doesNotMatch(JSON.stringify(o),/\$230|corrected/i);assert.match(updates.at(-1).notification.summary,/\$220 first target remains unchanged/);
+ assert.doesNotMatch(JSON.stringify(o),/\$230|corrected/i);assert.match(updates.at(-1).notification.summary,/\$220 target/);
 });
 
 test('October 7 ZS update preserves open position and prepares conditional 210-stop email',()=>{
- const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const u=d.getOpportunityUpdates(o.id).at(-1);
- assert.equal(u.trade,o.trade);assert.equal(o.trade.stopPrice,210);assert.equal(o.trade.quantity,10);assert.equal(o.trade.entryPrice,190.07);assert.equal(o.trade.firstTargetPrice,220);assert.equal(o.tradeStatus,'Active');assert.equal(m.realizedTradeResult(o),null);
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');const u=d.getOpportunityUpdates(o.id).find(u=>u.id==='opportunity-001-risk-2026-10-07');
+ assert.notEqual(u.trade,o.trade);assert.equal(o.trade.stopPrice,210);assert.equal(o.trade.quantity,10);assert.equal(o.trade.entryPrice,190.07);assert.equal(o.trade.firstTargetPrice,220);assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.trade.exitPrice,undefined);
  assert.equal(((210/190.07-1)*100).toFixed(2),'10.49');assert.match(u.explanation,/hypothetical, not guaranteed or realized profit/);assert.match(u.explanation,/199.30/);
  const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===u.id);assert.equal(events.filter(e=>e.updateId===u.id).length,1);assert.equal(e.subject,'Opportunity Update: ZS Stop Raised to $210');assert.equal(e.path,'/premium/opportunities/zscaler-001');const email=renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/220/);assert.doesNotMatch(email.text,/230/);assert.match(email.text,/not guaranteed or realized/);
+});
+
+test('ZS verified close preserves all snapshots, realizes 200 dollars and prepares one final email',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');assert.equal(d.opportunities.filter(o=>o.ticker==='ZS').length,1);assert.equal(o.tradeStatus,'Closed');
+ assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
+ const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
+ const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['ZS','NOW']);
+ const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
+ const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
