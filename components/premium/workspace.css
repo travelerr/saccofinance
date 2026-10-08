@@ -1,0 +1,100 @@
+/* Member-only presentation layer. Public marketing and research data are unchanged. */
+.brand .premium-workspace{background:var(--brand-bg)}
+.brand .premium-workspace .premium-product-header{background:var(--brand-surface);box-shadow:0 1px 0 var(--brand-line)}
+.premium-workspace main.container{padding-top:32px;padding-bottom:32px}
+.brand .premium-workspace h1{font-family:var(--brand-body);font-size:clamp(30px,3.6vw,46px);line-height:1.15;letter-spacing:-.04em}
+.brand .premium-workspace h2,.brand .premium-workspace .section-heading h2{font-family:var(--brand-body);font-size:clamp(23px,2.4vw,30px);line-height:1.25;letter-spacing:-.03em}
+.brand .premium-workspace h3{font-size:21px;line-height:1.4}
+.premium-workspace .premium-research-header{padding:12px 0 30px}
+.premium-workspace .premium-research-id{font-size:10px;letter-spacing:1px;margin-bottom:16px}
+.premium-workspace .premium-research-read{max-width:900px;border:0;padding:0;grid-template-columns:1fr;gap:8px;margin-top:18px}
+.premium-workspace .premium-research-read>span{display:none}
+.premium-workspace .premium-research-read p{font-size:15px;color:var(--brand-muted)}
+.premium-workspace .section{padding:30px 0}
+.premium-workspace .section-heading{align-items:center;margin-bottom:24px;gap:16px}
+.premium-workspace .section-heading .eyebrow{font-size:10px;margin-bottom:8px}
+.brand .premium-workspace .text-link{min-height:42px;padding:10px 15px;border:1px solid var(--brand-line);border-radius:9px;background:var(--brand-surface);font-size:13px;line-height:1.5;gap:10px;text-decoration:none;white-space:normal}
+.brand .premium-workspace .text-link:hover{background:var(--brand-raised);border-color:var(--brand-cyan);color:var(--brand-cyan)}
+.brand .premium-workspace .button{border-radius:9px;min-height:44px;font-size:14px}
+.premium-workspace .editorial-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+.brand .premium-workspace .opportunity-card{min-width:0;padding:26px;border:1px solid var(--brand-line);border-radius:16px;background:var(--brand-surface);box-shadow:0 4px 18px #00000008;display:flex;flex-direction:column}
+.premium-workspace .opportunity-card .watch-top{border-bottom:1px solid var(--brand-line);padding-bottom:18px;margin-bottom:0}
+.premium-workspace .opportunity-card .watch-top>span:first-child{font:700 24px/1.3 var(--brand-body);letter-spacing:-.03em}
+.premium-workspace .opportunity-status{border-radius:6px;letter-spacing:.3px}
+.premium-workspace .opportunity-card>p:not(.opportunity-meta){font-size:14px;line-height:1.8;margin-top:12px}
+.premium-workspace .opportunity-card .opportunity-meta{font-size:11px;line-height:1.9}
+.premium-workspace .opportunity-card .opportunity-next{background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:10px;padding:16px;margin:20px 0 6px}
+.premium-workspace .opportunity-next p{font-size:14px}
+.premium-workspace .opportunity-card>.text-link{align-self:flex-start;margin-top:auto;background:var(--brand-raised)}
+.premium-workspace .opportunity-controls{padding:16px;border:1px solid var(--brand-line);border-radius:12px;background:var(--brand-surface);gap:16px}
+.premium-workspace .opportunity-controls .actions{gap:6px}
+.brand .premium-workspace .opportunity-controls button{background:transparent;border-color:transparent;color:var(--brand-muted)}
+.brand .premium-workspace .opportunity-controls button[aria-pressed=true]{background:var(--brand-raised);border-color:var(--brand-line);color:var(--brand-cyan)}
+.premium-workspace .opportunity-controls select{border-radius:8px;min-height:42px}
+.premium-workspace .opportunity-empty,.premium-workspace .outlook-archive-row{padding:24px;margin-bottom:16px;border:1px solid var(--brand-line);border-radius:12px;background:var(--brand-surface)}
+.premium-workspace .opportunity-detail-section,.premium-workspace .outlook-opportunity,.premium-workspace .outlook-sector-snapshot,.premium-workspace .outlook-radar{padding:28px;margin-bottom:20px;border:1px solid var(--brand-line);border-radius:14px;background:var(--brand-surface)}
+.premium-workspace .trade-result,.premium-workspace .trade-scenarios,.premium-workspace .risk-management-update,.premium-workspace .outlook-scenario{border-radius:12px;background:var(--brand-surface)}
+.premium-workspace .premium-research-metadata{gap:20px 32px;padding:20px;border:1px solid var(--brand-line);border-radius:10px;background:var(--brand-bg)}
+.premium-workspace .premium-research-metadata dd{font-weight:600;font-size:14px}
+.premium-workspace .outlook-calendar article{padding:24px;border:1px solid var(--brand-line);border-radius:12px;background:var(--brand-surface);margin-bottom:16px}
+.premium-workspace .outlook-prose{font-size:15px;line-height:1.85}
+.premium-workspace .opportunity-detail-chart{border:1px solid var(--brand-line);border-radius:12px;overflow:hidden}
+.premium-workspace .opportunity-detail-chart img{display:block}
+.workspace-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 28px}
+.workspace-overview>a{display:flex;align-items:center;gap:16px;border:1px solid var(--brand-line);border-radius:12px;padding:20px;background:var(--brand-surface)}
+.workspace-overview>a:hover{border-color:var(--brand-cyan)}
+.workspace-overview svg{color:var(--brand-cyan);flex-shrink:0}
+.workspace-overview span{display:block;font-size:12px;color:var(--brand-muted)}
+.workspace-overview strong{display:block;font-size:22px;letter-spacing:-.03em;line-height:1.5}
+.workspace-overview small{font-size:11px;color:var(--brand-muted)}
+.workspace-feature-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:24px;margin-bottom:32px}
+.workspace-panel{min-width:0;border:1px solid var(--brand-line);border-radius:16px;padding:28px;background:var(--brand-surface)}
+.workspace-panel .eyebrow{font-size:10px;margin-bottom:14px}
+.brand .workspace-panel h2{font-size:28px;line-height:1.3;margin-bottom:16px}
+.workspace-panel>p{font-size:14px}
+.workspace-panel>.text-link{margin-top:24px}
+.workspace-panel .outlook-posture{margin:24px 0 0;padding:16px;border:1px solid var(--brand-line);border-radius:10px;background:var(--brand-bg)}
+.workspace-panel .outlook-posture p{font-size:13px;text-transform:none}
+.workspace-panel .outlook-focus{margin:22px 0 0;gap:18px;font-size:13px}
+.workspace-panel-secondary{display:flex;flex-direction:column;align-items:flex-start}
+.workspace-panel-secondary>.text-link{margin-top:auto}
+.workspace-panel-secondary .workspace-gauge-note{border-top:1px solid var(--brand-line);padding-top:20px;margin:24px 0;color:var(--brand-muted);font-size:13px}
+@media(max-width:850px){.workspace-feature-grid{grid-template-columns:1fr}.workspace-panel-secondary>.text-link{margin-top:8px}.workspace-overview>a{padding:16px;gap:10px}.workspace-overview svg{width:18px}.workspace-overview strong{font-size:18px}}
+@media(max-width:700px){.premium-workspace main.container{padding-top:20px}.premium-workspace .editorial-grid{grid-template-columns:1fr}.brand .premium-workspace .opportunity-card{padding:20px}.premium-workspace .section-heading{align-items:flex-start;flex-direction:column}.workspace-overview{grid-template-columns:1fr;gap:10px}.workspace-overview>a{padding:14px 18px}.workspace-overview>a>div{display:grid;grid-template-columns:1fr auto;align-items:center;width:100%;gap:0 16px}.workspace-overview small{grid-column:1/-1}.workspace-panel{padding:22px}.premium-workspace .opportunity-detail-section,.premium-workspace .outlook-opportunity,.premium-workspace .outlook-sector-snapshot,.premium-workspace .outlook-radar{padding:20px}.premium-workspace .opportunity-controls{align-items:stretch}.premium-workspace .opportunity-controls .actions{flex-wrap:wrap}.premium-workspace .premium-research-metadata{padding:16px}.premium-workspace .premium-research-header h1 br{display:none}}
+@media(prefers-reduced-motion:reduce){.premium-workspace *{scroll-behavior:auto!important;transition:none!important}}
+.premium-workspace .opportunity-price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:20px 0 0;border:1px solid var(--brand-line);border-radius:10px;background:var(--brand-bg)}
+.premium-workspace .opportunity-price-grid>div{padding:14px 12px;min-width:0}
+.premium-workspace .opportunity-price-grid>div+div{border-left:1px solid var(--brand-line)}
+.premium-workspace .opportunity-price-grid dt{font-size:11px;color:var(--brand-muted)}
+.premium-workspace .opportunity-price-grid dd{font-size:20px;font-weight:650;margin:4px 0 0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.premium-workspace .opportunity-card[data-status=Watching] .opportunity-status{color:var(--brand-purple);border-color:var(--brand-purple);background:transparent}
+.premium-workspace .opportunity-card[data-status=Closed] .opportunity-status{color:var(--brand-muted);border-color:var(--brand-line);background:var(--brand-bg)}
+.premium-workspace .tool-card{border-radius:14px}
+.premium-workspace .strength-panel,.premium-workspace .strength-group,.premium-workspace .strength-method{border-radius:14px;border:1px solid var(--brand-line);overflow:hidden}
+.premium-workspace .strength-controls{border-radius:12px}
+.premium-workspace .strength-heading h1{font-family:var(--brand-body);font-size:clamp(30px,3.6vw,46px);line-height:1.15}
+.premium-workspace main>.outlook-posture{padding:22px;border:1px solid var(--brand-line);border-left:3px solid var(--brand-cyan);border-radius:12px;margin-bottom:24px;background:var(--brand-surface)}
+.premium-workspace .workspace-update-details{margin-top:18px}
+.premium-workspace .workspace-update-details summary{cursor:pointer;color:var(--brand-cyan);font-size:13px;font-weight:600;padding:10px 0;width:fit-content}
+.premium-workspace .workspace-update-details p{font-size:14px;white-space:pre-line;margin:16px 0 20px;max-width:900px}
+.premium-workspace .workspace-update-details summary:focus-visible{outline:2px solid var(--brand-cyan);outline-offset:4px}
+/* Dated trade history, with a continuous rail and one marker per update. */
+.premium-workspace .opportunity-timeline{list-style:none;padding:0;margin:28px 0 0}
+.premium-workspace .opportunity-timeline>li{position:relative;display:grid;grid-template-columns:120px minmax(0,1fr);gap:32px;border:0;padding:0 0 28px;margin:0}
+.premium-workspace .opportunity-timeline>li:before{content:'';position:absolute;left:135px;top:16px;bottom:-16px;width:2px;background:var(--brand-line)}
+.premium-workspace .opportunity-timeline>li:last-child:before{display:none}
+.premium-workspace .opportunity-timeline>li:after{content:'';position:absolute;left:130px;top:16px;width:12px;height:12px;border:3px solid var(--brand-surface);border-radius:50%;background:var(--brand-cyan);box-shadow:0 0 0 1px var(--brand-cyan)}
+.premium-workspace .opportunity-timeline-date{padding-top:13px;font:11px/1.8 var(--brand-mono);color:var(--brand-muted)}
+.premium-workspace .opportunity-timeline-entry{min-width:0;border:1px solid var(--brand-line);border-radius:12px;padding:22px;background:var(--brand-bg)}
+.premium-workspace .opportunity-timeline-entry>.opportunity-meta:first-child{margin:0 0 12px;color:var(--brand-cyan)}
+.premium-workspace .opportunity-timeline-entry h3{margin:12px 0 16px;font-size:21px}
+.premium-workspace .opportunity-timeline-entry>p:not(.opportunity-meta):not(.eyebrow){white-space:pre-line;font-size:14px;line-height:1.85}
+.premium-workspace .opportunity-timeline-entry figure{margin:24px 0 0}
+@media(max-width:700px){
+ .premium-workspace .opportunity-timeline>li{grid-template-columns:minmax(0,1fr);gap:12px;padding:0 0 26px 26px}
+ .premium-workspace .opportunity-timeline>li:before{left:5px;top:16px;bottom:-16px}
+ .premium-workspace .opportunity-timeline>li:after{left:0;top:16px}
+ .premium-workspace .opportunity-timeline-date{padding-top:10px}
+ .premium-workspace .opportunity-timeline-entry{padding:16px}
+ .premium-workspace .opportunity-timeline-entry h3{font-size:19px}
+}

@@ -4,6 +4,7 @@ import type {ReactNode} from 'react';
 import Link from 'next/link';
 import './research.css';
 import PremiumNavigation from './navigation';
+import './workspace.css';
 const memberRoots=['/premium/dashboard','/premium/issue-001','/premium/issue-002','/premium/issue-003','/premium/weekly-outlook','/premium/market-strength','/premium/opportunities','/premium/account'];
 export default function PremiumProductFrame({children,publicHeader,publicFooter}:{children:ReactNode;publicHeader:ReactNode;publicFooter:ReactNode}){
  const pathname=usePathname();
