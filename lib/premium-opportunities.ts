@@ -49,10 +49,10 @@ opportunities.push({
  chart:{src:'/api/premium/chart/rklb-daily-chart',asOf:'2026-09-12',width:1610,height:839,caption:'Justin’s Rocket Lab daily research chart.',alt:'Justin’s Rocket Lab daily TrendSpider research chart, showing the share-price reset, revenue-growth annotations and marked support levels. Original TrendSpider attribution is preserved.'}
 },{
  id:'opportunity-003',slug:'spacex-003',ticker:'SPCX',company:'SpaceX',title:'SPCX / A base to investigate. A position to wait for.',
- publicationState:'published',publishedAt:'2026-09-18',updatedAt:'2026-09-18',addedToArchiveAt:'2026-09-18',
+ publicationState:'published',publishedAt:'2026-09-18',updatedAt:'2026-10-09',addedToArchiveAt:'2026-09-18',
  tradeStatus:'Watching',technicalStage:'Stage 1 — Accumulation',sector:'Space',
  summary:'SpaceX may be forming its first meaningful post-IPO Stage 1 base after a broader reset across space stocks. Justin is watching and has not entered a position.',
- nextStepSummary:'Wait for a pullback toward ~$122 to reassess accumulation, or a confirmed breakout above ~$150.',
+ nextStepSummary:'Reassessing the original ~$122 entry and evaluating cash-secured puts as a potential Wheel Strategy. No options position has been opened.',
  whySurfaced:'The supplied research follows SpaceX’s June 2026 IPO at $135, its initial surge toward $225 and subsequent decline to approximately $104.83. Rocket Lab, AST SpaceMobile and Redwire also experienced significant resets.\n\nThat broader decline raised a sector question: how much reflected excessive valuations and speculative enthusiasm resetting, rather than a company-specific problem? Higher Treasury yields can also pressure the present value of distant profits. These are possible influences, not a precise causal attribution.',
  setupThesis:'The developing Stage 1 range is approximately $105–$150. Buyers appeared near the $105 floor, followed by a rebound and consolidation. Around $122 is my preferred pullback area to reassess beginning a position within the range; it is not magical support.\n\nFor the first time since the IPO, there is enough price history to build a real plan. The question is whether the emotional IPO and decline cycle is giving way to accumulation ahead of a potential future Stage 2 move. The bottom is not guaranteed, and I have not entered.',
  setupRange:'~$105–$150',entryFramework:'~$122',confirmation:'~$150',riskInvalidation:'~$105',nextAreaToWatch:'~$172, only after a confirmed breakout above ~$150; not an active trade target.',
@@ -1498,3 +1498,66 @@ opportunityUpdates.push({...{
     "cta": "VIEW THE COMPLETED ZSCALER TRADE"
   }
 },trade:zsClosedTrade});
+
+// Research only: no trade and explicitly excluded from member notification events.
+opportunityUpdates.push({
+  "id": "opportunity-003-strategy-2026-10-09",
+  "opportunityId": "opportunity-003",
+  "publishedAt": "2026-10-09",
+  "publicationState": "published",
+  "tradeStatusBefore": "Watching",
+  "tradeStatusAfter": "Watching",
+  "technicalStage": "Stage 1 — Accumulation",
+  "updateType": "Strategy Update / Research",
+  "suppressNotification": true,
+  "title": "Reassessing Our Entry — Potential Wheel Strategy",
+  "explanation": "SpaceX continues to show strength, and we never got the pullback toward the $122 entry area I've been watching.\n\nAt this point, I see two competing forces.\n\nThe first is the broader market.\n\nI've been concerned that higher interest rates and elevated Treasury yields could eventually put pressure on equities.\n\nIf we get a meaningful market pullback, I think there's still a reasonable possibility SpaceX moves back toward our preferred entry range.\n\nThe second is SpaceX itself.\n\nThe company continues to develop new catalysts, including recent news surrounding its broad-spectrum licensing.\n\nThat adds another potential growth opportunity to an already compelling long-term business.\n\nIf the broader market holds up, I think the probability of getting that $122 pullback is becoming increasingly small.\n\nAnd I'm not interested in chasing the stock simply because it hasn't given us the entry we wanted.\n\nInstead, I'm considering changing how we approach the opportunity.\n\nRather than buying shares outright at these levels, I'm looking at potentially selling cash-secured puts and turning SpaceX into a Wheel Strategy position.\n\nThe idea is straightforward.\n\nI would identify a price where I'm comfortable owning SpaceX, then sell a put at an appropriate strike and expiration.\n\nIf the option expires worthless, I keep the premium, less any costs, and can reassess whether to sell another put.\n\nIf the stock falls and I'm assigned, I purchase the shares at the strike price. The premium collected reduces my effective economic cost, although it doesn't eliminate downside risk.\n\nOnce I own 100 shares, I can potentially begin selling covered calls against that position.\n\nThis is the same general approach I'm using with IONQ.\n\nThe goal isn't to force an entry. It's to establish a price where I'm comfortable owning the stock and potentially collect option premium while waiting.\n\nThere are risks here. A short put can be assigned at a price well above the stock's market value following a sharp decline. It also requires sufficient capital to purchase 100 shares per contract, and the premium received limits the benefit if the stock rallies without us.\n\nFor now, I haven't opened a SpaceX options position.\n\nI still want to see how the broader market develops, and I'll be evaluating potential strike prices, expirations, premiums, and the amount of capital required before making a decision.\n\nI'll publish the actual strike, expiration, premium, and position details if I decide to enter.\n\nI'm still interested in owning SpaceX. What may change is how we establish the position.",
+  "strategySummary": [
+    {
+      "label": "Original preferred entry",
+      "value": "~$122"
+    },
+    {
+      "label": "Current assessment",
+      "value": "Waiting for a pullback or an alternative entry strategy."
+    },
+    {
+      "label": "Potential strategy",
+      "value": "Cash-Secured Puts / Wheel Strategy"
+    },
+    {
+      "label": "Options position",
+      "value": "Not opened"
+    },
+    {
+      "label": "Strike price",
+      "value": "Not determined"
+    },
+    {
+      "label": "Expiration",
+      "value": "Not determined"
+    },
+    {
+      "label": "Premium",
+      "value": "Not determined"
+    },
+    {
+      "label": "Next action",
+      "value": "Evaluate potential put-selling opportunities."
+    }
+  ],
+  "education": {
+    "intro": "If you're unfamiliar with options or the Wheel Strategy, I've included two older videos I recorded when I first started Sacco Financial.\n\nThese cover the general approach I'm considering for SpaceX.\n\nI'm also planning to develop a more comprehensive Wheel Strategy tutorial specifically for Sacco Premium members.\n\nEventually, I want to introduce a dedicated educational section covering strategies like this in more detail.\n\nFor now, these videos should provide a useful starting point.",
+    "videos": [
+      {
+        "id": "nxHEuaq7zs0",
+        "title": "The Options Wheel Strategy Full Explanation"
+      },
+      {
+        "id": "AblTvucvAi8",
+        "title": "Wheel Strategy Explained Video 2"
+      }
+    ],
+    "comingLater": "A dedicated Sacco Premium educational section covering options, the Wheel Strategy, and other investing concepts."
+  }
+});

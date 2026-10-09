@@ -75,7 +75,7 @@ test('SPCX remains a waiting Stage 1 setup without any trade or invented researc
  assert.equal(s.setupRange,'~$105–$150');assert.equal(s.entryFramework,'~$122');assert.equal(s.confirmation,'~$150');assert.equal(s.riskInvalidation,'~$105');
  assert.match(s.nextAreaToWatch,/172.*only after a confirmed breakout.*not an active trade target/);
  assert.equal(s.charts.length,2);assert.ok(s.charts.every(c=>c.asOf===undefined));
- const u=d.getOpportunityUpdates(s.id);assert.equal(u.length,1);assert.equal(u[0].eventDate,undefined);assert.equal(u[0].trade,undefined);
+ const u=d.getOpportunityUpdates(s.id);assert.equal(u.length,2);assert.equal(u[0].eventDate,undefined);assert.equal(u[0].trade,undefined);
  assert.match(u[0].explanation,/original research\/video date is not established/);
 });
 test('unknown entry requires explicit accumulation evidence; an unassigned stage never infers a trade',()=>{
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-001');
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-003');
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -187,4 +187,16 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
+});
+
+test('SpaceX October 9 strategy research preserves Watching and creates no email event',()=>{
+ const {opportunities,opportunityUpdates}=require('../lib/premium-opportunities.ts');
+ const {researchEvents}=require('../lib/email/events.ts');
+ const records=opportunities.filter(o=>o.id==='opportunity-003');assert.equal(records.length,1);
+ const o=records[0];assert.equal(o.ticker,'SPCX');assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.wheel,undefined);assert.equal(o.entryFramework,'~$122');assert.ok(o.setupThesis.includes('$122'));
+ const update=opportunityUpdates.find(u=>u.id==='opportunity-003-strategy-2026-10-09');assert.ok(update);assert.equal(update.publishedAt,'2026-10-09');assert.equal(update.tradeStatusAfter,'Watching');assert.equal(update.trade,undefined);assert.equal(update.suppressNotification,true);
+ assert.equal(update.strategySummary.find(x=>x.label==='Options position').value,'Not opened');
+ for(const label of ['Strike price','Expiration','Premium'])assert.equal(update.strategySummary.find(x=>x.label===label).value,'Not determined');
+ assert.deepEqual(update.education.videos.map(v=>v.id),['nxHEuaq7zs0','AblTvucvAi8']);
+ assert.ok(!researchEvents([],opportunities,opportunityUpdates).some(event=>event.updateId===update.id));
 });

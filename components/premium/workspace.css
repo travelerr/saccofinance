@@ -98,3 +98,14 @@
  .premium-workspace .opportunity-timeline-entry{padding:16px}
  .premium-workspace .opportunity-timeline-entry h3{font-size:19px}
 }
+
+.premium-workspace .strategy-update-summary,.premium-workspace .strategy-education{margin-top:28px;padding-top:24px;border-top:1px solid var(--brand-line)}
+.premium-workspace .strategy-update-summary h4,.premium-workspace .strategy-education h4{font-size:18px;margin:0 0 16px;line-height:1.4}
+.premium-workspace .strategy-update-summary dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.premium-workspace .strategy-education>p{white-space:pre-line;font-size:14px}
+.premium-workspace .strategy-video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.premium-workspace .strategy-video-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:14px;border:1px solid var(--brand-line);border-radius:10px;background:var(--brand-surface)}
+.premium-workspace .strategy-video-card img{display:block;width:100%;height:auto;border-radius:6px}
+.premium-workspace .strategy-video-card h5{font-size:16px;line-height:1.5;margin:0 0 18px}
+.premium-workspace .strategy-video-card .text-link{margin-top:auto}
+@media(max-width:700px){.premium-workspace .strategy-video-grid,.premium-workspace .strategy-update-summary dl{grid-template-columns:1fr}}
