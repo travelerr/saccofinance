@@ -70,7 +70,7 @@
 .premium-workspace .opportunity-card[data-status=Watching] .opportunity-status{color:var(--brand-purple);border-color:var(--brand-purple);background:transparent}
 .premium-workspace .opportunity-card[data-status=Closed] .opportunity-status{color:var(--brand-muted);border-color:var(--brand-line);background:var(--brand-bg)}
 .premium-workspace .tool-card{border-radius:14px}
-.premium-workspace .strength-panel,.premium-workspace .strength-group,.premium-workspace .strength-method{border-radius:14px;border:1px solid var(--brand-line);overflow:hidden}
+.premium-workspace .strength-panel,.premium-workspace .strength-method{border-radius:14px;border:1px solid var(--brand-line);overflow:hidden}
 .premium-workspace .strength-controls{border-radius:12px}
 .premium-workspace .strength-heading h1{font-family:var(--brand-body);font-size:clamp(30px,3.6vw,46px);line-height:1.15}
 .premium-workspace main>.outlook-posture{padding:22px;border:1px solid var(--brand-line);border-left:3px solid var(--brand-cyan);border-radius:12px;margin-bottom:24px;background:var(--brand-surface)}
