@@ -31,7 +31,7 @@ test('recipient eligibility reuses actual canonical access: active, cancellation
 test('all three templates use canonical published content and authenticated routes, with escaped HTML',()=>{
  for(const type of ['WEEKLY_OUTLOOK_PUBLISHED','OPPORTUNITY_PUBLISHED','OPPORTUNITY_MATERIAL_UPDATE']){
  const event=events.find(e=>e.type===type);assert.ok(event);const email=renderResearchEmail(event,'https://saccofinancial.com');
- assert.ok(email.html.includes(event.cta));assert.ok(email.text.includes(event.summary));assert.ok(email.url.startsWith('https://saccofinancial.com/premium/'));assert.ok(email.preferences.endsWith('/premium/account#research-notifications'));
+ assert.ok(email.html.includes(event.cta.replace(/'/g,'&#39;')));assert.ok(email.text.includes(event.summary));assert.ok(email.url.startsWith('https://saccofinancial.com/premium/'));assert.ok(email.preferences.endsWith('/premium/account#research-notifications'));
  assert.match(email.html,/max-width:600px/);assert.match(email.html,/width=device-width/);
  }
  assert.equal(events.find(e=>e.key==='WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-001').path,'/premium/issue-001');
@@ -78,7 +78,7 @@ test('server administrator guard rejects unauthorized authenticated sessions',as
 });
 
 test('notification picker sorts publication dates newest first without redating original opportunities',()=>{
- assert.equal(events[0].key,'OPPORTUNITY_MATERIAL_UPDATE:opportunity-001:opportunity-001-closed-2026-10-07');
+ assert.equal(events[0].key,'WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-004');
  for(let i=1;i<events.length;i++)assert.ok(Date.parse(events[i-1].publishedAt)>=Date.parse(events[i].publishedAt));
  const original=events.find(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-004');assert.equal(original.publishedAt,'2026-09-18');
  const keys=events.map(e=>e.key);assert.equal(new Set(keys).size,keys.length);

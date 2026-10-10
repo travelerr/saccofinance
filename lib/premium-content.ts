@@ -30,6 +30,7 @@ export type OpportunityUpdate={
  | {tradeStatusAfter:'Active';trade:TradeEntry}
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});
 export type WeeklyOutlook={
+ articleMarkdown?:string;notification?:{subject:string;preview:string;cta:string};
  id:string;slug:string;title:string;weekOf:string;publishedAt:string;
  publicationState:PublicationState;marketContext:string;thesisChanges?:string;
  sectorFocus:string;gamePlan:string;opportunityIds:string[];videoUrl?:string;perspectiveDate?:string;summary?:string;

@@ -2,7 +2,7 @@ const fs=require('node:fs');const path=require('node:path');const ts=require('ty
 require.extensions['.ts']=(module,filename)=>module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8').replace("import 'server-only';",''),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,filename);
 const data=require('../lib/premium-opportunities.ts');const model=require('../lib/premium-content.ts');
 test('one real Issue 001 supplies the exact publication, week, posture and index levels',()=>{
- const issues=data.getPublishedWeeklyOutlooks();assert.equal(issues.length,3);const o=issues.find(o=>o.id==='weekly-outlook-001');
+ const issues=data.getPublishedWeeklyOutlooks();assert.equal(issues.length,4);const o=issues.find(o=>o.id==='weekly-outlook-001');
  assert.equal(o.id,'weekly-outlook-001');assert.equal(o.title,'The Market Survived the Rate Hike. Now It Has to Prove It.');
  assert.deepEqual([o.publishedAt,o.weekOf,o.weekEnd],['2026-09-20','2026-09-21','2026-09-25']);
  assert.deepEqual(o.marketLevels,[{index:'S&P 500',support:7507},{index:'Nasdaq Composite',support:25800}]);
@@ -21,7 +21,7 @@ test('weekly opportunity references resolve to canonical objects without copying
  assert.deepEqual(records.slice(0,3).map(r=>[r.trade.stopPrice,r.trade.firstTargetPrice]),[[55,85],[130,175],[210,220]]);
 });
 test('both routes require Premium and use the same research renderer; dashboard consumes the selector',()=>{
- for(const file of ['app/premium/issue-001/page.tsx','app/premium/issue-002/page.tsx','app/premium/issue-003/page.tsx','app/premium/weekly-outlook/page.tsx']){
+ for(const file of ['app/premium/issue-001/page.tsx','app/premium/issue-002/page.tsx','app/premium/issue-003/page.tsx','app/premium/issue-004/page.tsx','app/premium/weekly-outlook/page.tsx']){
   const source=fs.readFileSync(path.join(__dirname,'..',file),'utf8');assert.match(source,/await requirePremium\(\)/);assert.match(source,/<WeeklyOutlookResearch/);assert.doesNotMatch(source,/ARCHIVED PROTOTYPE|Turbulence\. Patience/);
  }
  const dashboard=fs.readFileSync(path.join(__dirname,'../app/premium/dashboard/page.tsx'),'utf8');assert.match(dashboard,/getLatestWeeklyOutlook\(\)/);assert.match(dashboard,/outlook.marketPosture/);
@@ -70,9 +70,9 @@ test('Issue 002 uses the existing member shell and active Weekly Outlook navigat
 });
 
 test('Issue 003 becomes latest without overwriting the archive or dated Gauge',()=>{
- const o=data.getLatestWeeklyOutlook();assert.equal(o.id,'weekly-outlook-003');assert.equal(o.title,"The Economy Is Finally Slowing. But AI Still Isn't.");
+ const o=data.weeklyOutlooks.find(o=>o.id==='weekly-outlook-003');assert.equal(o.id,'weekly-outlook-003');assert.equal(o.title,"The Economy Is Finally Slowing. But AI Still Isn't.");
  assert.deepEqual([o.publishedAt,o.weekOf,o.weekEnd],['2026-10-03','2026-10-05','2026-10-09']);assert.equal(o.marketPosture,'Selective');assert.equal(model.weeklyOutlookHref(o),'/premium/issue-003');
- assert.deepEqual(data.getPublishedWeeklyOutlooks().map(o=>o.id),['weekly-outlook-003','weekly-outlook-002','weekly-outlook-001']);
+ assert.deepEqual(data.getPublishedWeeklyOutlooks().map(o=>o.id),['weekly-outlook-004','weekly-outlook-003','weekly-outlook-002','weekly-outlook-001']);
  assert.equal(o.gaugeSummary.asOf,'2026-10-01');assert.equal(o.gaugeSummary.benchmarkReturn,-0.42);
  assert.deepEqual(o.gaugeSummary.groups.map(g=>[g.ticker,g.returnPct,g.rankChange]),[['SEA',3.42,21],['SMH',2.88,-1],['IGV',1.01,0],['BOTZ',0.60,0],['CIBR',0.57,-3],['XLE',0.16,9],['XHB',-0.02,-2]]);
  assert.deepEqual(o.sectorSnapshots.map(s=>[s.ticker,s.periods.map(p=>p.returnPct),s.periods.map(p=>p.rank)]),[['SEA',[3.42,5.13,25.46,20.43,44.19,53.26],[1,3,1,4,3,2]],['SMH',[2.88,13.31,57.62,71.55,85.72],[2,1,2,1,1]],['IGV',[1.01,1.93,15.95,35.70],[3,4,3,3]],['CIBR',[0.57,7.88,13.91,64.48,45.63,36.34],[5,2,5,1,2,7]]]);
@@ -81,7 +81,7 @@ test('Issue 003 becomes latest without overwriting the archive or dated Gauge',(
  assert.match(o.macroWatch.body,/not a live yield quote/);assert.match(o.researchNotes[0].body,/not adding Micron/);
 });
 test('Issue 003 references canonical positions and keeps NOW closed and research outside the board',()=>{
- const o=data.getLatestWeeklyOutlook();const records=data.getWeeklyOutlookOpportunities(o);assert.deepEqual(records.map(r=>r.ticker),['ZS','EPAM','MSTR','RKLB','IONQ','NOW']);
+ const o=data.weeklyOutlooks.find(o=>o.id==='weekly-outlook-003');const records=data.getWeeklyOutlookOpportunities(o);assert.deepEqual(records.map(r=>r.ticker),['ZS','EPAM','MSTR','RKLB','IONQ','NOW']);
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.equal(o.separateClosedPositions,true);assert.equal(records.at(-1).tradeStatus,'Closed');assert.equal(model.realizedTradeResult(records.at(-1)).realizedDollarPnL,530.55);
  assert.deepEqual([records[1].trade.entryPrice,records[1].trade.quantity,records[1].trade.stopPrice,records[1].trade.firstTargetPrice,records[1].trade.secondTargetPrice],[116,15,100,145,220]);
@@ -91,8 +91,21 @@ test('Issue 003 references canonical positions and keeps NOW closed and research
  for(const file of ['components/premium/product-frame.tsx','components/premium/navigation.tsx'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file),'utf8').includes('/premium/issue-003'));
 });
 test('Issue 003 prepares one notification pointing at the authenticated issue, with no trade details',()=>{
- const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const o=data.getLatestWeeklyOutlook();
+ const {researchEvents}=require('../lib/email/events.ts');const {renderResearchEmail}=require('../lib/email/templates.ts');const o=data.weeklyOutlooks.find(o=>o.id==='weekly-outlook-003');
  const events=researchEvents(data.weeklyOutlooks,data.opportunities,data.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);const e=events[0];
  assert.equal(e.key,'WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-003');assert.equal(e.subject,"New Weekly Outlook: The Economy Is Finally Slowing. But AI Still Isn't.");assert.equal(e.cta,'READ THE WEEKLY OUTLOOK');assert.equal(e.path,'/premium/issue-003');
  const email=renderResearchEmail(e,'https://saccofinancial.com');assert.equal(new URL(email.url).pathname,'/premium/issue-003');assert.match(email.text,/Shipping & Air Cargo/);assert.doesNotMatch(email.text,/\$116|\$100|15 shares|\$500/);
+});
+
+
+test('Issue 004 preserves the approved article with only the two authorized target corrections',()=>{
+ const o=data.getLatestWeeklyOutlook();assert.equal(o.id,'weekly-outlook-004');
+ assert.equal(o.title,"Earnings Season Is Here. And It's Time to Reset Our Expectations.");
+ assert.deepEqual([o.publishedAt,o.weekOf,o.weekEnd],['2026-10-10','2026-10-12','2026-10-16']);
+ assert.equal(o.marketPosture,'SELECTIVE / CONSTRUCTIVE');assert.equal(model.weeklyOutlookHref(o),'/premium/issue-004');
+ assert.equal(require('node:crypto').createHash('sha256').update(o.articleMarkdown).digest('hex'),'d6d5b1e965621c1554a9e274134a4df8d2737b2326df7140a0e862f82e1fb46c');
+ const records=data.getWeeklyOutlookOpportunities(o);assert.deepEqual(records.map(r=>[r.ticker,r.tradeStatus]),[['NOW','Closed'],['ZS','Closed'],['EPAM','Active']]);
+ const events=require('../lib/email/events.ts').researchEvents(data.weeklyOutlooks,data.opportunities,data.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);
+ const e=events[0];assert.equal(e.subject,'New Weekly Outlook: Earnings Season Is Here');assert.equal(e.path,'/premium/issue-004');assert.equal(e.cta,"READ THIS WEEK'S OUTLOOK");
+ const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.ok(email.html.includes(e.preview));assert.match(email.text,/Both trades were profitable/);assert.equal(new URL(email.url).searchParams.get('utm_campaign'),o.id);
 });
