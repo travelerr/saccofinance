@@ -15,7 +15,7 @@ export async function executeEmailJob<T>(job:EmailJob,deps:{prepare:()=>Promise<
  }catch(error){
   const code=error instanceof Error?error.message:'';
   if(dispatched){try{await deps.transition('uncertain',[],'PROVIDER_OR_LOG_UNCERTAIN');}catch{}return 'uncertain';}
-  const cancel=['PREVIEW_CHANGED','EMAIL_PAUSED','LIVE_EMAIL_DISABLED','LIVE_EMAIL_CONFIG_REQUIRED'].includes(code);
+  const cancel=['INVALID_EMAIL_SNAPSHOT','PREVIEW_CHANGED','EMAIL_PAUSED','LIVE_EMAIL_DISABLED','LIVE_EMAIL_CONFIG_REQUIRED'].includes(code);
   try{await deps.transition(cancel?'cancelled':'retry',[],cancel?code:'PREPARATION_FAILED');}catch{/* Lease expiry enables safe preparation recovery. */}
   return cancel?'cancelled':'preparation_failed';
  }

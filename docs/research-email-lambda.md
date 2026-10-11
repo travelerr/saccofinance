@@ -42,8 +42,14 @@ A process invocation returns disabled until RESEARCH_WORKER_ENABLED=true. It han
 
 Historical reserved logs without a job remain locked. Reconcile the old Outlook with Resend before separately authorized recovery; do not delete its reservation or create a replacement event key.
 
-## Every research release
+## Snapshot-based releases
 
-The worker bundles the canonical research content and rejects changed snapshots. Rebuild and upload the Lambda ZIP from the same release as the website whenever Outlooks, Opportunities or notification content change, before queueing new notifications. This is currently a MANUAL deployment step; Amplify does not update Lambda automatically. Do not enable an old worker against new content. The SHA256 sidecar identifies the exact uploaded package.
+The website renders the approved HTML and plain text when an administrator queues an email, including a versioned placeholder for the per-recipient unsubscribe link. The preview fingerprint includes this snapshot. It is stored in the existing event_snapshot.delivery JSON field; no additional migration is required.
+
+Lambda validates the snapshot and destination links, personalizes the unsubscribe link and headers, and rechecks eligibility, sender/origin, mode and pause state. It does not import the research catalog or website email template. Content edits after queueing do not change that queued email. Routine article and supported email-template changes therefore require only a website deployment. Worker code, dependency or snapshot-protocol changes still require a Lambda upload.
+
+For the one-time transition: disable the schedule and finish/reconcile any unfinished jobs before changing either component. Verify no queued/preparing/sending/failed/uncertain jobs need recovery. Deploy the website and upload the new Lambda ZIP while the schedule remains disabled, then test a newly queued dry run before re-enabling live processing. Old jobs without delivery snapshots fail closed with INVALID_EMAIL_SNAPSHOT; they are not silently reconstructed from current content. Existing completed sends remain untouched and duplicate protection is unchanged. Do not rerun the old Outlook recovery SQL.
+
+The SHA256 sidecar identifies the exact uploaded package. Amplify does not automatically deploy Lambda; that is now needed only for worker changes.
 
 Agree queue audience-snapshot retention and operational alert ownership before full production rollout. No automatic retention deletion is included.
