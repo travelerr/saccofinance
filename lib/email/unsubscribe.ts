@@ -13,3 +13,12 @@ export async function createResearchUnsubscribe(db:SupabaseClient,userId:string,
  if(error)throw new Error('UNSUBSCRIBE_UNAVAILABLE');
  return new URL('/email/unsubscribe?token='+token,base.origin).href;
 }
+
+/** One database write for the whole job; never store raw tokens in the job or logs. */
+export async function createResearchUnsubscribeBatch(db:SupabaseClient,userIds:string[],origin:string){
+ const base=new URL(origin);
+ if(base.username||base.password||!(base.protocol==='https:'||(base.protocol==='http:'&&['localhost','127.0.0.1'].includes(base.hostname))))throw new Error('INVALID_ORIGIN');
+ const rows=userIds.map(userId=>({userId,token:randomBytes(32).toString('hex')}));
+ if(rows.length){const {error}=await db.from('research_unsubscribe_tokens').insert(rows.map(r=>({token_hash:unsubscribeTokenHash(r.token),user_id:r.userId})));if(error)throw new Error('UNSUBSCRIBE_UNAVAILABLE');}
+ return rows.map(r=>new URL('/email/unsubscribe?token='+r.token,base.origin).href);
+}
