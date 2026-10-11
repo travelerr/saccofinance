@@ -16,31 +16,38 @@ export async function portalUrl(userId:string,subscriptionId?:string){
  const session=await stripe.billingPortal.sessions.create({customer,configuration:process.env.STRIPE_PORTAL_CONFIGURATION_ID,return_url:authOrigin()+'/premium/account?billing=return'});
  return session.url;
 }
-export async function checkoutUrl(user:User,plan:BillingPlan){
+export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string){
  const {stripe,admin,mode}=await billingServices();await checkedPrice(stripe,plan);
  const analytics=await checkoutAnalytics(user);
  if(user.is_anonymous){const {data,error}=await admin.from('billing_purchase_claims').select('claimed_user_id').eq('original_user_id',user.id).eq('mode',mode).not('claimed_user_id','is',null).maybeSingle();if(error)throw new Error('BILLING_DATABASE');if(data)throw new Error('GUEST_CLAIMED');}
  const owned=await ownedBillingCustomers(user.id);
+ let priorCustomer=false;
+ const email=(user.email||trialEmail||'').trim().toLowerCase();
  for(const customer of owned){
   const subscriptions=await stripe.subscriptions.list({customer,status:'all',limit:100});
+  if(subscriptions.data.length)priorCustomer=true;
   if(subscriptions.has_more)throw new Error('BILLING_UNAVAILABLE');
   if(subscriptions.data.some(s=>blocksNewSubscription(s.status)&&s.items.data.some(i=>[priceId('monthly'),priceId('annual')].includes(i.price.id))))return portalUrl(user.id);
   const open=await stripe.checkout.sessions.list({customer,status:'open',limit:100});
   if(open.has_more)throw new Error('BILLING_UNAVAILABLE');
   const existing=open.data.find(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id);if(existing?.url){try{await stripe.checkout.sessions.update(existing.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}return existing.url;}
  }
- const {data:record,error}=await admin.rpc('reserve_premium_checkout',{p_user:user.id,p_mode:mode,p_plan:plan});
- if(error||!record)throw new Error('BILLING_DATABASE');
+ // Also check prior Stripe customers by email before granting a new trial.
+ if(email){const customers=await stripe.customers.list({email,limit:100});if(customers.has_more)throw Error('BILLING_UNAVAILABLE');for(const c of customers.data){const previous=await stripe.subscriptions.list({customer:c.id,status:'all',limit:1});if(previous.data.length)priorCustomer=true;}}
+ const {data:record,error}=await admin.rpc('reserve_premium_offer',{p_user:user.id,p_mode:mode,p_plan:plan,p_email:email,p_prior_customer:priorCustomer});
+ if(error||!record)throw new Error(error?.message.includes('TRIAL_')?'TRIAL_UNAVAILABLE':'BILLING_DATABASE');
  let customer=record.stripe_customer_id as string|null;
  if(!customer){
-  const created=await stripe.customers.create({...(user.email?{email:user.email}:{}),metadata:{sacco_user_id:user.id}},{idempotencyKey:`sacco-customer-${mode}-${user.id}`});
+  const created=await stripe.customers.create({...(record.checkout_email?{email:record.checkout_email}:{}),metadata:{sacco_user_id:user.id}},{idempotencyKey:`sacco-customer-${mode}-${user.id}`});
   const {error:saveError}=await admin.from('billing_customers').update({stripe_customer_id:created.id}).eq('user_id',user.id).eq('mode',mode);
   if(saveError)throw new Error('BILLING_DATABASE');customer=created.id;
  }
  const selected=record.checkout_plan as BillingPlan;if(selected!==plan)throw new Error('CHECKOUT_PENDING');
  const guest=user.is_anonymous===true;
- const metadata={sacco_user_id:user.id,...(guest?{guest_checkout:'true'}:{})};
- const session=await stripe.checkout.sessions.create({mode:'subscription',customer,client_reference_id:user.id,line_items:[{price:priceId(selected),quantity:1}],payment_method_types:['card'],allow_promotion_codes:false,metadata,subscription_data:{metadata},success_url:authOrigin()+(guest?'/premium/welcome?session_id={CHECKOUT_SESSION_ID}':'/premium/account?checkout=success'),cancel_url:authOrigin()+(guest?'/premium/join?checkout=canceled':'/premium/account?checkout=canceled')},{idempotencyKey:`sacco-checkout-${mode}-${record.checkout_token}`});
+ const trial=record.checkout_trial_days===30;
+ if(trial)await stripe.customers.update(customer,{email:record.checkout_email});
+ const metadata={sacco_user_id:user.id,sacco_trial_days:trial?'30':'0',...(guest?{guest_checkout:'true'}:{})};
+ const session=await stripe.checkout.sessions.create({mode:'subscription',customer,client_reference_id:user.id,line_items:[{price:priceId(selected),quantity:1}],payment_method_types:['card'],allow_promotion_codes:false,metadata,payment_method_collection:'always',expires_at:Math.floor(new Date(record.checkout_expires_at).getTime()/1000),subscription_data:{metadata,...(trial?{trial_period_days:30,trial_settings:{end_behavior:{missing_payment_method:'cancel' as const}}}:{})},success_url:authOrigin()+(guest?'/premium/welcome?session_id={CHECKOUT_SESSION_ID}':'/premium/account?checkout=success'),cancel_url:authOrigin()+(guest?'/premium/join?checkout=canceled':'/premium/account?checkout=canceled')},{idempotencyKey:`sacco-checkout-${mode}-${record.checkout_token}`});
  if(!session.url)throw new Error('BILLING_UNAVAILABLE');
  // Keep optional telemetry out of Stripe's idempotent create payload.
  try{await stripe.checkout.sessions.update(session.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}

@@ -1,0 +1,28 @@
+const fs=require('node:fs'),ts=require('typescript'),assert=require('node:assert/strict'),{test}=require('node:test'),{PGlite}=require('@electric-sql/pglite');
+require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,f);
+const {hasPaidAccess}=require('../lib/billing/model.ts');
+test('trial access expires exactly, honors early cancellation and gives no failed-first-payment grace',()=>{const now=Date.parse('2026-11-01'),end='2026-12-01';const s={status:'trialing',trial_end:end,paid_through:null};assert.equal(hasPaidAccess(s,now),true);assert.equal(hasPaidAccess(s,Date.parse(end)),false);assert.equal(hasPaidAccess({...s,cancel_at:'2026-10-31'},now),false);assert.equal(hasPaidAccess({...s,status:'canceled'},now),false);assert.equal(hasPaidAccess({...s,status:'past_due',first_failure_at:'2026-11-01'},now),false);assert.equal(hasPaidAccess({...s,status:'active',paid_through:'2027-01-01'},now),true);});
+test('zero-payment checkout requires explicit trial metadata before server-side subscription verification',()=>{const {completedGuestCheckout}=require('../lib/billing/guest-session.ts');const s={mode:'subscription',livemode:false,status:'complete',payment_status:'no_payment_required',customer:'cus',subscription:'sub',client_reference_id:'user',metadata:{sacco_user_id:'user',guest_checkout:'true'}};assert.equal(completedGuestCheckout(s,'test'),false);assert.equal(completedGuestCheckout({...s,metadata:{...s.metadata,sacco_trial_days:'30'}},'test'),true);});
+test('SQL offer toggle, frozen checkout, claim isolation, webhook ordering and trial purchase claiming',async()=>{const db=new PGlite();try{
+ const guest='11111111-1111-4111-8111-111111111111',member='22222222-2222-4222-8222-222222222222',other='33333333-3333-4333-8333-333333333333';
+ await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,is_anonymous boolean default false);create function auth.uid() returns uuid language sql as 'select null::uuid';insert into auth.users values('${guest}',null,null,true),('${member}','trial@example.invalid',now(),false),('${other}',null,null,true);`);
+ for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
+ const reserve=async(user,plan='monthly',email='trial@example.invalid',prior=false)=>(await db.query("select * from reserve_premium_offer($1,'test',$2,$3,$4)",[user,plan,email,prior])).rows[0];
+ assert.equal((await reserve(guest)).checkout_trial_days,0);
+ await db.exec("update premium_trial_settings set enabled=true where mode='test'");assert.equal((await reserve(guest)).checkout_trial_days,0);
+ await db.exec("update billing_customers set checkout_expires_at=now()-interval '1 minute'");const r=await reserve(guest);assert.equal(r.checkout_trial_days,30);
+ await assert.rejects(reserve(other),/TRIAL_UNAVAILABLE/);
+ await db.exec("update premium_trial_settings set enabled=false where mode='test'");assert.equal((await reserve(guest)).checkout_token,r.checkout_token);assert.equal((await reserve(guest)).checkout_trial_days,30);
+ await db.exec("update premium_trial_settings set enabled=true where mode='test'");assert.equal((await reserve(other,'annual','another@example.invalid')).checkout_trial_days,0);
+ await db.query("update billing_customers set stripe_customer_id='cus_trial' where user_id=$1 and mode='test'",[guest]);
+ const snap={stripe_subscription_id:'sub_trial',user_id:guest,status:'trialing',plan:'monthly',paid_through:null,trial_end:'2099-12-01',current_period_end:'2099-12-01',cancel_at_period_end:false,observed_at:'2026-11-01'};
+ const apply=(id,s)=>db.query("select apply_premium_billing_event($1,'test',$2)",[id,JSON.stringify(s)]);await apply('evt_trial',snap);
+ assert.equal((await db.query("select used from premium_trial_claims")).rows[0].used,true);
+ assert.equal((await db.query("select paid_through from billing_subscriptions")).rows[0].paid_through,null);
+ const purchase=(await db.query("insert into billing_purchase_claims(original_user_id,mode,stripe_customer_id,email) values($1,'test','cus_trial','trial@example.invalid') returning id",[guest])).rows[0].id;
+ await assert.rejects(db.query('select claim_premium_purchase($1,$2)',[purchase,other]));await db.query('select claim_premium_purchase($1,$2)',[purchase,member]);
+ assert.equal((await db.query('select access_owner_id from billing_subscriptions')).rows[0].access_owner_id,member);
+ await apply('evt_failed',{...snap,status:'past_due',observed_at:'2026-12-02',first_failure_at:'2026-12-02'});await apply('evt_old',snap);assert.equal((await db.query('select status from billing_subscriptions')).rows[0].status,'past_due');
+ await db.exec("update billing_customers set checkout_expires_at=now()-interval '1 hour';update premium_trial_claims set expires_at=now()-interval '1 hour'");await assert.rejects(reserve(other),/TRIAL_UNAVAILABLE/);
+ await db.exec('set role authenticated');await assert.rejects(db.query("update premium_trial_settings set enabled=true"));await assert.rejects(db.query("select * from reserve_premium_offer($1,'test','monthly','x@example.invalid',false)",[other]));
+}finally{await db.close()}});

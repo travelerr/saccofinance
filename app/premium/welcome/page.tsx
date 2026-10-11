@@ -4,7 +4,7 @@ import AuthShell from '@/components/premium/auth-shell';
 import PaymentPending from '@/components/premium/payment-pending';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {premiumAccess} from '@/lib/premium-access';
-import {guestCheckoutBelongsTo} from '@/lib/billing/guest-session';
+import {guestCheckoutBelongsTo,completedGuestCheckout} from '@/lib/billing/guest-session';
 import {billingServices} from '@/lib/billing/server';
 import {reconcileBillingEvent} from '@/lib/billing/reconcile';
 import {completeGuestCheckout} from '@/lib/billing/purchases';
@@ -18,7 +18,7 @@ export default async function Page({searchParams}:{searchParams:Promise<{session
   try{
    const {stripe,mode}=await billingServices();const session=await stripe.checkout.sessions.retrieve(params.session_id);
    if(!guestCheckoutBelongsTo(session,result.data.user.id,mode))invalid=true;
-   else if(session.status==='complete'&&session.payment_status==='paid'){
+   else if(completedGuestCheckout(session,mode)){
     // A success URL alone grants nothing: retrieve Stripe's session and paid invoice first.
     await reconcileBillingEvent({id:'checkout-return-'+session.id,type:'checkout.session.completed',livemode:session.livemode,created:Math.floor(Date.now()/1000),data:{object:session}} as unknown as Stripe.Event);
     try{await completeGuestCheckout(session.id);}catch{console.error('Premium welcome email pending.');}

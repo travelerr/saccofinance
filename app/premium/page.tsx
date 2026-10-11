@@ -1,3 +1,4 @@
+import {trialOfferEnabled} from '@/lib/billing/trial-offer';
 import {redirect} from 'next/navigation';
 import {premiumAccess} from '@/lib/premium-access';
 import Link from 'next/link';
@@ -33,7 +34,7 @@ const faqs=[
 export default async function Premium(){
  const access=await premiumAccess();
  if(access.user&&access.allowed)redirect('/premium/dashboard');
- const enabled=billingEnabled();
+ const enabled=billingEnabled();const trial=enabled&&await trialOfferEnabled();
  const join=enabled?'/premium/join':'/premium/login';
  // Selected public marketing excerpts only. Never pass whole member records to a client component.
  const zs=getPublishedOpportunity('zscaler-001');
@@ -44,13 +45,13 @@ export default async function Premium(){
   ['Target 1',zs.trade?.firstTargetPrice!==undefined?`$${zs.trade.firstTargetPrice}`:'Not documented'],
   ['Breakout area',zs.confirmation||'Not documented'],
  ]:[];
- const joinLabel=enabled?'Join Sacco Premium':'Member sign in';
+ const joinLabel=enabled?(trial?'Start your 30-day trial':'Join Sacco Premium'):'Member sign in';
  return <main id="main-content" className={`container ${styles.page}`}>
   <section className={styles.hero}>
    <div className={styles.heroCopy}><Eyebrow>Sacco Financial / Premium</Eyebrow>
     <h1>FIND BETTER STOCK OPPORTUNITIES.<br/><span>BEFORE THE MOVE IS OBVIOUS.</span></h1>
     <p>Sacco Premium is the research process I use to find where market leadership is developing, identify stocks setting up inside those areas, and track the opportunities I’m actually watching and trading.</p>
-    <div className={styles.heroPrice}><strong>$10<span> / month</span></strong><p>Cancel anytime.</p></div>
+    <div className={styles.heroPrice}><strong>$10<span> / month</span></strong><p>{trial?'30 days free for new monthly members. Card required; then $10/month. Cancel before billing to avoid a charge.':'Cancel anytime.'}</p></div>
     <div className="actions"><Link className="button" href={join}>{joinLabel}<ArrowUpRight size={18}/></Link><Link className="text-link" href="/premium/login">Sign in</Link></div>
     {enabled&&billingMode()==='test'&&<p className="support-note">Local sandbox preview. Checkout uses test payments.</p>}
     {!enabled&&<p className="support-note">Membership is currently available by invitation.</p>}
@@ -97,11 +98,11 @@ export default async function Premium(){
   </section>
 
   <section id="pricing" className="section"><SectionHeader label="One membership / Two billing options" title="Get the full research process."/>
-   <div className={styles.offer}><div><p className={styles.lead}>Both plans include the same full access.</p><ul>{['Weekly Outlook and the Premium Dashboard','Sector Gauge','All current Opportunities and dated updates','Documented entry, stop/invalidation, and targets when I take a trade','Member account and subscription management'].map(item=><li key={item}><Check size={17} aria-hidden="true"/>{item}</li>)}</ul></div><div className={styles.plans}>{[['monthly','Monthly','$10','Billed monthly.'],['annual','Annual','$100','Billed annually. Save $20 versus 12 monthly payments.']].map(([plan,title,price,detail])=><article key={plan}><Eyebrow>{title}</Eyebrow><h3>{price}<span> / {plan==='monthly'?'month':'year'}</span></h3><p>{detail}</p><Link className="button" href={enabled?`/premium/join?plan=${plan}`:'/premium/login'} aria-label={enabled?`Join Sacco Premium — ${title.toLowerCase()}`:'Member sign in'}>{joinLabel}<ArrowUpRight size={16}/></Link></article>)}</div></div>
+   <div className={styles.offer}><div><p className={styles.lead}>Both plans include the same full access.</p><ul>{['Weekly Outlook and the Premium Dashboard','Sector Gauge','All current Opportunities and dated updates','Documented entry, stop/invalidation, and targets when I take a trade','Member account and subscription management'].map(item=><li key={item}><Check size={17} aria-hidden="true"/>{item}</li>)}</ul></div><div className={styles.plans}>{[['monthly','Monthly','$10','Billed monthly.'],['annual','Annual','$100','Billed annually. Save $20 versus 12 monthly payments.']].map(([plan,title,price,detail])=><article key={plan}><Eyebrow>{title}</Eyebrow><h3>{price}<span> / {plan==='monthly'?'month':'year'}</span></h3><p>{trial&&plan==='monthly'?'30 days free, then $10/month. New members only. Card required.':detail}</p><Link className="button" href={enabled?`/premium/join?plan=${plan}`:'/premium/login'} aria-label={enabled?`Join Sacco Premium — ${title.toLowerCase()}`:'Member sign in'}>{plan==='annual'?'Join Sacco Premium':joinLabel}<ArrowUpRight size={16}/></Link></article>)}</div></div>
    <p className={styles.billing}>Cancel anytime through Account &amp; Billing.<br/>Renews automatically until canceled; access continues through your paid period.<br/>Payments are generally non-refundable.<br/><Link className="text-link" href="/terms">Terms</Link> · <Link className="text-link" href="/premium/login">Sign in</Link></p>
   </section>
 
   <section className="section faq-section"><SectionHeader label="Before you join" title="Straight answers."/>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</section>
-  <section className={`premium-bottom ${styles.closing}`}><Eyebrow>Market context. Sector leadership. Individual opportunities.</Eyebrow><h2>SEE WHAT<br/><span>I’M SEEING.</span></h2><p>The setups I’m actually researching and trading.<br/>$10/month · $100/year · Cancel anytime.</p><div className="actions"><Link href={join} className="button">{joinLabel}<ArrowUpRight size={18}/></Link><Link href="/premium/login" className="text-link">Sign in</Link></div><p className={styles.note}>Educational and informational research.<br/>Not personalized investment advice.<br/>Investing involves risk, including loss of principal.<br/><Link href="/disclosures">Disclosures</Link> · <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link></p></section>
+  <section className={`premium-bottom ${styles.closing}`}><Eyebrow>Market context. Sector leadership. Individual opportunities.</Eyebrow><h2>SEE WHAT<br/><span>I’M SEEING.</span></h2><p>The setups I’m actually researching and trading.<br/>{trial?'30 days free on monthly · Then $10/month · Cancel anytime.':'$10/month · $100/year · Cancel anytime.'}</p><div className="actions"><Link href={join} className="button">{joinLabel}<ArrowUpRight size={18}/></Link><Link href="/premium/login" className="text-link">Sign in</Link></div><p className={styles.note}>Educational and informational research.<br/>Not personalized investment advice.<br/>Investing involves risk, including loss of principal.<br/><Link href="/disclosures">Disclosures</Link> · <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link></p></section>
  </main>;
 }

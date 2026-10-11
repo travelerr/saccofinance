@@ -24,18 +24,18 @@ export async function reconcileBillingEvent(event:Stripe.Event){
  let paidThrough:number|null=null;
  const latest=typeof subscription.latest_invoice==='object'?subscription.latest_invoice:null;
  const invoices:Stripe.Invoice[]=[];
- if(latest?.status==='paid')invoices.push(latest);
- if(event.type==='invoice.paid'&&invoiceId){const paid=await stripe.invoices.retrieve(invoiceId);if(invoiceSubscriptionId(paid)===subscription.id&&objectId(paid.customer)===customerId&&paid.status==='paid')invoices.push(paid);}
+ if(latest?.status==='paid'&&subscription.status!=='trialing')invoices.push(latest);
+ if(event.type==='invoice.paid'&&invoiceId){const paid=await stripe.invoices.retrieve(invoiceId);if(invoiceSubscriptionId(paid)===subscription.id&&objectId(paid.customer)===customerId&&paid.status==='paid'&&subscription.status!=='trialing')invoices.push(paid);}
  for(const invoice of invoices){
   // Paginate invoice lines so payment evidence isn't lost on larger invoices.
   for await(const line of stripe.invoices.listLineItems(invoice.id,{limit:100})){
-   const end=linePaidPeriod(line,subscription.id,supported[0].price.id);if(end)paidThrough=Math.max(paidThrough||0,end);
+   const end=linePaidPeriod(line,subscription.id,supported[0].price.id);if(end&&(!subscription.trial_end||line.period.start>=subscription.trial_end))paidThrough=Math.max(paidThrough||0,end);
   }
  }
  const delinquent=subscription.status==='past_due';
  const failedInvoice=delinquent?latest?.id||objectId(subscription.latest_invoice):null;
  const failureAt=delinquent&&invoiceId===failedInvoice&&['invoice.payment_failed','invoice.payment_action_required'].includes(event.type)?iso(event.created):null;
- const snapshot={stripe_subscription_id:subscription.id,user_id:customer.user_id,status:subscription.pause_collection?'paused':subscription.status,plan:supported[0].price.id===priceId('monthly')?'monthly':'annual',paid_through:iso(paidThrough),current_period_end:iso(supported[0].current_period_end),cancel_at_period_end:subscription.cancel_at_period_end,cancel_at:iso(subscription.cancel_at),failed_invoice_id:failedInvoice,first_failure_at:failureAt,observed_at:observedAt};
+ const snapshot={stripe_subscription_id:subscription.id,user_id:customer.user_id,status:subscription.pause_collection?'paused':subscription.status,plan:supported[0].price.id===priceId('monthly')?'monthly':'annual',paid_through:iso(paidThrough),trial_end:iso(subscription.trial_end),current_period_end:iso(supported[0].current_period_end),cancel_at_period_end:subscription.cancel_at_period_end,cancel_at:iso(subscription.cancel_at),failed_invoice_id:failedInvoice,first_failure_at:failureAt,observed_at:observedAt};
  const{error:applyError}=await admin.rpc('apply_premium_billing_event',{p_event:event.id,p_mode:mode,p_snapshot:snapshot});
  if(applyError)throw new Error('BILLING_DATABASE');
 }

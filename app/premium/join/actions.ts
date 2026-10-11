@@ -18,7 +18,7 @@ export async function beginCheckout(form:FormData){
   const {error}=await admin.from('billing_purchase_claims').select('id').limit(0);if(error)throw new Error('BILLING_DATABASE');
   let user=access.user;
   if(!user){const result=await client.auth.signInAnonymously();if(result.error||!result.data.user)throw new Error('GUEST_AUTH_UNAVAILABLE');user=result.data.user;}
-  url=await checkoutUrl(user,plan);
- }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='CHECKOUT_PENDING'?'pending':'billing'));}
+  url=await checkoutUrl(user,plan,String(form.get('email')||''));
+ }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='TRIAL_UNAVAILABLE'?'trial':reason==='CHECKOUT_PENDING'?'pending':'billing'));}
  redirect(url);
 }
