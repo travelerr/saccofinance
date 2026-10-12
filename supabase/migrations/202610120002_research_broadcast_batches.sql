@@ -1,13 +1,39 @@
 -- Apply with the email worker paused; upload the batch-aware worker before resuming.
 begin;
-alter table public.research_notification_log drop constraint research_notification_log_recipient_count_check;
-alter table public.research_notification_log add check(recipient_count between 1 and 50000);
-alter table public.research_email_jobs drop constraint research_email_jobs_event_key_mode_key;
-alter table public.research_email_jobs add column batch_index integer not null default 0 check(batch_index>=0);
-alter table public.research_email_jobs add column provider_ids jsonb not null default '[]';
-alter table public.research_email_jobs add unique(event_key,mode,batch_index);
+alter table public.research_notification_log drop constraint if exists research_notification_log_recipient_count_check;
+alter table public.research_notification_log add constraint research_notification_log_recipient_count_check check(recipient_count between 1 and 50000);
+-- Locate the old two-column uniqueness rule by its columns, not an
+-- environment-specific constraint/index name. Preserve every other constraint.
+do $$
+declare rule record;
+begin
+ for rule in
+  select c.conname from pg_constraint c
+  where c.conrelid='public.research_email_jobs'::regclass and c.contype='u'
+  and (select array_agg(a.attname::text order by a.attname)
+       from unnest(c.conkey) k(attnum) join pg_attribute a
+       on a.attrelid=c.conrelid and a.attnum=k.attnum)=array['event_key','mode']::text[]
+ loop
+  execute format('alter table public.research_email_jobs drop constraint %I',rule.conname);
+ end loop;
+ -- Some installations used a standalone unique index instead of a constraint.
+ for rule in
+  select i.indexrelid::regclass as index_name from pg_index i
+  where i.indrelid='public.research_email_jobs'::regclass and i.indisunique
+  and not i.indisprimary and i.indpred is null and i.indexprs is null
+  and not exists(select 1 from pg_constraint c where c.conindid=i.indexrelid)
+  and (select array_agg(a.attname::text order by a.attname)
+       from unnest(i.indkey) with ordinality k(attnum,n) join pg_attribute a
+       on a.attrelid=i.indrelid and a.attnum=k.attnum where k.n<=i.indnkeyatts)=array['event_key','mode']::text[]
+ loop
+  execute format('drop index %s',rule.index_name);
+ end loop;
+end $$;
+alter table public.research_email_jobs add column if not exists batch_index integer not null default 0 check(batch_index>=0);
+alter table public.research_email_jobs add column if not exists provider_ids jsonb not null default '[]';
+create unique index if not exists research_email_jobs_broadcast_batch_unique on public.research_email_jobs(event_key,mode,batch_index);
 -- Preserve provider receipts for existing one-batch jobs.
-update public.research_email_jobs j set provider_ids=l.provider_ids from public.research_notification_log l where j.event_key=l.event_key and j.mode=l.mode and j.status='sent';
+update public.research_email_jobs j set provider_ids=l.provider_ids from public.research_notification_log l where j.event_key=l.event_key and j.mode=l.mode and j.status='sent' and j.provider_ids='[]'::jsonb and not exists(select 1 from public.research_email_jobs other where other.event_key=j.event_key and other.mode=j.mode and other.id<>j.id);
 create or replace function public.reserve_research_notification(p_event text,p_type text,p_entity text,p_update text,p_subject text,p_count integer,p_mode text,p_actor uuid)
 returns boolean language plpgsql security definer set search_path=public,pg_temp as $$
 declare limits public.research_email_limits; used bigint;
@@ -28,7 +54,7 @@ begin
  return true;
 end $$;
 
-create function public.refresh_research_broadcast(p_event text,p_mode text)
+create or replace function public.refresh_research_broadcast(p_event text,p_mode text)
 returns void language plpgsql security definer set search_path=public,pg_temp as $$
 declare state text; ids jsonb; problem text;
 begin

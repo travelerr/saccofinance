@@ -9,7 +9,7 @@ Research budgets: no daily cap, 50,000 recipients per rolling 30 days. This does
 ## Production rollout
 
 1. Disable the EventBridge schedule and allow any active Lambda invocation to finish. Avoid queuing new notifications during rollout.
-2. Apply `202610120001_research_email_paid_plan.sql` if not already applied, then `202610120002_research_broadcast_batches.sql` in production Supabase. Do not rerun the batching migration.
+2. Apply `202610120001_research_email_paid_plan.sql` if not already applied, then `202610120002_research_broadcast_batches.sql` in production Supabase. The batching migration supports reruns and preserves existing jobs and provider receipts.
 3. Deploy the website and upload `build/research-email-lambda.zip` to the existing Lambda. Existing environment variables remain unchanged. The old worker must not process new multibatch broadcasts: its whole-audience comparison would cancel them.
 4. Confirm deployment, then enable the EventBridge schedule. Review a dry-run before sending a real broadcast.
 
