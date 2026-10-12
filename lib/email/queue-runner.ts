@@ -1,4 +1,4 @@
-export type EmailJob={id:string;event_key:string;mode:'live'|'dry-run';lease_token:string;attempts:number};
+export type EmailJob={id:string;event_key:string;mode:'live'|'dry-run';lease_token:string;attempts:number;batch_index?:number};
 export type JobTransition=(action:'dispatch'|'sent'|'dry_run'|'retry'|'cancelled'|'uncertain',ids?:string[],error?:string)=>Promise<boolean>;
 /** The dispatch marker is durable BEFORE the provider call; uncertain work is never retried. */
 export async function executeEmailJob<T>(job:EmailJob,deps:{prepare:()=>Promise<T>;deliver:(prepared:T)=>Promise<string[]>;transition:JobTransition}){

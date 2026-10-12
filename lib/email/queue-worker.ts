@@ -20,18 +20,18 @@ export async function processNextResearchEmail(){
    const snapshot=job.event_snapshot.delivery;
    validateEmailSnapshot(snapshot,job.origin);
    if(job.event_snapshot.key!==job.event_key||snapshot.subject!==job.event_snapshot.subject||job.origin!==(process.env.AUTH_SITE_URL||'http://localhost:3082')||job.sender!==(process.env.RESEARCH_EMAIL_FROM||''))throw Error('PREVIEW_CHANGED');
-   const recipients=await resolveResearchRecipientRecords(db);
+   const recipients=await resolveResearchRecipientRecords(db,job.recipients.map(r=>r.userId));
    if(audienceSignature(recipients)!==audienceSignature(job.recipients))throw Error('PREVIEW_CHANGED');
    const links=await createResearchUnsubscribeBatch(db,recipients.map(r=>r.userId),job.origin);
    const messages=recipients.map((r,i)=>({to:r.email,email:personalizeEmailSnapshot(snapshot,job.origin,links[i])}));
    const secrets=await emailSecrets();if(researchSendMode({...process.env,...secrets})!==job.mode)throw Error('PREVIEW_CHANGED');
-   const finalRecipients=await resolveResearchRecipientRecords(db);
+   const finalRecipients=await resolveResearchRecipientRecords(db,job.recipients.map(r=>r.userId));
    if(audienceSignature(finalRecipients)!==audienceSignature(recipients))throw Error('PREVIEW_CHANGED');
    const {data:limits,error}=await db.from('research_email_limits').select('paused').eq('singleton',true).single();
    if(error||!limits)throw Error('LIMIT_LOOKUP_FAILED');if(limits.paused)throw Error('EMAIL_PAUSED');
    return {messages,secrets};
   },
-  deliver:({messages,secrets})=>resendPersonalizedWithTransport({from:job.sender,apiKey:secrets.RESEND_API_KEY!,key:createHash('sha256').update('research-live:'+job.event_key).digest('hex'),messages},fetch)
+  deliver:({messages,secrets})=>resendPersonalizedWithTransport({from:job.sender,apiKey:secrets.RESEND_API_KEY!,key:createHash('sha256').update('research-live:'+job.event_key+(job.batch_index?':batch:'+job.batch_index:'')).digest('hex'),messages},fetch)
  });
  return {id:job.id,status:result};
 }

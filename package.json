@@ -16,7 +16,7 @@
     "local:seed": "node scripts/local-development.cjs seed",
     "local:reset": "node scripts/local-development.cjs reset",
     "local:status": "node scripts/local-development.cjs status",
-    "test:offline": "node --test scripts/test-premium-access.cjs scripts/test-billing.cjs scripts/test-payment-first.cjs scripts/test-premium-trials.cjs scripts/test-opportunities.cjs scripts/test-weekly-outlook.cjs scripts/test-theme.cjs scripts/test-research-email.cjs scripts/test-local-environment.cjs scripts/test-research-preference.cjs scripts/test-developer-email.cjs && node --test scripts/test-research-safeguards.cjs scripts/test-research-delivery.cjs scripts/test-email-secrets.cjs scripts/test-email-enrollment.cjs scripts/test-email-queue.cjs scripts/test-email-lambda.cjs scripts/test-email-snapshot.cjs && npm run test:analytics",
+    "test:offline": "node --test scripts/test-premium-access.cjs scripts/test-billing.cjs scripts/test-payment-first.cjs scripts/test-premium-trials.cjs scripts/test-opportunities.cjs scripts/test-weekly-outlook.cjs scripts/test-theme.cjs scripts/test-research-email.cjs scripts/test-local-environment.cjs scripts/test-research-preference.cjs scripts/test-developer-email.cjs && node --test scripts/test-research-safeguards.cjs scripts/test-email-paid-plan.cjs scripts/test-email-batches.cjs scripts/test-research-delivery.cjs scripts/test-email-secrets.cjs scripts/test-email-enrollment.cjs scripts/test-email-queue.cjs scripts/test-email-lambda.cjs scripts/test-email-snapshot.cjs && npm run test:analytics",
     "test:local": "node scripts/test-local-stack.cjs",
     "email:test": "node scripts/research-email-test.cjs",
     "analytics:preview": "node scripts/analytics-preview.cjs",

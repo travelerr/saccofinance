@@ -6,10 +6,12 @@ import {excludeSuppressed} from './suppression';
 import {researchEligible,researchPilotRecipient} from './policy';
 import {mapLimited} from './concurrency';
 export type ResearchRecipient={userId:string;email:string};
-export async function resolveResearchRecipientRecords(db:SupabaseClient){
+export async function resolveResearchRecipientRecords(db:SupabaseClient,userIds?:string[]){
  const emails=new Map<string,ResearchRecipient>();
  for(let offset=0;;offset+=100){
-  const {data,error}=await db.from('research_email_preferences').select('user_id').eq('enabled',true).order('user_id').range(offset,offset+99);
+  let query=db.from('research_email_preferences').select('user_id').eq('enabled',true);
+  if(userIds)query=query.in('user_id',userIds);
+  const {data,error}=await query.order('user_id').range(offset,offset+99);
   if(error)throw new Error('RECIPIENT_LOOKUP_FAILED');
   const ids=(data||[]).map(r=>r.user_id);if(!ids.length)break;
   const [grants,subscriptions]=await Promise.all([
