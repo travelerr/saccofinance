@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,7);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,8);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,7);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,7);
+ assert.equal(d.getPublishedOpportunities().length,8);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,8);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Active');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,55,85]);
@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,9);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,11);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-003');
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-008');
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -199,4 +199,8 @@ test('SpaceX October 9 strategy research preserves Watching and creates no email
  for(const label of ['Strike price','Expiration','Premium'])assert.equal(update.strategySummary.find(x=>x.label===label).value,'Not determined');
  assert.deepEqual(update.education.videos.map(v=>v.id),['nxHEuaq7zs0','AblTvucvAi8']);
  assert.ok(!researchEvents([],opportunities,opportunityUpdates).some(event=>event.updateId===update.id));
+});
+test('SMCI is one open short put, not stock ownership or realized profit',()=>{
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('smci-008');assert.ok(o);assert.equal(d.opportunities.filter(o=>o.ticker==='SMCI').length,1);assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryType,'option-execution');assert.equal(o.trade.entryPrice,1.5);assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.quantity,undefined);assert.equal(o.trade.firstTargetPrice,undefined);assert.equal(o.optionPosition.sharesOwned,0);assert.equal(o.optionPosition.realizedProfit,null);assert.equal(o.optionPosition.grossPremium,150);assert.equal(o.optionPosition.acquisitionBasis,33.5);assert.equal(o.optionPosition.maxLoss,3350);assert.equal(m.realizedTradeResult(o),null);assert.ok(d.getPublishedOpportunities().some(x=>x.id===o.id));assert.ok(o.articleSections.every(s=>! /\b(we|our|us)\b/i.test(s.body)));
+ const events=require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates);const event=events.find(e=>e.entityId===o.id);assert.equal(event.subject,'New Sacco Premium Opportunity: SMCI $35 Put');assert.equal(event.path,'/premium/opportunities/smci-008');
 });

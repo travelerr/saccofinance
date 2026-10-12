@@ -2,7 +2,7 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
+export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
@@ -11,12 +11,15 @@ type OpportunityLifecycle=
 export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation';source?:string};
 export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'};
 export type Opportunity={
+ optionPosition?:{optionType:'Put';positionEffect:'Sell to open';contracts:number;strike:number;expiresAt:string;premiumPerShare:number;grossPremium:number;multiplier:number;status:'Open';sharesOwned:number;assignmentStatus:'Not assigned';realizedProfit:null;acquisitionBasis:number;collateral:number;maxLoss:number};
+ articleSections?:{title:string;body:string}[];
+ notification?:{subject:string;preview:string;summary:string;cta:string};
  id:string;slug:string;ticker:string;company:string;title:string;
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
  riskUpdate?:{date:string;previousStop:number;title:string;warning:string};nextCatalyst?:string;
- positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;

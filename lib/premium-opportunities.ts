@@ -1588,3 +1588,121 @@ weeklyOutlooks.push({
   },
   "notificationSummary": "Earnings season is here, and this could be an important period for determining where the market goes next.\n\nThis week's Outlook covers:\n\n- Major bank earnings and potential financial-sector opportunities\n- CPI, PPI, and Treasury yields\n- Lessons from our completed ServiceNow and Zscaler trades\n- EPAM's latest AI developments\n- Why strong earnings can sometimes send stocks lower\n- How I'm approaching new opportunities this earnings season\n\nWe're also taking a closer look at our stop-loss management after both NOW and ZS continued higher following our exits.\n\nBoth trades were profitable, but there are important lessons about giving winning positions enough room to develop.\n\nThe full Outlook is now available inside Sacco Premium."
 });
+
+// Justin’s October 12 executed short put; no stock purchase or assignment.
+opportunities.push({
+  "id": "opportunity-008",
+  "slug": "smci-008",
+  "ticker": "SMCI",
+  "charts": [
+  {
+    "src": "/api/premium/chart/smci-tradingview-2026-10-12",
+    "source": "TradingView",
+    "caption": "SMCI's longer-term price structure, historical consolidation, and potential upside resistance. The current short-put position has a $35 strike. Chart targets refer to the underlying stock, not the option’s maximum profit.",
+    "alt": "SMCI's longer-term price structure, historical consolidation, and potential upside resistance. The current short-put position has a $35 strike. Chart targets refer to the underlying stock, not the option’s maximum profit.",
+    "asOf": "2026-10-12",
+    "width": 3286,
+    "height": 1760,
+    "placement": "setup"
+  },
+  {
+    "src": "/api/premium/chart/smci-trendspider-2026-10-12",
+    "source": "TrendSpider",
+    "caption": "SMCI's developing technical recovery and stage-analysis structure alongside company fundamental data.",
+    "alt": "SMCI's developing technical recovery and stage-analysis structure alongside company fundamental data.",
+    "asOf": "2026-10-12",
+    "width": 1610,
+    "height": 809,
+    "placement": "setup"
+  }
+],
+  "company": "Super Micro Computer",
+  "title": "SMCI — Using Options to Target a Better Entry",
+  "publicationState": "published",
+  "publishedAt": "2026-10-12",
+  "updatedAt": "2026-10-12",
+  "tradeStatus": "Active",
+  "trade": {
+    "enteredAt": "2026-10-12",
+    "entryType": "option-execution",
+    "entryPrice": 1.5,
+    "documentation": "I sold to open one SMCI $35 put expiring November 13, 2026 for $1.50 per share on October 12, 2026. No shares acquired."
+  },
+  "technicalStage": "Potential Stage 2 transition",
+  "positionOrigin": "Sacco Premium",
+  "strategy": "Cash-Secured Put",
+  "sector": "AI Infrastructure",
+  "summary": "I sold a $35 cash-secured put on SMCI, collecting $150 in premium rather than purchasing shares around $40. My goal is to potentially acquire shares at a more attractive effective cost while monitoring the company's AI infrastructure recovery.",
+  "nextStepSummary": "I’m monitoring earnings, cash flow, and the technical recovery before deciding whether to close, allow expiration, or accept assignment.",
+  "whySurfaced": "Super Micro Computer has been on my radar as a potential recovery opportunity within the AI infrastructure sector.\n\nThe company has experienced a substantial decline from its previous highs, but its underlying business continues to benefit from demand for AI servers, data-center infrastructure, and liquid-cooled computing systems.\n\nAnd technically, the stock has been showing signs of improvement.\n\nAfter trading near $23 during the summer, SMCI has started establishing higher highs and higher lows.\n\nMy TrendSpider analysis is showing an improving technical structure consistent with a potential Stage 2 transition.\n\nThat also fits into what I'm seeing in the Sacco Premium Sector Gauge, where semiconductors have been demonstrating strong relative performance over the past month.\n\nBut I'm not interested in purchasing SMCI shares outright around $40.\n\nI'd rather establish a position at a lower price.\n\nThat's why I've decided to use options.",
+  "setupThesis": "I sold a $35 cash-secured put on SMCI, collecting $150 in premium rather than purchasing shares around $40. My goal is to potentially acquire shares at a more attractive effective cost while monitoring the company's AI infrastructure recovery.",
+  "nextCondition": "I will document subsequent transactions.",
+  "fundamentalCase": "I am monitoring AI infrastructure demand, order conversion, margins, cash flow, and governance risks.",
+  "thesisChanges": "If the fundamental thesis deteriorates materially, I will reassess the position.",
+  "justinsTake": "My only executed SMCI position is the $35 cash-secured put.",
+  "articleSections": [
+    {
+      "title": "My Research",
+      "body": "Super Micro Computer has been on my radar as a potential recovery opportunity within the AI infrastructure sector.\n\nThe company has experienced a substantial decline from its previous highs, but its underlying business continues to benefit from demand for AI servers, data-center infrastructure, and liquid-cooled computing systems.\n\nAnd technically, the stock has been showing signs of improvement.\n\nAfter trading near $23 during the summer, SMCI has started establishing higher highs and higher lows.\n\nMy TrendSpider analysis is showing an improving technical structure consistent with a potential Stage 2 transition.\n\nThat also fits into what I'm seeing in the Sacco Premium Sector Gauge, where semiconductors have been demonstrating strong relative performance over the past month.\n\nBut I'm not interested in purchasing SMCI shares outright around $40.\n\nI'd rather establish a position at a lower price.\n\nThat's why I've decided to use options."
+    },
+    {
+      "title": "Why I'm Using Options",
+      "body": "One advantage of stocks trading at relatively lower share prices is that they can give me more flexibility when structuring trades with options.\n\nA standard equity options contract represents 100 shares.\n\nWith SMCI trading around $40, that represents approximately $4,000 in underlying stock exposure per contract.\n\nThat makes a cash-secured put a practical alternative to purchasing shares outright.\n\nLooking at my chart, $35 is an important technical area.\n\nIf I were purchasing shares around $40, that is approximately where I would have considered placing my stop loss.\n\nBut rather than purchasing at $40 and risking a decline toward $35, I've decided to sell a cash-secured put at that strike.\n\nOn October 12, I sold one SMCI put expiring November 13, 2026.\n\nThe strike is $35.\n\nI collected $150 in premium.\n\nIf SMCI remains above $35 through expiration and the put expires worthless, I keep the premium, before fees.\n\nIf SMCI falls below $35 and I'm assigned, I'll purchase 100 shares at $35 per share.\n\nAfter accounting for the $150 premium collected, my effective acquisition cost would be approximately $33.50 per share, before fees.\n\nThat's a price I'm more comfortable owning SMCI at than $40.\n\nThere is an important trade-off.\n\nIf the stock falls significantly below $35, I can still be assigned at $35.\n\nThe premium reduces my effective cost, but it doesn't eliminate downside risk.\n\nAnd if SMCI rallies substantially, my upside from this particular short put is limited to the premium collected.\n\nI'm comfortable with those trade-offs for this position."
+    },
+    {
+      "title": "Why I'm Interested in Super Micro",
+      "body": "Super Micro is directly involved in the AI infrastructure buildout.\n\nThe company supplies servers, rack-scale systems, liquid cooling, and other infrastructure needed to deploy high-performance AI computing systems.\n\nSMCI reported approximately $39.1 billion in fiscal 2026 revenue, representing roughly 78% annual growth.\n\nManagement also reported more than $60 billion in new orders during its fiscal fourth quarter.\n\nThat's a substantial demand signal.\n\nBut it's important to understand that those orders are not necessarily guaranteed revenue.\n\nSome orders may be delayed, modified, or canceled.\n\nManagement has also projected fiscal 2027 revenue of approximately $65 billion to $72 billion.\n\nIf SMCI can execute on that demand, there is a potentially meaningful growth opportunity.\n\nBut revenue growth alone doesn't tell the entire story.\n\nThe company has experienced substantial working-capital requirements, inconsistent cash generation, and pressure on normalized gross margins.\n\nFiscal 2026 free cash flow was approximately negative $7 billion despite strong reported revenue and earnings.\n\nSMCI has also faced accounting, internal-control, governance, and export-related controversies.\n\nAlthough the company has made progress addressing certain issues, not all concerns have been resolved.\n\nThose risks are important to my decision.\n\nI'm interested in the potential recovery, but I'm not willing to ignore the problems simply because the AI infrastructure sector is strong.\n\nThat's another reason I prefer targeting a lower acquisition price rather than buying the shares outright at current levels."
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "Looking at the longer-term chart, SMCI has spent considerable time consolidating following its earlier decline.\n\nThe stock established a significant low near $23 during the summer and has since begun recovering.\n\nThe recent price structure has been showing higher highs and higher lows.\n\nMy TrendSpider chart is also showing an improving stage structure consistent with a possible transition toward Stage 2.\n\nThat is encouraging, although the technical recovery is still developing.\n\nThere is resistance around $44.60 to $45.80, followed by additional supply around $50 to $51.\n\nMy broader upside objective for the underlying stock is approximately $50.\n\nHowever, that is not the profit target for the short put.\n\nThe maximum premium profit on the current option position is $150 before fees.\n\nMy $35 strike is near an important historical support area.\n\nBut I want to make an important distinction:\n\n$35 is my PUT STRIKE, not a stop-loss order.\n\nIf the stock falls through $35, the put can be assigned, and my losses can continue increasing as the stock declines.\n\nI am accepting that possibility as part of this strategy."
+    },
+    {
+      "title": "Today's Pullback",
+      "body": "SMCI is pulling back today amid renewed attention to legal developments involving individuals associated with the company.\n\nThe broader governance and export-control issues were already part of my research.\n\nI do not view the latest headlines as automatically invalidating the underlying AI infrastructure opportunity.\n\nHowever, prior internal reviews and company statements do not constitute blanket regulatory clearance.\n\nI will continue monitoring these developments.\n\nToday's weakness has provided an opportunity to establish the short-put position at the premium and strike I selected.\n\nRather than chasing the stock higher, I'm using the volatility to structure a potential entry at a lower price."
+    },
+    {
+      "title": "The Upcoming Earnings Catalyst",
+      "body": "SMCI is expected to report earnings in early November.\n\nNovember 3 has appeared as an estimated reporting date, but the official date must be confirmed through company investor relations.\n\nMy put expires November 13.\n\nThat means I may be carrying this position through the next earnings announcement.\n\nThis is not my preferred setup.\n\nEarnings can create substantial volatility, particularly for a company with SMCI's history of uneven guidance, working-capital demands, and regulatory uncertainty.\n\nA disappointing report could send the stock significantly below my $35 strike.\n\nThat is a risk I need to accept and monitor.\n\nI'll be watching revenue growth, order conversion, normalized margins, cash flow, and management's updated guidance.\n\nIf the fundamental thesis deteriorates materially, I'll reassess the position rather than automatically continue selling options."
+    },
+    {
+      "title": "Potential Wheel Strategy",
+      "body": "If the put expires worthless, I'll keep the premium, before fees, and reassess whether another opportunity exists.\n\nIf I'm assigned, I'll acquire 100 SMCI shares at $35 per share.\n\nAt that point, I may consider transitioning into a Wheel Strategy.\n\nThat would involve evaluating covered calls against the shares with the goal of collecting additional premium while managing the position.\n\nI would only sell covered calls at strikes and expirations that make sense given my cost basis, technical outlook, and willingness to sell the shares.\n\nThe Wheel Strategy does not eliminate downside risk.\n\nA substantial stock decline could leave me holding shares worth considerably less than my acquisition cost.\n\nAnd covered calls would limit my upside if the stock rallies beyond the selected strike.\n\nFor now, I have not sold any covered calls or acquired shares through assignment.\n\nMy only executed SMCI position is the $35 cash-secured put."
+    },
+    {
+      "title": "My Current Plan",
+      "body": "I sold one SMCI $35 put expiring November 13, 2026, collecting $150 in premium.\n\nI'm targeting a potential effective acquisition cost of $33.50 per share if assigned.\n\nI'll continue monitoring the technical recovery, earnings expectations, and the company's progress converting AI infrastructure demand into sustainable cash flow.\n\nIf the put expires worthless, I'll reassess the opportunity.\n\nIf I'm assigned, I'll evaluate whether the Wheel Strategy remains appropriate.\n\nMy longer-term technical objective for the underlying stock is approximately $50, but that does not represent an additional profit target for the current put.\n\nI'll document any subsequent transactions or material changes to my thesis.\n\nThis is my personal trade and reflects my own investment decisions and risk tolerance."
+    },
+    {
+      "title": "Sector Context",
+      "body": "I use semiconductor strength as context for the broader AI infrastructure investment cycle. SMCI is primarily an AI server and infrastructure integrator, not a semiconductor manufacturer; SMH performance does not directly measure its business."
+    },
+    {
+      "title": "My Position Risks",
+      "body": "This is my personal trade, not subscriber performance or an instruction to copy my position. My short put obligates me to purchase 100 shares at $35 if assigned, and assignment may occur before expiration. My maximum premium profit is $150 before fees; the premium received is not yet realized profit. My $33.50 effective acquisition cost does not prevent further losses. My maximum theoretical loss is $3,350 before fees if SMCI falls to zero and the put is assigned. I may remain exposed to earnings-related price gaps. A potential Wheel Strategy does not guarantee income or eliminate investment risk. My prior $41 share-entry idea was research only, not an executed purchase."
+    }
+  ],
+  "optionPosition": {
+    "optionType": "Put",
+    "positionEffect": "Sell to open",
+    "contracts": 1,
+    "strike": 35,
+    "expiresAt": "2026-11-13",
+    "premiumPerShare": 1.5,
+    "grossPremium": 150,
+    "multiplier": 100,
+    "status": "Open",
+    "sharesOwned": 0,
+    "assignmentStatus": "Not assigned",
+    "realizedProfit": null,
+    "acquisitionBasis": 33.5,
+    "collateral": 3500,
+    "maxLoss": 3350
+  },
+  "notification": {
+    "subject": "New Sacco Premium Opportunity: SMCI $35 Put",
+    "preview": "I collected $150 selling an SMCI put while targeting a lower entry price.",
+    "summary": "I've opened a new position in Super Micro Computer.\n\nRather than purchasing shares around $40, I sold one cash-secured put with a $35 strike expiring November 13, 2026.\n\nI collected $150 in premium.\n\nIf the put expires worthless, I keep the premium, before fees.\n\nIf I'm assigned, I'll purchase 100 shares at $35, giving me an effective acquisition cost of approximately $33.50 per share after accounting for the premium.\n\nI'm interested in SMCI's AI infrastructure growth and improving technical structure, but the company still carries meaningful cash-flow, margin, and governance risks.\n\nThis position also extends through the expected early-November earnings window.\n\nI've published the full research, technical charts, position details, and my reasoning inside Sacco Premium.",
+    "cta": "VIEW THE SMCI OPPORTUNITY"
+  }
+});
