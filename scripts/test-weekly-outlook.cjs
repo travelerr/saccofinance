@@ -48,8 +48,8 @@ test('Issue 002 references all five canonical trades; scenario and radar cannot 
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
  assert.equal(records[3].tradeStatus,'Watching');assert.equal(records[3].trade,undefined);assert.equal(records[1].trade.entryPrice,119);
- assert.deepEqual(records.filter(r=>r.trade).map(r=>[r.ticker,r.trade.stopPrice,r.trade.firstTargetPrice]),[['ZS',210,220],['NOW',130,175],['RKLB',60.5,85],['MSTR',123,196]]);
- assert.deepEqual([records[4].trade.quantity,records[4].trade.entryPrice,records[4].preferredAddZone],[10,160,'$144–$148']);
+ assert.deepEqual(records.filter(r=>r.trade).map(r=>[r.ticker,r.trade.stopPrice,r.trade.firstTargetPrice]),[['ZS',210,220],['NOW',130,175],['RKLB',60.5,85],['MSTR',147,196]]);
+ assert.deepEqual([records[4].trade.quantity,records[4].trade.entryPrice,records[4].preferredAddZone],[10,160,undefined]);
  assert.equal(data.opportunities.length,9);assert.ok(!data.opportunities.some(r=>['GOOG','GOOGL','META'].includes(r.ticker)));
  const s=o.bitcoinScenario;assert.deepEqual([s.bitcoinReference,s.bitcoinScenario,s.netBitcoinValuePerShare,s.mnav],[77288,125000,118.99,1.10]);
  assert.equal(Math.round(s.netBitcoinValuePerShare*s.bitcoinScenario/s.bitcoinReference*s.mnav),212);assert.equal(s.displayRange,'~$210–$212');

@@ -98,15 +98,15 @@ test('all chart assets use the authenticated route and the Dashboard does not tr
 test('MSTR preserves the starter trade separately from its unfilled add zone and dated chart evidence',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');
  assert.equal(o.id,'opportunity-005');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 2');
- assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],['2026-09-23',10,160,123,196]);
- assert.equal(o.preferredAddZone,'$144–$148');assert.equal(o.trade.exitedAt,undefined);assert.equal(o.targets,undefined);
+ assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],['2026-09-23',10,160,147,196]);
+ assert.equal(o.preferredAddZone,undefined);assert.equal(o.trade.exitedAt,undefined);assert.equal(o.targets,undefined);
  assert.deepEqual(o.discoveryChain,['Crypto','Bitcoin','Technical setup','MSTR','Trade']);
  assert.equal(o.fundamentalHeading,'Why MSTR / The Equity Vehicle');
  assert.deepEqual(o.charts.map(c=>c.placement),['origin','framework','confirmation']);
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
- assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/no purchase there has been made/);
- const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,2);assert.deepEqual(updates[0].trade,o.trade);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-002');
+ assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/No exit has been recorded/);
+ const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,3);assert.equal(updates[0].trade.stopPrice,123);assert.equal(updates[2].trade.stopPrice,147);
+ assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-005');
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -133,8 +133,8 @@ test('IONQ is a legacy wheel with distinct broker basis, open credits and no lau
 });
 
 test('MSTR technical update preserves execution and remains outside material emails',()=>{
- const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');const u=d.getOpportunityUpdates(o.id).at(-1);
- assert.equal(d.opportunities.filter(x=>x.ticker==='MSTR').length,1);assert.equal(u.eventDate,'2026-10-01');assert.equal(u.title,'Technical Confirmation — Stage 2 Now Showing Daily & Weekly');assert.deepEqual(u.trade,o.trade);assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.suppressNotification,true);assert.match(u.explanation,/daily and weekly scans/);assert.match(u.explanation,/153.09/);assert.match(u.explanation,/164.58/);
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');const u=d.getOpportunityUpdates(o.id).find(u=>u.eventDate==='2026-10-01');
+ assert.equal(d.opportunities.filter(x=>x.ticker==='MSTR').length,1);assert.equal(u.eventDate,'2026-10-01');assert.equal(u.title,'Technical Confirmation — Stage 2 Now Showing Daily & Weekly');assert.equal(u.trade.stopPrice,123);assert.equal(u.trade.entryPrice,o.trade.entryPrice);assert.equal(u.tradeStatusAfter,'Active');assert.equal(u.suppressNotification,true);assert.match(u.explanation,/daily and weekly scans/);assert.match(u.explanation,/153.09/);assert.match(u.explanation,/164.58/);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/mstr-technical-2026-10-01.png')));assert.equal(u.chart.src,'/api/premium/chart/mstr-technical-2026-10-01');
  assert.equal(require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates).some(e=>e.updateId===u.id),false);
 });
