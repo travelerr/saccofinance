@@ -97,15 +97,15 @@ test('all chart assets use the authenticated route and the Dashboard does not tr
 
 test('MSTR preserves the starter trade separately from its unfilled add zone and dated chart evidence',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('strategy-005');
- assert.equal(o.id,'opportunity-005');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 2');
+ assert.equal(o.id,'opportunity-005');assert.equal(o.tradeStatus,'Closed');assert.equal(o.technicalStage,'Stage 2');
  assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice],['2026-09-23',10,160,147,196]);
- assert.equal(o.preferredAddZone,undefined);assert.equal(o.trade.exitedAt,undefined);assert.equal(o.targets,undefined);
+ assert.equal(o.preferredAddZone,undefined);assert.equal(o.trade.exitedAt,'2026-10-14');assert.equal(o.trade.exitPrice,147);assert.equal(m.realizedTradeResult(o).realizedDollarPnL,-130);assert.equal(o.targets,undefined);
  assert.deepEqual(o.discoveryChain,['Crypto','Bitcoin','Technical setup','MSTR','Trade']);
  assert.equal(o.fundamentalHeading,'Why MSTR / The Equity Vehicle');
  assert.deepEqual(o.charts.map(c=>c.placement),['origin','framework','confirmation']);
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
- assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/No exit has been recorded/);
- const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,3);assert.equal(updates[0].trade.stopPrice,123);assert.equal(updates[2].trade.stopPrice,147);
+ assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/No shares remain/);
+ const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,4);assert.equal(updates[0].trade.stopPrice,123);assert.equal(updates[2].trade.stopPrice,147);
  assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-005');
 });
 
@@ -184,7 +184,7 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
- assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['ZS','NOW']);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['MSTR','ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events.filter(x=>x.type==='OPPORTUNITY_MATERIAL_UPDATE'&&x.path==='/premium/opportunities/zscaler-001')[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
