@@ -35,7 +35,7 @@ test('all three templates use canonical published content and authenticated rout
  assert.match(email.html,/max-width:600px/);assert.match(email.html,/width=device-width/);
  }
  assert.equal(events.find(e=>e.key==='WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-001').path,'/premium/issue-001');
- const noStage=events.find(e=>e.entityId==='opportunity-002'&&e.type==='OPPORTUNITY_PUBLISHED');assert.deepEqual(noStage.details,['Active']);
+ const noStage=events.find(e=>e.entityId==='opportunity-002'&&e.type==='OPPORTUNITY_PUBLISHED');assert.deepEqual(noStage.details,['Closed']);
  const sample=renderResearchEmail({...events[0],headline:'<script>alert("x")</script>',summary:''},'http://localhost:3000');assert.ok(!sample.html.includes('<script>'));assert.ok(!sample.text.includes('undefined'));assert.ok(!sample.text.includes('Target:'));
  assert.equal(researchEvents(records.weeklyOutlooks.map(o=>({...o,publicationState:'draft'})),[],[]).length,0);
  for(const e of events){const route=e.path.split('#')[0];const file=route.startsWith('/premium/opportunities/')?'app/premium/opportunities/[slug]/page.tsx':'app'+route+'/page.tsx';assert.ok(fs.existsSync(path.join(__dirname,'..',file)),file);}
@@ -78,7 +78,7 @@ test('server administrator guard rejects unauthorized authenticated sessions',as
 });
 
 test('notification picker sorts publication dates newest first without redating original opportunities',()=>{
- assert.equal(events[0].key,'OPPORTUNITY_MATERIAL_UPDATE:opportunity-005:opportunity-005-closed-2026-10-14');
+ assert.equal(events[0].key,'OPPORTUNITY_MATERIAL_UPDATE:opportunity-002:opportunity-002-closed-2026-10-14');
  for(let i=1;i<events.length;i++)assert.ok(Date.parse(events[i-1].publishedAt)>=Date.parse(events[i].publishedAt));
  const original=events.find(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-004');assert.equal(original.publishedAt,'2026-09-18');
  const keys=events.map(e=>e.key);assert.equal(new Set(keys).size,keys.length);

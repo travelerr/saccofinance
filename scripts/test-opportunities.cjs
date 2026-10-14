@@ -43,7 +43,7 @@ test('ZS current position and Dashboard/board share canonical server-only select
  for(const file of ['app/premium/dashboard/page.tsx','app/premium/opportunities/page.tsx'])assert.match(fs.readFileSync(require('node:path').join(__dirname,'..',file),'utf8'),/getPublishedOpportunities\(\)/);
 });
 test('technical-stage edits never change Active trade status or current visibility',()=>{
- const data=require('../lib/premium-opportunities.ts');const zs=data.opportunities.find(o=>o.tradeStatus==='Active');
+ const data=require('../lib/premium-opportunities.ts');const zs=data.opportunities.find(o=>o.tradeStatus==='Active'&&m.isCurrentOpportunity(o));
  for(const technicalStage of ['Stage 2 Confirmed','Technically invalidated']){
   const edited={...zs,technicalStage};assert.equal(edited.tradeStatus,'Active');assert.ok(m.isPublishableOpportunity(edited));assert.ok(m.isCurrentOpportunity(edited));
  }
@@ -54,9 +54,9 @@ test('the three backfilled records preserve explicit trade facts and omit unavai
  assert.equal(d.getPublishedOpportunities().length,9);
  assert.equal(new Set(d.opportunities.map(o=>o.id)).size,9);
  const r=d.getPublishedOpportunity('rocket-lab-002');
- assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Active');assert.equal(r.technicalStage,null);
+ assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
- assert.equal(r.trade.quantity,undefined);assert.equal(r.targets,undefined);assert.equal(r.trade.exitedAt,undefined);
+ assert.equal(r.trade.quantity,undefined);assert.equal(r.targets,undefined);assert.equal(r.trade.exitedAt,'2026-10-14');
  assert.equal(r.researchPublishedAt,'2026-09-13');assert.equal(r.addedToArchiveAt,'2026-09-18');
  const n=d.getPublishedOpportunity('servicenow-004');
  assert.equal(n.id,'opportunity-004');assert.equal(n.tradeStatus,'Closed');assert.equal(n.technicalStage,null);
@@ -66,7 +66,7 @@ test('the three backfilled records preserve explicit trade facts and omit unavai
  assert.deepEqual(nu.map(u=>u.eventDate),['2026-05-28','2026-09-18','2026-09-28']);
  for(const key of ['quantity','entryPrice','stopPrice','firstTargetPrice'])assert.equal(nu[0].trade[key],undefined);
  assert.equal(nu[1].trade.quantity,45);
- assert.deepEqual(d.getOpportunityUpdates(r.id).map(u=>u.eventDate),['2026-09-04','2026-10-13']);
+ assert.deepEqual(d.getOpportunityUpdates(r.id).map(u=>u.eventDate),['2026-09-04','2026-10-13','2026-10-14']);
 });
 test('SPCX remains a waiting Stage 1 setup without any trade or invented research date',()=>{
  const d=require('../lib/premium-opportunities.ts');const s=d.getPublishedOpportunity('spacex-003');
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/No shares remain/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,4);assert.equal(updates[0].trade.stopPrice,123);assert.equal(updates[2].trade.stopPrice,147);
- assert.equal(d.getPublishedOpportunities()[0].id,'opportunity-005');
+ assert.ok(d.getPublishedOpportunities().slice(0,2).some(x=>x.id==='opportunity-005'));
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -184,7 +184,7 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
- assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['MSTR','ZS','NOW']);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['RKLB','MSTR','ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events.filter(x=>x.type==='OPPORTUNITY_MATERIAL_UPDATE'&&x.path==='/premium/opportunities/zscaler-001')[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
@@ -214,10 +214,10 @@ test('WK is watching with preliminary levels and no executed position or profit'
  assert.equal(o.notification.subject,'New Opportunity Watch: Workiva (WK)');assert.match(o.notification.summary,/I have NOT entered this trade/);
 });
 
-test('RKLB stop update preserves original history and does not record an exit',()=>{
+test('RKLB closure preserves prior stops and reports only documented per-share loss',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('rocket-lab-002');
- assert.equal(o.trade.stopPrice,60.5);assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.exitedAt,undefined);
+ assert.equal(o.trade.stopPrice,60.5);assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.exitedAt,'2026-10-14');assert.equal(o.trade.exitPrice,60.5);assert.equal(o.trade.quantity,undefined);assert.equal(m.realizedTradeResult(o),null);assert.equal(m.isCurrentOpportunity(o),false);assert.match(o.closingCommentary,/3.50 per share.*5.47%/);assert.equal(o.riskUpdate,undefined);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.find(u=>u.id==='opportunity-002-initial').trade.stopPrice,55);
  assert.equal(updates.filter(u=>u.id==='opportunity-002-stop-2026-10-13').length,1);
- assert.match(updates.find(u=>u.id==='opportunity-002-stop-2026-10-13').explanation,/new low formed/);
+ const prior=updates.find(u=>u.id==='opportunity-002-stop-2026-10-13');assert.match(prior.explanation,/new low formed/);assert.equal(prior.tradeStatusAfter,'Active');assert.equal(prior.trade.exitPrice,undefined);assert.equal(updates.at(-1).tradeStatusAfter,'Closed');assert.equal(updates.at(-1).notification.subject,'Opportunity Closed: RKLB −5.5%');
 });
