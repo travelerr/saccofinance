@@ -1714,3 +1714,175 @@ opportunities.push({
     "cta": "VIEW THE SMCI OPPORTUNITY"
   }
 });
+
+// Proposed research only: no executed trade or position.
+opportunities.push({
+  "id": "opportunity-009",
+  "slug": "workiva-009",
+  "ticker": "WK",
+  "company": "Workiva Inc.",
+  "title": "Workiva (WK) — A Software Recovery Taking Shape",
+  "publicationState": "published",
+  "publishedAt": "2026-10-13",
+  "updatedAt": "2026-10-13",
+  "tradeStatus": "Watching",
+  "technicalStage": "Developing Stage 2",
+  "sector": "Information Technology / Application Software",
+  "strategy": "Potential Swing Trade",
+  "summary": "I'm watching Workiva as a potential swing-trading opportunity following its transition into a developing Stage 2 markup. Revenue growth, expanding margins, favorable analyst revisions, and a higher-low technical structure make this an interesting setup heading into November earnings.",
+  "companyNote": "Improving Fundamentals, AI Expansion, and a Developing Stage 2 Setup",
+  "nextStepSummary": "I have not entered this trade. I'm watching the October 14 open and whether the recent higher-low structure holds.",
+  "nextCatalyst": "November 5 earnings · after market close (company confirmed)",
+  "whySurfaced": "Workiva is emerging as one of the more interesting software opportunities I'm watching heading into earnings season.\n\nThe company has a combination of characteristics I like to see: consistent revenue growth, improving profitability, strong customer retention, and a technical chart that appears to have transitioned into a Stage 2 markup.\n\nUnlike some of the other beaten-down software companies I've been researching, Workiva is already demonstrating meaningful progress toward profitability while expanding its AI capabilities.\n\nI haven't entered this trade yet.\n\nI'm adding WK to my Opportunity Board as a developing setup and will be watching how the stock trades when the market opens tomorrow.",
+  "setupThesis": "Workiva has spent much of the past two years moving through a series of market stages.\n\nAfter a significant decline, the stock established a base earlier this year around $45–$57.\n\nFrom there, WK broke out and rallied toward $80 before pulling back.\n\nWhat's encouraging is that the pullback appears to have established another higher low around $65.\n\nThe stock is now recovering from that level, trading around $72.50.\n\nThat gives me a developing sequence of higher highs and higher lows, consistent with a Stage 2 recovery.\n\nI'm particularly interested in the relationship between the recent $65 low and the stock's earlier resistance.\n\nThat area previously acted as resistance before the breakout. It now appears to be functioning as support.\n\nThis is the kind of technical structure I want to see when looking for a swing-trading opportunity.\n\nHowever, WK still needs to work through resistance around $75–$80 before the next leg higher becomes more convincing.",
+  "nextCondition": "I'm watching support near $65 and resistance around $75–$80 before deciding whether to enter.",
+  "fundamentalCase": "Workiva provides cloud-based software for financial reporting, regulatory compliance, governance, risk management, and related enterprise workflows.\n\nThese are complicated processes that large organizations cannot simply ignore.\n\nAnd that's part of what makes the business interesting.\n\nWorkiva's platform is embedded in critical financial and regulatory operations, creating recurring revenue and potentially meaningful switching costs.\n\nThe company serves more than 6,750 organizations, including over 85% of Fortune 1,000 companies.\n\nIts gross customer retention is approximately 97%, while net revenue retention is 111%.\n\nThat tells me two things.\n\nCustomers are generally staying with the platform, and existing customers are spending more over time.\n\nWorkiva has also been expanding its relationships with larger enterprise customers.\n\nContracts exceeding $300,000 annually grew approximately 34% year over year, while contracts exceeding $500,000 grew approximately 33%.\n\nThat's important because the company has opportunities to grow revenue within its existing customer base rather than relying entirely on acquiring new customers.",
+  "thesisChanges": "A break below the recent $65 higher low would weaken my recovery thesis. I may change or abandon the setup.",
+  "justinsTake": "I'm adding Workiva to the Opportunity Board as a developing trade.\n\nI have not purchased shares or opened an options position.\n\nI'm watching how the stock opens on October 14 and whether the recent higher-low structure continues holding.\n\nMy preliminary plan is to consider an entry around $72–$73, with a stop near $65 and an initial upside objective around $89.\n\nThat gives me approximately 2.2:1 reward-to-risk at the current reference price.\n\nI also want to see how the stock behaves around $75–$80, where it previously encountered selling pressure.\n\nIf I decide to enter, I'll document my actual execution price, position size, stop, and subsequent adjustments.\n\nFor now, WK remains a developing opportunity—not an executed trade.\n\nI'll provide another update if I decide to open a position or if the technical setup changes materially.",
+  "charts": [
+  {
+    "src": "/api/premium/chart/wk-tradingview-stage-2026-10-13",
+    "source": "TradingView",
+    "placement": "setup",
+    "caption": "Workiva’s developing Stage 2 recovery, higher-low structure, and preliminary swing-trade setup. The chart tool’s quantity and P&L labels are hypothetical planning values, not an executed position.",
+    "alt": "Workiva’s developing Stage 2 recovery, higher-low structure, and preliminary swing-trade setup. The chart tool’s quantity and P&L labels are hypothetical planning values, not an executed position.",
+    "width": 2048,
+    "height": 1100,
+    "asOf": "2026-10-13"
+  },
+  {
+    "src": "/api/premium/chart/wk-tradingview-zoom-2026-10-13",
+    "source": "TradingView",
+    "placement": "setup",
+    "caption": "A closer look at WK’s recent price structure and the technical levels I’m monitoring. Chart tool values illustrate a proposed setup; I have not entered this trade.",
+    "alt": "A closer look at WK’s recent price structure and the technical levels I’m monitoring. Chart tool values illustrate a proposed setup; I have not entered this trade.",
+    "width": 2048,
+    "height": 1100,
+    "asOf": "2026-10-13"
+  },
+  {
+    "src": "/api/premium/chart/wk-seeking-alpha-2026-10-13",
+    "source": "Seeking Alpha",
+    "placement": "framework",
+    "caption": "Seeking Alpha’s October 13 ratings show favorable growth, profitability, momentum, and earnings-revision factors.",
+    "alt": "Seeking Alpha’s October 13 ratings show favorable growth, profitability, momentum, and earnings-revision factors.",
+    "width": 2048,
+    "height": 1502,
+    "asOf": "2026-10-13"
+  },
+  {
+    "src": "/api/premium/chart/wk-trendspider-2026-10-13",
+    "source": "TrendSpider",
+    "placement": "confirmation",
+    "caption": "TrendSpider’s longer-term view of Workiva’s recovery and developing technical structure.",
+    "alt": "TrendSpider’s longer-term view of Workiva’s recovery and developing technical structure.",
+    "width": 1605,
+    "height": 676,
+    "asOf": "2026-10-13"
+  }
+],
+  "articleSections": [
+    {
+      "title": "A Software Recovery Taking Shape",
+      "body": "Workiva is emerging as one of the more interesting software opportunities I'm watching heading into earnings season.\n\nThe company has a combination of characteristics I like to see: consistent revenue growth, improving profitability, strong customer retention, and a technical chart that appears to have transitioned into a Stage 2 markup.\n\nUnlike some of the other beaten-down software companies I've been researching, Workiva is already demonstrating meaningful progress toward profitability while expanding its AI capabilities.\n\nI haven't entered this trade yet.\n\nI'm adding WK to my Opportunity Board as a developing setup and will be watching how the stock trades when the market opens tomorrow."
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "Workiva has spent much of the past two years moving through a series of market stages.\n\nAfter a significant decline, the stock established a base earlier this year around $45–$57.\n\nFrom there, WK broke out and rallied toward $80 before pulling back.\n\nWhat's encouraging is that the pullback appears to have established another higher low around $65.\n\nThe stock is now recovering from that level, trading around $72.50.\n\nThat gives me a developing sequence of higher highs and higher lows, consistent with a Stage 2 recovery.\n\nI'm particularly interested in the relationship between the recent $65 low and the stock's earlier resistance.\n\nThat area previously acted as resistance before the breakout. It now appears to be functioning as support.\n\nThis is the kind of technical structure I want to see when looking for a swing-trading opportunity.\n\nHowever, WK still needs to work through resistance around $75–$80 before the next leg higher becomes more convincing."
+    },
+    {
+      "title": "My Potential Trade Setup",
+      "body": "Reference Price:\n$72.50\n\nPotential Entry:\n$72–$73\n\nStop:\n$64.93\n\nTarget:\n$88.97\n\nPotential Upside:\nApproximately 22.7% from $72.50\n\nPotential Downside:\nApproximately 10.4% from $72.50\n\nReward-to-Risk:\nApproximately 2.19:1 at $72.50\n\nThe TradingView chart uses a slightly different entry reference of $72.36, producing approximately 2.24:1.\n\nI like this setup because the stop has a technical justification.\n\nIt sits below the recent higher low, where the current recovery structure would begin to break down.\n\nAnd the $89 target isn't arbitrary.\n\nIt aligns closely with the average analyst price target of approximately $89.80.\n\nThat doesn't guarantee WK reaches that level, but it provides another reference point supporting the potential upside.\n\nThe biggest near-term challenge is that the stock hasn't cleared its previous $80 high.\n\nI'll be watching whether buyers continue defending the recent higher low and whether WK can build momentum toward that resistance."
+    },
+    {
+      "title": "The Fundamental Story",
+      "body": "Workiva provides cloud-based software for financial reporting, regulatory compliance, governance, risk management, and related enterprise workflows.\n\nThese are complicated processes that large organizations cannot simply ignore.\n\nAnd that's part of what makes the business interesting.\n\nWorkiva's platform is embedded in critical financial and regulatory operations, creating recurring revenue and potentially meaningful switching costs.\n\nThe company serves more than 6,750 organizations, including over 85% of Fortune 1,000 companies.\n\nIts gross customer retention is approximately 97%, while net revenue retention is 111%.\n\nThat tells me two things.\n\nCustomers are generally staying with the platform, and existing customers are spending more over time.\n\nWorkiva has also been expanding its relationships with larger enterprise customers.\n\nContracts exceeding $300,000 annually grew approximately 34% year over year, while contracts exceeding $500,000 grew approximately 33%.\n\nThat's important because the company has opportunities to grow revenue within its existing customer base rather than relying entirely on acquiring new customers."
+    },
+    {
+      "title": "Revenue Growth And Profitability",
+      "body": "Workiva's latest quarterly revenue reached approximately $255 million, representing roughly 19% year-over-year growth.\n\nManagement is guiding for approximately $1.04 billion in full-year 2026 revenue.\n\nThe company's revenue growth shows the consistent upward progression I like to see.\n\nBut the more interesting development may be profitability.\n\nWorkiva reported a 16.8% non-GAAP operating margin in its second quarter, an improvement of approximately 13 percentage points from the prior year.\n\nManagement subsequently raised its full-year adjusted operating-margin outlook to approximately 18%.\n\nThat effectively brings forward a profitability target the company had originally expected to achieve in 2027.\n\nLooking further ahead, management has increased its 2030 adjusted operating-margin target to approximately 26%.\n\nIf Workiva can continue growing revenue near 20% while expanding margins, earnings could grow substantially faster than revenue.\n\nThat's the part of the fundamental story I find particularly attractive."
+    },
+    {
+      "title": "The AI Opportunity",
+      "body": "Workiva is also expanding into AI-powered financial and regulatory workflows.\n\nIn September, the company introduced Agent Studio, a platform designed to let customers build and deploy AI agents without writing code.\n\nThe company is developing AI capabilities for financial reporting, regulatory filings, sustainability disclosures, and internal audit processes.\n\nThese are areas where companies spend considerable time collecting information, reconciling data, and preparing documentation.\n\nAI has the potential to automate portions of that work.\n\nWorkiva is already incorporating AI capabilities into higher-priced subscription tiers, with premium pricing exceeding standard tiers by more than 20%.\n\nHowever, management has indicated that Agent Studio isn't expected to contribute meaningful revenue immediately.\n\nSo I'm not treating AI as the primary reason to buy the stock today.\n\nI'm interested in the existing recurring-revenue business and improving profitability, with AI providing an additional potential growth opportunity over time."
+    },
+    {
+      "title": "Wall Street And Quant Ratings",
+      "body": "Workiva is receiving favorable ratings across several research platforms.\n\nAccording to the Seeking Alpha dashboard dated October 13, 2026:\n\nSeeking Alpha Quant:\nSTRONG BUY — 4.69\n\nWall Street Analysts:\nSTRONG BUY — 4.81\n\nSeeking Alpha Analysts:\nBUY — 4.00\n\nFactor Grades:\n\nValuation: C\nGrowth: A\nProfitability: B\nMomentum: B\nEPS Revisions: B\n\nWhat stands out is the combination of strong growth, improving profitability, and favorable earnings revisions.\n\nThe InvestingPro research report also shows analysts increasing their earnings estimates, with 10 upward revisions and no downward revisions over the preceding 90 days.\n\nThe report lists an average analyst target of approximately $89.80, with the lowest target around $80.\n\nWhile analyst ratings and price targets aren't guarantees, they support the idea that Workiva's improving operating performance is attracting attention.\n\nThe valuation deserves some caution.\n\nWorkiva trades around 19.6 times projected 2026 earnings, based on the InvestingPro report.\n\nThat may be reasonable given the company's expected growth, but it depends on Workiva delivering the earnings expansion analysts anticipate."
+    },
+    {
+      "title": "What Could Go Wrong?",
+      "body": "The most immediate risk is earnings.\n\nWorkiva is expected to report on November 5.\n\nThat means a position opened tomorrow could be exposed to earnings-related volatility within approximately three weeks.\n\nEven a company reporting strong results can sell off if expectations have already moved too far ahead of reality.\n\nWorkiva also faces competition from larger enterprise software providers, including Microsoft, Oracle, SAP, and ServiceNow.\n\nAnd while its adjusted profitability is improving, GAAP profitability remains comparatively thin.\n\nAI presents opportunities, but it also introduces competitive pressure as enterprise software companies expand their automation capabilities.\n\nFinally, the technical setup is still developing.\n\nIf WK breaks below the recent $65 higher low, the current recovery thesis would weaken considerably.\n\nA stop order would not guarantee an exit at $65, particularly if earnings or other news cause the stock to gap lower."
+    },
+    {
+      "title": "My Plan",
+      "body": "I'm adding Workiva to the Opportunity Board as a developing trade.\n\nI have not purchased shares or opened an options position.\n\nI'm watching how the stock opens on October 14 and whether the recent higher-low structure continues holding.\n\nMy preliminary plan is to consider an entry around $72–$73, with a stop near $65 and an initial upside objective around $89.\n\nThat gives me approximately 2.2:1 reward-to-risk at the current reference price.\n\nI also want to see how the stock behaves around $75–$80, where it previously encountered selling pressure.\n\nIf I decide to enter, I'll document my actual execution price, position size, stop, and subsequent adjustments.\n\nFor now, WK remains a developing opportunity—not an executed trade.\n\nI'll provide another update if I decide to open a position or if the technical setup changes materially."
+    },
+    {
+      "title": "Research Disclosure",
+      "body": "This is my personal research, not personalized investment advice. I have not opened a position. My entry, stop, and target levels are preliminary, and I may change or abandon this setup. Analyst targets are estimates, and technical patterns do not guarantee future performance. Stop orders do not guarantee execution prices; earnings and other news can cause substantial price gaps."
+    }
+  ],
+  "proposedLevels": [
+    {
+      "label": "Position",
+      "value": "Not entered"
+    },
+    {
+      "label": "Reference price",
+      "value": "$72.50 · Oct 13, 2026"
+    },
+    {
+      "label": "Potential entry",
+      "value": "$72–$73"
+    },
+    {
+      "label": "Proposed stop",
+      "value": "$64.93"
+    },
+    {
+      "label": "Proposed target",
+      "value": "$88.97"
+    },
+    {
+      "label": "Reward-to-risk",
+      "value": "~2.19:1 at $72.50; ~2.24:1 at $72.36"
+    }
+  ],
+  "notification": {
+    "subject": "New Opportunity Watch: Workiva (WK)",
+    "preview": "A developing Stage 2 software setup with improving fundamentals and a potential 2.2:1 reward-to-risk.",
+    "summary": "I've added Workiva to my Opportunity Board as a developing swing-trading setup.\n\nThe company has been growing revenue near 20%, expanding operating margins, and introducing new AI capabilities into its financial reporting and compliance platform.\n\nTechnically, WK appears to have transitioned into a Stage 2 recovery.\n\nAfter rallying toward $80, the stock pulled back and established a higher low around $65.\n\nI'm now watching for a potential entry around $72–$73.\n\nMy preliminary levels are:\n\nPotential Entry: $72–$73\nStop: Approximately $65\nTarget: Approximately $89\n\nThat represents roughly 2.2:1 reward-to-risk at the current reference price.\n\nSeeking Alpha's Quant and Wall Street analyst ratings are both Strong Buy, while InvestingPro shows an average analyst target near $89.80.\n\nThe next major catalyst is expected to be earnings on November 5.\n\nIMPORTANT:\n\nI have NOT entered this trade.\n\nI'm watching how the stock opens tomorrow before making a decision.\n\nI've published the full fundamental analysis, technical charts, risks, and potential trade structure inside Sacco Premium.",
+    "cta": "VIEW THE WORKIVA OPPORTUNITY"
+  }
+});
+
+// October 13 risk-management update; preserve the original execution and stop snapshot.
+const rklbCurrent=opportunities.find(o=>o.id==='opportunity-002')!;
+const rklbStopUpdateText='I moved my Rocket Lab stop from $55 to $60.50 after a new low formed. I’m using that newly formed low to update my risk-management level as the price structure develops.\n\nMy position remains open. My original entry of approximately $64 and my $85 first target are unchanged. This is a stop adjustment, not a sale.\n\nA stop does not guarantee an exit at $60.50. A price gap or fast-moving market could result in a different execution price.';
+rklbCurrent.trade={...rklbTrade,stopPrice:60.5,documentation:'Justin confirmed on October 13, 2026 that his Rocket Lab stop moved to $60.50 because a new low formed. Original entry and target remain unchanged; no purchase or sale was reported.'};
+rklbCurrent.updatedAt='2026-10-13';
+for(const field of ['summary','nextStepSummary','setupThesis','nextCondition','riskInvalidation','thesisChanges','justinsTake'] as const){
+ const value=rklbCurrent[field];if(value)rklbCurrent[field]=value.replaceAll('$55','$60.50');
+}
+rklbCurrent.nextStepSummary='I moved my stop to $60.50 after a new low formed. My position remains open, with the $85 first target unchanged.';
+rklbCurrent.justinsTake=rklbStopUpdateText;
+rklbCurrent.riskUpdate={date:'2026-10-13',previousStop:55,title:'Rocket Lab — My Stop Moves to $60.50',warning:'A stop does not guarantee an execution price. Price gaps or fast-moving markets could result in a fill below $60.50.'};
+opportunityUpdates.push({id:'opportunity-002-stop-2026-10-13',opportunityId:'opportunity-002',publishedAt:'2026-10-13',eventDate:'2026-10-13',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:{...rklbCurrent.trade},title:'My Rocket Lab Stop Moves to $60.50',explanation:rklbStopUpdateText});
+
+// October 13: covered call expiration and long-term ownership; no stock exit.
+const ionqHolding=opportunities.find(o=>o.id==='opportunity-006')!;
+ionqHolding.updatedAt='2026-10-13';
+ionqHolding.boardPlacement='long-term';
+ionqHolding.title='IONQ / Long-term holding. Covered call expired.';
+ionqHolding.wheel!.fills=ionqHolding.wheel!.fills.map(f=>f.id==='ionq-call-september8'?{...f,outcome:'Expired worthless'}:f);
+ionqHolding.wheel!.currentCallId=undefined;
+ionqHolding.summary='I still hold 100 IonQ shares at a $45 broker cost basis. My October 9 $50 covered call expired worthless, and I retained $200 before fees and taxes. I’m pausing active options management while maintaining an approximately five-year outlook.';
+ionqHolding.nextStepSummary='I’m holding my shares and waiting for a rally before considering covered calls at strikes above my $45 cost basis. No call is currently open.';
+ionqHolding.nextCondition=ionqHolding.nextStepSummary;
+ionqHolding.wheel!.ownershipFramework='I have no current plans to sell my 100 shares. My outlook is approximately five years. I’ll consider covered calls again if a rally supports attractive premiums at strikes above my $45 broker share basis. My long-term conviction does not eliminate the risk of further losses.';
+ionqHolding.thesisChanges='I continue to monitor quantum commercialization, competition, dilution, and acquisition execution. A five-year horizon does not guarantee recovery, and I can reassess my thesis as the business develops.';
+const ionqHoldingUpdate="My October 9 $50 covered call expired worthless. I retained the $200 opening premium before fees and taxes, and I still own my 100 IonQ shares at a $45 broker cost basis. No shares were sold.\n\nIonQ has taken a substantial beating. Using the approximate prices I’m referencing—$47 and $34.75—the decline is about 26.1%. At $34.75, my stock-only paper loss is $10.25 per share, or $1,025 across 100 shares, approximately 22.8% below my $45 basis. This is an October 13 reference-price snapshot, not a live quote or a realized loss. It excludes option premiums, fees, and taxes.\n\nOn October 12, IonQ announced an agreement to acquire Elisity, a Zero Trust cybersecurity company, in an all-stock transaction valued at up to $1.3 billion, including up to $150 million tied to performance. The deal is expected to close in Q4 2026, subject to approvals and other closing conditions. IonQ wants to combine Elisity’s enterprise security platform with its quantum-security capabilities. The stock-funded deal brings dilution and integration risks alongside that strategic opportunity. I’m discussing the selloff around this announcement; I’m not attributing the entire move from $47 to $34.75 solely to the acquisition.\n\nMy outlook is approximately five years. I believe quantum computing could develop into a trillion-dollar industry by the early 2030s. That is my personal thesis, not an established forecast or a guarantee of IonQ’s future value. Commercialization, competition, financing, and execution could all change the outcome.\n\nI have no current plans to sell my shares, despite the substantial paper loss. I’m moving IonQ off my current Opportunity Board and into long-term holdings while I wait for the stock to recover. This is a change in how I’m tracking the position, not a closed stock trade.\n\nIf the stock rallies enough to offer attractive premiums at strikes above my $45 cost basis, I’ll consider selling covered calls again. No new call has been opened. Covered calls would limit upside and could result in my shares being called away; the premiums do not eliminate stock downside risk.";
+ionqHolding.justinsTake=ionqHoldingUpdate;
+ionqHolding.researchSections=[{title:"October 13 — Elisity Acquisition and My Holding Plan",body:ionqHoldingUpdate,sources:[{label:"IonQ acquisition announcement — October 12, 2026",url:"https://www.ionq.com/news/ionq-to-acquire-elisity-to-accelerate-zero-trust-for-the-quantum-era"}]}];
+opportunityUpdates.push({id:'opportunity-006-holding-2026-10-13',opportunityId:'opportunity-006',publishedAt:'2026-10-13',eventDate:'2026-10-13',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:{...ionqHolding.trade!},title:'Covered Call Expired — Moving to Long-Term Holdings',explanation:ionqHoldingUpdate});

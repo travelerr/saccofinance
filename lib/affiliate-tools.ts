@@ -9,6 +9,11 @@ export const affiliateTools=[{
  category:'Fundamentals, earnings & company research',
  description:'I use Seeking Alpha to dig into financial statements, earnings history, analyst estimates, earnings-call transcripts, valuation metrics, and company research—to move beyond the chart and understand the business.',
  cta:'View Seeking Alpha’s current offer',logoLight:'/images/tools/seeking-alpha.jpg',logoDark:'/images/tools/seeking-alpha.jpg',width:271,height:55,
+},{
+ id:'investing_pro',name:'InvestingPro',url:'https://www.investing-referral.com/sacco/',destination:'investing-referral.com',
+ category:'Fundamentals, earnings & company research',
+ description:'I use InvestingPro alongside Seeking Alpha for fundamental analysis, company research, and earnings research. It gives me another perspective when evaluating the business behind a potential investment.',
+ cta:'Explore InvestingPro',logoLight:'/images/tools/investingpro-light.png',logoDark:'/images/tools/investingpro-dark.png',width:1200,height:211,darkHeight:231,
 }] as const;
 export const affiliateDisclosure='Affiliate link — I may earn a commission if you sign up through this link, at no additional cost to you.';
 export function affiliateClickParams(href:string,placement:string|undefined){

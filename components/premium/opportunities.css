@@ -18,3 +18,13 @@
 .trade-result[data-result=loss] .trade-result-totals strong{color:#ff9292}
 html[data-theme=light] .trade-result[data-result=gain] .trade-result-totals strong{color:#176539}
 html[data-theme=light] .trade-result[data-result=loss] .trade-result-totals strong{color:#b0392f}
+
+.premium-workspace .opportunity-proposed-grid>div:nth-child(3n+1){border-left:0}
+.premium-workspace .opportunity-proposed-grid>div:nth-child(n+4){border-top:1px solid var(--brand-line)}
+.premium-workspace .opportunity-proposed-grid dd{font-size:clamp(14px,1.4vw,20px)}
+@media(max-width:600px){
+ .premium-workspace .opportunity-proposed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .premium-workspace .opportunity-proposed-grid>div:nth-child(n){border-left:0}
+ .premium-workspace .opportunity-proposed-grid>div:nth-child(2n){border-left:1px solid var(--brand-line)}
+ .premium-workspace .opportunity-proposed-grid>div:nth-child(n+3){border-top:1px solid var(--brand-line)}
+}

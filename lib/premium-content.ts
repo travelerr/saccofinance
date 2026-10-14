@@ -9,9 +9,10 @@ type OpportunityLifecycle=
  | {tradeStatus:'Active';trade:TradeEntry}
  | {tradeStatus:'Closed';trade:TradeEntry & TradeExit};
 export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation';source?:string};
-export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'};
+export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'|'Expired worthless'};
 export type Opportunity={
  optionPosition?:{optionType:'Put';positionEffect:'Sell to open';contracts:number;strike:number;expiresAt:string;premiumPerShare:number;grossPremium:number;multiplier:number;status:'Open';sharesOwned:number;assignmentStatus:'Not assigned';realizedProfit:null;acquisitionBasis:number;collateral:number;maxLoss:number};
+ proposedLevels?:{label:string;value:string}[];
  articleSections?:{title:string;body:string}[];
  notification?:{subject:string;preview:string;summary:string;cta:string};
  id:string;slug:string;ticker:string;company:string;title:string;
@@ -19,7 +20,8 @@ export type Opportunity={
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
  riskUpdate?:{date:string;previousStop:number;title:string;warning:string};nextCatalyst?:string;
- positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ boardPlacement?:'long-term';
+ positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Potential Swing Trade'|'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId?:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
@@ -61,9 +63,9 @@ export function getPublishedOpportunities(records:Opportunity[]){
  return records.filter(isPublishableOpportunity).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
 }
 export function getPublishedOpportunity(slug:string,records:Opportunity[]){return getPublishedOpportunities(records).find(record=>record.slug===slug);}
-export function isCurrentOpportunity(record:Opportunity){return record.tradeStatus!=='Invalidated'&&record.tradeStatus!=='Closed';}
-export function filterOpportunities(records:Opportunity[],view:'current'|'archive',tradeStatus:OpportunityStatus|'All'){
- return records.filter(record=>(view==='current'?isCurrentOpportunity(record):!isCurrentOpportunity(record))&&(tradeStatus==='All'||record.tradeStatus===tradeStatus));
+export function isCurrentOpportunity(record:Opportunity){return record.boardPlacement!=='long-term'&&record.tradeStatus!=='Invalidated'&&record.tradeStatus!=='Closed';}
+export function filterOpportunities(records:Opportunity[],view:'current'|'archive'|'holdings',tradeStatus:OpportunityStatus|'All'){
+ return records.filter(record=>(view==='holdings'?record.boardPlacement==='long-term':view==='current'?isCurrentOpportunity(record):record.tradeStatus==='Closed'||record.tradeStatus==='Invalidated')&&(tradeStatus==='All'||record.tradeStatus===tradeStatus));
 }
 export function getOpportunityUpdates(id:string,records:OpportunityUpdate[]){
  return records.filter(record=>record.opportunityId===id&&record.publicationState==='published'&&date(record.publishedAt)&&(record.eventDate===undefined||(date(record.eventDate)&&Date.parse(record.eventDate)<=Date.parse(record.publishedAt)))&&text(record.id)&&text(record.title)&&text(record.explanation)&&(record.tradeStatusBefore===null||opportunityStatuses.includes(record.tradeStatusBefore))&&opportunityStatuses.includes(record.tradeStatusAfter)&&

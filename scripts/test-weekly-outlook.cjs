@@ -18,7 +18,7 @@ test('weekly opportunity references resolve to canonical objects without copying
  for(const c of o.opportunityCommentary)assert.deepEqual(Object.keys(c).sort(),['body','opportunityId']);
  const s=records[3];assert.equal(s.tradeStatus,'Watching');assert.equal(s.trade,undefined);assert.equal(s.targets,undefined);
  assert.equal(records[1].trade.entryPrice,119);assert.equal(records[0].trade.quantity,undefined);
- assert.deepEqual(records.slice(0,3).map(r=>[r.trade.stopPrice,r.trade.firstTargetPrice]),[[55,85],[130,175],[210,220]]);
+ assert.deepEqual(records.slice(0,3).map(r=>[r.trade.stopPrice,r.trade.firstTargetPrice]),[[60.5,85],[130,175],[210,220]]);
 });
 test('both routes require Premium and use the same research renderer; dashboard consumes the selector',()=>{
  for(const file of ['app/premium/issue-001/page.tsx','app/premium/issue-002/page.tsx','app/premium/issue-003/page.tsx','app/premium/issue-004/page.tsx','app/premium/weekly-outlook/page.tsx']){
@@ -48,9 +48,9 @@ test('Issue 002 references all five canonical trades; scenario and radar cannot 
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
  assert.equal(records[3].tradeStatus,'Watching');assert.equal(records[3].trade,undefined);assert.equal(records[1].trade.entryPrice,119);
- assert.deepEqual(records.filter(r=>r.trade).map(r=>[r.ticker,r.trade.stopPrice,r.trade.firstTargetPrice]),[['ZS',210,220],['NOW',130,175],['RKLB',55,85],['MSTR',123,196]]);
+ assert.deepEqual(records.filter(r=>r.trade).map(r=>[r.ticker,r.trade.stopPrice,r.trade.firstTargetPrice]),[['ZS',210,220],['NOW',130,175],['RKLB',60.5,85],['MSTR',123,196]]);
  assert.deepEqual([records[4].trade.quantity,records[4].trade.entryPrice,records[4].preferredAddZone],[10,160,'$144–$148']);
- assert.equal(data.opportunities.length,8);assert.ok(!data.opportunities.some(r=>['GOOG','GOOGL','META'].includes(r.ticker)));
+ assert.equal(data.opportunities.length,9);assert.ok(!data.opportunities.some(r=>['GOOG','GOOGL','META'].includes(r.ticker)));
  const s=o.bitcoinScenario;assert.deepEqual([s.bitcoinReference,s.bitcoinScenario,s.netBitcoinValuePerShare,s.mnav],[77288,125000,118.99,1.10]);
  assert.equal(Math.round(s.netBitcoinValuePerShare*s.bitcoinScenario/s.bitcoinReference*s.mnav),212);assert.equal(s.displayRange,'~$210–$212');
  assert.equal(s.assumptions.length,4);assert.equal(o.longTermRadar.length,3);
@@ -85,8 +85,8 @@ test('Issue 003 references canonical positions and keeps NOW closed and research
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.equal(o.separateClosedPositions,true);assert.equal(records.at(-1).tradeStatus,'Closed');assert.equal(model.realizedTradeResult(records.at(-1)).realizedDollarPnL,530.55);
  assert.deepEqual([records[1].trade.entryPrice,records[1].trade.quantity,records[1].trade.stopPrice,records[1].trade.firstTargetPrice,records[1].trade.secondTargetPrice],[116,15,100,145,220]);
- const ionq=records[4];const call=ionq.wheel.fills.find(f=>f.id===ionq.wheel.currentCallId);assert.equal(call.expiresAt,'2026-10-09');assert.equal((call.strike-ionq.trade.entryPrice)*ionq.trade.quantity,500);
- assert.equal(data.opportunities.length,8);assert.ok(!data.opportunities.some(o=>['MU','SEA'].includes(o.ticker)));
+ const ionq=records[4];const call=ionq.wheel.fills.find(f=>f.id==='ionq-call-september8');assert.equal(call.expiresAt,'2026-10-09');assert.equal(call.outcome,'Expired worthless');assert.equal(ionq.wheel.currentCallId,undefined);assert.equal((call.strike-ionq.trade.entryPrice)*ionq.trade.quantity,500);
+ assert.equal(data.opportunities.length,9);assert.ok(!data.opportunities.some(o=>['MU','SEA'].includes(o.ticker)));
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
  for(const file of ['components/premium/product-frame.tsx','components/premium/navigation.tsx'])assert.ok(fs.readFileSync(path.join(__dirname,'..',file),'utf8').includes('/premium/issue-003'));
 });

@@ -1,5 +1,5 @@
 .brand .tools-intro{max-width:800px;line-height:1.8;margin:0 0 30px}
-.tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .tool-card{min-width:0;border:1px solid var(--brand-line);background:var(--brand-surface);padding:28px;display:flex;flex-direction:column;align-items:flex-start}
 .tool-logo{height:60px;display:flex;align-items:center;margin-bottom:24px;max-width:100%}
 .tool-logo img{width:260px;max-width:100%;height:auto;object-fit:contain}
@@ -15,4 +15,5 @@ html[data-theme=light] .tool-logo .tool-logo-dark{display:none}
 .tool-access .text-link{line-height:1.7;display:inline-flex;gap:8px;align-items:center;max-width:100%}
 .tool-access svg{flex-shrink:0}
 .brand .tool-disclosure{font-size:12px;line-height:1.8;color:var(--brand-muted);margin:18px 0 0}
+@media(min-width:701px) and (max-width:1000px){.tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.tools-grid{grid-template-columns:1fr}.tool-card{padding:22px}.tools-i-use .section-heading h2{font-size:34px}.tool-access .text-link{font-size:12px}}

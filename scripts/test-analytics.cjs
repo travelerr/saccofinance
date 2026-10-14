@@ -61,7 +61,7 @@ test('analytics defaults on; saved declines and GPC stop collection; preview sen
 
 test('affiliate clicks preserve exact partner URLs and expose only fixed reporting labels',()=>{
  const {affiliateTools,affiliateClickParams}=require('../lib/affiliate-tools.ts');
- assert.deepEqual(affiliateTools.map(t=>t.url),['https://trendspider.com?_go=justin-4f7fc2','https://link.seekingalpha.com/5FNXWBJ/4G6SHH/']);
+ assert.deepEqual(affiliateTools.map(t=>t.url),['https://trendspider.com?_go=justin-4f7fc2','https://link.seekingalpha.com/5FNXWBJ/4G6SHH/','https://www.investing-referral.com/sacco/']);
  for(const tool of affiliateTools){assert.deepEqual(affiliateClickParams(new URL(tool.url).href,'premium_tools'),{affiliate_partner:tool.id,placement:'premium_tools',destination:tool.destination});assert.equal(affiliateClickParams(tool.url+'?email=private@example.com','premium_tools'),null);}
  assert.equal(affiliateClickParams('https://example.com','premium_tools'),null);assert.equal(affiliateClickParams(new URL(affiliateTools[0].url).href,'unknown'),null);
 });

@@ -38,7 +38,7 @@
 .premium-workspace .premium-research-metadata dd{font-weight:600;font-size:14px}
 .premium-workspace .outlook-calendar article{padding:24px;border:1px solid var(--brand-line);border-radius:12px;background:var(--brand-surface);margin-bottom:16px}
 .premium-workspace .outlook-prose{font-size:15px;line-height:1.85}
-.premium-workspace .opportunity-detail-chart{border:1px solid var(--brand-line);border-radius:12px;overflow:hidden}
+.premium-workspace .opportunity-detail-chart{margin:32px 0;background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:12px;overflow:hidden}
 .premium-workspace .opportunity-detail-chart img{display:block}
 .workspace-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 28px}
 .workspace-overview>a{display:flex;align-items:center;gap:16px;border:1px solid var(--brand-line);border-radius:12px;padding:20px;background:var(--brand-surface)}
@@ -109,3 +109,9 @@
 .premium-workspace .strategy-video-card h5{font-size:16px;line-height:1.5;margin:0 0 18px}
 .premium-workspace .strategy-video-card .text-link{margin-top:auto}
 @media(max-width:700px){.premium-workspace .strategy-video-grid,.premium-workspace .strategy-update-summary dl{grid-template-columns:1fr}}
+
+.premium-workspace .opportunity-detail-chart figcaption.opportunity-meta{margin:0;padding:20px 24px;line-height:1.9;border-top:1px solid var(--brand-line)}
+@media(max-width:600px){
+ .premium-workspace .opportunity-detail-chart{margin:24px 0}
+ .premium-workspace .opportunity-detail-chart figcaption.opportunity-meta{padding:16px 18px}
+}
