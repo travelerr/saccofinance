@@ -11,7 +11,7 @@ type OpportunityLifecycle=
 export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation';source?:string};
 export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'|'Expired worthless'};
 export type Opportunity={
- optionPosition?:{optionType:'Put';positionEffect:'Sell to open';contracts:number;strike:number;expiresAt:string;premiumPerShare:number;grossPremium:number;multiplier:number;status:'Open';sharesOwned:number;assignmentStatus:'Not assigned';realizedProfit:null;acquisitionBasis:number;collateral:number;maxLoss:number};
+ optionPosition?:{optionType:'Put';positionEffect:'Sell to open';contracts:number;strike:number;expiresAt:string;premiumPerShare:number;grossPremium:number;multiplier:number;status:'Open'|'Closed';closedAt?:string;buybackPerShare?:number;sharesOwned:number;assignmentStatus:'Not assigned';realizedProfit:number|null;acquisitionBasis:number;collateral:number;maxLoss:number};
  proposedLevels?:{label:string;value:string}[];
  articleSections?:{title:string;body:string}[];
  notification?:{subject:string;preview:string;summary:string;cta:string};
@@ -81,7 +81,7 @@ export function weeklyOutlookHref(outlook:WeeklyOutlook){
 
 /** Gross result of the documented position only; no fees, taxes or annualization inferred. */
 export function realizedTradeResult(o:Opportunity){
- if(o.tradeStatus!=='Closed')return null;
+ if(o.tradeStatus!=='Closed'||o.optionPosition)return null;
  const {entryPrice,exitPrice,quantity}=o.trade;
  if(entryPrice===undefined||quantity===undefined||![entryPrice,exitPrice,quantity].every(Number.isFinite)||entryPrice<=0||exitPrice<=0||quantity<=0)return null;
  const costCents=Math.round(entryPrice*100)*quantity;
