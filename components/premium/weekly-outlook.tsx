@@ -1,3 +1,4 @@
+import {Fragment} from 'react';
 import OutlookPosition from './outlook-position';
 import TradeResult from './trade-result';
 import Link from 'next/link';
@@ -19,7 +20,7 @@ function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
   return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part,i)=>{
    if(part.startsWith('**')&&part.endsWith('**'))return <strong key={i}>{inline(part.slice(2,-2))}</strong>;
    if(part.startsWith('*')&&part.endsWith('*'))return <em key={i}>{inline(part.slice(1,-1))}</em>;
-   return part.split(/(ServiceNow|Zscaler|EPAM|NOW|ZS)\b/g).map((word,j)=>{
+   return part.split(/(ServiceNow|Zscaler|Rocket Lab|Workiva|EPAM|MSTR|SMCI|RKLB|SPCX|WK|NOW|ZS)\b/g).map((word,j)=>{
     const opportunity=references.find(o=>o.ticker===word||o.company===word);
     return opportunity?<Link key={`${i}-${j}`} href={`/premium/opportunities/${opportunity.slug}`}>{word}</Link>:word;
    });
@@ -29,12 +30,20 @@ function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
  return <>{body.split(/\n---\n/).map((section,index)=>{
   const blocks=section.trim().split(/\n\s*\n/);
   const heading=blocks[0]?.startsWith('## ')?blocks.shift()!.slice(3):null;
-  return <section className="section" key={index}>{heading&&<SectionHeader title={heading}/>}<div className="outlook-prose outlook-approved-prose">{blocks.map((block,i)=>{
+  return <Fragment key={index}><section className="section">{heading&&<SectionHeader title={heading}/>}<div className="outlook-prose outlook-approved-prose">{blocks.map((block,i)=>{
+   if(block.startsWith('| ')){
+    const rows=block.split('\n').filter((_,i)=>i!==1).map(line=>line.split('|').slice(1,-1).map(cell=>cell.trim()));
+    return <div key={i} className="outlook-results-table"><table><caption>My confirmed personal results · Before additional fees and taxes</caption><thead><tr>{rows[0].map(h=><th scope="col" key={h}>{h}</th>)}</tr></thead><tbody>{rows.slice(1).map((row,j)=><tr key={j}><th scope="row">{inline(row[0])}</th><td>{inline(row[1])}</td></tr>)}</tbody></table></div>;
+   }
    if(block.startsWith('### '))return <h3 key={i}>{inline(block.slice(4))}</h3>;
    if(block.startsWith('- '))return <ul key={i}>{block.split('\n').map((line,j)=><li key={j}>{inline(line.slice(2))}</li>)}</ul>;
    return <p key={i}>{block.split(/ {2}\n/).map((line,j)=><span key={j}>{j>0&&<br/>}{inline(line)}</span>)}</p>;
-  })}</div></section>;
- })}</>;
+  })}</div></section>{index===0&&outlook.promotion&&<OutlookPromotionBlock promotion={outlook.promotion}/>}</Fragment>;
+ })}{outlook.sources&&<details className="outlook-sources"><summary>Calendar and research sources · Checked October 17, 2026</summary><ul>{outlook.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></details>}{outlook.disclosure&&<aside className="section support-note"><h2>Disclosure</h2><p>{outlook.disclosure}</p></aside>}</>;
+}
+
+function OutlookPromotionBlock({promotion:p}:{promotion:NonNullable<WeeklyOutlook['promotion']>}){
+ return <aside className="outlook-promotion" aria-label="Sacco Premium Special Offer"><Eyebrow>Sacco Premium Special Offer</Eyebrow><h2>{p.headline}</h2><Prose text={p.body}/><ul>{p.features.map(feature=><li key={feature}>{feature}</li>)}</ul><Prose text={p.conclusion}/><a className="button" href={p.url} target="_blank" rel="noopener noreferrer sponsored" data-affiliate-placement="weekly_outlook">{p.cta}</a><p className="outlook-promotion-deadline"><strong>{p.terms}</strong></p></aside>;
 }
 
 export function OutlookSectorFocus({outlook}:{outlook:WeeklyOutlook}){

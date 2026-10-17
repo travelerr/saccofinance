@@ -27,3 +27,12 @@ test('worker processes an unpublished future snapshot without loading catalog or
  Module._load=function(id,parent,...args){if(parent?.filename===workerPath){if(id.includes('premium-opportunities')||id==='./templates'||id==='./events')throw Error('Catalog/template dependency forbidden');if(id==='./database')return {emailDatabase:async()=>db};if(id==='./secrets')return {emailSecrets:async()=>({})};if(id==='./policy')return {researchSendMode:()=> 'dry-run'};if(id==='./recipient-resolution')return {resolveResearchRecipientRecords:async()=>recipients};if(id==='./unsubscribe')return {createResearchUnsubscribeBatch:async()=>[origin+'/email/unsubscribe?token='+'a'.repeat(64)]};if(id==='./resend-client')return {resendPersonalizedWithTransport:()=>{throw Error('Dry run must not send')}};}return previous.call(this,id,parent,...args);};
  try{const worker=require(workerPath);assert.equal((await worker.processNextResearchEmail()).status,'dry_run');assert.deepEqual(transitions,['dry_run']);delete job.event_snapshot.delivery;assert.equal((await worker.processNextResearchEmail()).status,'cancelled');assert.equal(transitions.at(-1),'cancelled');}finally{Module._load=previous;delete require.cache[workerPath];for(const [k,v] of [['AUTH_SITE_URL',oldOrigin],['RESEARCH_EMAIL_FROM',oldSender]])if(v===undefined)delete process.env[k];else process.env[k]=v;}
 });
+
+test('approved affiliate snapshot accepts only the exact referral URL and retains personal unsubscribe',()=>{
+ const {weeklyOutlooks,opportunities,opportunityUpdates}=require('../lib/premium-opportunities.ts');
+ const e=require('../lib/email/events.ts').researchEvents(weeklyOutlooks,opportunities,opportunityUpdates).find(e=>e.entityId==='weekly-outlook-005');
+ const s={version:1,...renderResearchEmail(e,origin,unsubscribePlaceholder(origin))};validateEmailSnapshot(s,origin);
+ const exact='https://trendspider.com?_go=justin-4f7fc2';assert.ok(s.html.includes(exact));
+ for(const bad of ['https://trendspider.com','https://trendspider.com?_go=another','https://trendspider.com?_go=justin-4f7fc2&redirect=evil'])assert.throws(()=>validateEmailSnapshot({...s,html:s.html.replace(exact,bad)},origin),/INVALID_EMAIL_SNAPSHOT/);
+ assert.ok(personalizeEmailSnapshot(s,origin,origin+'/email/unsubscribe?token='+'a'.repeat(64)).html.includes(exact));
+});

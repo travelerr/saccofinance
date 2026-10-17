@@ -16,8 +16,8 @@ export function validateEmailSnapshot(value:unknown,origin:string):asserts value
  if(s.preferences!==new URL('/premium/account#research-notifications',origin).href)return fail();
  const placeholder=unsubscribePlaceholder(origin);
  if(!s.html.includes(escape(placeholder))||!s.text.includes(placeholder))return fail();
- // Only the three approved links are accepted. Content is produced by the trusted server renderer.
- const allowed=[s.url,s.preferences,placeholder].map(escape);
+ // Internal links and the exact approved TrendSpider affiliate destination are accepted. Content is produced by the trusted server renderer.
+ const allowed=[s.url,s.preferences,placeholder,'https://trendspider.com?_go=justin-4f7fc2'].map(escape);
  const links=[...s.html.matchAll(/\bhref="([^"]*)"/gi)];
  if(!links.length||links.some(m=>!allowed.includes(m[1])))return fail();
  if(/<(script|iframe|form|object|embed|base)\b|\bon\w+\s*=|\bsrc\s*=|javascript:|url\s*\(/i.test(s.html))return fail();

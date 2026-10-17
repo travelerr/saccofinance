@@ -1921,3 +1921,222 @@ const smciOpen=opportunities.find(o=>o.id==='opportunity-008')!;
 const smciClosingText="I bought back my one SMCI $35 put, expiring November 13, for $3.91 per share on October 15, 2026. The closing debit was $391 against the $150 premium originally collected, resulting in a realized loss of $241 before fees and taxes. No shares were assigned or acquired.\n\nSMCI weakened below the $35 strike and my potential $33.50 effective acquisition cost if assigned. With the technical setup deteriorating and what I see as a shift away from AI-related names, I chose to reduce risk rather than continue carrying the short put. The $33.50 figure was a potential acquisition basis, not downside protection. I am closing the position before taking on further downside exposure.";
 const smciClosed:Opportunity={...smciOpen,tradeStatus:'Closed',updatedAt:'2026-10-15',title:'SMCI / Short put closed — $241 loss',summary:'I bought back my one $35 cash-secured put at $3.91 on October 15. The $150 opening credit less the $391 closing debit resulted in a $241 loss before fees and taxes. No shares were acquired.',trade:{...smciOpen.trade!,exitedAt:'2026-10-15',exitPrice:3.91,exitReason:'Bought to close — reducing risk',documentation:smciOpen.trade!.documentation+' Bought to close one contract at $3.91 per share on October 15, 2026. No assignment. Fees and execution time were not supplied.'},optionPosition:{...smciOpen.optionPosition!,status:'Closed',closedAt:'2026-10-15',buybackPerShare:3.91,realizedProfit:-241},closingCommentary:smciClosingText,justinsTake:smciClosingText,nextStepSummary:'Position closed. No open SMCI put or shares remain from this trade.',nextCondition:'Any future SMCI position will be documented separately.',riskInvalidation:'The short put was bought back. No open assignment obligation remains.'};
 opportunities[opportunities.findIndex(o=>o.id===smciClosed.id)]=smciClosed;
+
+
+weeklyOutlooks.push({
+  "id": "weekly-outlook-005",
+  "slug": "issue-005",
+  "title": "Is the AI Selloff a Healthy Rotation or Something Bigger?",
+  "weekOf": "2026-10-19",
+  "weekEnd": "2026-10-23",
+  "publishedAt": "2026-10-18",
+  "publicationState": "published",
+  "marketPosture": "CAUTIOUS / SELECTIVE",
+  "summary": "After a difficult week for technology stocks, I'm reviewing three closed trades, signs of sector rotation, improving market breadth, and the earnings catalysts that could determine the market's next move. I'm becoming more selective and focusing on high-quality setups while monitoring whether the AI selloff develops into a broader correction.",
+  "marketContext": "",
+  "sectorFocus": "",
+  "gamePlan": "",
+  "opportunityIds": [
+    "opportunity-008",
+    "opportunity-005",
+    "opportunity-002",
+    "opportunity-004",
+    "opportunity-001",
+    "opportunity-007",
+    "opportunity-003",
+    "opportunity-009"
+  ],
+  "articleMarkdown": "# Is the AI Selloff a Healthy Rotation or Something Bigger?\n\nLast week was a difficult one for technology stocks, and I made several changes to my personal positions as the market sold off.\n\nI closed three trades: Super Micro Computer, Strategy (MSTR), and Rocket Lab.\n\nAll three resulted in losses.\n\nBut despite the selling pressure, I'm not convinced I'm watching the beginning of a broader market crash.\n\nRight now, I think there's a reasonable possibility that money is rotating out of AI and technology stocks and into other areas of the market.\n\nAnd if that's what's happening, it could actually be healthy.\n\nThe stock market needs periods where investors take profits, excessive valuations come back down, and money begins flowing into companies that haven't participated as much in the rally.\n\nThose periods can help reset expectations and create new opportunities.\n\nBut I don't want to dismiss the risks I've been discussing over the past several weeks.\n\nTreasury yields remain a concern. Borrowing costs are elevated. Market breadth has been unusually narrow.\n\nAnd the enormous amount of capital flowing into AI infrastructure raises legitimate questions about how long that investment cycle can continue at its current pace.\n\nSo while I'm leaning toward a rotation rather than a major correction, I'm becoming much more selective about the trades I'm willing to take.\n\nAnd with another major week of earnings ahead, I think I'm going to learn quite a bit about whether the underlying fundamentals support the market's recent strength.\n\n---\n\n## A Difficult Week for My Trades — And Why Stop Losses Matter\n\nI closed SMCI, MSTR, and RKLB as the market sold off. These are my confirmed personal realized results, before any additional fees or taxes not reflected in the figures:\n\n| Completed trade | Realized P&L |\n| --- | --- |\n| Super Micro Computer — SMCI | −$241.00 |\n| Strategy — MSTR | −$130.00 |\n| Rocket Lab — RKLB | −$3.50 |\n| Combined recent loss | −$374.50 |\n| ServiceNow — NOW | +$530.55 |\n| Zscaler — ZS | +$200.00 |\n| Combined previous profit | +$730.55 |\n| Net across these five completed trades | +$356.05 |\n\nThese are my trading results, not subscriber returns. They are dollar outcomes from positions of different sizes, not a portfolio percentage return. Five trades do not establish a proven strategy or a statistically meaningful, representative long-term track record.\n\nFor SMCI, I received $150 for one cash-secured put and paid $391 to buy it back. That produced the $241 loss without acquiring shares. My MSTR position closed at $147 against a $160 entry for 10 shares, resulting in the $130 loss.\n\nFor this Outlook, I have confirmed a $3.50 total realized loss for RKLB. The existing Opportunity records the $64 entry and $60.50 exit but does not document share quantity. That execution detail still needs reconciliation; I have not inferred a quantity or added a duplicate closing transaction.\n\nThe selling pressure across AI and technology did not necessarily invalidate every underlying investment thesis. Rocket Lab still has a space infrastructure and launch opportunity, although Neutron timing and execution remain concerns. Super Micro remains exposed to AI infrastructure demand, but its governance, cash flow, margins, and financing risks have not disappeared. Strategy remains closely tied to Bitcoin, and I am also watching the treatment of digital-asset treasury companies in equity indexes.\n\nOn that last point, MSCI did not implement its proposed exclusion of digital-asset treasury companies in the February 2026 review and said it intended a broader review of non-operating companies. I am treating index eligibility as an issue to monitor, not claiming that a new exclusion has been confirmed.\n\nThe purpose of establishing risk limits is to define an acceptable loss before entering a position. Not every trade will be profitable. A business can have a strong fundamental thesis and still become an unsuccessful trade at the price, timing, or risk level I chose.\n\nIn the previous Outlook, I questioned whether I had tightened my NOW and ZS stops too aggressively. Both stocks continued higher after I exited. This time, several positions moved against me, and closing them removed further downside exposure from those trades.\n\n**Hindsight is always 20/20. A stop can look unnecessary when a stock rebounds immediately after triggering it, and it can look brilliant when the stock continues falling. The objective isn't to make every exit perfect. It's to define my risk before entering and preserve capital for the next opportunity.**\n\nMy documented realized result across these five completed trades remains positive at **$356.05**. That is useful bookkeeping, not evidence that every future trade will work or that five outcomes prove a strategy.\n\n---\n\n## Last Week Looked More Like Sector Rotation Than a Market Breakdown\n\nMy one-week Sacco Premium Sector Gauge provides the starting point for this view. The latest available canonical snapshot covers October 8–15, 2026; it is not a full-week return through Friday, October 16.\n\nIts seven leading groups were:\n\n- Consumer Staples: +3.91%\n- Energy: +2.02%\n- Aerospace and Defense: +1.00%\n- Natural Gas Equities: +0.70%\n- Gold Miners: +0.35%\n- Biotechnology: +0.33%\n- Regional Banks: +0.23%\n\nTechnology was absent from these leading groups. To me, that is consistent with investors looking beyond AI and technology toward other parts of the market.\n\nBut relative outperformance is not a direct measure of capital inflows. A sector can outperform simply by declining less than its benchmark. Even where the Gauge shows a positive return, price performance alone does not prove how much new money entered that group.\n\nA rotation could be healthy if it reduces excessive concentration, allows valuations to reset, unwinds speculative leverage, and encourages broader participation. It could also create new technical entry opportunities in companies that were previously overlooked.\n\nThat is my current interpretation, not a confirmed conclusion. If selling spreads across sectors and participation deteriorates, I would need to reconsider the rotation thesis. I want to see sustained leadership beyond a handful of technology stocks, not merely a brief defensive bounce.\n\n---\n\n## Market Breadth Is Still Weak — But There Are Signs of Improvement\n\nMy market-breadth research heading into this Outlook includes the following observations. I have not independently reconciled their exact measurement dates, universes, or data-provider definitions, so these should be read as my research observations rather than independently verified closing statistics for October 16:\n\n- The S&P 500 was approximately 1–2% below recent all-time highs in the observation I referenced.\n- More stocks had made new lows than new highs for 28 consecutive trading sessions in my research series.\n- Approximately 52% of stocks were above their 200-day moving average, compared with roughly 40% in an earlier October reading.\n- Participation above the 50-day moving average had improved from approximately 20% to 44%.\n- The advance-decline line had recently begun to trend higher.\n\nThe exact observation dates and stock universe matter. I am not presenting those figures as a newly calculated breadth dataset or assuming that differently defined market universes are interchangeable.\n\nThe S&P 500 can remain near record highs while many underlying stocks struggle because its largest companies have an outsized influence on the index. That concentration makes the headline index more vulnerable when those leaders weaken.\n\nImproving participation above the 50-day and 200-day averages is encouraging. A rising advance-decline line can also indicate that more stocks are participating. But one improvement does not resolve the larger question.\n\nI want to see whether that recovery continues over several weeks. Broadening participation alongside constructive earnings would support my rotation view; a reversal in breadth would make me more cautious.\n\n---\n\n## The Risks Haven't Disappeared\n\nI remain concerned about elevated Treasury yields, higher borrowing costs, AI infrastructure valuations, and the market's dependence on a relatively small group of large companies.\n\nThe scale of AI capital spending is another important variable. Data centers require substantial investment in computing equipment, buildings, networking, cooling, and power. Strong demand does not automatically guarantee attractive returns after financing and operating costs.\n\nI recently discussed CoreWeave and AI infrastructure financing in a YouTube video. The point I want to emphasize is the cost and availability of capital, not an unverified claim that its bond prices rose 15%.\n\nBond yields and bond prices are different. For an otherwise comparable fixed-rate bond, a higher yield generally corresponds to a lower price. A borrowing yield is also not the same thing as a percentage change in the bond's price.\n\nIf lenders become less willing to finance additional projects, or require materially higher yields, that could affect both the pace and economics of AI infrastructure expansion. It is a risk to evaluate, not an inevitable outcome.\n\nI remain constructive on the long-term AI investment cycle. At the same time, I want businesses to demonstrate that their revenue, cash generation, and financing arrangements can support the investment being made. Enthusiasm for the technology is not a reason to ignore the balance sheet or the price paid for a stock.\n\n---\n\n## What I'm Watching Now\n\n### EPAM Systems — EPAM\n\nMy EPAM position remains open. In my observation, it has held up relatively well compared with some of the technology names that experienced heavier selling.\n\nThe thesis continues to center on EPAM's transition toward enterprise AI implementation and consulting. I want evidence that its expertise and customer relationships translate into demand, revenue growth, and improving profitability.\n\nThe canonical position remains 15 shares at $116, with a $100 stop, a $145 first target, and a $220 stretch target. This Outlook does not change those levels or record another transaction.\n\n### SpaceX — SPCX\n\nSPCX remains a watching setup. My original preferred entry area was approximately $122, and the recent volatility could bring the stock back toward that area.\n\nI am continuing to monitor the price structure and the broader market. No share or option purchase has been documented. A potential entry area is not an executed trade.\n\n### Workiva — WK\n\nI've started building a position in Workiva through multiple purchases. I continue to like the company's fundamentals, recurring revenue, improving profitability, and developing Stage 2 technical structure.\n\nWK briefly traded within the original potential entry range of $72–$73 during the broader selloff. I chose not to make an additional entry at that moment because I was uncertain how far the correction could spread. That does not mean I had never purchased WK.\n\nThe original Opportunity outlined a potential entry around $72–$73, a proposed stop at $64.93, and a target at $88.97. Those remain historical research levels, not newly confirmed orders for the accumulation.\n\nMy complete purchase dates, fills, share quantity, and average cost have not yet been supplied for reconciliation. The canonical WK page therefore still carries its original Watching status and research. I have not fabricated a precise executed position or changed the board status to fill that gap. The WK Opportunity remains the reference for the original research and technical setup.\n\n---\n\n## I'm Becoming More Selective\n\nI want to focus on high-quality, A-grade technical and fundamental setups. The recent environment makes selectivity more important, not less.\n\nFor a new trade, I want:\n\n- A strong underlying business.\n- Improving fundamentals.\n- A constructive technical structure.\n- A clearly defined invalidation level.\n- Attractive reward-to-risk.\n- Favorable sector conditions.\n- Identifiable catalysts.\n\nThat may mean fewer new Opportunities appear on the board temporarily. I am not interested in forcing trades simply to keep the board busy.\n\n**I'd rather wait for a handful of exceptional setups than force trades in a market where the technical picture is still developing.**\n\n---\n\n## The Week Ahead — October 19–23\n\nThe calendar below distinguishes earnings releases from conference calls. Times are Eastern unless specified otherwise. Company schedules can change; the linked company announcements are the reference. Where only a call time was confirmed, I have labeled it as a call rather than inventing a release time.\n\n### Monday — October 19\n\n- Fifth Third Bancorp: third-quarter earnings event on October 19; exact release time not independently confirmed here.\n- Cleveland-Cliffs: results before the market opens; call at 8:30 a.m.\n- Steel Dynamics: results after the market closes; its call follows on Tuesday, October 20, at 11 a.m.\n- Cloudflare Connect: October 19–21 in San Francisco.\n\nI am watching lending conditions, steel demand, and enterprise technology spending for clues about activity outside the largest AI stocks.\n\n### Tuesday — October 20\n\n- Netflix: results at approximately 4:01 p.m.; earnings interview at 4:45 p.m.\n- General Motors: results at approximately 6:30 a.m.; call at 8:30 a.m.\n- GE Aerospace: earnings webcast at 7:30 a.m.\n- 3M: earnings call at 8 a.m.\n- Halliburton: earnings call at 9 a.m.\n- RTX: results before the market opens; call at 8:30 a.m.\n- Northrop Grumman: results before the market opens; call at 9:30 a.m.\n- United Airlines: results after the market closes; its call follows Wednesday at 10:30 a.m.\n- Housing starts and building permits: the Census Bureau's September New Residential Construction release is scheduled for 8:30 a.m.\n- NVIDIA GTC Berlin: workshops begin October 20; the keynote and main conference begin October 21, with the conference continuing October 22.\n\n### Wednesday — October 21\n\n- Meta: results after the market closes; call at 4:30 p.m.\n- Tesla: results after the market closes; webcast at 5:30 p.m.\n- Texas Instruments: earnings call at 4:30 p.m.\n- Lam Research: earnings call at 5 p.m.\n- IBM: earnings call at 5 p.m., with the earnings release available before the webcast.\n- QuantumScape: results after the market closes; call at 5 p.m.\n- Abbott: results before the market opens; call at 9 a.m.\n- AT&T: earnings call at 8:30 a.m.\n- Philip Morris: results at approximately 7 a.m.; webcast at 9 a.m.\n- CSX: results after the market closes; call at 4:30 p.m.\n\nMeta's AI infrastructure spending and capital expenditure guidance will be especially important to my assessment of the investment cycle. I will also watch Tesla's outlook, demand signals from Texas Instruments and Lam Research, and IBM's view of enterprise AI spending.\n\n### Thursday — October 22\n\n- Spotify: results before the market opens; exact call time not independently confirmed here.\n- Honeywell: earnings call at 8:30 a.m.\n- Valero: results in the morning; call at 10 a.m.\n- Tractor Supply: results before the market opens; call at 10 a.m.\n- Procter & Gamble: earnings webcast at 8:30 a.m.\n- TTM Technologies: results before the market opens; exact call time not independently confirmed here.\n- Lockheed Martin: earnings call at 8:30 a.m.\n- Western Digital: results after the market closes; call at 4:30 p.m.\n- Bloom Energy: results after the market closes; call at 5 p.m.\n- American Airlines: earnings call at 8:30 a.m.\n\nWestern Digital gives me another window into data-center storage demand. Bloom Energy is relevant to the rising electricity requirements of AI infrastructure. I want to compare the demand outlook with the costs, capacity, and financing needed to deliver on it.\n\n### Friday — October 23\n\n- American Express: results at approximately 7 a.m.; call at 8:30 a.m.\n- Booz Allen Hamilton: earnings call at 8 a.m.\n- SLB: earnings call at 9:30 a.m.\n\nI will focus on consumer spending trends, public-sector demand, and energy-sector fundamentals. The market's reaction to those reports will matter alongside the headline numbers.\n\n---\n\n## Final Outlook\n\nMy biggest question this week is whether the recent AI selloff represents a healthy rotation or the beginning of something more significant.\n\nRight now, I'm leaning toward a rotation.\n\nThe improving advance-decline line and recovery in the percentage of stocks trading above their moving averages are encouraging.\n\nBut the market still has concentration problems, and concerns around borrowing costs and AI infrastructure financing haven't disappeared.\n\nThis week's earnings should provide more evidence about whether corporate fundamentals are strong enough to support another leg higher.\n\nI'm not abandoning the market.\n\nI'm becoming more selective.\n\nAnd if the recent volatility creates attractive entries in strong companies, I want to be prepared to take advantage of them.\n\nFor now, I'm focusing on quality over quantity.",
+  "promotion": {
+    "headline": "TrendSpider — Try It for $1 for 14 Days",
+    "url": "https://trendspider.com?_go=justin-4f7fc2",
+    "cta": "TRY TRENDSPIDER FOR $1",
+    "body": "I wanted to share a limited-time promotion for one of the trading platforms I use most frequently.\n\nTrendSpider is offering a 14-day trial for just $1.\n\nI use TrendSpider extensively for technical analysis, identifying potential swing trades, and building the market scanners that help me find opportunities. It's also one of the primary platforms I use when researching stocks for Sacco Premium.\n\nWhat makes TrendSpider particularly interesting to me is how much functionality it brings together.",
+    "features": [
+      "Advanced technical charting",
+      "AI-assisted market scanners",
+      "Automated technical analysis",
+      "Strategy backtesting",
+      "Trading bots and automation tools",
+      "Custom technical indicators",
+      "Market alerts"
+    ],
+    "conclusion": "For anyone familiar with TradingView, I think TrendSpider is worth exploring as an alternative, particularly if you're interested in AI-assisted research and automation.\n\nThere are plenty of AI trading platforms available, but TrendSpider is one of my personal favorites. And with this promotion, you can explore the platform for 14 days for just $1.",
+    "terms": "Promotion ends Monday, October 19, 2026.",
+    "disclosure": "",
+    "emailBody": "I wanted to share a pretty interesting promotion for one of the platforms I use most frequently.\n\nTrendSpider is offering a 14-day trial for just $1.\n\nIf you've been following my research, you've probably noticed how often I use TrendSpider for technical analysis, market scanners, and identifying potential swing trades. It's one of the primary tools behind my investment research.\n\nWhat I particularly like is how much they've expanded into AI. You can build AI-assisted market scanners, backtest trading strategies, create custom indicators, and develop automated trading bots.\n\nFor anyone familiar with TradingView, I think TrendSpider is worth checking out. There are a lot of AI trading platforms available today, but TrendSpider is one of my personal favorites.\n\nAnd for $1, you can try it for 14 days."
+  },
+  "disclosure": "The positions and results discussed reflect my personal trading activity, not subscriber performance. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Five completed trades do not establish a representative long-term track record. This content is educational and informational and does not constitute personalized investment advice.",
+  "notification": {
+    "subject": "TrendSpider $1 Trial Ends October 19 + This Week's Market Outlook",
+    "preview": "Try TrendSpider for $1 and see how I'm navigating the AI selloff.",
+    "cta": "READ THIS WEEK'S OUTLOOK"
+  },
+  "notificationSummary": "Last week was a difficult one for technology stocks, and I made several changes to my personal positions.\n\nI closed three trades:\n\nSuper Micro Computer (SMCI): -$241.00\nStrategy (MSTR): -$130.00\nRocket Lab (RKLB): -$3.50\n\nCombined realized loss: -$374.50\n\nDespite those losses, my five documented completed trades remain positive by $356.05, before fees and taxes. These are my confirmed personal dollar results, not subscriber returns. Five trades are insufficient to establish a statistically meaningful track record. The article notes the Rocket Lab quantity that still needs reconciliation.\n\nBut here's what's interesting.\n\nWhile technology stocks were selling off, other areas of the market were showing relative strength. Consumer staples, energy, aerospace and defense, natural gas, gold miners, biotechnology, and regional banks led my one-week Sector Gauge snapshot ending October 15.\n\nTo me, this looks more like a rotation out of technology than a broad market breakdown. Relative outperformance alone does not establish capital inflows.\n\nBut there are still important warning signs. Market breadth remains relatively weak, Treasury yields are elevated, and concerns about AI infrastructure financing haven't disappeared.\n\nI'm also seeing some encouraging signs beneath the surface in my research, including improving advance-decline readings and more stocks recovering above their moving averages. The exact breadth observations and their verification limits are explained in the article.\n\nThis week, I'm becoming much more selective about new positions. I'm focusing on high-quality companies with strong fundamentals and attractive technical setups rather than forcing trades.\n\nIn the full Weekly Outlook, I cover:\n\n• Why I closed SMCI, MSTR, and RKLB\n• What last week's sector rotation tells me\n• The latest market breadth signals\n• My open EPAM position and the SpaceX setup I'm watching\n• Why I've begun accumulating Workiva (WK), with execution details still to reconcile\n• The major earnings catalysts ahead\n• What would make me more bullish or bearish\n\nThanks for being part of Sacco Premium.\n\nJustin Sacco\nSacco Financial",
+  "sources": [
+    {
+      "label": "Sector Gauge — canonical one-week snapshot ending October 15, 2026",
+      "url": "/premium/market-strength"
+    },
+    {
+      "label": "TrendSpider pricing — $1 trial verified October 17; October 20 deadline not independently verified",
+      "url": "https://trendspider.com/pricing/"
+    },
+    {
+      "label": "TrendSpider trial cancellation and automatic renewal",
+      "url": "https://trendspider.com/refund-policy/"
+    },
+    {
+      "label": "MSCI — January 6, 2026 digital-asset treasury company decision",
+      "url": "https://app2.msci.com/webapp/index_ann/DocGet?format=html&lang=en&pub_key=DD3Olh5uInk%3D"
+    },
+    {
+      "label": "Fifth Third — October 19 earnings event",
+      "url": "https://ir.53.com/home/default.aspx"
+    },
+    {
+      "label": "Cleveland-Cliffs — October 19 release and call",
+      "url": "https://www.clevelandcliffs.com/investors/news-events/press-releases/detail/703/cleveland-cliffs-to-announce-third-quarter-2026-earnings"
+    },
+    {
+      "label": "Steel Dynamics — October 19 release, October 20 call",
+      "url": "https://ir.steeldynamics.com/steel-dynamics-announces-third-quarter-2026-earnings-conference-call-and-webcast/"
+    },
+    {
+      "label": "Cloudflare Connect — October 19–21",
+      "url": "https://www.cloudflare.com/connect/2026/faq/"
+    },
+    {
+      "label": "Netflix — October 20 results and interview",
+      "url": "https://ir.netflix.net/investor-news-and-events/financial-releases/press-release-details/2026/Netflix-to-Announce-Third-Quarter-2026-Financial-Results/default.aspx"
+    },
+    {
+      "label": "GM — October 20 results and call",
+      "url": "https://investor.gm.com/news-releases/news-release-details/gm-announces-third-quarter-2026-earnings-conference-call-details"
+    },
+    {
+      "label": "GE Aerospace — October 20 webcast",
+      "url": "https://www.geaerospace.com/investor-relations/events-reports"
+    },
+    {
+      "label": "3M — October 20 call",
+      "url": "https://investors.3m.com/news-events/press-releases/detail/1943/3m-announces-upcoming-investor-event"
+    },
+    {
+      "label": "Halliburton — October 20 call",
+      "url": "https://ir.halliburton.com/node/36576"
+    },
+    {
+      "label": "RTX — October 20 release and call",
+      "url": "https://www.rtx.com/news/news-center/2026/09/29/rtx-to-release-third-quarter-earnings-results-on-october-20-2026"
+    },
+    {
+      "label": "Northrop Grumman — October 20 release and call",
+      "url": "https://investor.northropgrumman.com/news-releases/news-release-details/northrop-grumman-announces-date-third-quarter-2026-financial"
+    },
+    {
+      "label": "United — October 20 results, October 21 call",
+      "url": "https://united.mediaroom.com/2026-09-30-United-to-Hold-Webcast-of-Third-Quarter-2026-Financial-Results"
+    },
+    {
+      "label": "Census Bureau — housing release schedule",
+      "url": "https://www.census.gov/construction/bps/schedule.html"
+    },
+    {
+      "label": "NVIDIA GTC Berlin — workshops and keynote dates",
+      "url": "https://www.nvidia.com/en-eu/gtc/conference-schedule/"
+    },
+    {
+      "label": "Meta — October 21 release and call",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx"
+    },
+    {
+      "label": "Tesla — October 21 release and webcast",
+      "url": "https://ir.tesla.com/press-release/tesla-third-quarter-2026-production-deliveries-and-deployments"
+    },
+    {
+      "label": "Texas Instruments — October 21 call",
+      "url": "https://investor.ti.com/upcoming-events"
+    },
+    {
+      "label": "Lam Research — October 21 call",
+      "url": "https://investor.lamresearch.com/2026-09-30-Lam-Research-Corporation-Announces-September-Quarter-Financial-Conference-Call"
+    },
+    {
+      "label": "IBM — October 21 call",
+      "url": "https://newsroom.ibm.com/2026-10-07-ibm-to-announce-third-quarter-2026-financial-results"
+    },
+    {
+      "label": "QuantumScape — October 21 release and call",
+      "url": "https://ir.quantumscape.com/news-releases/news-release-details/quantumscape-announces-timing-third-quarter-2026-business"
+    },
+    {
+      "label": "Abbott — October 21 release and call",
+      "url": "https://abbott.mediaroom.com/2026-09-30-Abbott-hosts-conference-call-for-third-quarter-earnings"
+    },
+    {
+      "label": "AT&T — October 21 call",
+      "url": "https://investors.att.com/news-and-events/events-and-presentations"
+    },
+    {
+      "label": "Philip Morris — October 21 release and webcast",
+      "url": "https://www.pmi.com/investor-relations/press-releases-and-events/press-release-details?newsId=30436"
+    },
+    {
+      "label": "CSX — October 21 release and call",
+      "url": "https://www.csx.com/index.cfm/about-us/media/press-releases/csx-corp-announces-date-for-third-quarter-earnings-release-and-conference-call/"
+    },
+    {
+      "label": "Spotify — company announcement distributed by Business Wire",
+      "url": "https://www.stockwatch.com/News/Item/U-b20260924855017-U%21SPOT-20260924/U/SPOT"
+    },
+    {
+      "label": "Honeywell — October 22 call",
+      "url": "https://investor.honeywell.com/"
+    },
+    {
+      "label": "Valero — October 22 release and call",
+      "url": "https://investorvalero.com/news/news-details/2026/Valero-Energy-Corporation-to-Announce-Third-Quarter-2026-Earnings-Results-on-October-22-2026/default.aspx"
+    },
+    {
+      "label": "Tractor Supply — October 22 release and call",
+      "url": "https://corporate.tractorsupply.com/newsroom/news-releases/news-releases-details/2026/Tractor-Supply-Announces-Webcast-of-Third-Quarter-Earnings-Conference-Call/default.aspx"
+    },
+    {
+      "label": "P&G — October 22 webcast",
+      "url": "https://www.pginvestor.com/news/news-details/2026/PG-to-Webcast-Discussion-of-First-Quarter-2627-Earnings-Results-on-October-22/default.aspx"
+    },
+    {
+      "label": "TTM Technologies — October 22 release",
+      "url": "https://investors.ttm.com/news-events/press-releases/detail/418/ttm-technologies-inc-to-conduct-third-quarter-2026"
+    },
+    {
+      "label": "Lockheed Martin — October 22 webcast announcement",
+      "url": "https://news.lockheedmartin.com/news-releases?keywords=M+quarter&l=50"
+    },
+    {
+      "label": "Western Digital — October 22 release and call",
+      "url": "https://investor.wdc.com/news-releases/news-release-details/wd-announce-first-quarter-fiscal-year-2027-financial-results"
+    },
+    {
+      "label": "Bloom Energy — October 22 release and call",
+      "url": "https://investor.bloomenergy.com/press-releases/press-release-details/2026/Bloom-Energy-to-Announce-Third-Quarter-2026-Financial-Results-on-October-22-2026/default.aspx"
+    },
+    {
+      "label": "American Airlines — October 22 call",
+      "url": "https://news.aa.com/news/news-details/2026/American-Airlines-Group-announces-webcast-of-third-quarter-2026-financial-results-CORP-FI-10/default.aspx"
+    },
+    {
+      "label": "American Express — company announcement distributed by Business Wire",
+      "url": "https://www.nasdaq.com/press-release/american-express-plans-live-audio-webcast-third-quarter-2026-earnings-conference-call"
+    },
+    {
+      "label": "Booz Allen — October 23 call",
+      "url": "https://investors.boozallen.com/events-and-presentations"
+    },
+    {
+      "label": "SLB — October 23 call",
+      "url": "https://investorcenter.slb.com/news-events/events-presentations"
+    }
+  ]
+});
