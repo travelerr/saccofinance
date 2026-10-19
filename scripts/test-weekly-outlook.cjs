@@ -120,7 +120,7 @@ test('Issue 005 publishes through the canonical archive with confirmed promotion
  assert.equal(o.promotion.url,'https://trendspider.com?_go=justin-4f7fc2');assert.match(o.promotion.terms,/Monday, October 19, 2026/);
  const events=require('../lib/email/events.ts').researchEvents(data.weeklyOutlooks,data.opportunities,data.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);
  const e=events[0],email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');
- assert.match(e.subject,/Ends October 19/);assert.match(email.html,/rel="noopener noreferrer sponsored"/);assert.match(email.text,/Manage Email Preferences/);
+ assert.match(e.subject,/Ends October 19/);assert.match(email.html,/rel="noopener sponsored"/);assert.match(email.text,/Manage Email Preferences/);
  assert.equal(new URL(email.url).pathname,'/premium/issue-005');assert.ok(email.text.indexOf('TRY TRENDSPIDER')<email.text.indexOf("READ THIS WEEK"));
  assert.equal(data.opportunities.find(o=>o.ticker==='WK').tradeStatus,'Watching');assert.equal(data.opportunities.find(o=>o.ticker==='RKLB').trade.quantity,undefined);
 });

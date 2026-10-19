@@ -43,7 +43,7 @@ function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
 }
 
 function OutlookPromotionBlock({promotion:p}:{promotion:NonNullable<WeeklyOutlook['promotion']>}){
- return <aside className="outlook-promotion" aria-label="Sacco Premium Special Offer"><Eyebrow>Sacco Premium Special Offer</Eyebrow><h2>{p.headline}</h2><Prose text={p.body}/><ul>{p.features.map(feature=><li key={feature}>{feature}</li>)}</ul><Prose text={p.conclusion}/><a className="button" href={p.url} target="_blank" rel="noopener noreferrer sponsored" data-affiliate-placement="weekly_outlook">{p.cta}</a><p className="outlook-promotion-deadline"><strong>{p.terms}</strong></p></aside>;
+ return <aside className="outlook-promotion" aria-label="Sacco Premium Special Offer"><Eyebrow>Sacco Premium Special Offer</Eyebrow><h2>{p.headline}</h2><Prose text={p.body}/><ul>{p.features.map(feature=><li key={feature}>{feature}</li>)}</ul><Prose text={p.conclusion}/><a className="button" href={p.url} target="_blank" rel="noopener sponsored" data-affiliate-placement="weekly_outlook">{p.cta}</a><p className="outlook-promotion-deadline"><strong>{p.terms}</strong></p></aside>;
 }
 
 export function OutlookSectorFocus({outlook}:{outlook:WeeklyOutlook}){
