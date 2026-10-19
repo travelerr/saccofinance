@@ -37,6 +37,7 @@ export default function AnalyticsProvider(){
      activity();const a=event.target instanceof Element?event.target.closest('a'):null;if(!a)return;
      try{
       const url=new URL(a.href);const affiliate=affiliateClickParams(url.href,a.dataset.affiliatePlacement);if(affiliate){track('affiliate_link_click',affiliate);return;}if(url.origin!==location.origin){const destinations:Record<string,string>={'youtube.com':'youtube','www.youtube.com':'youtube','youtu.be':'youtube','instagram.com':'instagram','www.instagram.com':'instagram','tiktok.com':'tiktok','www.tiktok.com':'tiktok','facebook.com':'facebook','www.facebook.com':'facebook','join.saccofinancial.com':'free_guide'};const destination=destinations[url.hostname];if(destination)track('outbound_click',{destination});return;}
+      if(pathname==='/premium'&&a.dataset.premiumVideoCta==='true'&&url.pathname==='/premium/join')track('premium_video_cta_click');
       if(url.pathname==='/premium/join')track('subscribe_click',{placement:pathname,plan:url.searchParams.get('plan')==='annual'?'annual':'monthly'});
       else if(url.pathname.startsWith('/api/premium/chart/')&&research)track('chart_open',research);
       else {const destination=safePage(url.pathname);if(destination)track('navigation_click',{destination});}

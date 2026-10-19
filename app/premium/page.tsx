@@ -65,6 +65,13 @@ export default async function Premium(){
    </div>
   </section>
 
+  <section className={`section ${styles.videoSection}`} aria-labelledby="premium-video-heading">
+   <h2 id="premium-video-heading">See How Sacco Premium Works</h2>
+   <p>Take five minutes to see how I research the market, identify strong sectors, find potential stock opportunities, and document my actual trading decisions.</p>
+   <div className={styles.videoFrame}><iframe src="https://www.youtube-nocookie.com/embed/WDtnaojVatU" title="See How Sacco Premium Works — Introduction by Justin Sacco" width="560" height="315" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></div>
+   <div className={styles.videoCta}><Link className="button" href={join} data-premium-video-cta="true">{enabled?(trial?'Start your 30-day trial':'Join Sacco Premium — $10/Month'):'Member sign in'}<ArrowUpRight size={18}/></Link><p>$10/month or $100/year. Cancel anytime.</p></div>
+  </section>
+
   <section id="process" className={`section ${styles.processSection}`}><SectionHeader label="A deliberate research system" title="Stop looking for stocks at random."/>
    <ol className={styles.process}>{process.map(([label,title,copy],i)=><li key={label}><div className={styles.processNode}><span>0{i+1}</span><strong>{label}</strong>{i<process.length-1&&<ArrowDown size={18} aria-hidden="true"/>}</div><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
    <p className={styles.framework}>Market Context → Sector Strength → ETF Analysis → Stock Screening → Stage 1-to-Stage 2 Candidates → Setup Analysis → Trade Tracking</p>
