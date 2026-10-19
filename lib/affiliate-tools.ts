@@ -17,7 +17,7 @@ export const affiliateTools=[{
 }] as const;
 export const affiliateDisclosure='Affiliate link — I may earn a commission if you sign up through this link, at no additional cost to you.';
 export function affiliateClickParams(href:string,placement:string|undefined){
- if(placement!=='premium_tools'&&placement!=='weekly_outlook')return null;
+ if(placement!=='premium_tools'&&placement!=='weekly_outlook'&&placement!=='opportunity_chart')return null;
  const tool=affiliateTools.find(t=>new URL(t.url).href===href);if(!tool)return null;
  return {affiliate_partner:tool.id,placement,destination:tool.destination};
 }

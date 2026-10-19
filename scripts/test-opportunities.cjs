@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,9);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,10);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,9);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,9);
+ assert.equal(d.getPublishedOpportunities().length,10);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,10);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,15);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,21);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
@@ -106,7 +106,7 @@ test('MSTR preserves the starter trade separately from its unfilled add zone and
  assert.ok(o.charts.every(c=>c.asOf==='2026-09-23'&&c.source&&c.alt&&c.caption));
  assert.match(o.technicalConfirmation,/previously valid.*166.97/);assert.match(o.nextCondition,/No shares remain/);
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.length,4);assert.equal(updates[0].trade.stopPrice,123);assert.equal(updates[2].trade.stopPrice,147);
- assert.ok(d.getPublishedOpportunities().slice(0,3).some(x=>x.id==='opportunity-005'));
+ assert.ok(d.getPublishedOpportunities().some(x=>x.id==='opportunity-005'));
 });
 
 test('NOW closes with verified gross results, preserves history and prepares a unique manual notification',()=>{
@@ -220,4 +220,14 @@ test('RKLB closure preserves prior stops and reports only documented per-share l
  const updates=d.getOpportunityUpdates(o.id);assert.equal(updates.find(u=>u.id==='opportunity-002-initial').trade.stopPrice,55);
  assert.equal(updates.filter(u=>u.id==='opportunity-002-stop-2026-10-13').length,1);
  const prior=updates.find(u=>u.id==='opportunity-002-stop-2026-10-13');assert.match(prior.explanation,/new low formed/);assert.equal(prior.tradeStatusAfter,'Active');assert.equal(prior.trade.exitPrice,undefined);assert.equal(updates.at(-1).tradeStatusAfter,'Closed');assert.equal(updates.at(-1).notification.subject,'Opportunity Closed: RKLB −5.5%');
+});
+
+test('CNC is a watching setup with original dated charts and no execution',()=>{
+ const d=require('../lib/premium-opportunities.ts'),o=d.getPublishedOpportunity('centene-010');
+ assert.equal(o.id,'opportunity-010');assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,7);assert.ok(o.articleSections[1].body.includes('50-day ABOVE the 200-day'));
+ assert.equal((75-64)/(64-60),2.75);assert.equal(((75-64)/64*100).toFixed(2),'17.19');
+ assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
+ assert.equal(d.getPublishedOpportunities()[0].id,o.id);assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
+ const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,1);assert.equal(e[0].path,'/premium/opportunities/centene-010');assert.match(e[0].summary,/NOT purchased CNC/);assert.doesNotMatch(e[0].summary,/\[Use the actual/);
 });

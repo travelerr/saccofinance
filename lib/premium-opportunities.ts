@@ -2140,3 +2140,179 @@ weeklyOutlooks.push({
     }
   ]
 });
+
+// October 19: conditional research only; no executed CNC position.
+opportunities.push({
+  "id": "opportunity-010",
+  "slug": "centene-010",
+  "ticker": "CNC",
+  "company": "Centene Corporation",
+  "title": "Centene (CNC) — Finding a Healthcare Opportunity After the AI Rotation",
+  "publicationState": "published",
+  "publishedAt": "2026-10-19",
+  "updatedAt": "2026-10-19",
+  "tradeStatus": "Watching",
+  "technicalStage": "Developing Stage 2",
+  "sector": "Health Care / Managed Health Care",
+  "etfTickers": [
+    "IHF"
+  ],
+  "strategy": "Potential Swing Trade",
+  "summary": "After last week's rotation away from technology, I screened the healthcare ETF IHF and identified Centene as a developing Stage 2 swing setup. I am watching for a pullback toward $64 and a higher low rather than chasing resistance near $70. No position has been opened.",
+  "companyNote": "Sector Strength, Improving Earnings, and a Stage 2 Setup I'm Watching",
+  "whySurfaced": "After last week's market selloff, I went through sector ETFs to see where relative strength was emerging outside the AI trade. The iShares U.S. Healthcare Providers ETF (IHF) stood out: it pushed above a recent resistance area near $58 and traded above rising moving averages. That made me interested in the companies inside the ETF rather than automatically buying the ETF itself.\n\nI opened IHF's holdings and went through the individual charts. UnitedHealth, CVS, Elevance, Cigna, Humana, and others are important holdings, but several charts looked extended or didn't offer the entry I wanted. Centene caught my attention as the eighth-largest holding in the supplied IHF holdings screenshot, at approximately 4.28% of the ETF at that snapshot.\n\nThis is the process I want to document: first identify a strengthening industry, then examine its individual holdings, find a technical setup, and finally test the underlying company's financials and risks. The ETF's performance does not guarantee Centene will follow it.",
+  "setupThesis": "After last week's rotation away from technology, I screened the healthcare ETF IHF and identified Centene as a developing Stage 2 swing setup. I am watching for a pullback toward $64 and a higher low rather than chasing resistance near $70. No position has been opened.",
+  "nextCondition": "I want a controlled pullback toward $64 that forms and holds a higher low. No position or orders exist.",
+  "nextStepSummary": "WATCHING ONLY · No CNC shares purchased. Proposed levels are conditional research, not orders.",
+  "fundamentalCase": "Centene operates managed healthcare businesses including Medicaid, Medicare, and ACA Marketplace coverage. Its recent operational recovery is encouraging, though these businesses remain highly exposed to medical cost trends, membership changes, reimbursement, and government policy.\n\nIn my October 15 InvestingPro research notes, Q2 2026 adjusted EPS was $2.51 versus $1.07 consensus, and management raised FY2026 adjusted EPS guidance to above $4.80 from above $3.40. Analysts in that report projected approximately $4.89 for 2026, $5.30 for 2027, and $6.32 for 2028. The consolidated health benefit ratio improved to 89.6% from 93.0% a year earlier, indicating better claims economics. However, about $0.50 of the quarter's EPS came from nonrecurring settlements, so I don't treat the headline beat as fully repeatable.\n\nThe report shows a forward P/E near 14.4x, an InvestingPro fair-value estimate around $75.3, and analyst targets from $56 to $85 with an average around $71.78. That average target offers limited upside from around $69 and reinforces why I'd prefer a lower entry. These are estimates, not promises. The same report's financial-health score is 4.4/10; I do not interpret the overall financial health as flawless.",
+  "thesisChanges": "A failed higher-low structure, deteriorating claims economics, or unfavorable earnings could change the setup.",
+  "justinsTake": "I'm adding CNC to the Opportunity Board as WATCHING, not as an executed trade. The setup originated with the Sector Gauge/healthcare ETF review, then the IHF holdings screen, then technical and fundamental diligence. I want to see either a controlled pullback toward $64 that forms a higher low or a materially different setup that justifies reassessment. For now, the $64 entry, $60 stop and $75 target are research levels only. I'll watch how price behaves near $70 resistance and evaluate the October 27 earnings risk before deciding whether to act. If I open a position, I'll publish the actual fill, quantity and management plan separately. I will not fabricate a trade just because a setup looks attractive.",
+  "nextCatalyst": "October 27, 2026 earnings · confirmed on issuer IR",
+  "proposedLevels": [
+    {
+      "label": "Dated reference",
+      "value": "Oct 16 close $69.16 / Oct 19 premarket ~$69"
+    },
+    {
+      "label": "Conditional entry",
+      "value": "~$64, only if a higher low forms"
+    },
+    {
+      "label": "Proposed stop",
+      "value": "~$60, only if entered near $64"
+    },
+    {
+      "label": "Initial target",
+      "value": "$75"
+    },
+    {
+      "label": "Reward / risk",
+      "value": "2.75:1 at exact $64 / $60 / $75"
+    },
+    {
+      "label": "Potential upside / downside",
+      "value": "+17.19% / −6.25%, before gaps and slippage"
+    },
+    {
+      "label": "Near-term resistance",
+      "value": "~$70"
+    }
+  ],
+  "articleSections": [
+    {
+      "title": "How I Found Centene",
+      "body": "After last week's market selloff, I went through sector ETFs to see where relative strength was emerging outside the AI trade. The iShares U.S. Healthcare Providers ETF (IHF) stood out: it pushed above a recent resistance area near $58 and traded above rising moving averages. That made me interested in the companies inside the ETF rather than automatically buying the ETF itself.\n\nI opened IHF's holdings and went through the individual charts. UnitedHealth, CVS, Elevance, Cigna, Humana, and others are important holdings, but several charts looked extended or didn't offer the entry I wanted. Centene caught my attention as the eighth-largest holding in the supplied IHF holdings screenshot, at approximately 4.28% of the ETF at that snapshot.\n\nThis is the process I want to document: first identify a strengthening industry, then examine its individual holdings, find a technical setup, and finally test the underlying company's financials and risks. The ETF's performance does not guarantee Centene will follow it.",
+      "chartPlacement": "origin"
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "CNC recovered from roughly $25 in August 2025 to approximately $69 in the October 2026 snapshot. My chart interpretation is that the stock has transitioned into Stage 2 and is now consolidating within that broader recovery. The structure has featured higher highs and higher lows, but the recent action is choppier than my ideal setup.\n\nCNC is testing resistance near $70. A sustained breakout might lead to another leg higher, but I don't want to chase the stock directly into that level. I'd prefer a controlled pullback toward approximately $64, followed by evidence of a shallower low and renewed buying interest. The 50-day simple moving average is approximately $65.39 and the 200-day is approximately $54.15 in the supplied chart; both are trending higher, with the 50-day ABOVE the 200-day. \n\nMy PRELIMINARY trade plan, if the setup develops, is an entry near $64, a stop around $60, and an initial target around $75. At those exact levels, the potential reward is $11 per share versus $4 of planned risk, or 2.75:1, with 17.2% upside and 6.25% downside to the stop. The $60 stop is not a guaranteed exit price; gaps, especially around earnings, can cause larger losses. If the stock runs without offering an attractive entry, I may miss it. I prefer that to forcing a trade.",
+      "chartPlacement": "setup"
+    },
+    {
+      "title": "Why The Fundamentals Caught My Attention",
+      "body": "Centene operates managed healthcare businesses including Medicaid, Medicare, and ACA Marketplace coverage. Its recent operational recovery is encouraging, though these businesses remain highly exposed to medical cost trends, membership changes, reimbursement, and government policy.\n\nIn my October 15 InvestingPro research notes, Q2 2026 adjusted EPS was $2.51 versus $1.07 consensus, and management raised FY2026 adjusted EPS guidance to above $4.80 from above $3.40. Analysts in that report projected approximately $4.89 for 2026, $5.30 for 2027, and $6.32 for 2028. The consolidated health benefit ratio improved to 89.6% from 93.0% a year earlier, indicating better claims economics. However, about $0.50 of the quarter's EPS came from nonrecurring settlements, so I don't treat the headline beat as fully repeatable.\n\nThe report shows a forward P/E near 14.4x, an InvestingPro fair-value estimate around $75.3, and analyst targets from $56 to $85 with an average around $71.78. That average target offers limited upside from around $69 and reinforces why I'd prefer a lower entry. These are estimates, not promises. The same report's financial-health score is 4.4/10; I do not interpret the overall financial health as flawless.\n\nThe attached InvestingPro dashboard separately displays a health indicator near 4 on a 1–5 scale. That display is not the same scale as the 4.4/10 report figure in my notes.",
+      "sources": [
+        {
+          "label": "Centene Q2 2026 results — issuer release",
+          "url": "https://investors.centene.com/2026-07-28-CENTENE-CORPORATION-REPORTS-SECOND-QUARTER-2026-RESULTS"
+        }
+      ],
+      "chartPlacement": "fundamentals"
+    },
+    {
+      "title": "Seeking Alpha And Other Ratings",
+      "body": "The supplied October 19 Seeking Alpha screenshot shows Quant Strong Buy 4.97, Seeking Alpha Analysts Buy 3.87, Wall Street Buy 3.61, and factor grades of Valuation A+, Growth A, Profitability A+, Momentum A+, and Revisions A+. The snapshot ranks CNC #1 of 9 in Managed Health Care, #4 of 929 in Healthcare, and #21 of 4,299 overall. My research notes indicate roughly 75 consecutive days rated Quant Strong Buy and inclusion in Alpha Picks; those two observations have not been independently verified here. InvestingPro's technical summary is Strong Buy. Ratings reflect methodologies and can change; they are not proof of future returns.",
+      "chartPlacement": "framework"
+    },
+    {
+      "title": "Institutional And Insider Activity",
+      "body": "My institutional research notes indicate reported institutional holdings increased from approximately 472.2 million to 483.8 million shares between Q1 and Q2 2026, a net increase of about 11.6 million shares. Wellington reported approximately 10.8 million additional shares; Victory, Ameriprise, Acadian, T. Rowe Price, and BlackRock also reported increases. AQR, Harris Associates, D. E. Shaw, and others reported reductions. These are changes in quarter-end reported positions, not verified contemporaneous purchases, and do not prove institutions are accumulating in October.\n\nInsider activity is less encouraging in my research notes: I did not identify recent open-market insider purchases, and the notes describe sales by Christopher Koster and Kenneth Burdick. I have not independently verified the individual transaction amounts and dates against the underlying SEC transaction tables, so I am not publishing those details as confirmed. Selling can occur for diversification, taxes, or prearranged plans, so it isn't automatically bearish. Share withholding for taxes and awards should not be confused with voluntary open-market trades. Most Q3 institutional filings are not yet available; I will monitor the next round of filings. The aggregate institutional figures above are from my supplied research notes, not an independently reconstructed holdings dataset."
+    },
+    {
+      "title": "What Could Go Wrong",
+      "body": "Medicaid membership is expected to decline approximately 8–9% during 2026. Changes to eligibility, reimbursement and ACA Marketplace enrollment can hurt the business. Medical cost inflation or an unfavorable insured-member mix could undermine margin recovery. About $0.50 of Q2 EPS was nonrecurring. The trailing earnings picture remains affected by prior losses, and management has discussed seasonal profitability pressure later in the year. The stock has already rallied considerably and is near resistance. Upcoming October 27 earnings could produce a large price gap that bypasses a stop. Strong ratings do not erase these risks."
+    },
+    {
+      "title": "My Plan",
+      "body": "I'm adding CNC to the Opportunity Board as WATCHING, not as an executed trade. The setup originated with the Sector Gauge/healthcare ETF review, then the IHF holdings screen, then technical and fundamental diligence. I want to see either a controlled pullback toward $64 that forms a higher low or a materially different setup that justifies reassessment. For now, the $64 entry, $60 stop and $75 target are research levels only. I'll watch how price behaves near $70 resistance and evaluate the October 27 earnings risk before deciding whether to act. If I open a position, I'll publish the actual fill, quantity and management plan separately. I will not fabricate a trade just because a setup looks attractive.",
+      "sources": [
+        {
+          "label": "Centene investor relations — October 27 earnings event",
+          "url": "https://investors.centene.com/"
+        }
+      ]
+    }
+  ],
+  "charts": [
+    {
+      "src": "/api/premium/chart/cnc-ihf-chart",
+      "width": 2682,
+      "height": 1752,
+      "source": "TradingView",
+      "placement": "origin",
+      "caption": "IHF's recent breakout led me to investigate individual healthcare-provider holdings.",
+      "alt": "TradingView — IHF's recent breakout led me to investigate individual healthcare-provider holdings.",
+      "asOf": "2026-10-19"
+    },
+    {
+      "src": "/api/premium/chart/cnc-ihf-holdings",
+      "width": 2666,
+      "height": 1282,
+      "source": "iShares",
+      "placement": "origin",
+      "caption": "I screened the companies inside IHF rather than buying the ETF outright. CNC is eighth at 4.28% in this dated snapshot.",
+      "alt": "iShares — I screened the companies inside IHF rather than buying the ETF outright. CNC is eighth at 4.28% in this dated snapshot.",
+      "asOf": "2026-10-19"
+    },
+    {
+      "src": "/api/premium/chart/cnc-tradingview",
+      "width": 2682,
+      "height": 1752,
+      "source": "TradingView",
+      "placement": "setup",
+      "caption": "Preliminary CNC setup: watch for an entry near $64, a proposed $60 stop, and a $75 target. No position entered. The chart tool’s exact levels, quantity and P&L are hypothetical annotations, not executed trades.",
+      "alt": "TradingView — Preliminary CNC setup: watch for an entry near $64, a proposed $60 stop, and a $75 target. No position entered. The chart tool’s exact levels, quantity and P&L are hypothetical annotations, not executed trades.",
+      "asOf": "2026-10-19"
+    },
+    {
+      "src": "/api/premium/chart/cnc-trendspider",
+      "width": 1319,
+      "height": 837,
+      "source": "TrendSpider",
+      "placement": "confirmation",
+      "caption": "Longer-term recovery and dated technical/fundamental context. Historical scanner signals are not executed trades.",
+      "alt": "TrendSpider — Longer-term recovery and dated technical/fundamental context. Historical scanner signals are not executed trades.",
+      "asOf": "2026-10-19",
+      "affiliateTool": "trendspider"
+    },
+    {
+      "src": "/api/premium/chart/cnc-seeking-alpha",
+      "width": 2176,
+      "height": 1564,
+      "source": "Seeking Alpha",
+      "placement": "framework",
+      "caption": "Dated October 19 ratings snapshot; scores and rankings can change.",
+      "alt": "Seeking Alpha — Dated October 19 ratings snapshot; scores and rankings can change.",
+      "asOf": "2026-10-19",
+      "affiliateTool": "seeking_alpha"
+    },
+    {
+      "src": "/api/premium/chart/cnc-investingpro",
+      "width": 3426,
+      "height": 1692,
+      "source": "InvestingPro",
+      "placement": "fundamentals",
+      "affiliateTool": "investing_pro",
+      "asOf": "2026-10-19",
+      "alt": "InvestingPro Centene overview with fair value $75.32, analyst average target $71.78 and financial health indicators.",
+      "caption": "Dated InvestingPro overview: model fair value $75.32 and analyst targets are estimates, not guaranteed returns. The dashboard health indicator uses a different scale from the research-report score."
+    }
+  ],
+  "notification": {
+    "subject": "New Opportunity Watch: Centene (CNC)",
+    "preview": "I followed healthcare sector strength into a developing CNC setup. Here's what I'm watching.",
+    "summary": "After last week's rotation away from technology, I started reviewing sectors showing relative strength. The iShares U.S. Healthcare Providers ETF (IHF) caught my attention after breaking above a recent resistance area.\n\nRather than buy the ETF, I examined its holdings. Centene stood out as a possible Stage 2 continuation setup, with an improving earnings outlook and strong quantitative ratings — but a chart that's still a little choppier than I'd like.\n\nCNC is near $70 resistance, and I'm not interested in chasing it there. I'm watching for a potential pullback and higher low.\n\nMy PRELIMINARY levels:\nPotential entry: around $64\nProposed stop if entered: around $60\nInitial target: around $75\nPotential reward-to-risk at those levels: 2.75:1\nNext expected earnings: October 27\n\nI also reviewed Centene's operating recovery, valuation, institutional holdings, insider transactions, and the risks associated with Medicaid enrollment and healthcare policy.\n\nIMPORTANT: I have NOT purchased CNC. This is a WATCHING opportunity, not a trade alert or executed position.\n\nI've published the full research and charts inside Sacco Premium.\n\nJustin Sacco\nSacco Financial\n\nMy personal research and potential trade levels are educational commentary, not individualized investment advice. Investing involves risk, including losses; stop orders do not guarantee an exit price. Analyst targets and ratings are not guarantees.",
+    "cta": "READ THE CNC OPPORTUNITY"
+  }
+});

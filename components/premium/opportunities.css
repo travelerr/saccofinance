@@ -28,3 +28,5 @@ html[data-theme=light] .trade-result[data-result=loss] .trade-result-totals stro
  .premium-workspace .opportunity-proposed-grid>div:nth-child(2n){border-left:1px solid var(--brand-line)}
  .premium-workspace .opportunity-proposed-grid>div:nth-child(n+3){border-top:1px solid var(--brand-line)}
 }
+
+.opportunity-detail-chart .chart-tool-link{display:table;margin-top:18px;padding:12px 18px;border:1px solid var(--brand-cyan);border-radius:8px;color:var(--brand-ink);background:var(--brand-surface);font-size:14px;font-weight:600;line-height:1.5;text-decoration:none;max-width:100%;overflow-wrap:anywhere}.opportunity-detail-chart .chart-tool-link:hover{background:var(--brand-cyan);color:#fff}
