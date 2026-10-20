@@ -2316,3 +2316,129 @@ opportunities.push({
     "cta": "READ THE CNC OPPORTUNITY"
   }
 });
+
+// Separate October 19 ZS watch; the original closed trade remains unchanged.
+opportunities.push({
+  "id": "opportunity-011",
+  "slug": "zscaler-011",
+  "ticker": "ZS",
+  "company": "Zscaler",
+  "title": "Zscaler (ZS) — A Second Opportunity Taking Shape",
+  "publicationState": "published",
+  "publishedAt": "2026-10-19",
+  "updatedAt": "2026-10-19",
+  "tradeStatus": "Watching",
+  "technicalStage": "Stage 2 markup",
+  "sector": "Cybersecurity",
+  "etfTickers": [
+    "CIBR"
+  ],
+  "strategy": "Potential Swing Trade",
+  "summary": "I'm watching a second Zscaler setup near $212.50, with a proposed $203.50 stop and $237 target. I'll assess the October 20 open and CIBR's sector strength before deciding whether to enter.",
+  "whySurfaced": "I'm considering another position in Zscaler after closing my previous trade earlier this month.\n\nI originally purchased 10 shares at $190.07 and exited at $210.07, locking in approximately $200 in profit.\n\nAlthough Zscaler continued higher after my exit, I followed my risk-management plan and secured a profit. Now another potential setup is developing.",
+  "setupThesis": "Zscaler has broken out of its previous consolidation range and continues showing characteristics of a Stage 2 markup.\n\nThe 50-day moving average is now above the 200-day, and the 200-day is beginning to flatten. The stock has been establishing higher highs and higher lows, while cybersecurity continues demonstrating sector strength.\n\nThe technical structure is particularly encouraging because Zscaler has broken above its previous resistance near $200–$205.\n\nThat area may now provide support.\n\nMy preliminary plan is to consider an entry around $212.50, with a stop near $203.50 and a target around $237.\n\nThat creates approximately 2.72:1 reward-to-risk.\n\nThe $237 target represents a retest of the stock's recent high rather than an entirely new price objective.",
+  "nextCondition": "I'm particularly interested in this setup because cybersecurity has been showing strength, and the technical recovery appears to be continuing.\n\nI'll be watching how the stock opens on October 20 before deciding whether to establish a position.\n\nIf the stock opens substantially higher, I may decide not to chase it.\n\nFor now, this is a developing opportunity. I have not opened a new position.",
+  "nextStepSummary": "WATCHING — I have not opened a new position.",
+  "fundamentalCase": "I'm evaluating Zscaler's individual structure and fundamentals alongside the broader market and cybersecurity sector.",
+  "thesisChanges": "Sustained weakness in CIBR or a failed ZS support area would cause me to reassess. I may avoid chasing a substantially higher opening price.",
+  "justinsTake": "I'm particularly interested in this setup because cybersecurity has been showing strength, and the technical recovery appears to be continuing.\n\nI'll be watching how the stock opens on October 20 before deciding whether to establish a position.\n\nIf the stock opens substantially higher, I may decide not to chase it.\n\nFor now, this is a developing opportunity. I have not opened a new position.",
+  "nextCatalyst": "November 24, 2026 earnings — estimated, not company-confirmed",
+  "proposedLevels": [
+    {
+      "label": "Reference price",
+      "value": "$212.50 overnight · Oct 19"
+    },
+    {
+      "label": "Potential entry",
+      "value": "~$212.50"
+    },
+    {
+      "label": "Proposed stop",
+      "value": "$203.50"
+    },
+    {
+      "label": "Price target",
+      "value": "$237"
+    },
+    {
+      "label": "Potential upside / downside",
+      "value": "11.5% / 4.2%"
+    },
+    {
+      "label": "Reward / risk",
+      "value": "2.72:1"
+    },
+    {
+      "label": "Position status",
+      "value": "Watching · No trade executed"
+    }
+  ],
+  "articleSections": [
+    {
+      "title": "A New Setup After My Closed Trade",
+      "body": "I'm considering another position in Zscaler after closing my previous trade earlier this month.\n\nI originally purchased 10 shares at $190.07 and exited at $210.07, locking in approximately $200 in profit.\n\nAlthough Zscaler continued higher after my exit, I followed my risk-management plan and secured a profit. Now another potential setup is developing.",
+      "sources": [
+        {
+          "label": "My original closed ZS trade — full history",
+          "url": "/premium/opportunities/zscaler-001"
+        }
+      ]
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "Zscaler has broken out of its previous consolidation range and continues showing characteristics of a Stage 2 markup.\n\nThe 50-day moving average is now above the 200-day, and the 200-day is beginning to flatten. The stock has been establishing higher highs and higher lows, while cybersecurity continues demonstrating sector strength.\n\nThe technical structure is particularly encouraging because Zscaler has broken above its previous resistance near $200–$205.\n\nThat area may now provide support.\n\nMy preliminary plan is to consider an entry around $212.50, with a stop near $203.50 and a target around $237.\n\nThat creates approximately 2.72:1 reward-to-risk.\n\nThe $237 target represents a retest of the stock's recent high rather than an entirely new price objective.",
+      "chartPlacement": "setup"
+    },
+    {
+      "title": "Why I'm Watching the Cybersecurity Sector",
+      "body": "One important part of my Zscaler thesis is the broader cybersecurity sector.\n\nThis opportunity is directly tied to what I'm seeing in the First Trust Nasdaq Cybersecurity ETF (CIBR).\n\nCIBR has been one of the stronger areas of the market, although it recently experienced a pullback alongside the broader technology sector.\n\nThat pullback isn't necessarily a bad thing.\n\nMy strategy is to identify stocks in strong sectors, look for opportunities during pullbacks, and take profits as those stocks move toward my targets.\n\nEssentially, I'm looking to buy the dips and sell the run-ups within established uptrends.\n\nBut the underlying sector needs to remain healthy.\n\nLooking at CIBR, the ETF has been pulling back toward its 50-day moving average, which appears to be acting as support.\n\nThat's an important level I'm monitoring.\n\nI want to see CIBR continue defending that moving average, maintain its higher-high and higher-low structure, and avoid developing a sustained downtrend.\n\nIf CIBR breaks below its 50-day moving average and continues weakening, that would reduce my confidence in the broader cybersecurity setup and cause me to reassess Zscaler.\n\nThe reason I pay attention to this is that even a fundamentally strong company with an attractive technical setup can struggle when its entire sector is under pressure.\n\nSo I'm not evaluating Zscaler in isolation.\n\nI'm looking at three things together:\n\n1. Broader market conditions.\n2. Cybersecurity sector strength through CIBR.\n3. Zscaler's individual technical structure and fundamentals.\n\nIf those factors remain aligned, the potential trade becomes more attractive.\n\nIf the sector structure begins breaking down, I may decide not to enter, even if Zscaler's individual chart still looks good.\n\nThat's the research process behind this opportunity.",
+      "chartPlacement": "origin"
+    },
+    {
+      "title": "Risks And Earnings",
+      "body": "There are risks. The stock has already rallied significantly, the proposed stop is relatively tight, and the broader market remains volatile.\n\nZscaler also has an expected earnings catalyst in late November. November 24, 2026 is an estimated date, not a company-confirmed announcement. I'll check investor relations for confirmation.\n\nA stop does not guarantee an exit at $203.50; gaps and slippage can increase the loss.",
+      "sources": [
+        {
+          "label": "Zscaler investor relations",
+          "url": "https://ir.zscaler.com/"
+        },
+        {
+          "label": "Estimated earnings calendar — MarketBeat",
+          "url": "https://www.marketbeat.com/stocks/NASDAQ/ZS/earnings/"
+        }
+      ]
+    },
+    {
+      "title": "My Plan For October 20",
+      "body": "I'm particularly interested in this setup because cybersecurity has been showing strength, and the technical recovery appears to be continuing.\n\nI'll be watching how the stock opens on October 20 before deciding whether to establish a position.\n\nIf the stock opens substantially higher, I may decide not to chase it.\n\nFor now, this is a developing opportunity. I have not opened a new position."
+    }
+  ],
+  "charts": [
+    {
+      "src": "/api/premium/chart/zs-2026-10-19",
+      "width": 2682,
+      "height": 1752,
+      "source": "TradingView",
+      "placement": "setup",
+      "caption": "My proposed levels are $212.50 entry, $203.50 stop and $237 target. The chart tool uses slightly different illustrative levels; its quantity and P&L are annotations, not an executed position.",
+      "alt": "Zscaler Stage 2 technical setup",
+      "asOf": "2026-10-19"
+    },
+    {
+      "src": "/api/premium/chart/cibr-2026-10-19",
+      "width": 2682,
+      "height": 1752,
+      "source": "TradingView",
+      "placement": "origin",
+      "caption": "CIBR is testing its 50-day moving-average area. The snapshot close of $99.92 is slightly below the displayed $100.15 average; I am watching whether this area holds or weakness continues.",
+      "alt": "CIBR cybersecurity ETF testing its 50-day moving average",
+      "asOf": "2026-10-19"
+    }
+  ],
+  "notification": {
+    "subject": "New Opportunity Watch: Zscaler (ZS)",
+    "preview": "I'm watching another Zscaler setup with approximately 2.7:1 reward-to-risk.",
+    "summary": "I've added Zscaler back to my Opportunity Board as a new potential swing trade.\n\nAfter closing my previous ZS position for approximately $200 in profit, I'm seeing another attractive technical setup developing.\n\nZscaler has broken above its previous consolidation range, its 50-day moving average is above the 200-day, and cybersecurity continues showing strength.\n\nMy preliminary levels:\n\nPotential Entry: $212.50\nStop: $203.50\nTarget: $237\nReward-to-Risk: 2.72:1\n\nI haven't entered this trade yet.\n\nI'll be watching the market open on October 20 before deciding whether to establish a position.\n\nI've added the chart, technical analysis, and complete reasoning to the Opportunity Board.",
+    "cta": "VIEW ZSCALER OPPORTUNITY"
+  }
+});

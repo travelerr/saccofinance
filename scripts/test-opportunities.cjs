@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,10);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,11);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,10);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,10);
+ assert.equal(d.getPublishedOpportunities().length,11);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,11);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,21);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,23);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
@@ -180,7 +180,7 @@ test('October 7 ZS update preserves open position and prepares conditional 210-s
 });
 
 test('ZS verified close preserves all snapshots, realizes 200 dollars and prepares one final email',()=>{
- const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');assert.equal(d.opportunities.filter(o=>o.ticker==='ZS').length,1);assert.equal(o.tradeStatus,'Closed');
+ const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('zscaler-001');assert.equal(d.opportunities.filter(o=>o.ticker==='ZS').length,2);assert.equal(o.tradeStatus,'Closed');
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
@@ -230,4 +230,13 @@ test('CNC is a watching setup with original dated charts and no execution',()=>{
  assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
  assert.equal(d.getPublishedOpportunities()[0].id,o.id);assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
  const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,1);assert.equal(e[0].path,'/premium/opportunities/centene-010');assert.match(e[0].summary,/NOT purchased CNC/);assert.doesNotMatch(e[0].summary,/\[Use the actual/);
+});
+
+test('second ZS watch is separate from the profitable closed trade',()=>{
+ const d=require('../lib/premium-opportunities.ts');
+ const o=d.getPublishedOpportunity('zscaler-011'),old=d.getPublishedOpportunity('zscaler-001');
+ assert.equal(o.id,'opportunity-011');assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(old.tradeStatus,'Closed');assert.equal(old.trade.entryPrice,190.07);assert.equal(old.trade.exitPrice,210.07);assert.equal(old.trade.quantity,10);assert.equal(d.getOpportunityUpdates(old.id).length,5);
+ assert.equal(o.charts.length,2);assert.ok(o.articleSections.some(s=>s.title==="Why I'm Watching the Cybersecurity Sector"));assert.match(o.nextCatalyst,/estimated/);assert.equal(((237-212.5)/(212.5-203.5)).toFixed(2),'2.72');assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));
+ const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);assert.equal(events[0].path,'/premium/opportunities/zscaler-011');assert.match(events[0].summary,/haven't entered/);
 });
