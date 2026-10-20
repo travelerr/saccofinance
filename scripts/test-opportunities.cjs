@@ -142,17 +142,17 @@ test('MSTR technical update preserves execution and remains outside material ema
 test('EPAM is a single Premium-originated starter with one new-position notification',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('epam-007');
  assert.equal(d.opportunities.filter(o=>o.ticker==='EPAM').length,1);assert.equal(o.positionOrigin,'Sacco Premium');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 1 / Early transition');
- assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice,o.trade.secondTargetPrice],['2026-10-01',15,116,100,145,220]);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(d.getOpportunityUpdates(o.id).length,1);assert.deepEqual(d.getOpportunityUpdates(o.id)[0].trade,o.trade);
+ assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice,o.trade.secondTargetPrice],['2026-10-01',15,116,120,145,220]);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(d.getOpportunityUpdates(o.id).length,2);assert.equal(d.getOpportunityUpdates(o.id)[0].trade.stopPrice,100);assert.deepEqual(d.getOpportunityUpdates(o.id)[1].trade,o.trade);
  const {researchEvents}=require('../lib/email/events.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);
- assert.equal(events.length,1);assert.equal(events[0].type,'OPPORTUNITY_PUBLISHED');assert.equal(events[0].path,'/premium/opportunities/epam-007');assert.match(events[0].summary,/15 shares at \$116/);
+ assert.equal(events.length,2);assert.equal(events[0].type,'OPPORTUNITY_MATERIAL_UPDATE');assert.equal(events[0].path,'/premium/opportunities/epam-007');assert.match(events[0].summary,/15 shares at my original \$116/);
  assert.match(o.researchSections.find(s=>s.title.startsWith('Selective')).body,/does not establish broad institutional accumulation/);
  assert.match(o.researchSections.find(s=>s.title.startsWith('Next Fundamental')).body,/date pending company confirmation/);
  assert.equal(o.researchSections.find(s=>s.table).table.rows.length,4);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/epam-2026-10-01.png')));
 });
 test('EPAM scenarios derive from execution levels and never report realized profit',()=>{
- const {tradeScenarios}=require('../lib/trade-scenarios.ts');const d=require('../lib/premium-opportunities.ts');const t=d.getPublishedOpportunity('epam-007').trade;const s=tradeScenarios(t);
+ const {tradeScenarios}=require('../lib/trade-scenarios.ts');const d=require('../lib/premium-opportunities.ts');const current=d.getPublishedOpportunity('epam-007').trade;assert.equal(tradeScenarios(current),null);assert.equal((current.stopPrice-current.entryPrice)*current.quantity,60);const t=d.getOpportunityUpdates('opportunity-007')[0].trade;const s=tradeScenarios(t);
  assert.equal(s.capital,1740);assert.equal(s.riskTotal,240);assert.equal(s.riskPerShare,16);assert.equal(s.riskPct.toFixed(1),'13.8');
  assert.deepEqual(s.targets.map(t=>[t.gainPerShare,t.gainTotal,t.gainPct.toFixed(1),t.rewardRisk.toFixed(2)]),[[29,435,'25.0','1.81'],[104,1560,'89.7','6.50']]);
  assert.equal(tradeScenarios({...t,entryPrice:120}).capital,1800);assert.equal(tradeScenarios({...t,stopPrice:120}),null);assert.equal(tradeScenarios(undefined),null);
@@ -205,10 +205,10 @@ test('SMCI buyback closes the short put with a 241 dollar loss and no new notifi
  const events=require('../lib/email/events.ts').researchEvents([],d.opportunities,d.opportunityUpdates);assert.equal(events.filter(e=>e.entityId===o.id).length,1);assert.equal(d.getOpportunityUpdates(o.id).length,0);const event=events.find(e=>e.entityId===o.id);assert.equal(event.subject,'New Sacco Premium Opportunity: SMCI $35 Put');assert.equal(event.path,'/premium/opportunities/smci-008');
 });
 
-test('WK is watching with preliminary levels and no executed position or profit',()=>{
+test('WK confirmed accumulation preserves unknown dates and suppresses its update email',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('workiva-009');
  assert.ok(o);assert.equal(d.opportunities.filter(x=>x.ticker==='WK').length,1);
- assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,75.78);assert.equal(o.trade.enteredAt,undefined);assert.equal(o.trade.documentedAt,'2026-10-20');assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.firstTargetPrice,undefined);assert.equal(d.getOpportunityUpdates(o.id)[0].suppressNotification,true);assert.ok(!require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).some(e=>e.updateId==='opportunity-009-holding-2026-10-20'));assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
  assert.deepEqual(o.proposedLevels.slice(2,5).map(x=>x.value),['$72–$73','$64.93','$88.97']);
  assert.ok(o.articleSections.every(s=>! /\b(we|our|us)\b/i.test(s.body)));
  assert.equal(o.notification.subject,'New Opportunity Watch: Workiva (WK)');assert.match(o.notification.summary,/I have NOT entered this trade/);
@@ -228,17 +228,17 @@ test('CNC is a watching setup with original dated charts and no execution',()=>{
  assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,7);assert.ok(o.articleSections[1].body.includes('50-day ABOVE the 200-day'));
  assert.equal((75-64)/(64-60),2.75);assert.equal(((75-64)/64*100).toFixed(2),'17.19');
  assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
- assert.equal(d.getPublishedOpportunities()[0].id,o.id);assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
+ assert.ok(d.getPublishedOpportunities().some(item=>item.id===o.id));assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
  const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,1);assert.equal(e[0].path,'/premium/opportunities/centene-010');assert.match(e[0].summary,/NOT purchased CNC/);assert.doesNotMatch(e[0].summary,/\[Use the actual/);
 });
 
-test('second ZS watch is separate from the profitable closed trade',()=>{
+test('second ZS entry is separate from the profitable closed trade',()=>{
  const d=require('../lib/premium-opportunities.ts');
  const o=d.getPublishedOpportunity('zscaler-011'),old=d.getPublishedOpportunity('zscaler-001');
- assert.equal(o.id,'opportunity-011');assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.id,'opportunity-011');assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,207.89);assert.equal(o.trade.stopPrice,203);assert.equal(o.trade.firstTargetPrice,237);assert.equal(d.getOpportunityUpdates(o.id).length,1);assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),'5.95:1');assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
  assert.equal(old.tradeStatus,'Closed');assert.equal(old.trade.entryPrice,190.07);assert.equal(old.trade.exitPrice,210.07);assert.equal(old.trade.quantity,10);assert.equal(d.getOpportunityUpdates(old.id).length,5);
- assert.equal(o.charts.length,2);assert.ok(o.articleSections.some(s=>s.title==="Why I'm Watching the Cybersecurity Sector"));assert.match(o.nextCatalyst,/estimated/);assert.equal(((237-212.5)/(212.5-203.5)).toFixed(2),'2.72');assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));
- const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);assert.equal(events[0].path,'/premium/opportunities/zscaler-011');assert.match(events[0].summary,/haven't entered/);
+ assert.equal(o.charts.length,2);assert.ok(o.articleSections.some(s=>s.title.endsWith("Why I'm Watching the Cybersecurity Sector")));assert.match(o.nextCatalyst,/estimated/);assert.equal(((237-212.5)/(212.5-203.5)).toFixed(2),'2.72');assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));
+ const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,2);assert.ok(events.some(e=>e.path==='/premium/opportunities/zscaler-011'&&/haven't entered/.test(e.summary)));assert.ok(events.some(e=>/207.89/.test(e.summary)));
 });
 
 test('decision presentation separates proposed levels from executed trades and unknown P&L',()=>{

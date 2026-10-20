@@ -84,7 +84,7 @@ test('Issue 003 references canonical positions and keeps NOW closed and research
  const o=data.weeklyOutlooks.find(o=>o.id==='weekly-outlook-003');const records=data.getWeeklyOutlookOpportunities(o);assert.deepEqual(records.map(r=>r.ticker),['ZS','EPAM','MSTR','RKLB','IONQ','NOW']);
  for(const record of records)assert.equal(record,data.opportunities.find(r=>r.id===record.id));
  assert.equal(o.separateClosedPositions,true);assert.equal(records.at(-1).tradeStatus,'Closed');assert.equal(model.realizedTradeResult(records.at(-1)).realizedDollarPnL,530.55);
- assert.deepEqual([records[1].trade.entryPrice,records[1].trade.quantity,records[1].trade.stopPrice,records[1].trade.firstTargetPrice,records[1].trade.secondTargetPrice],[116,15,100,145,220]);
+ assert.deepEqual([records[1].trade.entryPrice,records[1].trade.quantity,records[1].trade.stopPrice,records[1].trade.firstTargetPrice,records[1].trade.secondTargetPrice],[116,15,120,145,220]);
  const ionq=records[4];const call=ionq.wheel.fills.find(f=>f.id==='ionq-call-september8');assert.equal(call.expiresAt,'2026-10-09');assert.equal(call.outcome,'Expired worthless');assert.equal(ionq.wheel.currentCallId,undefined);assert.equal((call.strike-ionq.trade.entryPrice)*ionq.trade.quantity,500);
  assert.equal(data.opportunities.length,11);assert.ok(!data.opportunities.some(o=>['MU','SEA'].includes(o.ticker)));
  assert.deepEqual(o.opportunityCommentary.map(c=>c.opportunityId),o.opportunityIds);
@@ -122,5 +122,5 @@ test('Issue 005 publishes through the canonical archive with confirmed promotion
  const e=events[0],email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');
  assert.match(e.subject,/Ends October 19/);assert.match(email.html,/rel="noopener sponsored"/);assert.match(email.text,/Manage Email Preferences/);
  assert.equal(new URL(email.url).pathname,'/premium/issue-005');assert.ok(email.text.indexOf('TRY TRENDSPIDER')<email.text.indexOf("READ THIS WEEK"));
- assert.equal(data.opportunities.find(o=>o.ticker==='WK').tradeStatus,'Watching');assert.equal(data.opportunities.find(o=>o.ticker==='RKLB').trade.quantity,undefined);
+ assert.equal(data.opportunities.find(o=>o.ticker==='WK').tradeStatus,'Active');assert.equal(data.opportunities.find(o=>o.ticker==='RKLB').trade.quantity,undefined);
 });

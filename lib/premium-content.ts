@@ -2,7 +2,7 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
+export type TradeEntry={enteredAt?:string;documentedAt?:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
@@ -22,7 +22,7 @@ export type Opportunity={
  setupThesis:string;nextCondition:string;fundamentalCase:string;
  riskUpdate?:{date:string;previousStop:number;title:string;warning:string};nextCatalyst?:string;
  boardPlacement?:'long-term';
- positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Potential Swing Trade'|'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId?:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
+ positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Swing Trade'|'Potential Swing Trade'|'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId?:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
  confirmation?:string;entryFramework?:string;secondaryEntry?:string;
@@ -55,8 +55,8 @@ export type WeeklyOutlook={
 };
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
 const date=(value:unknown)=>text(value)&&Number.isFinite(Date.parse(value));
-function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&date(trade.enteredAt)&&((typeof trade.entryPrice==='number'&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0)||(trade.entryType==='accumulation'&&trade.entryPrice===undefined))&&text(trade.documentation));}
-function hasExit(trade:(TradeEntry & Partial<TradeExit>)|undefined){return Boolean(hasEntry(trade)&&trade&&date(trade.exitedAt)&&Number.isFinite(trade.exitPrice)&&Number(trade.exitPrice)>0&&Date.parse(trade.exitedAt!)>=Date.parse(trade.enteredAt));}
+function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&(date(trade.enteredAt)||(trade.enteredAt===undefined&&trade.entryType==='accumulation'&&date(trade.documentedAt)))&&((typeof trade.entryPrice==='number'&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0)||(trade.entryType==='accumulation'&&trade.entryPrice===undefined))&&text(trade.documentation));}
+function hasExit(trade:(TradeEntry & Partial<TradeExit>)|undefined){return Boolean(hasEntry(trade)&&trade&&date(trade.exitedAt)&&Number.isFinite(trade.exitPrice)&&Number(trade.exitPrice)>0&&(trade.enteredAt?Date.parse(trade.exitedAt!)>=Date.parse(trade.enteredAt):Date.parse(trade.exitedAt!)>=Date.parse(trade.documentedAt!)));}
 export function isPublishableOpportunity(record:Opportunity):boolean{
  const required=[record.id,record.slug,record.ticker,record.company,record.title,record.sector,record.whySurfaced,record.setupThesis,record.nextCondition,record.fundamentalCase,record.thesisChanges,record.justinsTake];
  return record.publicationState==='published'&&required.every(text)&&(record.technicalStage===null||text(record.technicalStage))&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug)&&date(record.publishedAt)&&date(record.updatedAt)&&Date.parse(record.updatedAt)>=Date.parse(record.publishedAt)&&opportunityStatuses.includes(record.tradeStatus)&&
