@@ -240,3 +240,18 @@ test('second ZS watch is separate from the profitable closed trade',()=>{
  assert.equal(o.charts.length,2);assert.ok(o.articleSections.some(s=>s.title==="Why I'm Watching the Cybersecurity Sector"));assert.match(o.nextCatalyst,/estimated/);assert.equal(((237-212.5)/(212.5-203.5)).toFixed(2),'2.72');assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,1);assert.equal(events[0].path,'/premium/opportunities/zscaler-011');assert.match(events[0].summary,/haven't entered/);
 });
+
+test('decision presentation separates proposed levels from executed trades and unknown P&L',()=>{
+ const p=require('../lib/opportunity-presentation.ts');
+ const watching={...base,id:'opportunity-010'};
+ assert.equal(p.compactLevels(watching)[0].value,'~$64');
+ assert.equal(p.rewardRisk(watching),'2.75:1');
+ assert.equal(watching.trade,undefined);
+ const active={...base,tradeStatus:'Active',trade:{...entry,stopPrice:8,firstTargetPrice:14}};
+ assert.equal(p.compactLevels(active)[0].label,'Actual entry');
+ assert.equal(p.rewardRisk(active),'2.00:1');
+ const closed={...active,tradeStatus:'Closed',trade:{...active.trade,exitedAt:'2026-01-03',exitPrice:9}};
+ assert.deepEqual(p.compactLevels(closed)[2],{label:'Per-share result',value:'$-1'});
+ assert.equal(p.rewardRisk(closed),undefined);
+ assert.equal(p.compactLevels({...closed,trade:{...closed.trade,quantity:10}})[2].value,'$-10');
+});
