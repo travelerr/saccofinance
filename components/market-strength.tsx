@@ -2,6 +2,7 @@
 import {useEffect,useState} from 'react';
 import {formatDate,percent,periodKeys,type StrengthSnapshot} from '@/lib/market-strength';
 import './market-strength.css';
+import {recordMemberEngagement} from '@/lib/analytics/member-engagement-browser';
 export default function MarketStrength({initial}:{initial:StrengthSnapshot|null}){
  const [snapshot,setSnapshot]=useState(initial);
  const [relative,setRelative]=useState(false);
@@ -26,10 +27,10 @@ export default function MarketStrength({initial}:{initial:StrengthSnapshot|null}
    check();return()=>{stopped=true;controller.abort();clearTimeout(timer);};
  },[retry]);
  return <div className="strength-dashboard">
-  <div className="strength-heading"><div><p className="sf-eyebrow">SACCO PREMIUM RESEARCH / SECTOR GAUGE</p><h1>Sector Gauge</h1><p>Where leadership is holding. Where it’s changing.</p></div><span className="strength-private">RESEARCH PREVIEW</span></div>
+  <div className="strength-heading"><div><p className="sf-eyebrow">SACCO PREMIUM RESEARCH / SECTOR GAUGE</p><h1>Sector Gauge</h1><p>Where leadership is holding. Where it’s changing.</p></div></div>
   <div className="strength-meta" aria-live="polite"><strong>{snapshot?`Data through ${formatDate(snapshot.asOf)}`:'Waiting for the first snapshot'}</strong><span>{snapshot?`${snapshot.fundCount} ETFs · Daily closes · SPY benchmark`: 'Free historical data'}</span>{refreshing&&<span>Checking for a newer snapshot…</span>}</div>
   {error&&<div className="strength-warning" role="status">{snapshot?'The latest refresh is unavailable. Showing the last saved snapshot.':'Price history is temporarily unavailable. No rankings are shown until a complete snapshot is available.'}<button onClick={()=>setRetry(v=>v+1)}>Check again</button></div>}
-  <div className="strength-controls"><div className="strength-toggle" role="group" aria-label="Performance measure"><button aria-pressed={!relative} onClick={()=>setRelative(false)}>Total return</button><button aria-pressed={relative} onClick={()=>setRelative(true)}>Versus S&amp;P 500</button></div><div className="strength-toggle" role="group" aria-label="Ranking direction"><button aria-pressed={direction==='leaders'} onClick={()=>setDirection('leaders')}>Leaders</button><button aria-pressed={direction==='laggards'} onClick={()=>setDirection('laggards')}>Laggards</button></div><button className="strength-expand" aria-pressed={all} onClick={()=>setAll(v=>!v)}>{all?'Show seven per panel':'Show all 24'}</button></div>
+  <div className="strength-controls" onClick={event=>{if(event.target instanceof Element&&event.target.closest('button'))recordMemberEngagement('sector_use');}}><div className="strength-toggle" role="group" aria-label="Performance measure"><button aria-pressed={!relative} onClick={()=>setRelative(false)}>Total return</button><button aria-pressed={relative} onClick={()=>setRelative(true)}>Versus S&amp;P 500</button></div><div className="strength-toggle" role="group" aria-label="Ranking direction"><button aria-pressed={direction==='leaders'} onClick={()=>setDirection('leaders')}>Leaders</button><button aria-pressed={direction==='laggards'} onClick={()=>setDirection('laggards')}>Laggards</button></div><button className="strength-expand" aria-pressed={all} onClick={()=>setAll(v=>!v)}>{all?'Show seven per panel':'Show all 24'}</button></div>
   <p className="strength-legend">{relative?'Percentage points ahead of or behind SPY.':'Returns include split and distribution adjustments.'} Rank change compares with {snapshot?formatDate(snapshot.previousAsOf):'the previous week'}. ↑ improved · ↓ slipped.</p>
   {snapshot?<div className="strength-grid">{periodKeys.map(key=>{
    const period=snapshot.periods[key];const rows=direction==='leaders'?period.rows:[...period.rows].reverse();

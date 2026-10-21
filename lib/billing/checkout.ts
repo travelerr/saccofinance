@@ -1,3 +1,4 @@
+import {localDevelopment} from '../local-development';
 import {checkoutAnalytics} from '@/lib/analytics/server';
 import 'server-only';
 import type {User} from '@supabase/supabase-js';
@@ -10,10 +11,16 @@ export async function portalUrl(userId:string,subscriptionId?:string){
  const {data,error}=await admin.from('billing_subscriptions').select('stripe_subscription_id,status').eq('access_owner_id',userId).eq('mode',mode).order('observed_at',{ascending:false});
  if(error)throw new Error('BILLING_DATABASE');
  const row=data?.find(r=>blocksNewSubscription(r.status)&&(!subscriptionId||r.stripe_subscription_id===subscriptionId));if(!row)throw new Error('NO_SUBSCRIPTION');
+ if(localDevelopment()&&row.stripe_subscription_id.startsWith('sub_local_'))throw Error('LOCAL_BILLING_FIXTURE');
  const subscription=await stripe.subscriptions.retrieve(row.stripe_subscription_id);
  const customer=typeof subscription.customer==='string'?subscription.customer:subscription.customer.id;
  if(!owned.includes(customer))throw new Error('BILLING_OWNER');
- const session=await stripe.billingPortal.sessions.create({customer,configuration:process.env.STRIPE_PORTAL_CONFIGURATION_ID,return_url:authOrigin()+'/premium/account?billing=return'});
+ const configuration=process.env.STRIPE_PORTAL_CONFIGURATION_ID;
+ if(!configuration)throw Error('PORTAL_CONFIGURATION_REQUIRED');
+ const portal=await stripe.billingPortal.configurations.retrieve(configuration);
+ // Cancellation belongs to the site's required-reason flow; payment/invoice management remains in Stripe.
+ if(!portal.active||portal.features.subscription_cancel.enabled)throw Error('PORTAL_CANCELLATION_MUST_BE_DISABLED');
+ const session=await stripe.billingPortal.sessions.create({customer,configuration,return_url:authOrigin()+'/premium/account?billing=return'});
  return session.url;
 }
 export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string){

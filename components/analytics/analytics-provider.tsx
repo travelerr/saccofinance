@@ -5,6 +5,7 @@ import {usePathname} from 'next/navigation';
 import {clearAnalytics,hasConsent,pauseTracking,setConsent,startPage,track} from '@/lib/analytics/browser';
 import {engagementReached,safePage} from '@/lib/analytics/policy';
 import './analytics.css';
+import {recordMemberEngagement} from '@/lib/analytics/member-engagement-browser';
 import {affiliateClickParams} from '@/lib/affiliate-tools';
 type Config={mode:'disabled'|'preview'|'live';userId?:string|null};
 export default function AnalyticsProvider(){
@@ -26,6 +27,10 @@ export default function AnalyticsProvider(){
     if(!enabled){clearAnalytics();setShow(false);return;}
     if(!hasConsent()||!safePage(pathname))return;
     startPage(config as Config&{mode:'live'|'preview'},pathname,landing.current!.url,landing.current!.referrer);
+    if(pathname.startsWith('/premium/')&&!pathname.startsWith('/premium/admin'))recordMemberEngagement('visit');
+    if(pathname==='/premium/dashboard')recordMemberEngagement('dashboard');
+    if(/^\/premium\/opportunities\/[^/]+$/.test(pathname))recordMemberEngagement('opportunity');
+    if(pathname==='/premium/market-strength')recordMemberEngagement('sector_view');
     let activeMs=0,maxDepth=0,lastActivity=Date.now(),lastTick=Date.now(),engaged=false;
     const marker=document.querySelector<HTMLElement>('[data-research-id]');
     const contentId=marker?.dataset.researchId;const type=marker?.dataset.researchType;

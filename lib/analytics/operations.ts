@@ -1,4 +1,6 @@
 import 'server-only';
+import {engagementSummary,type EngagementCohort,type EngagementDay} from './engagement-model';
+import {retentionSummary,type RetentionEvent} from './retention-model';
 import {createClient} from '@supabase/supabase-js';
 import {billingSecrets} from '../billing/secrets';
 import {localDevelopment} from '../local-development';
@@ -26,7 +28,7 @@ export async function operationsReporting(){
    }
    throw Error('REPORT_TOO_LARGE');
   }
-  const [members,email]=await Promise.allSettled([
+  const [members,email,retention,engagement]=await Promise.allSettled([
    Promise.all([
     rows<MemberRow>('premium_memberships','user_id,enabled,access_expires_at,access_source','user_id'),
     rows<SubscriptionRow>('billing_subscriptions','stripe_subscription_id,access_owner_id,mode,status,plan,paid_through,current_period_end,cancel_at_period_end,cancel_at,first_failure_at,failed_invoice_id','stripe_subscription_id',['mode',mode]),
@@ -35,8 +37,28 @@ export async function operationsReporting(){
    (async()=>{
     const {data,error}=await db.from('research_notification_log').select('id,subject,recipient_count,mode,status,created_at').eq('mode',local?'dry-run':'live').order('created_at',{ascending:false}).limit(10);
     if(error)throw Error('EMAIL_LOG_UNAVAILABLE');return data as EmailLog[];
+   })(),
+   (async()=>{
+    const report=retentionSummary(await rows<RetentionEvent>('billing_retention_events','id,user_id,subscription_id,action,reason,feedback,subscription_started_at,requested_at,effective_end,status','id',['mode',mode]));
+    const emails=new Map<string,string>();
+    const ids=[...new Set(report.details.map(e=>e.user_id))];
+    for(let i=0;i<ids.length;i+=10)await Promise.all(ids.slice(i,i+10).map(async id=>{const {data,error}=await db.auth.admin.getUserById(id);if(!error&&data.user?.email)emails.set(id,data.user.email);}));
+    return {...report,details:report.details.map(e=>({...e,email:emails.get(e.user_id)||'Email unavailable'}))};
+   })(),
+   (async()=>{
+    const [cohorts,activity,events,config,owners]=await Promise.all([
+     rows<EngagementCohort>('member_onboarding','user_id,subscription_id,started_at,eligible','user_id',['mode',mode]),
+     rows<EngagementDay>('member_engagement_days','user_id,day_index,activity','id',['mode',mode]),
+     rows<RetentionEvent>('billing_retention_events','id,user_id,subscription_id,action,reason,feedback,subscription_started_at,requested_at,effective_end,status','id',['mode',mode]),
+     db.from('member_engagement_config').select('started_at').eq('id',true).single(),
+     rows<{stripe_subscription_id:string;access_owner_id:string|null}>('billing_subscriptions','stripe_subscription_id,access_owner_id','stripe_subscription_id',['mode',mode])
+    ]);
+    if(config.error||!config.data)throw Error('ENGAGEMENT_UNAVAILABLE');
+    const currentOwners=new Map(owners.map(o=>[o.stripe_subscription_id,o.access_owner_id]));
+    // Guest checkout and claimed identity share a clock; count only the actual owner.
+    return engagementSummary(cohorts.filter(c=>currentOwners.get(c.subscription_id)===c.user_id),activity,events,config.data.started_at);
    })()
   ]);
-  return {local,members:members.status==='fulfilled'?members.value:null,email:email.status==='fulfilled'?email.value:null};
- }catch{return {local:process.env.SACCO_LOCAL_DEVELOPMENT==='true',members:null,email:null};}
+  return {local,members:members.status==='fulfilled'?members.value:null,email:email.status==='fulfilled'?email.value:null,retention:retention.status==='fulfilled'?retention.value:null,engagement:engagement.status==='fulfilled'?engagement.value:null};
+ }catch{return {local:process.env.SACCO_LOCAL_DEVELOPMENT==='true',members:null,email:null,retention:null,engagement:null};}
 }

@@ -47,6 +47,7 @@ export default async function Premium(){
  ]:[];
  const joinLabel=enabled?(trial?'Start your 30-day trial':'Join Sacco Premium'):'Member sign in';
  return <main id="main-content" className={`container ${styles.page}`}>
+  <div className={styles.introLayout}>
   <section className={styles.hero}>
    <div className={styles.heroCopy}><Eyebrow>Sacco Financial / Premium</Eyebrow>
     <h1>FIND BETTER STOCK OPPORTUNITIES.<br/><span>BEFORE THE MOVE IS OBVIOUS.</span></h1>
@@ -71,6 +72,8 @@ export default async function Premium(){
    <div className={styles.videoFrame}><iframe src="https://www.youtube-nocookie.com/embed/WDtnaojVatU" title="See How Sacco Premium Works — Introduction by Justin Sacco" width="560" height="315" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></div>
    <div className={styles.videoCta}><Link className="button" href={join} data-premium-video-cta="true">{enabled?(trial?'Start your 30-day trial':'Join Sacco Premium — $10/Month'):'Member sign in'}<ArrowUpRight size={18}/></Link><p>$10/month or $100/year. Cancel anytime.</p></div>
   </section>
+
+  </div>
 
   <section id="process" className={`section ${styles.processSection}`}><SectionHeader label="A deliberate research system" title="Stop looking for stocks at random."/>
    <ol className={styles.process}>{process.map(([label,title,copy],i)=><li key={label}><div className={styles.processNode}><span>0{i+1}</span><strong>{label}</strong>{i<process.length-1&&<ArrowDown size={18} aria-hidden="true"/>}</div><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>

@@ -415,9 +415,9 @@ enabled = true
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
 
 [auth.email.template.magic_link]
-subject = "Save your Premium login (local test)"
+subject = "Welcome to Sacco Premium — save your login (local test)"
 content_path = "./supabase/templates/premium-signin.html"
 
 [auth.email.template.confirmation]
-subject = "Save your Premium login (local test)"
+subject = "Welcome to Sacco Premium — save your login (local test)"
 content_path = "./supabase/templates/premium-signin.html"

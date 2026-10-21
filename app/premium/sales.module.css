@@ -40,3 +40,12 @@
 .story blockquote p{white-space:pre-line;font-size:16px;line-height:1.8}.story blockquote p+p{margin-top:22px}.story blockquote p:last-child{padding-top:22px;border-top:1px solid var(--brand-line);font-weight:600}
 
 .story .positiveResult{color:#78dba2}:global(html[data-theme=light]) .story .positiveResult{color:#176539}
+
+/* On mobile, introduce Premium before the research preview stacks below it. */
+@media(max-width:700px){
+ .introLayout{display:flex;flex-direction:column}
+ .introLayout .hero{display:contents}
+ .introLayout .heroCopy{order:0;padding-top:38px}
+ .introLayout .videoSection{order:1;margin-top:36px}
+ .introLayout .heroResearch{order:2;margin-bottom:50px}
+}

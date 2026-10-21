@@ -1,6 +1,7 @@
 import {Compass,Newspaper,ChartNoAxesCombined} from 'lucide-react';
+import StartHere from '@/components/premium/start-here';
 import ToolsIUse from '@/components/premium/tools-i-use';
-import {OutlookSectorFocus} from '@/components/premium/weekly-outlook';
+import SectorGaugePreview from '@/components/premium/sector-gauge-preview';
 import '@/components/premium/auth.css';
 import Link from 'next/link';
 import PremiumResearchHeader,{researchNumber,premiumDate} from '@/components/premium/research-header';
@@ -24,6 +25,7 @@ export default async function Dashboard(){
  return <main id="main-content" className="container premium-dashboard">
  {user.is_anonymous&&<section className="section"><Eyebrow>Your membership is ready</Eyebrow><h3>Save your login.</h3><p>You have access in this browser. Use your welcome email to save your login and set a password for future visits.</p><Link className="text-link" href="/premium/account/setup">Set up my login</Link></section>}
  <PremiumResearchHeader kind="Dashboard" title="Your research dashboard" summary="The latest perspective, the market backdrop, and the opportunities worth following. All in one place."/>
+ <StartHere userId={user.id}/>
  <nav className="workspace-overview" aria-label="Research overview">
   <Link href="/premium/weekly-outlook"><Newspaper size={24}/><div><span>Weekly Outlook</span><strong>{outlook?`Issue ${researchNumber(outlook.id)?.replace('#','')}`:'Coming soon'}</strong><small>{outlook?`Week of ${premiumDate(outlook.weekOf)}`:'Market context and the week ahead'}</small></div></Link>
   <Link href="/premium/opportunities"><Compass size={24}/><div><span>Current opportunities</span><strong>{current.length} research files</strong><small>Active positions and setups to watch</small></div></Link>
@@ -31,7 +33,7 @@ export default async function Dashboard(){
  </nav>
  <div className="workspace-feature-grid">
  <section className="workspace-panel"><Eyebrow>Latest Weekly Outlook</Eyebrow>{outlook?<><h2>{outlook.title}</h2><p>{outlook.summary}</p><p className="support-note">Published {premiumDate(outlook.publishedAt)}</p><div className="outlook-posture"><Eyebrow>Market posture</Eyebrow><p>{outlook.marketPosture}</p>{outlook.secondaryPosture&&<p className="support-note">{outlook.secondaryPosture}</p>}</div><Link className="button" style={{marginTop:24}} href="/premium/weekly-outlook">Read Weekly Outlook</Link></>:<p>No published Weekly Outlook yet.</p>}</section>
- <section className="workspace-panel workspace-panel-secondary"><Eyebrow>The market backdrop</Eyebrow><h2>Follow the leadership.</h2><p>Compare sector strength before exploring an individual setup.</p>{outlook&&<OutlookSectorFocus outlook={outlook}/>}<p className="workspace-gauge-note">Compare total return or strength versus SPY across six timeframes. Leadership is an input to research, not an automatic opportunity.</p><Link className="text-link" href="/premium/market-strength">Explore Sector Gauge</Link></section>
+ <section className="workspace-panel workspace-panel-secondary"><Eyebrow>The market backdrop</Eyebrow><h2>Follow the leadership.</h2><p>Compare sector strength before exploring an individual setup.</p><SectorGaugePreview initial={snapshot}/><p className="workspace-gauge-note">Total returns include distributions. Δ rank compares with the previous week.</p><Link className="text-link" href="/premium/market-strength">Explore Sector Gauge</Link></section>
  </div>
  <section className="section"><SectionHeader label="Your research board" title="Active positions" href="/premium/opportunities" linkText="View all opportunities"/>{current.length?<div className="editorial-grid">{current.filter(o=>o.tradeStatus==='Active').map(o=><OpportunityCard key={o.id} opportunity={o}/>)}</div>:<OpportunityEmptyState/>}</section><section className="section"><SectionHeader label="Developing research" title="Setups to watch"/><div className="editorial-grid">{current.filter(o=>o.tradeStatus!=='Active').map(o=><OpportunityCard key={o.id} opportunity={o}/>)}</div></section><ToolsIUse/>
  </main>;

@@ -8,7 +8,7 @@ export default function ResearchPreferenceForm({initialEnabled}:{initialEnabled:
  const [edited,setEdited]=useState(false);
  return <form className="research-preference-form" action={action} onSubmit={()=>setEdited(false)}>
   <label><input key={state.message} type="checkbox" name="enabled" checked={enabled} disabled={pending} onChange={event=>{setEnabled(event.target.checked);setEdited(true);}}/> Receive Premium research notifications</label>
-  <p>Off unless you choose to enable it. You can turn this off at any time. Account, security, and billing emails are unaffected.</p>
+  <p>New memberships receive these emails by default. You can turn this off at any time. Account, security, and billing emails are unaffected.</p>
   <button type="submit" className="button" disabled={pending}>{pending?'Saving…':'Save email preference'}</button>
   {!pending&&!edited&&state.message&&<p role={state.status==='error'?'alert':'status'}>{state.message}</p>}
  </form>;
