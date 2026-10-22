@@ -235,10 +235,10 @@ test('CNC is a watching setup with original dated charts and no execution',()=>{
 test('second ZS entry is separate from the profitable closed trade',()=>{
  const d=require('../lib/premium-opportunities.ts');
  const o=d.getPublishedOpportunity('zscaler-011'),old=d.getPublishedOpportunity('zscaler-001');
- assert.equal(o.id,'opportunity-011');assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,207.89);assert.equal(o.trade.stopPrice,203);assert.equal(o.trade.firstTargetPrice,237);assert.equal(d.getOpportunityUpdates(o.id).length,1);assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),'5.95:1');assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.id,'opportunity-011');assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,207.89);assert.equal(o.trade.stopPrice,220);assert.equal(o.trade.firstTargetPrice,237);assert.equal(d.getOpportunityUpdates(o.id).length,2);assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
  assert.equal(old.tradeStatus,'Closed');assert.equal(old.trade.entryPrice,190.07);assert.equal(old.trade.exitPrice,210.07);assert.equal(old.trade.quantity,10);assert.equal(d.getOpportunityUpdates(old.id).length,5);
  assert.equal(o.charts.length,2);assert.ok(o.articleSections.some(s=>s.title.endsWith("Why I'm Watching the Cybersecurity Sector")));assert.match(o.nextCatalyst,/estimated/);assert.equal(((237-212.5)/(212.5-203.5)).toFixed(2),'2.72');assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));
- const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,2);assert.ok(events.some(e=>e.path==='/premium/opportunities/zscaler-011'&&/haven't entered/.test(e.summary)));assert.ok(events.some(e=>/207.89/.test(e.summary)));
+ const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(events.length,3);assert.ok(events.some(e=>e.path==='/premium/opportunities/zscaler-011'&&/haven't entered/.test(e.summary)));assert.ok(events.some(e=>/207.89/.test(e.summary)));
 });
 
 test('decision presentation separates proposed levels from executed trades and unknown P&L',()=>{
