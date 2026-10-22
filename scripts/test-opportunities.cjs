@@ -142,17 +142,17 @@ test('MSTR technical update preserves execution and remains outside material ema
 test('EPAM is a single Premium-originated starter with one new-position notification',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('epam-007');
  assert.equal(d.opportunities.filter(o=>o.ticker==='EPAM').length,1);assert.equal(o.positionOrigin,'Sacco Premium');assert.equal(o.tradeStatus,'Active');assert.equal(o.technicalStage,'Stage 1 / Early transition');
- assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice,o.trade.secondTargetPrice],['2026-10-01',15,116,120,145,220]);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(d.getOpportunityUpdates(o.id).length,2);assert.equal(d.getOpportunityUpdates(o.id)[0].trade.stopPrice,100);assert.deepEqual(d.getOpportunityUpdates(o.id)[1].trade,o.trade);
+ assert.deepEqual([o.trade.enteredAt,o.trade.quantity,o.trade.entryPrice,o.trade.stopPrice,o.trade.firstTargetPrice,o.trade.secondTargetPrice],['2026-10-01',15,116,127,145,220]);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(d.getOpportunityUpdates(o.id).length,3);assert.equal(d.getOpportunityUpdates(o.id)[0].trade.stopPrice,100);assert.equal(d.getOpportunityUpdates(o.id)[1].trade.stopPrice,120);assert.deepEqual(d.getOpportunityUpdates(o.id)[2].trade,o.trade);
  const {researchEvents}=require('../lib/email/events.ts');const events=researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);
- assert.equal(events.length,2);assert.equal(events[0].type,'OPPORTUNITY_MATERIAL_UPDATE');assert.equal(events[0].path,'/premium/opportunities/epam-007');assert.match(events[0].summary,/15 shares at my original \$116/);
+ assert.equal(events.length,3);assert.equal(events[0].type,'OPPORTUNITY_MATERIAL_UPDATE');assert.equal(events[0].path,'/premium/opportunities/epam-007');assert.match(events[0].summary,/15 shares at my original \$116/);
  assert.match(o.researchSections.find(s=>s.title.startsWith('Selective')).body,/does not establish broad institutional accumulation/);
  assert.match(o.researchSections.find(s=>s.title.startsWith('Next Fundamental')).body,/date pending company confirmation/);
  assert.equal(o.researchSections.find(s=>s.table).table.rows.length,4);
  assert.ok(fs.existsSync(require('node:path').join(__dirname,'../data/premium-assets/epam-2026-10-01.png')));
 });
 test('EPAM scenarios derive from execution levels and never report realized profit',()=>{
- const {tradeScenarios}=require('../lib/trade-scenarios.ts');const d=require('../lib/premium-opportunities.ts');const current=d.getPublishedOpportunity('epam-007').trade;assert.equal(tradeScenarios(current),null);assert.equal((current.stopPrice-current.entryPrice)*current.quantity,60);const t=d.getOpportunityUpdates('opportunity-007')[0].trade;const s=tradeScenarios(t);
+ const {tradeScenarios}=require('../lib/trade-scenarios.ts');const d=require('../lib/premium-opportunities.ts');const current=d.getPublishedOpportunity('epam-007').trade;assert.equal(tradeScenarios(current),null);assert.equal((current.stopPrice-current.entryPrice)*current.quantity,165);const t=d.getOpportunityUpdates('opportunity-007')[0].trade;const s=tradeScenarios(t);
  assert.equal(s.capital,1740);assert.equal(s.riskTotal,240);assert.equal(s.riskPerShare,16);assert.equal(s.riskPct.toFixed(1),'13.8');
  assert.deepEqual(s.targets.map(t=>[t.gainPerShare,t.gainTotal,t.gainPct.toFixed(1),t.rewardRisk.toFixed(2)]),[[29,435,'25.0','1.81'],[104,1560,'89.7','6.50']]);
  assert.equal(tradeScenarios({...t,entryPrice:120}).capital,1800);assert.equal(tradeScenarios({...t,stopPrice:120}),null);assert.equal(tradeScenarios(undefined),null);
