@@ -4,13 +4,14 @@ import {createHash} from 'node:crypto';
 import {requireResearchAdmin} from './admin';
 import {emailDatabase} from './database';
 import {researchEvents} from './events';
+import {learningLibraryAnnouncement} from './learning-announcement';
 import {weeklyOutlooks,opportunities,opportunityUpdates} from '../premium-opportunities';
 import {renderResearchEmail} from './templates';
 import {resolveResearchRecipientRecords} from './recipient-resolution';
 import {emailSecrets} from './secrets';
 import {researchSendMode} from './policy';
 import {unsubscribePlaceholder,validateEmailSnapshot,type EmailSnapshot} from './snapshot';
-export const availableResearchEvents=()=>researchEvents(weeklyOutlooks,opportunities,opportunityUpdates);
+export const availableResearchEvents=()=>[learningLibraryAnnouncement,...researchEvents(weeklyOutlooks,opportunities,opportunityUpdates)].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.key.localeCompare(b.key));
 export function notificationTemplate(key:string){
  const event=availableResearchEvents().find(e=>e.key===key);if(!event)throw new Error('PUBLISHED_EVENT_REQUIRED');
  return {event,email:renderResearchEmail(event,process.env.AUTH_SITE_URL||'http://localhost:3082')};

@@ -36,3 +36,28 @@ test('approved affiliate snapshot accepts only the exact referral URL and retain
  for(const bad of ['https://trendspider.com','https://trendspider.com?_go=another','https://trendspider.com?_go=justin-4f7fc2&redirect=evil'])assert.throws(()=>validateEmailSnapshot({...s,html:s.html.replace(exact,bad)},origin),/INVALID_EMAIL_SNAPSHOT/);
  assert.ok(personalizeEmailSnapshot(s,origin,origin+'/email/unsubscribe?token='+'a'.repeat(64)).html.includes(exact));
 });
+
+test('Learning Library announcement uses the current worker snapshot contract and existing opt-out links',()=>{
+ const announcement=require('../lib/email/learning-announcement.ts').learningLibraryAnnouncement;
+ assert.equal(announcement.key,'LEARNING_LIBRARY_ANNOUNCEMENT:learning-library-launch');
+ assert.equal(announcement.updateId,null);
+ const s={version:1,...renderResearchEmail(announcement,origin,unsubscribePlaceholder(origin))};
+ validateEmailSnapshot(s,origin);
+ const personalized=personalizeEmailSnapshot(s,origin,origin+'/email/unsubscribe?token='+'c'.repeat(64));
+ assert.equal(new URL(s.url).pathname,'/premium/learn');
+ for(const text of ['Lesson 1','Lesson 2','More videos are coming','Manage Email Preferences','Unsubscribe'])assert.ok(personalized.text.includes(text));
+ assert.ok(!personalized.html.includes(unsubscribePlaceholder(origin)));
+});
+
+test('announcement migration is repeatable, preserves records, and keeps event validation',async()=>{
+ const {PGlite}=require('@electric-sql/pglite');const db=new PGlite();
+ try{
+ await db.exec("create table research_notification_log(notification_type text not null check(notification_type in ('WEEKLY_OUTLOOK_PUBLISHED','OPPORTUNITY_PUBLISHED','OPPORTUNITY_MATERIAL_UPDATE')),update_id text,check ((notification_type='OPPORTUNITY_MATERIAL_UPDATE')=(update_id is not null)));insert into research_notification_log values('WEEKLY_OUTLOOK_PUBLISHED',null)");
+ const sql=fs.readFileSync('supabase/migrations/20261022000100_learning_library_announcement.sql','utf8');
+ await db.exec(sql);await db.exec(sql);
+ await db.exec("insert into research_notification_log values('LEARNING_LIBRARY_ANNOUNCEMENT',null)");
+ assert.equal((await db.query('select * from research_notification_log')).rows.length,2);
+ await assert.rejects(db.exec("insert into research_notification_log values('UNKNOWN',null)"));
+ await assert.rejects(db.exec("insert into research_notification_log values('OPPORTUNITY_MATERIAL_UPDATE',null)"));
+ }finally{await db.close();}
+});

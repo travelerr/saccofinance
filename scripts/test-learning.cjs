@@ -5,8 +5,9 @@ require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f
 const {lessons,chapterSeconds}=require('../lib/learning/catalog.ts');
 const {renderOnboardingEmail}=require('../lib/email/onboarding-template.ts');
 test('lesson chapters and welcome introduction preserve existing email actions',()=>{
- assert.equal(lessons.length,1);assert.equal(lessons[0].videoId,'0mrQeujmpMw');
+ assert.deepEqual(lessons.map(l=>l.id),['lesson-1','lesson-2']);assert.equal(lessons[0].videoId,'0mrQeujmpMw');
  const times=lessons[0].chapters.map(([t])=>chapterSeconds(t));assert.equal(times[0],0);assert.equal(times.at(-1),1430);assert.deepEqual(times,[...times].sort((a,b)=>a-b));
+ assert.equal(lessons[1].videoId,'h4E7riAuERs');assert.deepEqual(lessons[1].chapters.map(([t])=>chapterSeconds(t)),[0,120,280,400,595,680,875,1005,1100,1240,1350,1480,1600,1680,1800,1935]);
  const welcome=renderOnboardingEmail(0,'https://saccofinancial.com');
  assert.match(welcome.html,/href="https:\/\/saccofinancial.com\/premium\/learn\/lesson-1"/);
  assert.ok(welcome.html.indexOf('set a password')<welcome.html.indexOf('START HERE'));
@@ -20,6 +21,7 @@ test('completion is idempotent and isolated per account; anonymous users cannot 
  await db.exec("set role authenticated;set request.jwt.claim.sub='11111111-1111-4111-8111-111111111111'");
  const insert="insert into premium_lesson_completions(user_id,lesson_id) values('11111111-1111-4111-8111-111111111111','lesson-1') on conflict (user_id,lesson_id) do nothing";
  await db.exec(insert);const before=(await db.query('select * from premium_lesson_completions')).rows;await db.exec(insert);assert.deepEqual((await db.query('select * from premium_lesson_completions')).rows,before);assert.equal(before.length,1);
+ await db.exec(insert.replaceAll('lesson-1','lesson-2'));await db.exec(insert.replaceAll('lesson-1','lesson-2'));assert.equal((await db.query('select * from premium_lesson_completions')).rows.length,2);assert.deepEqual((await db.query("select * from premium_lesson_completions where lesson_id='lesson-1'")).rows,before);
  await assert.rejects(db.exec("insert into premium_lesson_completions(user_id,lesson_id) values('22222222-2222-4222-8222-222222222222','lesson-1')"));
  await db.exec("set request.jwt.claim.sub='22222222-2222-4222-8222-222222222222'");assert.equal((await db.query('select * from premium_lesson_completions')).rows.length,0);
  await assert.rejects(db.exec('delete from premium_lesson_completions'));await db.exec('set role anon');await assert.rejects(db.exec('select * from premium_lesson_completions'));await assert.rejects(db.exec(insert));await db.close();

@@ -1,6 +1,6 @@
 import type {WeeklyOutlook,Opportunity,OpportunityUpdate} from '../premium-content';
 import {weeklyOutlookHref,getPublishedOpportunities,getOpportunityUpdates} from '../premium-content';
-export const notificationTypes=['WEEKLY_OUTLOOK_PUBLISHED','OPPORTUNITY_PUBLISHED','OPPORTUNITY_MATERIAL_UPDATE'] as const;
+export const notificationTypes=['WEEKLY_OUTLOOK_PUBLISHED','OPPORTUNITY_PUBLISHED','OPPORTUNITY_MATERIAL_UPDATE','LEARNING_LIBRARY_ANNOUNCEMENT'] as const;
 export type ResearchEvent={promotion?:import('../premium-content').OutlookPromotion;disclosure?:string;mailingAddress?:string;preview?:string;publishedAt:string;key:string;type:typeof notificationTypes[number];entityId:string;updateId:string|null;subject:string;headline:string;summary:string;label:string;cta:string;path:string;details:string[]};
 export function researchEvents(outlooks:WeeklyOutlook[],opportunities:Opportunity[],updates:OpportunityUpdate[]):ResearchEvent[]{
  const events:ResearchEvent[]=outlooks.filter(o=>o.publicationState==='published').map(o=>({promotion:o.promotion,disclosure:o.disclosure,mailingAddress:o.mailingAddress,publishedAt:o.publishedAt,key:'WEEKLY_OUTLOOK_PUBLISHED:'+o.id,type:'WEEKLY_OUTLOOK_PUBLISHED',entityId:o.id,updateId:null,preview:o.notification?.preview,subject:o.notification?.subject||'New Weekly Outlook: '+o.title,headline:o.title,summary:o.notificationSummary||o.summary||'',label:'NEW WEEKLY OUTLOOK',cta:o.notification?.cta||'READ THE WEEKLY OUTLOOK',path:weeklyOutlookHref(o),details:[]}));

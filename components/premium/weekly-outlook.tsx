@@ -1,3 +1,4 @@
+import StartHereVisit from '@/components/premium/start-here-visit';
 import {Fragment} from 'react';
 import OutlookPosition from './outlook-position';
 import TradeResult from './trade-result';
@@ -59,6 +60,7 @@ export default function WeeklyOutlookResearch({outlook}:{outlook:WeeklyOutlook})
  const scenario=outlook.bitcoinScenario;
  const scenarioNet=scenario?scenario.netBitcoinValuePerShare*(scenario.bitcoinScenario/scenario.bitcoinReference):0;
  return <>
+ <StartHereVisit step="outlook"/>
  <span hidden data-research-id={outlook.id} data-research-type="weekly_outlook"/>
  <PremiumResearchHeader kind="Weekly Outlook" identifier={`Issue ${researchNumber(outlook.id)}`} title={outlook.title} metadata={[{label:'Week',value:`${premiumDate(outlook.weekOf)}${outlook.weekEnd?` – ${premiumDate(outlook.weekEnd)}`:''}`},{label:'Published',value:premiumDate(outlook.publishedAt)}]}/>
  {outlook.marketPosture&&<div className="outlook-posture"><Eyebrow>Market posture</Eyebrow><p>{outlook.marketPosture}</p>{outlook.secondaryPosture&&<p className="support-note">{outlook.secondaryPosture}</p>}</div>}

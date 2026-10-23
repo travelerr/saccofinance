@@ -1,3 +1,4 @@
+import StartHereVisit from '@/components/premium/start-here-visit';
 import {requirePremium} from '@/lib/premium-access';
 import type { Metadata } from 'next';
 import {readFile} from 'node:fs/promises';
@@ -12,5 +13,5 @@ export default async function Page(){
  await requirePremium();
  let initial:StrengthSnapshot|null=null;
  try{initial=JSON.parse(await readFile(path.join(process.cwd(),'data/market-strength/latest.json'),'utf8'));}catch{}
- return <main id="main-content" className="container"><section className={`sf-site ${styles.content}`}><MarketStrength initial={initial}/></section></main>;
+ return <main id="main-content" className="container"><StartHereVisit step="sector-gauge"/><section className={`sf-site ${styles.content}`}><MarketStrength initial={initial}/></section></main>;
 }

@@ -26,7 +26,7 @@
     "test:email-lambda": "node --test scripts/test-email-lambda.cjs",
     "test:retention": "node --test scripts/test-billing-retention.cjs scripts/test-retention-flows.cjs scripts/test-onboarding.cjs",
     "test:retention:sandbox": "node scripts/test-retention-sandbox.cjs --run",
-    "test:learning": "node --test scripts/test-learning.cjs"
+    "test:learning": "node --test scripts/test-learning.cjs scripts/test-start-here.cjs"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1134.0",

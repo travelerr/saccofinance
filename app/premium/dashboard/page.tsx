@@ -1,3 +1,4 @@
+import {startHereProgress} from '@/lib/onboarding/progress';
 import {learningProgress} from '@/lib/learning/progress';
 import '../learn/learn.css';
 import {Compass,Newspaper,ChartNoAxesCombined} from 'lucide-react';
@@ -21,6 +22,7 @@ export const dynamic='force-dynamic';
 export default async function Dashboard(){
  const user=await requirePremium();
  const progress=await learningProgress(user.id);
+ const completedSteps=await startHereProgress(user.id);
  const lessonComplete=progress.completed.includes('lesson-1');
  const outlook=getLatestWeeklyOutlook();
  const current=getPublishedOpportunities().filter(isCurrentOpportunity);
@@ -29,7 +31,7 @@ export default async function Dashboard(){
  return <main id="main-content" className="container premium-dashboard">
  {user.is_anonymous&&<section className="section"><Eyebrow>Your membership is ready</Eyebrow><h3>Save your login.</h3><p>You have access in this browser. Use your welcome email to save your login and set a password for future visits.</p><Link className="text-link" href="/premium/account/setup">Set up my login</Link></section>}
  <PremiumResearchHeader kind="Dashboard" title="Your research dashboard" summary="The latest perspective, the market backdrop, and the opportunities worth following. All in one place."/>
- <StartHere userId={user.id} lessonComplete={lessonComplete}/>
+ <StartHere userId={user.id} lessonComplete={lessonComplete} completedSteps={completedSteps}/>
  <section className="learn-discovery"><p className="eyebrow">NEW — SACCO PREMIUM LEARNING LIBRARY</p><h2>Lesson 1 is now available.</h2><p>Watch my complete process for finding stock opportunities, from identifying strong sectors to evaluating technical setups and company fundamentals.</p>{lessonComplete&&<p>✓ Lesson 1 completed</p>}<Link className="text-link" href="/premium/learn/lesson-1">Watch Lesson 1 →</Link></section>
  <nav className="workspace-overview" aria-label="Research overview">
   <Link href="/premium/weekly-outlook"><Newspaper size={24}/><div><span>Weekly Outlook</span><strong>{outlook?`Issue ${researchNumber(outlook.id)?.replace('#','')}`:'Coming soon'}</strong><small>{outlook?`Week of ${premiumDate(outlook.weekOf)}`:'Market context and the week ahead'}</small></div></Link>
