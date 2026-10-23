@@ -37,6 +37,7 @@ export type OpportunityUpdate={
  | {tradeStatusAfter:'Closed';trade:TradeEntry & TradeExit});
 export type OutlookPromotion={headline:string;url:string;cta:string;body:string;features:string[];conclusion:string;terms:string;disclosure:string;emailBody:string};
 export type WeeklyOutlook={
+ sourceCheckedAt?:string;
  promotion?:OutlookPromotion;disclosure?:string;mailingAddress?:string;
  articleMarkdown?:string;notification?:{subject:string;preview:string;cta:string};
  id:string;slug:string;title:string;weekOf:string;publishedAt:string;

@@ -2504,3 +2504,109 @@ const wk80Trade={...wkOctober22.trade,stopPrice:80};
 const wk80Text="I’ve raised my Workiva (WK) stop from $70 to $80. I’m still holding five shares at a $75.78 average cost, and my profit target remains $89.\n\nThe new stop is above my average cost and is intended to protect a gain while keeping the position open toward my target. If all five shares sold at exactly $80, that would result in $4.22 per share, or $21.10 in profit before fees and taxes—approximately 5.57% above my cost basis.\n\nThat is a conditional outcome, not a realized profit. A stop does not guarantee the execution price; gaps or slippage could result in a lower fill. No shares have been sold or added as part of this update. The position remains active with an $80 stop and an $89 target.";
 opportunities[wkHoldingIndex]={...wkOctober22,trade:wk80Trade,updatedAt:'2026-10-22',summary:'I’m holding five Workiva shares at a $75.78 average cost and have raised my stop to $80. My profit target remains $89.',nextStepSummary:'I’ve raised my Workiva stop to $80 to protect the developing gain; my target remains $89.',nextCondition:'I’m managing my five shares with an $80 stop and an $89 target. No additional purchase or sale has been documented.',riskUpdate:{date:'2026-10-22',previousStop:70,title:'Stop Raised to $80 — Protecting the Gain',warning:'An $80 stop does not guarantee an $80 fill. Gaps or slippage may produce a lower execution price.'}};
 opportunityUpdates.push({id:'opportunity-009-stop-2026-10-22',opportunityId:'opportunity-009',publishedAt:'2026-10-22',eventDate:'2026-10-22',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:wk80Trade,title:'Stop Raised to $80 — Protecting the Gain',explanation:wk80Text,notification:{subject:'Workiva Update: Stop Raised to $80',headline:'WORKIVA — STOP RAISED TO $80',summary:wk80Text,cta:'VIEW WORKIVA UPDATE'}});
+
+// October 26–30 research issue; existing trade records remain unchanged.
+weeklyOutlooks.push({
+  "id": "weekly-outlook-006",
+  "slug": "issue-006",
+  "title": "The Biggest Week for AI Stocks — Earnings, the Fed, and a Potential Market Turning Point",
+  "weekOf": "2026-10-26",
+  "weekEnd": "2026-10-30",
+  "publishedAt": "2026-10-23",
+  "publicationState": "published",
+  "marketPosture": "Cautiously Selective",
+  "summary": "I'm watching Big Tech earnings, the Fed, GDP and inflation for signs of AI stabilization. I review my completed Zscaler trade, current EPAM and Workiva positions, and the sectors where I'm looking for new opportunities.",
+  "marketContext": "",
+  "sectorFocus": "",
+  "gamePlan": "",
+  "opportunityIds": [
+    "opportunity-011",
+    "opportunity-007",
+    "opportunity-009",
+    "opportunity-010",
+    "opportunity-003"
+  ],
+  "articleMarkdown": "## A Defining Week for the Market\n\nThis could be one of the most volatile weeks of the year. Big Tech earnings, the Federal Reserve, GDP, inflation data, and a potential SpaceX share-supply event arrive together after another difficult stretch for AI stocks.\n\nI'm leaning toward rotation out of AI and into other areas rather than a broad market crash. But elevated interest rates, expensive valuations, concentrated leadership, and enormous infrastructure spending keep me cautious. This week's results should help me distinguish a pause in the AI trade from something more serious.\n\n## Big Tech Earnings — The AI Test\n\nI'm watching Alphabet and Microsoft on Wednesday, October 28, followed by Amazon on Thursday, October 29. My focus is cloud demand, AI monetization, infrastructure commitments, and whether investment is translating into earnings and cash flow.\n\nStrong demand and credible investment plans would support the underlying thesis. Delayed projects, weaker returns, or spending funded without a clear cash-flow path would make me more cautious. I want to understand both the opportunity and the bill that comes with it.\n\nThursday's Meta selloff was a concrete example. Reuters reported on October 22 that investors reacted negatively after Meta raised the bottom of its annual capital-spending outlook, reported negative quarterly free cash flow, and outlined a new nonvoting share class. The announcements followed Wednesday's results; Thursday was the market reaction. For me, this is a reminder that strong revenue alone may not satisfy investors worried about financing AI expansion.\n\nI'm also watching SK Hynix for HBM demand, pricing, supply constraints, and the memory cycle. Its call is Wednesday morning in Seoul, which is **Tuesday, October 27 at 8 p.m. Eastern**.\n\nServiceNow reports Wednesday after the close. I hold it as a longer-term personal investment after repurchasing shares following my previously closed swing trade. That holding is separate from the documented closed trade; I haven't supplied a current quantity, cost basis, or unrealized result for it.\n\n## The Fed, Inflation, and GDP\n\nThe FOMC meets October 27–28. The decision is scheduled for **Wednesday at 2 p.m. Eastern**, followed by Chair **Kevin Warsh's 2:30 p.m. press conference**.\n\nA hold was the dominant expectation in the futures pricing described by Reuters on October 23, based on the prior evening's data. That is a dated expectation, not a promise or a live probability. I'm watching the language on inflation, growth, and future policy as closely as the decision itself. An unexpected hike would challenge an already nervous equity market.\n\nOn **Thursday, October 29 at 8:30 a.m. Eastern**, BEA is scheduled to release advance third-quarter GDP and September Personal Income and Outlays, including core PCE inflation. I haven't verified a dependable current consensus for either release, so I'm not publishing estimates.\n\nStrong growth with persistent inflation could keep rates elevated. Cooling inflation without a sharp slowdown would be more constructive. I want to see whether the combination gives growth stocks some breathing room.\n\n## SpaceX — Watching Supply, Not Assuming Sales\n\nI'm watching Monday, October 26 as the first trading session after the reported October 24 staged lockup release. Reporting and prospectus-based trackers describe eligibility for up to an additional 7% of the shares in the standard 180-day lockup pool—not 7% of all outstanding shares. Other holders have different restrictions, and affiliates can remain subject to resale rules.\n\nI could locate the final prospectus, but couldn't independently retrieve its complete lockup terms during this review. I therefore treat the tranche size and applicable conditions as **reported, pending direct filing confirmation**, rather than a guaranteed amount of new supply.\n\nI also haven't verified that the most recent unlock held up well, so I'm not using that as evidence. An earlier example was August 6, when AP reported a 6.1% rise despite an unlock. That earlier reaction doesn't predict this one.\n\nSpaceX remains an existing Watching Opportunity. I want to see whether any selling creates a better entry. Eligibility to sell does not mean holders will sell, and I haven't opened a position.\n\n## My Current Trades and Opportunities\n\n**Zscaler (ZS):** I closed my second documented trade on October 22 after my $237 target was reached. All five shares sold at $237.77 against a $207.89 entry: **$149.40 realized profit and a 14.37% return**, before fees and taxes. My original $200 Zscaler winner remains a separate closed trade.\n\nI'm still interested in Zscaler if cybersecurity stays healthy and another attractive pullback develops. I won't abandon a company simply because I've traded it successfully, but I won't chase it without a sensible reward-to-risk setup.\n\n**EPAM:** I hold 15 shares from $116. My current stop is **$127**, my first target remains **$145**, and the existing $220 stretch target is not my base-case swing objective. I'm monitoring progress toward the first target and will document any management changes separately. This Outlook does not change those levels.\n\n**Workiva (WK):** I hold five shares at a **$75.78 average cost**, with an **$80 stop and $89 target**. I remain interested in the recurring-revenue business, the path toward better profitability, and its technical recovery. Any additional purchase needs to justify its own entry and risk; I haven't documented an addition here.\n\n**Centene (CNC):** I'm still watching. My original conditional framework was approximately **$64 entry, $60 stop, and $75 target**, with no executed position. I haven't received the lower entry I wanted. With earnings scheduled Tuesday, I want to reassess the structure and reward-to-risk before considering a higher entry. Missing a move is preferable to chasing an unattractive setup.\n\nMy stops are intended to manage risk, but gaps and slippage can produce a different execution price. These are my personal positions and results, not subscriber performance.\n\n## Where I'm Looking for New Trades\n\nI'm particularly interested in **enterprise software, cybersecurity, healthcare, and energy**. I use the Sector Gauge to identify relative strength, examine ETF holdings, and then evaluate individual companies for fundamentals, price structure, and a clearly defined risk level.\n\nI want strong businesses at attractive entries. I don't need to force a trade simply to keep the Opportunity Board busy.\n\n## When Will I Start Buying AI Again?\n\nI still think a meaningful opportunity could develop, but I don't need to catch the exact bottom. I want selling pressure to ease and technical structures to improve before becoming more aggressive.\n\nNvidia, Micron, Western Digital, and other established infrastructure and semiconductor businesses remain on my research list. These are candidates for evaluation, not new positions. HP may also deserve research, but I wouldn't automatically treat it as a direct AI infrastructure beneficiary.\n\nI'm less interested in highly leveraged neocloud businesses with large financing requirements and uncertain cash flow. A cheaper valuation doesn't tell me when a decline is finished. I want financial quality and evidence of stabilization together.\n\n## My Catalyst Calendar\n\nAll times below are Eastern unless noted. I've kept this to verified events most relevant to my research, rather than reproduce an exhaustive earnings list.\n\n| Day | Confirmed events I'm watching | Why it matters to me |\n| --- | --- | --- |\n| Monday, October 26 | Oracle AI World continues in Las Vegas, October 25–28; Verizon earnings | Enterprise AI adoption and demand outside the most crowded AI trades. |\n| Tuesday, October 27 | Centene earnings call, 8:30 a.m.; SK Hynix earnings call, 8 p.m. (October 28, 9 a.m. Seoul) | My healthcare watchlist and the HBM/memory demand outlook. |\n| Wednesday, October 28 | Fed decision, 2 p.m.; press conference, 2:30 p.m.; Alphabet call, 4:30 p.m.; ServiceNow call, 5 p.m.; Microsoft call, 5:30 p.m. | Rates, cloud growth, enterprise software, and returns on AI spending. |\n| Thursday, October 29 | Advance Q3 GDP and September PCE release, 8:30 a.m.; Amazon earnings call, 5 p.m. | Growth, inflation, AWS demand, and capital spending. |\n| Friday, October 30 | ExxonMobil earnings call, 9:30 a.m.; Chevron earnings call, 11 a.m. | Energy cash flow and capital discipline as I research sector strength. |\n\n**Separate watch item:** Monday's potential SpaceX supply event remains qualified as described above. I haven't confirmed the proposed durable-goods date or an index-related event, so neither is included as a scheduled catalyst. Other companies from my preliminary list are omitted from this focused calendar rather than assigned unverified dates. Schedules can change after this October 23 review.\n\n## My Plan for the Week\n\nFor me, it comes down to three questions: Can AI demand justify the investment? Can the Fed and economic data ease the pressure from rates? And is this rotation or a broader correction?\n\nI'm leaning toward rotation, but I want stronger evidence before becoming aggressive. I'll manage my existing positions, research software, cybersecurity, healthcare, and energy, and prepare for AI opportunities if conditions improve.\n\nMy objective is to identify attractive opportunities, manage risk, and remain patient when the setup doesn't justify a trade.\n",
+  "sourceCheckedAt": "2026-10-23",
+  "sources": [
+    {
+      "label": "Fed meeting calendar and policy leadership",
+      "url": "https://www.federalreserve.gov/FOMC/default.htm"
+    },
+    {
+      "label": "Fed announcement and press conference schedule",
+      "url": "https://www.federalreserve.gov/newsevents.htm"
+    },
+    {
+      "label": "BEA release calendar — GDP and PCE",
+      "url": "https://www.bea.gov/news/schedule/"
+    },
+    {
+      "label": "Alphabet earnings announcement",
+      "url": "https://www.publicnow.com/view/44136C85C4D5D099F2F1F5740EF199299B51D499"
+    },
+    {
+      "label": "Microsoft earnings announcement",
+      "url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/"
+    },
+    {
+      "label": "Amazon earnings announcement",
+      "url": "https://www.aboutamazon.com/news/company-news/amazon-earnings-q3-2026-report"
+    },
+    {
+      "label": "ServiceNow earnings announcement",
+      "url": "https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-to-Announce-Third-Quarter-2026-Financial-Results-on-October-28/default.aspx"
+    },
+    {
+      "label": "SK Hynix — filed call date and Seoul time",
+      "url": "https://www.sec.gov/Archives/edgar/data/2120882/000119312526420934/d413172d6k.htm"
+    },
+    {
+      "label": "Centene investor calendar",
+      "url": "https://investors.centene.com/"
+    },
+    {
+      "label": "Oracle AI World",
+      "url": "https://www.oracle.com/ai-world/"
+    },
+    {
+      "label": "Verizon investor calendar",
+      "url": "https://www.verizon.com/about/investors"
+    },
+    {
+      "label": "ExxonMobil earnings call",
+      "url": "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call"
+    },
+    {
+      "label": "Chevron earnings call",
+      "url": "https://chevroncorp.gcs-web.com/news-releases/news-release-details/advisory-chevron-corporations-3q-2026-earnings-conference-call"
+    },
+    {
+      "label": "Reuters — October 22 Meta and AI selloff",
+      "url": "https://www.investing.com/news/economy-news/steep-bill-for-ai-buildout-punishes-meta-other-tech-favorites-4967187"
+    },
+    {
+      "label": "Reuters — October 23 earnings and Fed preview",
+      "url": "https://www.investing.com/news/economy-news/earnings-flood-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally-4968724"
+    },
+    {
+      "label": "SpaceX final prospectus — direct terms require confirmation",
+      "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026042639/spaceexplorationtechnologi.htm"
+    },
+    {
+      "label": "Reported SpaceX lockup schedule and holder restrictions",
+      "url": "https://thefinancialsciences.com/spacex-lockup-calendar/"
+    },
+    {
+      "label": "AP — August 6 SpaceX unlock reaction",
+      "url": "https://apnews.com/article/c75721ec2e43e5304a2184a9e6abae5e"
+    }
+  ],
+  "notification": {
+    "subject": "A Massive Week Ahead: Big Tech Earnings, the Fed & AI Stocks",
+    "preview": "The AI trade faces a major test. Here's where I'm looking for opportunities.",
+    "cta": "READ THIS WEEK'S MARKET OUTLOOK"
+  },
+  "notificationSummary": "This could be one of the most important weeks of the year for the stock market.\n\nAfter another difficult week for AI stocks, I'm watching major earnings reports from Alphabet, Microsoft, Amazon, and other companies tied to the AI infrastructure buildout, alongside the Federal Reserve decision and GDP and inflation data.\n\nI'm still leaning toward rotation out of AI rather than a broad market crash, but I want to see what this week's results reveal.\n\nInside this week's Sacco Premium Outlook, I cover:\n\n- The major catalysts that could move the market\n- What I'm watching in Big Tech and AI spending\n- My latest Zscaler trade: $149.40 realized profit (+14.37%), before fees and taxes\n- My existing EPAM and Workiva positions and Centene watchlist setup\n- The sectors I'm targeting for new opportunities\n- What I need to see before buying more AI stocks\n\nI'm remaining cautiously selective, but I think this week's events could create some interesting opportunities.\n\nJustin\nSacco Financial",
+  "disclosure": "The positions and results discussed reflect my personal trading activity, not subscriber performance. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Stops do not guarantee execution prices. This content is educational and informational and does not constitute personalized investment advice."
+});

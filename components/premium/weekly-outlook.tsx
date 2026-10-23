@@ -40,7 +40,7 @@ function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
    if(block.startsWith('- '))return <ul key={i}>{block.split('\n').map((line,j)=><li key={j}>{inline(line.slice(2))}</li>)}</ul>;
    return <p key={i}>{block.split(/ {2}\n/).map((line,j)=><span key={j}>{j>0&&<br/>}{inline(line)}</span>)}</p>;
   })}</div></section>{index===0&&outlook.promotion&&<OutlookPromotionBlock promotion={outlook.promotion}/>}</Fragment>;
- })}{outlook.sources&&<details className="outlook-sources"><summary>Calendar and research sources · Checked October 17, 2026</summary><ul>{outlook.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></details>}{outlook.disclosure&&<aside className="section support-note"><h2>Disclosure</h2><p>{outlook.disclosure}</p></aside>}</>;
+ })}{outlook.sources&&<details className="outlook-sources"><summary>Calendar and research sources · Checked {outlook.sourceCheckedAt?premiumDate(outlook.sourceCheckedAt):'October 17, 2026'}</summary><ul>{outlook.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></details>}{outlook.disclosure&&<aside className="section support-note"><h2>Disclosure</h2><p>{outlook.disclosure}</p></aside>}</>;
 }
 
 function OutlookPromotionBlock({promotion:p}:{promotion:NonNullable<WeeklyOutlook['promotion']>}){
