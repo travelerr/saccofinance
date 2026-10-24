@@ -10,3 +10,20 @@
 .outlook-promotion{margin:2rem 0;padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--brand-line);border-radius:16px;background:var(--brand-surface);overflow-wrap:anywhere}.outlook-promotion h2{font-size:clamp(1.5rem,3vw,2rem);margin:.75rem 0 1.25rem}.outlook-promotion ul{padding-left:1.5rem;margin:1.25rem 0}.outlook-promotion .button{white-space:normal;max-width:100%;margin:1rem 0}.outlook-promotion .support-note{margin-top:1rem;line-height:1.6}.outlook-results-table{max-width:100%;margin:1.5rem 0}.outlook-results-table table{width:100%;border-collapse:collapse;font-size:clamp(.875rem,2vw,1rem)}.outlook-results-table th,.outlook-results-table td{padding:.85rem .6rem;border-bottom:1px solid var(--brand-line);text-align:left;overflow-wrap:anywhere}.outlook-results-table td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.outlook-results-table caption{text-align:left;margin-bottom:1rem}.outlook-sources a{overflow-wrap:anywhere}
 
 .outlook-promotion .outlook-promotion-deadline{font-size:clamp(1.25rem,3vw,1.5rem);font-weight:700;line-height:1.4;margin-top:1.5rem}
+
+/* Editorial calendars contain prose, not the non-wrapping numeric results column. */
+.outlook-calendar-table{width:100%;min-width:0;margin:1.5rem 0}
+.outlook-calendar-table table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:1rem;line-height:1.65}
+.outlook-calendar-table caption{text-align:left;margin-bottom:1rem;color:var(--brand-muted)}
+.outlook-calendar-table th,.outlook-calendar-table td{padding:1rem;vertical-align:top;text-align:left;white-space:normal;overflow-wrap:break-word;border-bottom:1px solid var(--brand-line)}
+.outlook-calendar-table th:first-child{width:22%}
+.outlook-calendar-table th:nth-child(2){width:48%}
+.outlook-calendar-table th:nth-child(3){width:30%}
+@media(max-width:640px){
+ .outlook-calendar-table table,.outlook-calendar-table tbody,.outlook-calendar-table tr,.outlook-calendar-table th,.outlook-calendar-table td{display:block;width:100%!important;box-sizing:border-box}
+ .outlook-calendar-table thead{display:none}
+ .outlook-calendar-table tr{margin-bottom:1rem;padding:.5rem;border:1px solid var(--brand-line);border-radius:12px}
+ .outlook-calendar-table th,.outlook-calendar-table td{padding:.65rem;border:0}
+ .outlook-calendar-table td::before{content:attr(data-label);display:block;font-weight:700;margin-bottom:.35rem}
+}
+@media(max-width:640px){.outlook-calendar-table caption{display:block;width:100%}}

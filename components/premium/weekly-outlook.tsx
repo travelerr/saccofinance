@@ -28,13 +28,14 @@ function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
   });
  }
  const body=outlook.articleMarkdown!.replace(/^# [^\n]+\n\n/,'');
- return <>{body.split(/\n---\n/).map((section,index)=>{
+ return <>{body.split(/\n---\n|\n(?=## )/).map((section,index)=>{
   const blocks=section.trim().split(/\n\s*\n/);
   const heading=blocks[0]?.startsWith('## ')?blocks.shift()!.slice(3):null;
   return <Fragment key={index}><section className="section">{heading&&<SectionHeader title={heading}/>}<div className="outlook-prose outlook-approved-prose">{blocks.map((block,i)=>{
    if(block.startsWith('| ')){
     const rows=block.split('\n').filter((_,i)=>i!==1).map(line=>line.split('|').slice(1,-1).map(cell=>cell.trim()));
-    return <div key={i} className="outlook-results-table"><table><caption>My confirmed personal results · Before additional fees and taxes</caption><thead><tr>{rows[0].map(h=><th scope="col" key={h}>{h}</th>)}</tr></thead><tbody>{rows.slice(1).map((row,j)=><tr key={j}><th scope="row">{inline(row[0])}</th><td>{inline(row[1])}</td></tr>)}</tbody></table></div>;
+    const calendar=rows[0][0]==='Day';
+    return <div key={i} className={calendar?'outlook-calendar-table':'outlook-results-table'}><table><caption>{calendar?"My catalyst calendar · All times Eastern unless noted":"My confirmed personal results · Before additional fees and taxes"}</caption><thead><tr>{rows[0].map(h=><th scope="col" key={h}>{h}</th>)}</tr></thead><tbody>{rows.slice(1).map((row,j)=><tr key={j}><th scope="row">{inline(row[0])}</th>{row.slice(1).map((cell,k)=><td key={k} data-label={rows[0][k+1]}>{inline(cell)}</td>)}</tr>)}</tbody></table></div>;
    }
    if(block.startsWith('### '))return <h3 key={i}>{inline(block.slice(4))}</h3>;
    if(block.startsWith('- '))return <ul key={i}>{block.split('\n').map((line,j)=><li key={j}>{inline(line.slice(2))}</li>)}</ul>;
