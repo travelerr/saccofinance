@@ -1,3 +1,5 @@
+import ClosedTradesPreview from '@/components/premium/closed-trades-preview';
+import {publicClosedTrades} from '@/lib/public-closed-trades';
 import {trialOfferEnabled} from '@/lib/billing/trial-offer';
 import {redirect} from 'next/navigation';
 import {premiumAccess} from '@/lib/premium-access';
@@ -7,7 +9,7 @@ import {ArrowDown,ArrowUpRight,Check} from 'lucide-react';
 import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
 import {billingEnabled,billingMode} from '@/lib/billing/model';
 import {pageMetadata} from '@/lib/page-metadata';
-import {getPublishedOpportunity,weeklyOutlooks} from '@/lib/premium-opportunities';
+import {getPublishedOpportunity,getPublishedOpportunities,weeklyOutlooks} from '@/lib/premium-opportunities';
 import {opportunityStatuses,premiumDate} from '@/lib/premium-content';
 import styles from './sales.module.css';
 
@@ -74,6 +76,8 @@ export default async function Premium(){
   </section>
 
   </div>
+
+  <ClosedTradesPreview trades={publicClosedTrades(getPublishedOpportunities())} join={join}/>
 
   <section id="process" className={`section ${styles.processSection}`}><SectionHeader label="A deliberate research system" title="Stop looking for stocks at random."/>
    <ol className={styles.process}>{process.map(([label,title,copy],i)=><li key={label}><div className={styles.processNode}><span>0{i+1}</span><strong>{label}</strong>{i<process.length-1&&<ArrowDown size={18} aria-hidden="true"/>}</div><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
