@@ -1,0 +1,4 @@
+.paymentMethods{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 20px}
+.badge{display:flex;align-items:center;justify-content:center;width:76px;height:48px;flex:none;border:1px solid #dce2e9;border-radius:8px;background:#fff;box-shadow:0 2px 5px #0000000a}
+.badge svg{width:54px;height:38px;display:block}
+@media(max-width:480px){.paymentMethods{gap:8px}.badge{width:66px;height:44px}.badge svg{width:48px;height:34px}}

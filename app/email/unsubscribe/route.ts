@@ -7,7 +7,7 @@ export async function GET(request:Request){
  const token=new URL(request.url).searchParams.get('token')||'';
  try{unsubscribeTokenHash(token);}catch{return page('<p>This unsubscribe link is invalid.</p>',400);}
  // Link scanners may GET this URL. Only an explicit POST changes preferences.
- return page('<p>Turn off Premium research notifications? Account and billing emails are unaffected.</p><form method="post" action="/email/unsubscribe?token='+token+'"><button name="List-Unsubscribe" value="One-Click">Unsubscribe</button></form>');
+ return page('<p>Unsubscribe from these Sacco Premium emails? Account and billing emails are unaffected.</p><form method="post" action="/email/unsubscribe?token='+token+'"><button name="List-Unsubscribe" value="One-Click">Unsubscribe</button></form>');
 }
 export async function POST(request:Request){
  let hash:string;
@@ -17,7 +17,7 @@ export async function POST(request:Request){
   if(form.get('List-Unsubscribe')!=='One-Click')return page('<p>Please confirm using the unsubscribe button.</p>',400);
   const {data,error}=await (await emailDatabase()).rpc('unsubscribe_research',{p_hash:hash});
   if(error)throw error;
-  if(!data)return page('<p>This unsubscribe link is invalid.</p>',400);
+  if(!data){const result=await (await emailDatabase()).rpc('unsubscribe_premium_sample',{p_hash:hash});if(result.error)throw result.error;if(!result.data)return page('<p>This unsubscribe link is invalid.</p>',400);return page('<p>You are unsubscribed from sample follow-ups and Premium offers. Your membership preferences, if any, are unchanged.</p>');}
   return page('<p>Research notifications are now off. Account and billing emails are unaffected. You can opt back in from your account.</p>');
  }catch{return page('<p>We could not save your preference. Please try again later or use your Account email preferences.</p>',503);}
 }

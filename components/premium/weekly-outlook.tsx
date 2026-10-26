@@ -5,7 +5,7 @@ import TradeResult from './trade-result';
 import Link from 'next/link';
 import PremiumResearchHeader,{researchNumber} from './research-header';
 import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
-import {premiumDate,weeklyOutlookHref,type WeeklyOutlook} from '@/lib/premium-content';
+import {premiumDate,weeklyOutlookHref,type WeeklyOutlook,type Opportunity} from '@/lib/premium-content';
 import {getWeeklyOutlookOpportunities} from '@/lib/premium-opportunities';
 import './weekly-outlook.css';
 import './opportunities.css';
@@ -15,8 +15,7 @@ function Prose({text}:{text:string}){
 }
 
 // Render approved editorial copy in the canonical Outlook layout without rewriting it.
-function ApprovedArticle({outlook}:{outlook:WeeklyOutlook}){
- const references=getWeeklyOutlookOpportunities(outlook);
+function ApprovedArticle({outlook,references}:{outlook:WeeklyOutlook;references:Opportunity[]}){
  function inline(text:string):React.ReactNode{
   return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part,i)=>{
    if(part.startsWith('**')&&part.endsWith('**'))return <strong key={i}>{inline(part.slice(2,-2))}</strong>;
@@ -54,18 +53,18 @@ export function OutlookSectorFocus({outlook}:{outlook:WeeklyOutlook}){
 export function WeeklyOutlookArchive({outlooks}:{outlooks:WeeklyOutlook[]}){
  return <section className="section"><SectionHeader title="Weekly Outlook archive"/>{outlooks.map(outlook=><article className="outlook-archive-row" key={outlook.id}><Eyebrow>Issue {researchNumber(outlook.id)} · {premiumDate(outlook.publishedAt)}</Eyebrow><h3><Link href={weeklyOutlookHref(outlook)}>{outlook.title}</Link></h3><p>{outlook.summary}</p><Link className="text-link" href={weeklyOutlookHref(outlook)}>Read Issue {researchNumber(outlook.id)} →</Link></article>)}</section>;
 }
-export default function WeeklyOutlookResearch({outlook}:{outlook:WeeklyOutlook}){
- const opportunities=getWeeklyOutlookOpportunities(outlook);
+export default function WeeklyOutlookResearch({outlook,sampleOpportunities}:{outlook:WeeklyOutlook;sampleOpportunities?:Opportunity[]}){
+ const opportunities=sampleOpportunities??getWeeklyOutlookOpportunities(outlook);
  const current=outlook.separateClosedPositions?opportunities.filter(o=>o.tradeStatus!=='Closed'):opportunities;
  const closed=outlook.separateClosedPositions?opportunities.filter(o=>o.tradeStatus==='Closed'):[];
  const scenario=outlook.bitcoinScenario;
  const scenarioNet=scenario?scenario.netBitcoinValuePerShare*(scenario.bitcoinScenario/scenario.bitcoinReference):0;
  return <>
- <StartHereVisit step="outlook"/>
- <span hidden data-research-id={outlook.id} data-research-type="weekly_outlook"/>
+ {!sampleOpportunities&&<StartHereVisit step="outlook"/>}
+ {!sampleOpportunities&&<span hidden data-research-id={outlook.id} data-research-type="weekly_outlook"/>}
  <PremiumResearchHeader kind="Weekly Outlook" identifier={`Issue ${researchNumber(outlook.id)}`} title={outlook.title} metadata={[{label:'Week',value:`${premiumDate(outlook.weekOf)}${outlook.weekEnd?` – ${premiumDate(outlook.weekEnd)}`:''}`},{label:'Published',value:premiumDate(outlook.publishedAt)}]}/>
  {outlook.marketPosture&&<div className="outlook-posture"><Eyebrow>Market posture</Eyebrow><p>{outlook.marketPosture}</p>{outlook.secondaryPosture&&<p className="support-note">{outlook.secondaryPosture}</p>}</div>}
- {outlook.articleMarkdown?<ApprovedArticle outlook={outlook}/>:<>
+ {outlook.articleMarkdown?<ApprovedArticle outlook={outlook} references={opportunities}/>:<>
  <section className="section"><SectionHeader label="01" title="The Read"/><Prose text={outlook.read||outlook.summary||outlook.marketContext}/></section>
  <section className="section"><SectionHeader label="02" title={outlook.marketHeading||"Market Context"}/>{!!outlook.marketLevels?.length&&<dl className="premium-research-metadata outlook-levels">{outlook.marketLevels.map(level=><div key={level.index}><dt>{level.index} / Support</dt><dd>{level.support.toLocaleString('en-US')}</dd></div>)}</dl>}<Prose text={outlook.marketContext}/>{outlook.macroWatch&&<aside className="outlook-macro"><Eyebrow>What I’m watching</Eyebrow><h3>{outlook.macroWatch.title}</h3><Prose text={outlook.macroWatch.body}/></aside>}</section>
  <section className="section"><SectionHeader label="03" title={outlook.sectorHeading||"Sector Leadership"}/><Prose text={outlook.sectorFocus}/><OutlookSectorFocus outlook={outlook}/>{outlook.gaugeSummary&&<div className="outlook-gauge-summary"><Eyebrow>1-week Gauge · {premiumDate(outlook.gaugeSummary.asOf)}</Eyebrow><p>SPY: {outlook.gaugeSummary.benchmarkReturn.toFixed(2)}% · Dated research snapshot</p><ol>{outlook.gaugeSummary.groups.map((group,index)=><li key={group.ticker}><span className="outlook-gauge-rank">#{index+1}</span><div><strong>{group.name} / {group.ticker}</strong><span>Rank change: {group.rankChange===0?'unchanged':`${group.rankChange>0?'+':''}${group.rankChange}`}</span></div><strong>{group.returnPct>=0?'+':''}{group.returnPct.toFixed(2)}%</strong></li>)}</ol></div>}{outlook.sectorSnapshots?.map(sector=><article className="outlook-sector-snapshot" key={sector.ticker}><h3>{sector.name} / {sector.ticker}</h3><dl className="outlook-sector-periods">{sector.periods.map(period=><div key={period.period}><dt>{period.period}</dt><dd>{period.returnPct>=0?'+':''}{period.returnPct.toFixed(2)}%<span>Rank #{period.rank}</span></dd></div>)}</dl><Prose text={sector.commentary}/></article>)}<Link className="text-link" href="/premium/market-strength">Open Sector Gauge →</Link></section>

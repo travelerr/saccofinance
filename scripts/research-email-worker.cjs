@@ -1,10 +1,11 @@
 // Dedicated process: no request-lifetime background work and no Next dotenv loading.
 const fs=require('node:fs'),Module=require('node:module'),ts=require('typescript');
 if(!process.argv.includes('--configured'))Object.assign(process.env,require('./local-environment.cjs').appEnv(require('./local-environment.cjs').runtime()));
-require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,f);
+require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText,f);
 const load=Module._load;Module._load=function(id,...args){if(id==='server-only')return {};return load.call(this,id,...args);};
+const {processNextSampleFollowup}=require('../lib/sample/followups.ts');
 const {processNextResearchEmail}=require('../lib/email/queue-worker.ts');
 const {processNextOnboardingEmail}=require('../lib/email/onboarding.ts');
 const {processNextAccessReminder}=require('../lib/email/access-reminders.ts');
 let stopping=false;for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>{stopping=true;});
-(async()=>{console.log('Research email worker started.');do{try{const result=await processNextResearchEmail() || await processNextAccessReminder() || await processNextOnboardingEmail();if(result)console.log(JSON.stringify(result));}catch{console.error('Research worker unavailable; check configuration, database, and queue migration.');}if(!stopping&&!process.argv.includes('--once'))await new Promise(r=>setTimeout(r,2000));}while(!stopping&&!process.argv.includes('--once'));})();
+(async()=>{console.log('Research email worker started.');do{try{const result=await processNextResearchEmail() || await processNextAccessReminder() || await processNextOnboardingEmail() || await processNextSampleFollowup();if(result)console.log(JSON.stringify(result));}catch{console.error('Research worker unavailable; check configuration, database, and queue migration.');}if(!stopping&&!process.argv.includes('--once'))await new Promise(r=>setTimeout(r,2000));}while(!stopping&&!process.argv.includes('--once'));})();

@@ -1,3 +1,4 @@
+const {processNextSampleFollowup}=require('../../lib/sample/followups.ts');
 const {createHandler} = require('./handler-core.cjs');
 const {processNextResearchEmail} = require('../../lib/email/queue-worker.ts');
 const {processNextOnboardingEmail} = require('../../lib/email/onboarding.ts');
@@ -10,7 +11,7 @@ exports.handler = createHandler({
   processNext: async () => {
     const research = await processNextResearchEmail();
     // Keep existing broadcast work bounded; reminders run on idle schedule ticks.
-    return research || await processNextAccessReminder() || await processNextOnboardingEmail();
+    return research || await processNextAccessReminder() || await processNextOnboardingEmail() || await processNextSampleFollowup();
   },
   check: async () => {
     try {
@@ -29,6 +30,7 @@ exports.handler = createHandler({
           if (onboardingError) throw new Error();
         }
       }
+      if(process.env.PREMIUM_SAMPLE_FOLLOWUPS_ENABLED==='true'){const {error}=await db.from('premium_sample_followups').select('id').limit(1);if(error)throw new Error();}
       return {status: 'ready', mode, processingEnabled: process.env.RESEARCH_WORKER_ENABLED === 'true'};
     } catch { throw new Error('WORKER_CHECK_FAILED_VERIFY_SECRET_ENV_AND_MIGRATION'); }
   }

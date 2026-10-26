@@ -38,5 +38,6 @@ if(emailEnv.RESEARCH_EMAIL_ENABLED==='true'){
  const region=emailEnv.EMAIL_AWS_REGION||emailEnv.BILLING_AWS_REGION;
  if(!arn?.startsWith('arn:aws:secretsmanager:')||!region)throw new Error('Email requires a Secrets Manager ARN and region');
 }
+for(const key of ['PREMIUM_SAMPLE_ENABLED']){const value=process.env[key]?.trim()||'false';if(!['true','false'].includes(value))throw new Error('Invalid sample enabled flag');values.push([key,value]);}
 fs.writeFileSync('.env.production',values.map(([key,value])=>`${key}=${JSON.stringify(value)}`).join('\n')+'\n');
 console.log('Configured required Premium runtime variables and available billing/email settings.');

@@ -7,8 +7,9 @@ export async function middleware(request:NextRequest){
  let response=NextResponse.next({request});
  const config=authConfig();
  const pathname=request.nextUrl.pathname.replace(/\/$/,'');
- const protectedPath=!publicPaths.has(pathname)&&!/^\/premium\/auth\/claim\/[0-9a-f-]{36}$/i.test(pathname);
- if((pathname.startsWith('/premium/auth/claim/')||pathname==='/premium/auth/sign-in'))response.headers.set('Referrer-Policy','no-referrer');
+ const samplePath=/^\/premium\/sample\/[a-f0-9]{64}$/.test(pathname);
+ const protectedPath=!samplePath&&!publicPaths.has(pathname)&&!/^\/premium\/auth\/claim\/[0-9a-f-]{36}$/i.test(pathname);
+ if((samplePath||pathname.startsWith('/premium/auth/claim/')||pathname==='/premium/auth/sign-in'))response.headers.set('Referrer-Policy','no-referrer');
  const origin=process.env.AUTH_SITE_URL||request.url;
  const api=pathname.startsWith('/api/') || pathname.startsWith('/images/opportunities/');
  function deny(status:number){
@@ -26,7 +27,7 @@ export async function middleware(request:NextRequest){
   if(!access.allowed) return deny(403);
  }
  response.headers.set('Cache-Control','private, no-store');
- if((pathname.startsWith('/premium/auth/claim/')||pathname==='/premium/auth/sign-in'))response.headers.set('Referrer-Policy','no-referrer');
+ if((samplePath||pathname.startsWith('/premium/auth/claim/')||pathname==='/premium/auth/sign-in'))response.headers.set('Referrer-Policy','no-referrer');
  return response;
 }
 export const config={matcher:['/premium/:path*','/api/market-strength','/api/premium/:path*','/images/opportunities/:path*']};

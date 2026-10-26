@@ -1,3 +1,10 @@
+import JoinButtons from '@/components/premium/join-buttons';
+import PaymentMethods from '@/components/premium/payment-methods';
+import SampleForm from '@/components/premium/sample-form';
+import {sampleEnabled} from '@/lib/sample/server';
+import {PremiumPlanProvider,PlanChoice} from '@/components/premium/plan-choice';
+import CheckoutButton from '@/components/premium/checkout-button';
+import MobileJoin from '@/components/premium/mobile-join';
 import ClosedTradesPreview from '@/components/premium/closed-trades-preview';
 import {publicClosedTrades} from '@/lib/public-closed-trades';
 import {trialOfferEnabled} from '@/lib/billing/trial-offer';
@@ -5,117 +12,93 @@ import {redirect} from 'next/navigation';
 import {premiumAccess} from '@/lib/premium-access';
 import Link from 'next/link';
 import Image from 'next/image';
-import {ArrowDown,ArrowUpRight,Check} from 'lucide-react';
+import {ArrowUpRight,Check,LockKeyhole,Play,Mail} from 'lucide-react';
 import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
 import {billingEnabled,billingMode} from '@/lib/billing/model';
 import {pageMetadata} from '@/lib/page-metadata';
-import {getPublishedOpportunity,getPublishedOpportunities,weeklyOutlooks} from '@/lib/premium-opportunities';
-import {opportunityStatuses,premiumDate} from '@/lib/premium-content';
+import {getPublishedOpportunities,weeklyOutlooks} from '@/lib/premium-opportunities';
+import {premiumDate} from '@/lib/premium-content';
 import styles from './sales.module.css';
 
 export const dynamic='force-dynamic';
-export const metadata=pageMetadata('Sacco Premium — The Research Process','Follow Justin Sacco’s market research from sector leadership to stock setups and documented trades. Full Premium access for $10/month or $100/year.','/premium');
+export const metadata=pageMetadata('Sacco Premium — The Research Process','Follow Justin Sacco’s documented research, from market leadership to stock setups and completed trades. $10/month or $100/year.','/premium');
 const process=[
- ['Market','Understand the environment.','Weekly Outlook establishes the market backdrop, the week’s important catalysts, and what could change my view.'],
- ['Sector','Find where leadership develops.','Sector Gauge compares selected sectors and themes across timeframes to focus the next investigation.'],
- ['ETF','Drill into the area.','Investigate relevant ETFs and their major holdings. Sector strength narrows the search; it does not finish the research.'],
- ['Stock','Research the business.','Evaluate fundamentals, expectations, catalysts, and risks. A beaten-down stock needs more than a low share price.'],
- ['Setup','Make the structure earn it.','Look for stocks forming Stage 1 bases and potential Stage 2 advances. Define confirmation conditions and what would invalidate the idea.'],
- ['Trade','Document the decision.','When I take a position, follow the documented entry, stop, targets, thesis, and dated updates. Many candidates never become trades.'],
+ ['Market','Start with the broader environment and the catalysts ahead.'],
+ ['Sector','Find where leadership is developing across sectors and themes.'],
+ ['ETF','Explore the relevant ETFs and the companies inside them.'],
+ ['Stock','Research the business, expectations, fundamentals, and risks.'],
+ ['Setup','Define the technical structure and what would invalidate it.'],
+ ['Trade','Document my entry, stop, targets, and decisions over time.'],
 ];
+const features=[
+ ['01 / Weekly Outlook','Start with the market.','My view of the week ahead: the narratives that matter, upcoming catalysts, and what would change my perspective.',['Market context and sector leadership','Earnings and economic catalysts','A clear closing game plan'],'A new perspective each week'],
+ ['02 / Sector Gauge','Find the leadership.','Compare 24 sector and theme ETF proxies across six timeframes, with absolute returns and relative performance against SPY.',['Leaders and laggards','Six timeframes, including vs. SPY','Dated historical data, not live signals'],'Check the data date inside the tool'],
+ ['03 / Opportunity Board','Follow the research.','See why an idea surfaced, what I’m waiting for, and what could change my mind. Follow the decisions when I take a trade.',['Technical setups and business research','Entries, stops, and targets when documented','Dated updates and closed trades'],'New ideas when the process qualifies them'],
+];
+const included=['Weekly Outlook and research archive','Sector Gauge: 24 ETF proxies, six timeframes','Opportunity Board and dated trade updates','Closed trades and risk-management history','Learning Library and member dashboard'];
 const faqs=[
- ['Is Sacco Premium a signals service?','No. Premium documents my research, the opportunities I’m investigating, and trades I personally take. It is not a command to copy trades, a day-trading service, or full portfolio access.'],
- ['How often are Opportunities added?','There is no forced schedule. An Opportunity earns its place through sector analysis, technical review, fundamental research, risk analysis, and my own judgment. If nothing qualifies in a given week, nothing needs to be added.'],
- ['What is the difference between Confirmed and Active?','Confirmed means the technical confirmation criteria have been met. Active means I have actually entered a documented trade. Trade status and technical stage are separate: an Active trade can still be waiting for Stage 2 confirmation.'],
- ['What is included, and where do I find it?','Both plans include the Premium Dashboard, Weekly Outlook, Sector Gauge, all current Opportunities, and dated Opportunity updates. Documented trades include entry, stop/invalidation, and targets when available. Research lives inside the member site. Sector Gauge uses saved historical prices; check its data date rather than treating it as a live feed.'],
- ['How do I get access after payment?','After Stripe verifies payment, you can enter Premium immediately in the browser used for checkout. Your welcome email connects the purchase to a permanent account so you can return on other devices. Use email-link login or set an optional password.'],
- ['Can I cancel anytime?','Yes. Manage or cancel through Account & Billing. Your plan renews automatically until canceled. Cancellation stops future renewal charges, and access continues through your paid period. Under the existing Terms, payments are generally non-refundable.'],
- ['Is this investment advice?','No. Premium provides educational and informational research, not personalized investment advice. You make your own decisions. Investing involves risk, including loss of principal, and no investment result is guaranteed.'],
+ ['Is Sacco Premium a signals service?','No. Premium is documented research, not a command to copy trades. I explain why an opportunity surfaced, what I’m waiting for, and what would invalidate it. It is educational and informational, not personalized investment advice.'],
+ ['How often are Opportunities added?','There is no forced schedule. Some weeks, nothing makes the board. An idea has to survive sector analysis, technical review, fundamental research, risk analysis, and my own judgment.'],
+ ['What do I get when I join?','Both plans include the current Weekly Outlook and archive, Sector Gauge, the Opportunity Board, dated updates, closed-trade histories, and Learning Library. Start with the dashboard, then explore the research at your own pace.'],
+ ['How do payment and access work?','Checkout runs through Stripe. After payment is verified, Premium opens in the browser used for checkout. Your welcome email connects the purchase to a permanent account so you can return on other devices. Use email-link login or set an optional password.'],
+ ['Can I cancel anytime?','Yes. Manage or cancel through Account & Billing. Your plan renews automatically until canceled. Cancellation stops future renewal charges, and paid access continues through your paid period. Payments are generally non-refundable under the existing Terms.'],
+ ['Is this suitable for someone still learning?','The Learning Library walks through my research process, and Opportunities explain the reasoning behind each setup. You remain responsible for your own investment decisions. Premium does not promise returns or provide personalized advice.'],
 ];
-
 export default async function Premium(){
  const access=await premiumAccess();
  if(access.user&&access.allowed)redirect('/premium/dashboard');
  const enabled=billingEnabled();const trial=enabled&&await trialOfferEnabled();
  const join=enabled?'/premium/join':'/premium/login';
- // Selected public marketing excerpts only. Never pass whole member records to a client component.
- const zs=getPublishedOpportunity('zscaler-001');
- const outlook=weeklyOutlooks.filter(o=>o.publicationState==='published').sort((a,b)=>b.weekOf.localeCompare(a.weekOf))[0];
- const levels=zs?[
-  ['Initial entry',zs.trade?`$${zs.trade.entryPrice}`:'Not documented'],
-  ['Stop / invalidation',zs.trade?.stopPrice!==undefined?`$${zs.trade.stopPrice}`:'Not documented'],
-  ['Target 1',zs.trade?.firstTargetPrice!==undefined?`$${zs.trade.firstTargetPrice}`:'Not documented'],
-  ['Breakout area',zs.confirmation||'Not documented'],
- ]:[];
  const joinLabel=enabled?(trial?'Start your 30-day trial':'Join Sacco Premium'):'Member sign in';
- return <main id="main-content" className={`container ${styles.page}`}>
+ const outlook=weeklyOutlooks.filter(o=>o.publicationState==='published').sort((a,b)=>b.weekOf.localeCompare(a.weekOf))[0];
+ // Only deliberately selected public fields leave the canonical member records.
+ const trades=publicClosedTrades(getPublishedOpportunities());const latest=trades[0];
+ return <PremiumPlanProvider><main id="main-content" className={`container ${styles.page}`}>
+  <nav className={styles.sectionNav} aria-label="Explore Premium"><span>SACCO <b>PREMIUM</b></span><div><a href="#inside">What’s inside</a><a href="#process">The process</a><a href="#record">Closed trades</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div></nav>
   <div className={styles.introLayout}>
-  <section className={styles.hero}>
-   <div className={styles.heroCopy}><Eyebrow>Sacco Financial / Premium</Eyebrow>
-    <h1>FIND BETTER STOCK OPPORTUNITIES.<br/><span>BEFORE THE MOVE IS OBVIOUS.</span></h1>
-    <p>Sacco Premium is the research process I use to find where market leadership is developing, identify stocks setting up inside those areas, and track the opportunities I’m actually watching and trading.</p>
-    <div className={styles.heroPrice}><strong>$10<span> / month</span></strong><p>{trial?'30 days free for new monthly members. Card required; then $10/month. Cancel before billing to avoid a charge.':'Cancel anytime.'}</p></div>
-    <div className="actions"><Link className="button" href={join}>{joinLabel}<ArrowUpRight size={18}/></Link><Link className="text-link" href="/premium/login">Sign in</Link></div>
-    {enabled&&billingMode()==='test'&&<p className="support-note">Local sandbox preview. Checkout uses test payments.</p>}
-    {!enabled&&<p className="support-note">Membership is currently available by invitation.</p>}
-   </div>
-   <div className={styles.heroResearch} aria-label="Selected public research preview">
-    <div className={styles.previewTop}><span>SACCO <b>PREMIUM</b></span><span>THE RESEARCH DESK</span></div>
-    <p className={styles.previewLabel}>MARKET → SECTOR → ETF → STOCK → SETUP → TRADE</p>
-    {outlook&&<div className={styles.heroOutlook}><Eyebrow>Weekly Outlook / Week of {premiumDate(outlook.weekOf)}</Eyebrow><h3>{outlook.title}</h3><p>{outlook.summary}</p></div>}
-    {zs&&<div className={styles.heroOpportunity}><div className={styles.previewTop}><strong>{zs.ticker} / {zs.company}</strong><span className={styles.status}>{zs.tradeStatus.toUpperCase()}</span></div><h3>{zs.title}</h3><p>{zs.nextStepSummary}</p><div className={styles.miniLevels}>{levels.slice(0,3).map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><p className={styles.date}>Documented {premiumDate(zs.updatedAt)} · Not a buy recommendation</p></div>}
-    <a href="#process" className={styles.explore}>Follow the process <ArrowDown size={16}/></a>
-   </div>
-  </section>
-
-  <section className={`section ${styles.videoSection}`} aria-labelledby="premium-video-heading">
-   <h2 id="premium-video-heading">See How Sacco Premium Works</h2>
-   <p>Take five minutes to see how I research the market, identify strong sectors, find potential stock opportunities, and document my actual trading decisions.</p>
-   <div className={styles.videoFrame}><iframe src="https://www.youtube-nocookie.com/embed/WDtnaojVatU" title="See How Sacco Premium Works — Introduction by Justin Sacco" width="560" height="315" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></div>
-   <div className={styles.videoCta}><Link className="button" href={join} data-premium-video-cta="true">{enabled?(trial?'Start your 30-day trial':'Join Sacco Premium — $10/Month'):'Member sign in'}<ArrowUpRight size={18}/></Link><p>$10/month or $100/year. Cancel anytime.</p></div>
-  </section>
-
+   <section className={styles.hero}>
+    <div id="premium-hero-copy" className={styles.heroCopy}><Eyebrow>Independent research / Documented decisions</Eyebrow>
+     <h1>Follow the market.<br/>Find the opportunity.<br/><span>See the process.</span></h1>
+     <p>The research I use to find developing market leadership, investigate stock setups, and document the trades I actually take—wins and losses included.</p>
+     <PlanChoice/>
+     <p className={styles.assurance}><Check size={16} aria-hidden="true"/> Both plans include full access. Cancel anytime.</p>
+     {trial&&<p className={styles.trial}>30 days free for new monthly members. Card required; then $10/month. Cancel before billing to avoid a charge.</p>}
+     <div className={styles.actions}><CheckoutButton className="button" href={join} trial={trial}>{joinLabel}<ArrowUpRight size={18}/></CheckoutButton></div>
+     <p className={styles.micro}><LockKeyhole size={14} aria-hidden="true"/> Secure checkout through Stripe · <Link href="/premium/login">Member sign in</Link></p>
+     <div className={styles.heroSecondaryActions}><a className={styles.videoAction} href="#premium-video-heading"><Play size={17} aria-hidden="true"/>See how it works</a>{sampleEnabled()&&<a className={styles.sampleAction} href="#sample"><Mail size={17} aria-hidden="true"/>Get a free sample</a>}</div>
+     {enabled&&billingMode()==='test'&&<p className={styles.micro}>Local sandbox preview. Checkout uses test payments.</p>}
+     {!enabled&&<p className={styles.micro}>Membership is currently available by invitation.</p>}
+    </div>
+    <aside className={styles.heroResearch} aria-label="Selected public research preview">
+     <div className={styles.previewTop}><strong>THE RESEARCH DESK</strong><span>Inside Premium</span></div>
+     <div className={styles.deskBody}>{outlook&&<><Eyebrow>Weekly Outlook · {premiumDate(outlook.weekOf)}</Eyebrow><h2>{outlook.title}</h2><p>{outlook.summary}</p><div className={styles.posture}><span>Market posture</span><strong>{outlook.marketPosture}</strong></div></>}
+      <div className={styles.gaugePreview}><Eyebrow>Sector Gauge / A look at the tool</Eyebrow><div className={styles.periods}>{['1W','1M','3M','6M','9M','12M'].map(t=><span key={t}>{t}</span>)}</div><div className={styles.gaugeRows}>{[['Compare','Absolute return / vs. SPY'],['Investigate','Sector and theme ETF proxies'],['Focus','Leaders, laggards, rank changes']].map(([a,b])=><div key={a}><strong>{a}</strong><span>{b}</span></div>)}</div><p className={styles.micro}>Layout preview. Market values and full research stay inside Premium. Saved historical data, not a live signal.</p></div>
+      {latest&&<div className={styles.deskTrade}><div><span>Most recent closed trade</span><strong>{latest.ticker} · {premiumDate(latest.closedAt)}</strong></div><strong className={latest.returnPct!==null&&latest.returnPct<0?styles.loss:styles.gain}>{latest.returnPct===null?'Not available':`${latest.approximate?'≈ ':''}${latest.returnPct>0?'+':''}${latest.returnPct.toFixed(2)}%`}</strong></div>}
+      <p className={styles.micro}>Personal results before fees and taxes. Not subscriber performance or a promise of future returns.</p>
+     </div>
+    </aside>
+   </section>
+   <section id="premium-introduction" className={styles.videoSection} aria-labelledby="premium-video-heading"><div><Eyebrow>A five-minute introduction</Eyebrow><h2 id="premium-video-heading">See how the pieces fit together.</h2><p>Take a look at how I research the market, find potential opportunities, and document my actual trading decisions.</p></div><div className={styles.videoFrame}><iframe src="https://www.youtube-nocookie.com/embed/WDtnaojVatU" title="See How Sacco Premium Works — Introduction by Justin Sacco" width="560" height="315" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/></div><div className={styles.videoCta}><JoinButtons join={join} trial={trial}/></div></section>
   </div>
-
-  <ClosedTradesPreview trades={publicClosedTrades(getPublishedOpportunities())} join={join}/>
-
-  <section id="process" className={`section ${styles.processSection}`}><SectionHeader label="A deliberate research system" title="Stop looking for stocks at random."/>
-   <ol className={styles.process}>{process.map(([label,title,copy],i)=><li key={label}><div className={styles.processNode}><span>0{i+1}</span><strong>{label}</strong>{i<process.length-1&&<ArrowDown size={18} aria-hidden="true"/>}</div><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
-  </section>
-
-  {zs&&<section id="zscaler" className={`section ${styles.caseStudy}`}><SectionHeader label={`A real example / Documented ${premiumDate(zs.updatedAt)}`} title="From sector strength to a position."/>
-   <div className={styles.chain}>{[zs.sector,...(zs.etfTickers||[]),zs.company,'Stage 1 base','Potential Stage 2',zs.trade?`$${zs.trade.entryPrice} entry`:'Watching'].map((label,i)=><span key={label}>{i>0&&<span aria-hidden="true">→ </span>}{label}</span>)}</div>
-   <div className={styles.caseGrid}><div className={styles.story}><p className={styles.lead}>Cybersecurity led me to CIBR. CIBR led me to Zscaler.</p><p>{zs.whySurfaced.split('\n\n').slice(0,2).join('\n\n')}</p><p>{zs.setupThesis.split('\n\n')[1]}</p><blockquote>{zs.justinsTake.split('\n\n').map((paragraph,index)=><p key={index}>{paragraph.split(/(\+\$20\.00|\+\$200\.00|\+10\.5%)/g).map((part,i)=>/^\+(?:\$20\.00|\$200\.00|10\.5%)$/.test(part)?<strong className={styles.positiveResult} key={i}>{part}</strong>:part)}</p>)}</blockquote></div>
-    <aside className={styles.tradeSheet}><Eyebrow>Opportunity 001 / Research excerpt</Eyebrow><h3>{zs.company} <span>{zs.ticker}</span></h3><dl><div><dt>Trade status</dt><dd className={styles.status}>{zs.tradeStatus.toUpperCase()}</dd></div><div><dt>Technical stage</dt><dd>{zs.technicalStage}</dd></div>{levels.map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><div className={styles.confirmation}><strong>Active ≠ technically confirmed.</strong><p>{zs.nextStepSummary} The documented trade and the technical transition are separate facts.</p></div><p className={styles.note}>Dated research, not a recommendation to buy ZS. The target is a documented objective, not a promised return. Read the full thesis, risks, and updates inside Premium.</p></aside>
-   </div>
-  </section>}
-
-  <section className="section"><SectionHeader label="The tools behind the process" title="Context. Leadership. Conviction."/>
-   <div className={styles.productRows}>
-    <article><div><Eyebrow>01 / Weekly Outlook</Eyebrow><h3>What kind of market are we in?</h3></div><p>My market view, the important narratives and catalysts, areas worth watching, and what would change the outlook. Start with the environment before evaluating the individual idea.</p></article>
-    <article><div><Eyebrow>02 / Sector Gauge</Eyebrow><h3>Where is leadership developing?</h3></div><p>Compare 24 selected sector and theme ETF proxies across six timeframes. View absolute performance or compare returns with SPY, then investigate the relevant ETFs and holdings. Saved historical data, not a real-time signal.</p></article>
-    <article><div><Eyebrow>03 / Opportunities</Eyebrow><h3>Which stocks survived the work?</h3></div><div><p>Why it surfaced. The technical setup. What I’m waiting for. Fundamentals, catalysts, risks, and thesis changes. Entry, stop, and targets when I actually take a trade, with dated updates as the research develops.</p><div className={styles.statuses}>{opportunityStatuses.map(s=><span key={s}>{s}</span>)}</div><p className={styles.note}>Confirmed is a technical setup status. Active and Closed require documented trades.</p></div></article>
-   </div>
-  </section>
-
-  <section className={`section ${styles.quality}`}><Eyebrow>Quality over quantity</Eyebrow><h2>SOME WEEKS,<br/><span>NOTHING MAKES THE BOARD.</span></h2><div><p>Premium isn’t built to manufacture a new stock pick every Monday. A scanner result is only the beginning.</p><p>An idea has to survive sector analysis, technical review, fundamental research, risk analysis, and one more question:</p><blockquote>“Would I actually put money into this?”</blockquote><p>If nothing survives the process, nothing needs to become an Opportunity or a trade.</p></div></section>
-
-  <section className={`section ${styles.creator}`}><Image src="/images/headshot.jpg" alt="Justin Sacco, founder of Sacco Financial" width={1200} height={900} sizes="(max-width: 700px) 100vw, 40vw"/><div><Eyebrow>Why I built it</Eyebrow><h2>The investing product I wanted for myself.</h2><p>I’m Justin Sacco. Premium is where I turn my market research into a repeatable process—and document it as it develops.</p><p>You’ll see what I’m looking at, why it matters, what would make me act, what would change my mind, and when I put my own money behind an idea.</p><p>Free videos introduce the stories I’m investigating. Premium is where you can stay with the research after the video ends.</p><p className={styles.signature}>— Justin Sacco</p></div></section>
-
-  <section id="inside" className="section"><SectionHeader label="Inside the membership" title="This is where the research lives."/>
-   <div className={styles.deskPreview}><div className={styles.deskHeader}><strong>SACCO <span>PREMIUM</span></strong><span>Selected product preview</span></div><div className={styles.deskNav} aria-label="Member destinations preview"><strong>Dashboard</strong><span>Weekly Outlook</span><span>Sector Gauge</span><span>Opportunities</span></div>
-    <div className={styles.deskContent}><div><Eyebrow>Weekly Outlook</Eyebrow><h3>{outlook?.title||'The market perspective.'}</h3>{outlook&&<><p className={styles.date}>Week of {premiumDate(outlook.weekOf)}</p><p>{outlook.summary}</p></>}<div className={styles.previewSections}><span>Market context</span><span>What changes my view</span><span>The closing game plan</span></div></div>
-     <div className={styles.gaugePreview}><Eyebrow>Sector Gauge</Eyebrow><h3>Compare. Investigate. Focus.</h3><div className={styles.periods}>{['1W','1M','3M','6M','9M','12M'].map(p=><span key={p}>{p}</span>)}</div><div className={styles.gaugeMode}><strong>Absolute return</strong><span>vs. SPY</span></div><div className={styles.gaugeColumns}><span>Sector / ETF proxy</span><span>Return</span><span>Rank change</span></div><p>24 ETF proxies · Leaders &amp; laggards · Multiple timeframes</p><p className={styles.note}>Layout preview only. Market-data values remain inside the member tool; no public price feed is included here.</p></div>
-    </div>{zs&&<div className={styles.deskFooter}><strong>{zs.ticker} / {zs.title}</strong><span>Trade status: {zs.tradeStatus} · Technical stage: {zs.technicalStage}</span></div>}
-   </div><p className={styles.proofNote}>Selected excerpts from existing member research and a simplified product layout.<br/>Full analysis stays inside Premium.<br/>The <Link className="text-link" href="/premium/issue-001">archived Issue 001</Link> remains a separate sample.</p>
-  </section>
-
-  <section id="pricing" className="section"><SectionHeader label="One membership / Two billing options" title="Get the full research process."/>
-   <div className={styles.offer}><div><p className={styles.lead}>Both plans include the same full access.</p><ul>{['Weekly Outlook and the Premium Dashboard','Sector Gauge','All current Opportunities and dated updates','Documented entry, stop/invalidation, and targets when I take a trade','Member account and subscription management'].map(item=><li key={item}><Check size={17} aria-hidden="true"/>{item}</li>)}</ul></div><div className={styles.plans}>{[['monthly','Monthly','$10','Billed monthly.'],['annual','Annual','$100','Billed annually. Save $20 versus 12 monthly payments.']].map(([plan,title,price,detail])=><article key={plan}><Eyebrow>{title}</Eyebrow><h3>{price}<span> / {plan==='monthly'?'month':'year'}</span></h3><p>{trial&&plan==='monthly'?'30 days free, then $10/month. New members only. Card required.':detail}</p><Link className="button" href={enabled?`/premium/join?plan=${plan}`:'/premium/login'} aria-label={enabled?`Join Sacco Premium — ${title.toLowerCase()}`:'Member sign in'}>{plan==='annual'?'Join Sacco Premium':joinLabel}<ArrowUpRight size={16}/></Link></article>)}</div></div>
-   <p className={styles.billing}>Cancel anytime through Account &amp; Billing.<br/>Renews automatically until canceled; access continues through your paid period.<br/>Payments are generally non-refundable.<br/><Link className="text-link" href="/terms">Terms</Link> · <Link className="text-link" href="/premium/login">Sign in</Link></p>
-  </section>
-
-  <section className="section faq-section"><SectionHeader label="Before you join" title="Straight answers."/>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</section>
-  <section className={`premium-bottom ${styles.closing}`}><Eyebrow>Market context. Sector leadership. Individual opportunities.</Eyebrow><h2>SEE WHAT<br/><span>I’M SEEING.</span></h2><p>The setups I’m actually researching and trading.<br/>{trial?'30 days free on monthly · Then $10/month · Cancel anytime.':'$10/month · $100/year · Cancel anytime.'}</p><div className="actions"><Link href={join} className="button">{joinLabel}<ArrowUpRight size={18}/></Link><Link href="/premium/login" className="text-link">Sign in</Link></div><p className={styles.note}>Educational and informational research.<br/>Not personalized investment advice.<br/>Investing involves risk, including loss of principal.<br/><Link href="/disclosures">Disclosures</Link> · <Link href="/privacy">Privacy</Link> · <Link href="/terms">Terms</Link></p></section>
- </main>;
+  <section className={styles.block}><SectionHeader label="Straight answers, up front" title="Know what you’re joining."/><div className={styles.objections}>{[
+   ['Research, not signals.','I show my reasoning, what I’m waiting for, and what would change my mind. You make your own decisions.'],
+   ['No forced stock picks.','Some weeks, nothing makes the board. I’d rather wait for a setup than manufacture a new idea to fill a schedule.'],
+   ['Cancel in your account.','Manage renewal through Account & Billing. Cancel anytime and keep paid access through the end of your billing period.'],
+  ].map(([h,p])=><article key={h}><Check size={20} aria-hidden="true"/><h3>{h}</h3><p>{p}</p></article>)}</div></section>
+  <section id="inside" className={styles.block}><SectionHeader label="What members get" title="Three tools. One research process."/><div className={styles.features}>{features.map(([number,title,copy,items,cadence])=><article key={number as string}><Eyebrow>{number}</Eyebrow><h3>{title}</h3><p>{copy}</p><ul>{(items as string[]).map(item=><li key={item}>{item}</li>)}</ul><span className={styles.cadence}>{cadence}</span></article>)}</div><div className={styles.library}><div><Eyebrow>Also included / Learning Library</Eyebrow><h3>Learn how I do the research.</h3><p>Watch the complete process in Lesson 1, then follow a real-time stock research walkthrough in Lesson 2.</p></div><a href="#pricing" className="text-link">Included with both plans <ArrowUpRight size={17}/></a></div></section>
+  <section id="process" className={styles.block}><SectionHeader label="The research process" title="Market first. Trade last."/><p className={styles.sectionIntro}>Each step narrows the search. A strong sector is a starting point—not a reason to skip the company, the setup, or the risk.</p><ol className={styles.process}>{process.map(([label,copy],i)=><li key={label}><span>STEP 0{i+1}</span><h3>{label}</h3><p>{copy}</p></li>)}</ol><blockquote className={styles.processQuote}>“Some weeks, nothing makes the board. That’s discipline you can follow.”</blockquote></section>
+  <div id="record" className={styles.record}><ClosedTradesPreview trades={trades} join={join} trial={trial}/><div className={styles.worked}><Eyebrow>A worked example / Zscaler, first trade</Eyebrow><h3>The target wasn’t reached. The exit plan still mattered.</h3><p>My first Zscaler trade closed when its raised stop triggered on October 7, 2026. The original $220 target was not reached. The full history shows how I progressively adjusted risk as the trade developed.</p><div className={styles.stops}><span>Stop history</span>{['$160','$195','$205','$210'].map((s,i)=><span key={s}>{i>0&&<b aria-hidden="true">→ </b>}<strong>{s}</strong></span>)}<span>Closed at $210.07</span></div><p className={styles.micro}>A separate trade from the later Zscaler position. This example does not guarantee profitable exits on other trades.</p></div></div>
+  <section className={styles.block}><SectionHeader label="After you join" title="A clear place to start."/><p className={styles.sectionIntro}>Your dashboard brings the research together. Here’s a simple reading path for your first visit.</p><div className={styles.firstWeek}>{[
+   ['01 / Get the context','Read the Outlook','Start with the market backdrop, the important catalysts, and what could change my view.'],
+   ['02 / Find leadership','Explore the Sector Gauge','Compare sector and theme returns across timeframes before narrowing your search.'],
+   ['03 / Follow an idea','Open an Opportunity','Read the thesis, the technical setup, and the conditions that would invalidate it.'],
+   ['04 / Learn the method','Watch a lesson','See the process in action, then return to the board as the research develops.'],
+  ].map(([step,h,p])=><article key={step}><Eyebrow>{step}</Eyebrow><h3>{h}</h3><p>{p}</p></article>)}</div></section>
+  <section id="pricing" className={styles.block}><SectionHeader label="One membership / Two billing options" title="Same full access. Your choice of plan."/><div className={styles.plans}>{['monthly','annual'].map(plan=><article className={plan==='annual'?styles.best:''} key={plan}>{plan==='annual'&&<span className={styles.badge}>Best value · Save $20/year</span>}<Eyebrow>{plan==='monthly'?'Monthly':'Annual'}</Eyebrow><h3>{plan==='monthly'?'$10':'$8.33'}<span> / month</span></h3><p className={styles.planTerms}>{plan==='annual'?<><strong>Billed $100/year.</strong> Save $20 versus 12 monthly payments.</>:trial?'30 days free, then $10/month. New monthly members only. Card required.':'Billed $10/month.'}</p><ul>{included.map(item=><li key={item}><Check size={17} aria-hidden="true"/>{item}</li>)}</ul><CheckoutButton trial={trial} className="button" href={enabled?`/premium/join?plan=${plan}`:'/premium/login'}>{!enabled?'Member sign in':plan==='annual'?'Join annual — $100/year':joinLabel}<ArrowUpRight size={17}/></CheckoutButton></article>)}</div><div className={styles.billing}><LockKeyhole size={18} aria-hidden="true"/><div><strong>Secure checkout through Stripe.</strong><PaymentMethods/><p>Renews automatically until canceled. Cancel through Account &amp; Billing. Payments are generally non-refundable. Review the final amount and terms at checkout. <Link href="/terms">Terms →</Link></p></div></div></section>
+  <section className={`${styles.block} ${styles.creator}`}><Image src="/images/headshot.jpg" alt="Justin Sacco, founder of Sacco Financial" width={1200} height={900} sizes="(max-width: 700px) 100vw, 35vw"/><div><Eyebrow>Justin Sacco / Founder, Sacco Financial</Eyebrow><h2>The research I wanted to follow.</h2><p>Premium is where I turn my market research into a repeatable process—and document it as it develops.</p><p>You’ll see what I’m looking at, why it matters, what would make me act, and when I put my own money behind an idea.</p><p>Free videos introduce the stories I’m investigating. Premium is where you can stay with the research after the video ends.</p><JoinButtons join={join} trial={trial}/></div></section>
+  {sampleEnabled()&&<SampleForm/>}
+  <section id="faq" className={`${styles.block} ${styles.faq}`}><SectionHeader label="Before you join" title="Everything else, answered."/>{faqs.map(([q,a])=><details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</section>
+  <section className={styles.closing}><Eyebrow>Research you can follow</Eyebrow><h2>See the reasoning.<br/><span>Stay with the process.</span></h2><p>Market context, developing opportunities, and documented decisions.<br/>$10/month or $100/year. Cancel anytime.</p><div className={styles.bottomButtons}><JoinButtons join={join} trial={trial}/><Link href="/premium/login" className={`button ${styles.memberButton}`}>Member sign in</Link></div><p className={styles.micro}>Educational and informational research. Not personalized investment advice. Investing involves risk, including loss of principal. <Link href="/disclosures">Disclosures</Link></p></section>
+  <MobileJoin href={join} enabled={enabled} trial={trial}/>
+ </main></PremiumPlanProvider>;
 }
