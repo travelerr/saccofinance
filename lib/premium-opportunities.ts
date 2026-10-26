@@ -2610,3 +2610,161 @@ weeklyOutlooks.push({
   "notificationSummary": "This could be one of the most important weeks of the year for the stock market.\n\nAfter another difficult week for AI stocks, I'm watching major earnings reports from Alphabet, Microsoft, Amazon, and other companies tied to the AI infrastructure buildout, alongside the Federal Reserve decision and GDP and inflation data.\n\nI'm still leaning toward rotation out of AI rather than a broad market crash, but I want to see what this week's results reveal.\n\nInside this week's Sacco Premium Outlook, I cover:\n\n- The major catalysts that could move the market\n- What I'm watching in Big Tech and AI spending\n- My latest Zscaler trade: $149.40 realized profit (+14.37%), before fees and taxes\n- My existing EPAM and Workiva positions and Centene watchlist setup\n- The sectors I'm targeting for new opportunities\n- What I need to see before buying more AI stocks\n\nI'm remaining cautiously selective, but I think this week's events could create some interesting opportunities.\n\nJustin\nSacco Financial",
   "disclosure": "The positions and results discussed reflect my personal trading activity, not subscriber performance. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Stops do not guarantee execution prices. This content is educational and informational and does not constitute personalized investment advice."
 });
+
+// October 26: conditional SAP research; no shares or orders recorded.
+opportunities.push({
+  "id": "opportunity-012",
+  "slug": "sap-012",
+  "ticker": "SAP",
+  "company": "SAP SE",
+  "title": "SAP — An Enterprise Software Opportunity Taking Shape",
+  "publicationState": "published",
+  "publishedAt": "2026-10-26",
+  "updatedAt": "2026-10-26",
+  "tradeStatus": "Watching",
+  "technicalStage": "Developing Stage 2",
+  "sector": "Enterprise Software",
+  "strategy": "Potential Swing Trade",
+  "summary": "SAP is my top swing-trade candidate after a weekend review, but I'm waiting for a controlled pullback toward $228–$232. I have not opened a position.",
+  "whySurfaced": "I've added SAP to my watchlist after spending the weekend narrowing down potential trades. I originally identified SAP while recording Lesson 2 of the Sacco Premium Learning Library, where I walk through my stock research process in real time.\n\nOver the weekend, I continued researching SAP alongside Centene, Workday, Stryker, Check Point, CDW, Rapid7, Cloudflare, and Lockheed Martin. I eliminated several candidates because either the fundamentals or technical structures weren't attractive enough. SAP has become my top priority.\n\nCentene remains one of my favorite candidates, but with earnings approaching on October 27, I'd rather wait than turn it into an earnings gamble. Workday is next on my shortlist, while I'm continuing to research Stryker and Check Point.",
+  "setupThesis": "I see SAP developing a Stage 2 recovery. My TrendSpider review identified the transition around $219, with the October 23 closing price at $238.14. The stock has moved sharply higher, and the RSI in my October 25 chart is above 70. I'm not interested in chasing that extension.\n\nMy technical review places the 50-day moving-average crossover above the 200-day in late September, with price above both averages. The October 24 daily-data review still shows the 200-day average sloping down; my TrendSpider chart shows a flattening and tentative turn in its displayed average. These are separate chart views, so I am not treating their average values as interchangeable. The longer-term trend has not yet established a convincing, sustained upward slope.\n\nI want the RSI to cool off and a controlled pullback toward $228–$232, followed by a daily reversal or other evidence that buyers are defending support. The $225.79 and $221.86 areas matter to that structure. If the stock breaks down instead, I'll reassess.",
+  "nextCondition": "I want a controlled pullback toward $228–$232 and evidence that buyers are defending support before considering an entry.",
+  "nextStepSummary": "I'm waiting for a pullback toward $228–$232; I have not purchased shares.",
+  "fundamentalCase": "I'm interested in SAP's enterprise software franchise, growing cloud business, and adoption of AI-powered business applications. Its October 21 third-quarter report removes an important near-term earnings uncertainty.\n\nQ3 revenue reached €10.27 billion, up 13%. Cloud revenue grew 26% to €6.67 billion, and current cloud backlog increased 28% to €24.1 billion. At constant currencies, those growth rates were 12%, 25%, and 26%, respectively. I see those figures as support for the transition toward recurring cloud revenue.\n\nManagement expects full-year cloud revenue toward the upper end of its existing €25.8–€26.2 billion guidance range at constant currencies; it did not raise the range's ceiling.\n\nI also want to qualify the headline growth: cloud revenue benefited from multi-quarter catch-up payments from customers returning from financial distress. Non-IFRS cloud gross margin declined to 74.3% from 75.1%. I'm encouraged by the business and its expanding AI capabilities, but I don't assume all of the quarter's acceleration is repeatable.",
+  "thesisChanges": "A failure of the $225.79 / $221.86 structure, renewed cloud-margin pressure, or disappointing AI monetization would cause me to reassess.",
+  "justinsTake": "My reference entry is $230 within the preferred $228–$232 zone, with a proposed stop at $220.50. These are preliminary research levels, not executed orders.\n\nAt exactly $230, the distance to the stop is 4.13%. Initial resistance at $243.05 offers 1.37:1 reward-to-risk; $247.94 offers 1.89:1; and $255.90 offers 2.73:1. Higher targets require the nearer resistance levels to clear. The ratios must be recalculated at any actual fill, and a stop cannot guarantee its execution price.\n\nSAP is my highest-priority developing opportunity, but I haven't purchased shares. I'll watch early-week trading for a pullback and evidence of support. If price continues higher without an attractive entry, I'm comfortable waiting. My objective is to enter strong companies with favorable technical setups when the potential reward justifies the risk. For now, SAP remains WATCHING.",
+  "nextCatalyst": "I’m watching the early-week pullback and post-earnings support; Q3 results were released October 21.",
+  "entryFramework": "I would consider $228–$232 after a controlled pullback and daily confirmation.",
+  "riskInvalidation": "Proposed $220.50 stop only if entered; gaps and slippage can exceed planned risk.",
+  "targets": [
+    "$243.05 — initial resistance",
+    "$247.94 — second target",
+    "$255.90 — third target"
+  ],
+  "learningLesson": {
+    "href": "/premium/learn/lesson-2",
+    "title": "Watch How I Found SAP — Learning Library Lesson 2",
+    "description": "I demonstrate my actual research process, including sector analysis, ETF screening, chart evaluation, and my initial SAP discovery."
+  },
+  "proposedLevels": [
+    {
+      "label": "Dated reference price",
+      "value": "$238.14 · October 23, 2026 close"
+    },
+    {
+      "label": "Preferred entry zone",
+      "value": "$228–$232 · confirmation required"
+    },
+    {
+      "label": "Reference entry",
+      "value": "$230 · not a fill"
+    },
+    {
+      "label": "Proposed stop",
+      "value": "$220.50"
+    },
+    {
+      "label": "Target 1 / initial resistance",
+      "value": "$243.05 · 1.37:1 at $230"
+    },
+    {
+      "label": "Target 2",
+      "value": "$247.94 · 1.89:1 at $230"
+    },
+    {
+      "label": "Target 3",
+      "value": "$255.90 · 2.73:1 at $230"
+    },
+    {
+      "label": "Potential downside",
+      "value": "4.13% to proposed stop at $230"
+    },
+    {
+      "label": "Support areas",
+      "value": "$225.79 / $221.86"
+    }
+  ],
+  "articleSections": [
+    {
+      "title": "How I Found SAP",
+      "body": "I've added SAP to my watchlist after spending the weekend narrowing down potential trades. I originally identified SAP while recording Lesson 2 of the Sacco Premium Learning Library, where I walk through my stock research process in real time.\n\nOver the weekend, I continued researching SAP alongside Centene, Workday, Stryker, Check Point, CDW, Rapid7, Cloudflare, and Lockheed Martin. I eliminated several candidates because either the fundamentals or technical structures weren't attractive enough. SAP has become my top priority.\n\nCentene remains one of my favorite candidates, but with earnings approaching on October 27, I'd rather wait than turn it into an earnings gamble. Workday is next on my shortlist, while I'm continuing to research Stryker and Check Point."
+    },
+    {
+      "title": "Why I'm Interested in SAP",
+      "body": "I'm interested in SAP's enterprise software franchise, growing cloud business, and adoption of AI-powered business applications. Its October 21 third-quarter report removes an important near-term earnings uncertainty.\n\nQ3 revenue reached €10.27 billion, up 13%. Cloud revenue grew 26% to €6.67 billion, and current cloud backlog increased 28% to €24.1 billion. At constant currencies, those growth rates were 12%, 25%, and 26%, respectively. I see those figures as support for the transition toward recurring cloud revenue.\n\nManagement expects full-year cloud revenue toward the upper end of its existing €25.8–€26.2 billion guidance range at constant currencies; it did not raise the range's ceiling.\n\nI also want to qualify the headline growth: cloud revenue benefited from multi-quarter catch-up payments from customers returning from financial distress. Non-IFRS cloud gross margin declined to 74.3% from 75.1%. I'm encouraged by the business and its expanding AI capabilities, but I don't assume all of the quarter's acceleration is repeatable.",
+      "sources": [
+        {
+          "label": "SAP Q3 2026 results — October 21 issuer release",
+          "url": "https://news.sap.com/2026/10/sap-announces-q3-2026-results/"
+        },
+        {
+          "label": "SAP Q3 2026 statement — results, catch-up revenue and guidance",
+          "url": "https://www.sap.com/docs/download/investors/2026/sap-2026-q3-statement.pdf"
+        }
+      ]
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "I see SAP developing a Stage 2 recovery. My TrendSpider review identified the transition around $219, with the October 23 closing price at $238.14. The stock has moved sharply higher, and the RSI in my October 25 chart is above 70. I'm not interested in chasing that extension.\n\nMy technical review places the 50-day moving-average crossover above the 200-day in late September, with price above both averages. The October 24 daily-data review still shows the 200-day average sloping down; my TrendSpider chart shows a flattening and tentative turn in its displayed average. These are separate chart views, so I am not treating their average values as interchangeable. The longer-term trend has not yet established a convincing, sustained upward slope.\n\nI want the RSI to cool off and a controlled pullback toward $228–$232, followed by a daily reversal or other evidence that buyers are defending support. The $225.79 and $221.86 areas matter to that structure. If the stock breaks down instead, I'll reassess."
+    },
+    {
+      "title": "Analyst Expectations",
+      "body": "I checked the U.S.-listed SAP ADR analyst forecasts on October 26. Stock Analysis, citing S&P Global and an October 23 update, shows an average one-year target of $280.83, a low of $258, and a high of $333. The InvestingPro screenshot also shows the $280.83 average. These are longer-term analyst estimates, not my shorter-term trading targets or guaranteed outcomes.\n\nMy October 25 InvestingPro screenshot separately shows model fair value of $254.67, or 6.94% above the $238.14 reference close. I distinguish that model estimate from analyst targets and from my own technical levels.",
+      "chartPlacement": "fundamentals",
+      "sources": [
+        {
+          "label": "SAP ADR analyst forecasts — checked October 26, 2026",
+          "url": "https://stockanalysis.com/stocks/sap/forecast/"
+        }
+      ]
+    },
+    {
+      "title": "Valuation and Risks",
+      "body": "I don't consider SAP particularly cheap. In my October 25 Seeking Alpha snapshot, Quant rates SAP Hold at 3.27, with an F valuation grade and D+ growth grade. Profitability is A+, momentum A−, and revisions D+. I take those mixed signals seriously despite the improving chart.\n\nI'm watching premium valuation multiples, cloud-margin pressure, enterprise software competition, and the risk that AI investment takes longer to generate meaningful returns. The recent rally and overbought RSI leave room for a pullback, and a weak post-earnings structure could invalidate my setup.\n\nI am reviewing the NYSE-listed ADR in U.S. dollars, while SAP reports its financial results in euros. EUR/USD changes can affect my returns. I won't force an entry just because the business narrative is attractive.",
+      "chartPlacement": "framework"
+    },
+    {
+      "title": "My Potential Trade and Plan",
+      "body": "My reference entry is $230 within the preferred $228–$232 zone, with a proposed stop at $220.50. These are preliminary research levels, not executed orders.\n\nAt exactly $230, the distance to the stop is 4.13%. Initial resistance at $243.05 offers 1.37:1 reward-to-risk; $247.94 offers 1.89:1; and $255.90 offers 2.73:1. Higher targets require the nearer resistance levels to clear. The ratios must be recalculated at any actual fill, and a stop cannot guarantee its execution price.\n\nSAP is my highest-priority developing opportunity, but I haven't purchased shares. I'll watch early-week trading for a pullback and evidence of support. If price continues higher without an attractive entry, I'm comfortable waiting. My objective is to enter strong companies with favorable technical setups when the potential reward justifies the risk. For now, SAP remains WATCHING."
+    }
+  ],
+  "charts": [
+    {
+      "src": "/api/premium/chart/sap-trendspider-2026-10-25",
+      "width": 1315,
+      "height": 844,
+      "source": "TrendSpider",
+      "placement": "setup",
+      "caption": "My dated stage-analysis and RSI view. I see an extended recovery and want a pullback; the displayed moving average is distinct from the daily-data review.",
+      "alt": "SAP TrendSpider research snapshot from October 25, 2026",
+      "asOf": "2026-10-25"
+    },
+    {
+      "src": "/api/premium/chart/sap-seeking-alpha-2026-10-25",
+      "width": 2518,
+      "height": 1260,
+      "source": "Seeking Alpha",
+      "placement": "framework",
+      "caption": "My October 25 snapshot shows Quant Hold, valuation F, and growth D+. Ratings can change.",
+      "alt": "SAP Seeking Alpha research snapshot from October 25, 2026",
+      "asOf": "2026-10-25"
+    },
+    {
+      "src": "/api/premium/chart/sap-investingpro-2026-10-25",
+      "width": 2044,
+      "height": 1570,
+      "source": "InvestingPro",
+      "placement": "fundamentals",
+      "caption": "My October 25 snapshot separates $254.67 model fair value from the $280.83 analyst target. Neither is my swing-trade target.",
+      "alt": "SAP InvestingPro research snapshot from October 25, 2026",
+      "asOf": "2026-10-25"
+    }
+  ],
+  "notification": {
+    "disclosure": "Investing involves risk, including loss of principal. Past performance does not guarantee future results. Stops do not guarantee execution prices. This content is educational and informational and does not constitute personalized investment advice.",
+    "subject": "New Opportunity Watch: SAP",
+    "preview": "SAP is my top swing-trade candidate, but I'm waiting for a better entry.",
+    "summary": "I've added SAP to the Sacco Premium Opportunity Board as a new developing trade.\n\nI originally discovered SAP while recording Lesson 2 of the Learning Library, where I walk through my stock research process in real time.\n\nAfter reviewing several additional companies over the weekend, SAP has become my top candidate.\n\nThe company recently reported strong cloud growth, its technical structure is developing into Stage 2, and its AI business continues gaining traction.\n\nBut I'm not interested in chasing the stock following its recent rally.\n\nMy preliminary setup:\nPreferred Entry: $228–$232\nProposed Stop: $220.50\nUpside Targets: approximately $243, $248, and $256\n\nI want to see a pullback and confirmation that buyers are defending support before considering an entry.\n\nI haven't opened a position.\n\nI've published the research, charts, and complete setup inside Sacco Premium.",
+    "cta": "VIEW SAP OPPORTUNITY"
+  }
+});

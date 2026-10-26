@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,11);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,12);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,11);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,11);
+ assert.equal(d.getPublishedOpportunities().length,12);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,12);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,23);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,26);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);

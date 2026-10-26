@@ -11,11 +11,12 @@ type OpportunityLifecycle=
 export type OpportunityChart={src:string;asOf?:string;alt:string;caption?:string;width?:number;height?:number;placement?:'origin'|'setup'|'framework'|'confirmation'|'fundamentals';affiliateTool?:'trendspider'|'seeking_alpha'|'investing_pro';source?:string};
 export type WheelFill={id:string;filledAt:string;action:'Sell to open';contracts:number;optionType:'Put'|'Call';strike:number;expiresAt:string;premiumPerShare:number;multiplier:number;outcome:'Assigned'|'Not verified'|'Open'|'Expired worthless'};
 export type Opportunity={
+ learningLesson?:{href:string;title:string;description:string};
  breakdownVideo?:{youtubeId:string;title:string;recordedAt:string};
  optionPosition?:{optionType:'Put';positionEffect:'Sell to open';contracts:number;strike:number;expiresAt:string;premiumPerShare:number;grossPremium:number;multiplier:number;status:'Open'|'Closed';closedAt?:string;buybackPerShare?:number;sharesOwned:number;assignmentStatus:'Not assigned';realizedProfit:number|null;acquisitionBasis:number;collateral:number;maxLoss:number};
  proposedLevels?:{label:string;value:string}[];
  articleSections?:{title:string;body:string;chartPlacement?:OpportunityChart['placement'];sources?:{label:string;url:string}[]}[];
- notification?:{subject:string;preview:string;summary:string;cta:string};
+ notification?:{subject:string;preview:string;summary:string;cta:string;disclosure?:string};
  id:string;slug:string;ticker:string;company:string;title:string;
  publicationState:PublicationState;publishedAt:string;updatedAt:string;addedToArchiveAt?:string;researchPublishedAt?:string;
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
