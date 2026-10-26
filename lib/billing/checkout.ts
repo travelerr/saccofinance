@@ -1,3 +1,4 @@
+import {randomUUID} from 'node:crypto';
 import {localDevelopment} from '../local-development';
 import {checkoutAnalytics} from '@/lib/analytics/server';
 import 'server-only';
@@ -24,7 +25,16 @@ export async function portalUrl(userId:string,subscriptionId?:string){
  return session.url;
 }
 export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string,direct=false){
- const {stripe,admin,mode}=await billingServices();await checkedPrice(stripe,plan);
+ const services=await billingServices();
+ const token=randomUUID();
+ const {data:locked,error}=await services.admin.rpc('acquire_billing_checkout_lock',{p_user:user.id,p_mode:services.mode,p_token:token});
+ if(error)throw new Error('BILLING_DATABASE');
+ if(!locked)throw new Error('CHECKOUT_BUSY');
+ try{return await lockedCheckoutUrl(user,plan,trialEmail,direct,services);}
+ finally{await services.admin.from('billing_checkout_locks').delete().eq('user_id',user.id).eq('mode',services.mode).eq('token',token);}
+}
+async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|undefined,direct:boolean,services:Awaited<ReturnType<typeof billingServices>>){
+ const {stripe,admin,mode}=services;await checkedPrice(stripe,plan);
  const analytics=await checkoutAnalytics(user);
  if(user.is_anonymous){const {data,error}=await admin.from('billing_purchase_claims').select('claimed_user_id').eq('original_user_id',user.id).eq('mode',mode).not('claimed_user_id','is',null).maybeSingle();if(error)throw new Error('BILLING_DATABASE');if(data)throw new Error('GUEST_CLAIMED');}
  const owned=await ownedBillingCustomers(user.id);
@@ -37,7 +47,28 @@ export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string,
   if(subscriptions.data.some(s=>blocksNewSubscription(s.status)&&s.items.data.some(i=>[priceId('monthly'),priceId('annual')].includes(i.price.id))))return portalUrl(user.id);
   const open=await stripe.checkout.sessions.list({customer,status:'open',limit:100});
   if(open.has_more)throw new Error('BILLING_UNAVAILABLE');
-  const existing=open.data.find(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id);if(existing?.url){const items=await stripe.checkout.sessions.listLineItems(existing.id,{limit:2});if(items.data.length!==1||items.data[0].price?.id!==priceId(plan))throw new Error('CHECKOUT_PENDING');if(direct&&existing.consent_collection?.terms_of_service!=='required')throw new Error('CHECKOUT_LEGACY');try{await stripe.checkout.sessions.update(existing.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}return existing.url;}
+  for(const existing of open.data.filter(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id)){
+   const items=await stripe.checkout.sessions.listLineItems(existing.id,{limit:2});
+   const samePlan=items.data.length===1&&items.data[0].price?.id===priceId(plan);
+   if(samePlan&&existing.url){
+    if(direct&&existing.consent_collection?.terms_of_service!=='required')throw new Error('CHECKOUT_LEGACY');
+    try{await stripe.checkout.sessions.update(existing.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}
+    return existing.url;
+   }
+   // Stripe must confirm expiration before releasing the database reservation.
+   // If payment completed concurrently, expiration fails and no replacement is created.
+   const expired=await stripe.checkout.sessions.expire(existing.id);
+   if(expired.status!=='expired')throw new Error('CHECKOUT_BUSY');
+  }
+ }
+ // Retire the old offer only after all conflicting Stripe sessions are expired.
+ const {data:previous,error:readError}=await admin.from('billing_customers').select('checkout_token,checkout_plan').eq('user_id',user.id).eq('mode',mode).maybeSingle();
+ if(readError)throw new Error('BILLING_DATABASE');
+ if(previous?.checkout_token&&previous.checkout_plan!==plan){
+  const {error:claimError}=await admin.from('premium_trial_claims').update({expires_at:new Date().toISOString()}).eq('user_id',user.id).eq('mode',mode).eq('checkout_token',previous.checkout_token).eq('used',false);
+  if(claimError)throw new Error('BILLING_DATABASE');
+  const {error:resetError}=await admin.from('billing_customers').update({checkout_expires_at:null}).eq('user_id',user.id).eq('mode',mode).eq('checkout_token',previous.checkout_token);
+  if(resetError)throw new Error('BILLING_DATABASE');
  }
  // Also check prior Stripe customers by email before granting a new trial.
  if(email){const customers=await stripe.customers.list({email,limit:100});if(customers.has_more)throw Error('BILLING_UNAVAILABLE');for(const c of customers.data){const previous=await stripe.subscriptions.list({customer:c.id,status:'all',limit:1});if(previous.data.length)priorCustomer=true;}}

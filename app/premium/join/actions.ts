@@ -22,7 +22,7 @@ async function runCheckout(form:FormData,direct:boolean){
   let user=access.user;
   if(!user){const result=await client.auth.signInAnonymously();if(result.error||!result.data.user)throw new Error('GUEST_AUTH_UNAVAILABLE');user=result.data.user;}
   url=await checkoutUrl(user,plan,String(form.get('email')||''),direct);
- }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='CHECKOUT_LEGACY')redirect('/premium/join?plan='+plan);if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='TRIAL_UNAVAILABLE'?'trial':reason==='CHECKOUT_PENDING'?'pending':'billing'));}
+ }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='CHECKOUT_LEGACY')redirect('/premium/join?plan='+plan);if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='TRIAL_UNAVAILABLE'?'trial':reason==='CHECKOUT_BUSY'?'busy':reason==='CHECKOUT_PENDING'?'pending':'billing'));}
  if(url.startsWith('https://checkout.stripe.com/')){try{await recordSampleCheckout();}catch{/* Optional attribution cannot interrupt checkout. */}}
  redirect(url);
 }
