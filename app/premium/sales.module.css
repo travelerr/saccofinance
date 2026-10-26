@@ -46,3 +46,5 @@
 .stickyChoices :global(.button):focus-visible{outline:3px solid var(--brand-cyan);outline-offset:3px}
 @media(max-width:900px){.stickyPitch{display:none}.mobileJoin.stickyPlans{gap:0}.stickyChoices{width:460px}}
 @media(max-width:600px){.mobileJoin.stickyPlans{padding:8px 12px calc(10px + env(safe-area-inset-bottom));flex-wrap:nowrap}.stickyChoices{width:100%;gap:10px}.mobileJoin .stickyValue{font-size:9px;letter-spacing:0}.mobileJoin .stickyChoices :global(.button){min-height:56px;padding:9px 6px}.mobileJoin .stickyChoices :global(.button) strong{font-size:14px}.mobileJoin .stickyChoices :global(.button) span{font-size:12px}}
+
+.heroCommunity{display:grid;gap:5px;margin-top:24px;padding-left:13px;border-left:3px solid var(--brand-cyan);max-width:440px}.heroCommunity strong{font-size:14px;font-weight:700;line-height:1.5;color:var(--brand-text)}.heroCommunity span{font-size:12px;line-height:1.6;color:var(--brand-muted)}.heroCommunity+.planChoice{margin-top:20px}
