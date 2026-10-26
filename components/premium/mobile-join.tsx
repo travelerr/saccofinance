@@ -1,12 +1,17 @@
 'use client';
 import {useEffect,useState} from 'react';
 import CheckoutButton from './checkout-button';
-import {ArrowUpRight,X} from 'lucide-react';
 import styles from '@/app/premium/sales.module.css';
 export default function MobileJoin({href,enabled,trial=false}:{href:string;enabled:boolean;trial?:boolean}){
- const [pastHero,setPastHero]=useState(false);const [dismissed,setDismissed]=useState(false);const [videoVisible,setVideoVisible]=useState(false);
- useEffect(()=>{const hero=document.getElementById('premium-hero-copy');const video=document.getElementById('premium-introduction');if(!hero||!video)return;
- const update=()=>{setPastHero(hero.getBoundingClientRect().bottom<90);const rect=video.getBoundingClientRect();setVideoVisible(rect.top<window.innerHeight&&rect.bottom>0);};update();window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);return()=>{window.removeEventListener('scroll',update);window.removeEventListener('resize',update);};},[]);
- if(!pastHero||dismissed||videoVisible)return null;
- return <div className={styles.mobileJoin}><div><strong>Sacco Premium</strong><span>$10/month · $100/year</span></div><CheckoutButton trial={trial} className="button" href={href}>{enabled?'Join Premium':'Sign in'}<ArrowUpRight size={16}/></CheckoutButton><button type="button" className={styles.dismissJoin} aria-label="Dismiss subscription banner" onClick={()=>setDismissed(true)}><X size={18}/></button></div>;
+ const [pastHero,setPastHero]=useState(false);
+ useEffect(()=>{const hero=document.getElementById('premium-hero-copy');if(!hero)return;
+ const update=()=>setPastHero(hero.getBoundingClientRect().bottom<90);update();window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);return()=>{window.removeEventListener('scroll',update);window.removeEventListener('resize',update);};},[]);
+ if(!pastHero)return null;
+ return <aside className={`${styles.mobileJoin} ${styles.stickyPlans}`} aria-label="Join Sacco Premium">
+  <div className={styles.stickyPitch}><strong>Make your next move informed.</strong><span>Full Premium access. Your choice of plan.</span></div>
+  <div className={styles.stickyChoices}>
+   <div className={styles.stickyAnnual}><span className={styles.stickyValue}>BEST VALUE · 2 MONTHS FREE</span><CheckoutButton trial={trial} className={`button ${styles.stickyAnnualButton}`} href={enabled?'/premium/join?plan=annual':href}>{enabled?<><strong>Join annual</strong><span>$100/year</span></>:'Member sign in'}</CheckoutButton></div>
+   {enabled&&<CheckoutButton trial={trial} className={`button ${styles.stickyMonthlyButton}`} href="/premium/join?plan=monthly">{trial?<><strong>Start free trial</strong><span>30 days, then $10/month</span></>:<><strong>Join monthly</strong><span>$10/month</span></>}</CheckoutButton>}
+  </div>
+ </aside>;
 }
