@@ -2805,3 +2805,35 @@ I'll also watch whether Centene can sustain margin improvement into 2027 while s
 This is an active position, but I'm still establishing it. I'll provide another update if I add shares or finalize my stop placement.`;
 opportunities[cncEntryIndex]={...cncOriginal,tradeStatus:'Active',trade:cncStarterTrade,setupThesis:'I opened a starter position after earnings. My thesis remains improving profitability, a developing Stage 2 recovery and healthcare sector strength; I am watching whether the post-earnings recovery holds.',updatedAt:'2026-10-27',strategy:'Swing Trade',positionOrigin:'Sacco Premium',summary:'I opened 15 CNC shares at $67.80 following earnings. My initial target is $75; my proposed $65 stop is preliminary and no stop order has been confirmed.',nextStepSummary:'I’m holding a small starter position and may add if the post-earnings structure remains constructive.',nextCondition:'I’m watching the regular-session recovery before adding. My $65 stop remains proposed, not a confirmed order.',nextCatalyst:'Post-earnings price action following the October 27 report.',entryFramework:'15 shares purchased October 27 at $67.80; total cost $1,017.00. No further purchases documented.',justinsTake:cncStarterText,proposedLevels:[{label:'Actual entry',value:'15 shares at $67.80 · $1,017.00 total'},{label:'Proposed stop — order not confirmed',value:'$65.00'},{label:'Initial target',value:'$75.00'},{label:'Potential upside / downside',value:'+10.62% / −4.13%'},{label:'Reward / risk',value:'2.57:1 using the proposed stop'}],articleSections:[{title:'October 27 — Starter Position Opened Following Earnings',body:cncStarterText,sources:[{label:'Centene Q3 2026 results — issuer release',url:'https://www.prnewswire.com/news-releases/centene-corporation-reports-third-quarter-2026-results-302920048.html'}]},...(cncOriginal.articleSections||[]).map(s=>({...s,title:`Original October 19 research — ${s.title}`}))]};
 opportunityUpdates.push({id:'opportunity-010-entry-2026-10-27',opportunityId:'opportunity-010',publishedAt:'2026-10-27',eventDate:'2026-10-27',publicationState:'published',tradeStatusBefore:'Watching',tradeStatusAfter:'Active',trade:{...cncStarterTrade},title:'Starter Position Opened Following Earnings',explanation:cncStarterText,suppressNotification:true});
+
+const cncStarterNotification=opportunityUpdates.find(u=>u.id==='opportunity-010-entry-2026-10-27')!;
+cncStarterNotification.suppressNotification=false;
+cncStarterNotification.notification={
+ subject:'CNC Update: Starter Position Opened After Earnings',
+ headline:'Centene: My Starter Position Is Open',
+ summary:`I've opened a starter position in Centene following this morning's earnings report. I'm now holding 15 shares at an average cost of $67.80.
+
+The earnings beat and raised full-year guidance are encouraging for my turnaround thesis. Medical costs, declining Marketplace membership and negative quarterly operating cash flow remain concerns, so I'm starting small.
+
+MY POSITION
+Shares: 15
+Average entry: $67.80
+Total cost: $1,017.00
+
+MY TRADE PLAN
+Proposed stop: $65.00 — no stop order confirmed
+Initial target: $75.00
+Potential upside: 10.62%
+Potential downside to proposed stop: 4.13%
+Reward-to-risk: 2.57:1
+
+The $65 stop is preliminary. I haven't confirmed an actual stop order, and gaps or slippage can exceed the planned downside. These figures describe a potential outcome, not a realized return.
+
+WHAT I'M WATCHING
+I want to see whether CNC holds its recovery during the regular session as investors digest earnings. If the structure remains constructive, I may add shares and update my average cost and trade plan.
+
+I've added the complete reasoning and position details to the Opportunity Board.
+
+Justin Sacco`,
+ cta:'VIEW CNC POSITION & UPDATE'
+};

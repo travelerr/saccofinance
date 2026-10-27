@@ -229,7 +229,7 @@ test('CNC starter entry preserves research and distinguishes a proposed stop fro
  assert.equal((75-64)/(64-60),2.75);assert.equal(((75-64)/64*100).toFixed(2),'17.19');
  assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
  assert.ok(d.getPublishedOpportunities().some(item=>item.id===o.id));assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
- const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,1);assert.equal(e[0].path,'/premium/opportunities/centene-010');assert.match(e[0].summary,/NOT purchased CNC/);assert.doesNotMatch(e[0].summary,/\[Use the actual/);
+ const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,2);const initial=e.find(x=>!x.updateId),update=e.find(x=>x.updateId==='opportunity-010-entry-2026-10-27');assert.equal(update.path,'/premium/opportunities/centene-010');assert.match(initial.summary,/NOT purchased CNC/);assert.match(update.summary,/Shares: 15/);assert.match(update.summary,/2.57:1/);assert.match(update.summary,/no stop order confirmed/);
 });
 
 test('second ZS entry is separate from the profitable closed trade',()=>{

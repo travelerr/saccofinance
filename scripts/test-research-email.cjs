@@ -31,7 +31,7 @@ test('recipient eligibility reuses actual canonical access: active, cancellation
 test('all three templates use canonical published content and authenticated routes, with escaped HTML',()=>{
  for(const type of ['WEEKLY_OUTLOOK_PUBLISHED','OPPORTUNITY_PUBLISHED','OPPORTUNITY_MATERIAL_UPDATE']){
  const event=events.find(e=>e.type===type);assert.ok(event);const email=renderResearchEmail(event,'https://saccofinancial.com');
- assert.ok(email.html.includes(event.cta.replace(/'/g,'&#39;')));assert.ok(email.text.includes(event.summary));assert.ok(email.url.startsWith('https://saccofinancial.com/premium/'));assert.ok(email.preferences.endsWith('/premium/account#research-notifications'));
+ assert.ok(email.html.includes(event.cta.replace(/&/g,'&amp;').replace(/'/g,'&#39;')));assert.ok(email.text.includes(event.summary));assert.ok(email.url.startsWith('https://saccofinancial.com/premium/'));assert.ok(email.preferences.endsWith('/premium/account#research-notifications'));
  assert.match(email.html,/max-width:600px/);assert.match(email.html,/width=device-width/);
  }
  assert.equal(events.find(e=>e.key==='WEEKLY_OUTLOOK_PUBLISHED:weekly-outlook-001').path,'/premium/issue-001');
@@ -78,8 +78,18 @@ test('server administrator guard rejects unauthorized authenticated sessions',as
 });
 
 test('notification picker sorts publication dates newest first without redating original opportunities',()=>{
- assert.equal(events[0].key,'OPPORTUNITY_PUBLISHED:opportunity-012');
+ assert.equal(events[0].key,'OPPORTUNITY_MATERIAL_UPDATE:opportunity-010:opportunity-010-entry-2026-10-27');
  for(let i=1;i<events.length;i++)assert.ok(Date.parse(events[i-1].publishedAt)>=Date.parse(events[i].publishedAt));
  const original=events.find(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-004');assert.equal(original.publishedAt,'2026-09-18');
  const keys=events.map(e=>e.key);assert.equal(new Set(keys).size,keys.length);
+});
+
+test('CNC email separates paragraphs and trade-plan lines without relying on whitespace CSS',()=>{
+ const event=events.find(e=>e.updateId==='opportunity-010-entry-2026-10-27');
+ const email=renderResearchEmail(event,'https://saccofinancial.com','https://saccofinancial.com/email/unsubscribe?token='+'a'.repeat(64));
+ assert.match(email.html,/MY POSITION<\/strong><br>Shares: 15<br>Average entry: \$67.80/);
+ assert.match(email.html,/margin:0 0 20px/);
+ assert.match(email.html,/MY TRADE PLAN<\/strong><br>Proposed stop: \$65.00/);
+ assert.match(email.text,/\n\nMY POSITION\nShares: 15/);
+ assert.match(email.html,/Unsubscribe/);
 });
