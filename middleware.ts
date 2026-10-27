@@ -4,6 +4,13 @@ import {sessionPremiumAccess} from '@/lib/premium-session-access';
 import {authConfig} from '@/lib/supabase/config';
 const publicPaths=new Set(['/premium','/premium/login','/premium/forgot-password','/premium/set-password','/premium/access','/premium/auth/callback','/premium/auth/confirm','/premium/auth/sign-in','/premium/account','/premium/signup','/premium/join','/premium/welcome','/premium/account/setup']);
 export async function middleware(request:NextRequest){
+ // Canonicalize only the Premium route prefix; preserve tokens, subpaths and queries.
+ const prefix=request.nextUrl.pathname.split('/')[1];
+ if(prefix && prefix.toLowerCase()==='premium' && prefix!=='premium'){
+  const canonical=request.nextUrl.clone();
+  canonical.pathname='/premium'+request.nextUrl.pathname.slice(prefix.length+1);
+  return NextResponse.redirect(canonical,308);
+ }
  let response=NextResponse.next({request});
  const config=authConfig();
  const pathname=request.nextUrl.pathname.replace(/\/$/,'');
@@ -30,4 +37,4 @@ export async function middleware(request:NextRequest){
  if((samplePath||pathname.startsWith('/premium/auth/claim/')||pathname==='/premium/auth/sign-in'))response.headers.set('Referrer-Policy','no-referrer');
  return response;
 }
-export const config={matcher:['/premium/:path*','/api/market-strength','/api/premium/:path*','/images/opportunities/:path*']};
+export const config={matcher:['/:premium([pP][rR][eE][mM][iI][uU][mM])/:path*','/api/market-strength','/api/premium/:path*','/images/opportunities/:path*']};
