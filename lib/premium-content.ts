@@ -2,7 +2,7 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt?:string;documentedAt?:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
+export type TradeEntry={enteredAt?:string;documentedAt?:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;proposedStopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}

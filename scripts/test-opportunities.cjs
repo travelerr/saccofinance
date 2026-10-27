@@ -222,10 +222,10 @@ test('RKLB closure preserves prior stops and reports only documented per-share l
  const prior=updates.find(u=>u.id==='opportunity-002-stop-2026-10-13');assert.match(prior.explanation,/new low formed/);assert.equal(prior.tradeStatusAfter,'Active');assert.equal(prior.trade.exitPrice,undefined);assert.equal(updates.at(-1).tradeStatusAfter,'Closed');assert.equal(updates.at(-1).notification.subject,'Opportunity Closed: RKLB −5.5%');
 });
 
-test('CNC is a watching setup with original dated charts and no execution',()=>{
+test('CNC starter entry preserves research and distinguishes a proposed stop from an order',()=>{
  const d=require('../lib/premium-opportunities.ts'),o=d.getPublishedOpportunity('centene-010');
- assert.equal(o.id,'opportunity-010');assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,7);assert.ok(o.articleSections[1].body.includes('50-day ABOVE the 200-day'));
+ assert.equal(o.id,'opportunity-010');assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryPrice,67.8);assert.equal(o.trade.quantity,15);assert.equal(o.trade.entryPrice*o.trade.quantity,1017);assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.proposedStopPrice,65);assert.equal(o.trade.firstTargetPrice,75);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,8);assert.ok(o.articleSections[2].body.includes('50-day ABOVE the 200-day'));assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),'2.57:1');assert.equal(require('../lib/opportunity-presentation.ts').compactLevels(o)[1].label,'Proposed stop');
  assert.equal((75-64)/(64-60),2.75);assert.equal(((75-64)/64*100).toFixed(2),'17.19');
  assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
  assert.ok(d.getPublishedOpportunities().some(item=>item.id===o.id));assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
@@ -244,9 +244,9 @@ test('second ZS entry is separate from the profitable closed trade',()=>{
 
 test('decision presentation separates proposed levels from executed trades and unknown P&L',()=>{
  const p=require('../lib/opportunity-presentation.ts');
- const watching={...base,id:'opportunity-010'};
- assert.equal(p.compactLevels(watching)[0].value,'~$64');
- assert.equal(p.rewardRisk(watching),'2.75:1');
+ const watching={...base,id:'opportunity-012'};
+ assert.equal(p.compactLevels(watching)[0].value,'$228–$232');
+ assert.equal(p.rewardRisk(watching),'1.37:1 to T1 at $230');
  assert.equal(watching.trade,undefined);
  const active={...base,tradeStatus:'Active',trade:{...entry,stopPrice:8,firstTargetPrice:14}};
  assert.equal(p.compactLevels(active)[0].label,'Actual entry');

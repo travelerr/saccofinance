@@ -2768,3 +2768,40 @@ opportunities.push({
     "cta": "VIEW SAP OPPORTUNITY"
   }
 });
+
+// October 27: confirmed starter purchase; proposed stop is not an executed order.
+const cncEntryIndex=opportunities.findIndex(o=>o.id==='opportunity-010');
+const cncOriginal=opportunities[cncEntryIndex];
+const cncStarterTrade={enteredAt:'2026-10-27',documentedAt:'2026-10-27',entryPrice:67.80,quantity:15,proposedStopPrice:65,firstTargetPrice:75,documentation:'Justin confirmed purchasing 15 shares at $67.80 on October 27, 2026, for $1,017.00. The $65 stop is preliminary; no stop order has been confirmed. No additional purchases are recorded.'};
+const cncStarterText=`I've officially opened a starter position in Centene following this morning's earnings report.
+
+CNC reported adjusted EPS of $0.58 and revenue of $50.65 billion. Against the consensus figures in my research of $0.10 EPS and $47.12 billion revenue, that was a substantial beat. Management also raised full-year adjusted EPS guidance from greater than $4.80 to greater than $5.20, encouraging for the turnaround thesis I've been following.
+
+Medical costs remain elevated, Marketplace membership continues declining, and quarterly operating cash flow was negative. I wouldn't characterize this as a completely clean quarter.
+
+MY INITIAL POSITION
+
+CNC briefly pulled back toward $62 in premarket trading before recovering. I would have preferred an entry closer to that level, but I didn't capture it. Instead, I purchased 15 shares at $67.80, establishing a $1,017.00 starter position. The stock was subsequently around $68.50 at the time of this update; that is a dated observation, not a live quote.
+
+I'm starting small to see how the stock behaves during the regular session following earnings. If the technical structure remains constructive, I may add shares throughout the day and update my position details.
+
+Shares purchased: 15
+Average entry: $67.80
+Total cost: $1,017.00
+Proposed stop: $65.00 — order not confirmed
+Initial target: $75.00
+Potential upside: 10.62%
+Potential downside to proposed stop: 4.13%
+Reward-to-risk: 2.57:1
+
+The $65 stop is preliminary. I haven't confirmed an actual stop order. The ratio uses $7.20 of potential upside and $2.80 of downside per share, before fees, gaps and slippage. Additional purchases would change my average cost and reward-to-risk.
+
+WHAT I'M WATCHING NEXT
+
+My original thesis remains intact: improving profitability, a developing Stage 2 recovery, and healthcare sector strength. With earnings reported, one major near-term uncertainty has passed, but I still want to see whether CNC can hold its recovery as investors digest the results and management commentary.
+
+I'll also watch whether Centene can sustain margin improvement into 2027 while stabilizing membership. For now, I'm maintaining my $75 initial target and evaluating whether to build the position further.
+
+This is an active position, but I'm still establishing it. I'll provide another update if I add shares or finalize my stop placement.`;
+opportunities[cncEntryIndex]={...cncOriginal,tradeStatus:'Active',trade:cncStarterTrade,setupThesis:'I opened a starter position after earnings. My thesis remains improving profitability, a developing Stage 2 recovery and healthcare sector strength; I am watching whether the post-earnings recovery holds.',updatedAt:'2026-10-27',strategy:'Swing Trade',positionOrigin:'Sacco Premium',summary:'I opened 15 CNC shares at $67.80 following earnings. My initial target is $75; my proposed $65 stop is preliminary and no stop order has been confirmed.',nextStepSummary:'I’m holding a small starter position and may add if the post-earnings structure remains constructive.',nextCondition:'I’m watching the regular-session recovery before adding. My $65 stop remains proposed, not a confirmed order.',nextCatalyst:'Post-earnings price action following the October 27 report.',entryFramework:'15 shares purchased October 27 at $67.80; total cost $1,017.00. No further purchases documented.',justinsTake:cncStarterText,proposedLevels:[{label:'Actual entry',value:'15 shares at $67.80 · $1,017.00 total'},{label:'Proposed stop — order not confirmed',value:'$65.00'},{label:'Initial target',value:'$75.00'},{label:'Potential upside / downside',value:'+10.62% / −4.13%'},{label:'Reward / risk',value:'2.57:1 using the proposed stop'}],articleSections:[{title:'October 27 — Starter Position Opened Following Earnings',body:cncStarterText,sources:[{label:'Centene Q3 2026 results — issuer release',url:'https://www.prnewswire.com/news-releases/centene-corporation-reports-third-quarter-2026-results-302920048.html'}]},...(cncOriginal.articleSections||[]).map(s=>({...s,title:`Original October 19 research — ${s.title}`}))]};
+opportunityUpdates.push({id:'opportunity-010-entry-2026-10-27',opportunityId:'opportunity-010',publishedAt:'2026-10-27',eventDate:'2026-10-27',publicationState:'published',tradeStatusBefore:'Watching',tradeStatusAfter:'Active',trade:{...cncStarterTrade},title:'Starter Position Opened Following Earnings',explanation:cncStarterText,suppressNotification:true});
