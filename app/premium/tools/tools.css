@@ -1,0 +1,4 @@
+.premium-tools-page{padding-block:40px 64px}
+.premium-tools-page>h1{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:0 0 28px}
+.premium-tools-page .tools-i-use{padding-top:0;margin-top:0}
+.premium-tools-page .tool-card{border-radius:12px}

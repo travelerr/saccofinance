@@ -6,7 +6,7 @@ import './research.css';
 import PremiumNavigation from './navigation';
 import CancellationBanner from './cancellation-banner';
 import './workspace.css';
-const memberRoots=['/premium/dashboard','/premium/issue-001','/premium/issue-002','/premium/issue-003','/premium/issue-004','/premium/issue-005','/premium/weekly-outlook','/premium/market-strength','/premium/opportunities','/premium/learn','/premium/account'];
+const memberRoots=['/premium/dashboard','/premium/issue-001','/premium/issue-002','/premium/issue-003','/premium/issue-004','/premium/issue-005','/premium/weekly-outlook','/premium/market-strength','/premium/opportunities','/premium/learn','/premium/tools','/premium/account'];
 export default function PremiumProductFrame({children,publicHeader,publicFooter}:{children:ReactNode;publicHeader:ReactNode;publicFooter:ReactNode}){
  const pathname=usePathname();
  const member=memberRoots.some(root=>pathname===root||pathname.startsWith(root+'/'));
