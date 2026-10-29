@@ -1,3 +1,4 @@
+import {arWatchPlan,arRewardRisk} from './ar-watch-plan';
 import 'server-only';
 import {getPublishedOpportunities as selectPublished,getPublishedOpportunity as selectOpportunity,getOpportunityUpdates as selectUpdates,type Opportunity,type OpportunityUpdate,type WeeklyOutlook} from './premium-content';
 // User-approved Opportunity #001. Trade and technical stage are independent editorial facts.
@@ -2837,3 +2838,120 @@ I've added the complete reasoning and position details to the Opportunity Board.
 Justin Sacco`,
  cta:'VIEW CNC POSITION & UPDATE'
 };
+
+// October 29: AR watch research only; no holding, transaction, or P&L.
+opportunities.push({
+  "id": "opportunity-013",
+  "slug": "antero-resources-013",
+  notification: {
+    subject: 'New Opportunity Watch: Antero Resources (AR)',
+    preview: "I'm watching AR's $40 breakout with approximately 3.4:1 reward-to-risk at my reference price.",
+    summary: `I've added Antero Resources (AR) to my Opportunity Board as a potential swing trade. I have not opened a position.
+
+AR is breaking out of a multi-month base as Energy shows relative strength. Stronger Q3 cash generation adds to my interest, but I want to see support hold above $40 before considering an entry.
+
+MY WATCH LEVELS
+Reference price: $${arWatchPlan.referencePrice.toFixed(2)} — not an executed entry
+Technical invalidation / proposed stop: $${arWatchPlan.stop.toFixed(2)}
+Initial target: $${arWatchPlan.target.toFixed(2)}
+Potential reward-to-risk: ${arRewardRisk()} at the reference price
+
+The stock has already advanced quickly, and the proposed stop is tight. Natural gas prices, earnings volatility, and a failed retest of $40 remain risks. No stop order has been placed; gaps and slippage can exceed planned risk.
+
+I'm waiting for a successful retest or consolidation above $40. My full thesis, earnings notes, and risks are on the Opportunity Board.`,
+    cta: 'VIEW ANTERO RESOURCES OPPORTUNITY',
+    disclosure: 'For educational and informational purposes only. This is my personal research, not personalized investment advice or a recommendation to buy or sell. Proposed levels are conditional, and returns are not guaranteed. I have not opened a position in AR.'
+  },
+  "ticker": "AR",
+  "company": "Antero Resources Corporation",
+  "title": "Antero Resources — Watching the $40 Breakout",
+  "publicationState": "published",
+  "publishedAt": "2026-10-29",
+  "updatedAt": "2026-10-29",
+  "originalResearchAt": "2026-10-27",
+  "tradeStatus": "Watching",
+  "technicalStage": "Stage 2 Breakout / Base Breakout",
+  "sector": "Energy",
+  "etfTickers": [
+    "FCG",
+    "XLE"
+  ],
+  "strategy": "Potential Swing Trade",
+  "companyNote": "NYSE: AR · Oil & Gas Exploration and Production / Natural Gas · Daily-chart swing setup. I have no position.",
+  "summary": "AR is emerging from a multi-month base above $40 as Energy shows relative strength. A recent golden cross and stronger Q3 cash generation support the setup. I'm watching for support above $40 before considering an entry, with an initial $45 target. I have not purchased shares.",
+  "nextStepSummary": "I'm waiting for a successful retest or consolidation above $40. No position opened.",
+  "whySurfaced": "I identified Antero Resources during my live stock-screening session on October 27, 2026. Energy was demonstrating relative strength, and AR surfaced through my TrendSpider Stage 2 breakout scan focused on energy stocks.\n\nI see a potential tactical swing trade as price emerges from a prolonged consolidation. I am cautiously bullish, but I want confirmation above support before entering.",
+  "setupThesis": "AR formed a prolonged base roughly between $33 and $40 before breaking above the $40 resistance region. I want to see former resistance become support. The recent 50-day SMA crossover above the 200-day SMA adds a bullish signal, with price above both averages.\n\nMy October 29 research notes put the 50-day SMA near $37.47 and the 200-day SMA near $36.77, with a $41.14 reference price. These are dated chart observations, not live quotes or an executed entry.\n\nThe advance from roughly $33 to $42 has been rapid, and RSI was elevated during my initial research. A pullback toward $40 remains possible. My $45 target sits just beneath the prior major high around $45–$45.75; I do not want to chase an extended rally.",
+  "nextCondition": "I want AR to maintain support above $40 and validate the breakout through a successful retest or consolidation. I also want earnings-driven volatility to stabilize, Energy leadership to remain constructive, and potential reward-to-risk to remain favorable at any actual entry.\n\nNo shares have been purchased. The $40 level is my initial technical invalidation, not a placed stop order or guaranteed execution price. A sustained loss of $40 would prompt a review before any entry.",
+  "entryFramework": "$41.14 is a dated reference only. I need support confirmation before deciding on an entry.",
+  "confirmation": "Hold / retest above $40",
+  "setupRange": "Approximately $33–$40",
+  "riskInvalidation": "$40 technical invalidation; no stop order placed. Gaps and slippage can exceed planned risk.",
+  "targets": [
+    "$45 — just below prior highs around $45–$45.75"
+  ],
+  "fundamentalCase": "Strong earnings growth, improving cash generation, and generally favorable analyst and quantitative ratings support my interest. Valuation looks reasonable rather than exceptionally cheap, and near-term commodity pricing remains the principal fundamental risk.\n\nI see Q3 operating performance and cost reductions as support for the breakout thesis, while weak regional natural gas prices and capital spending require caution. This is a tactical swing-trade watch, not a long-term investment recommendation.",
+  "researchSections": [
+    {
+      "title": "Q3 2026 earnings — October 28 update",
+      "body": "Antero reported after the October 28 market close. Production reached approximately 4.23 Bcfe/day, up 23% year over year. Adjusted EBITDAX rose 99% to $634 million, adjusted free cash flow increased 137% to $215 million, and operating cash flow was approximately $575 million. Cash operating costs fell 16% to $2.05/Mcfe.\n\nThe company repurchased about $56 million of shares, with roughly $821 million remaining authorized. Management expects $140 million of its targeted $300 million annualized margin improvements by mid-2027.\n\nI am also watching pricing pressure: expected Q4 curtailments of 15–20 Bcfe, realized gas pricing $0.15–$0.25/Mcf below NYMEX, and cash production costs of $2.10–$2.20/Mcfe. These risks temper the stronger production and cash-flow picture.",
+      "sources": [
+        {
+          "label": "Antero Resources — Q3 2026 results, October 28, 2026",
+          "url": "https://www.anteroresources.com/news-events/press-releases/detail/262/antero-resources-announces-third-quarter-2026-financial-and"
+        }
+      ]
+    },
+    {
+      "title": "Fundamental ratings — original research snapshots",
+      "body": "My original October 27 research notes record InvestingPro fair value of $46.75, approximately 12.5% upside from the screenshot's $41.54 price, and an average analyst target of $49.64 across 22 analysts. Financial Health was 4/5 (Great Performance), with low valuation uncertainty.\n\nSeeking Alpha ratings in the same research brief were SA Analysts Strong Buy (4.66), Wall Street Buy (4.22), and Quant Buy (4.40). Factor grades were Growth A+, Profitability B, Valuation C, and Momentum C+.\n\nThese figures are historical observations from my supplied research notes, not continuously updated ratings. The screenshots' individual capture dates are not documented in this entry. Analyst targets and modeled fair values are not my $45 swing target."
+    },
+    {
+      "title": "Institutional activity — Q2 2026 reported holdings",
+      "body": "My research notes show Q2 increases of approximately 2.46 million shares at Dimensional Fund Advisors, 2.14 million at AQR Capital Management, 596,000 at State Street, and 89,000 at BlackRock. FMR LLC reduced its position by approximately 6.05 million shares, and Invesco by 913,000.\n\nI view the positioning as moderately constructive, but mixed among major holders. These are historical Q2 holdings changes, not October transactions, and they do not establish buying after the October 28 earnings release.",
+      "sources": [
+        {
+          "label": "StockEyes — AR institutional ownership",
+          "url": "https://www.stockeyes.com/stocks/ar/institutional-ownership"
+        },
+        {
+          "label": "MarketBeat — AR institutional ownership",
+          "url": "https://www.marketbeat.com/stocks/NYSE/AR/institutional-ownership/"
+        }
+      ]
+    }
+  ],
+  "primaryRisks": [
+    {
+      "title": "Failed breakout / tight risk budget",
+      "explanation": "A sustained loss of $40 would weaken or invalidate the setup. Recent volatility can move price through a planned stop; execution at $40 is not guaranteed."
+    },
+    {
+      "title": "Extended price action",
+      "explanation": "The rally from approximately $33 to $42 and elevated RSI increase pullback risk. I want confirmation rather than chasing."
+    },
+    {
+      "title": "Natural gas pricing and spending",
+      "explanation": "Weak regional pricing, expected curtailments, higher Q4 cost guidance, and elevated capital spending could pressure cash generation."
+    }
+  ],
+  "nextCatalyst": "Post-earnings price action and a successful retest of $40 support.",
+  "catalysts": [
+    "A successful retest or consolidation above $40.",
+    "Stabilization after October 28 earnings.",
+    "Continued relative strength in Energy and natural gas equities."
+  ],
+  "thesisChanges": "A confirmed hold above $40, constructive sector leadership, and continued operating improvement would strengthen my confidence. A sustained loss of $40, fading Energy leadership, or worsening gas realizations would lead me to reassess before opening a position.",
+  "justinsTake": "I am cautiously bullish on the breakout, but I have no position. I want AR to prove that $40 can act as support. My reference price is not a purchase price, and I will recalculate the potential reward-to-risk before any entry. The initial target is $45."
+,
+ proposedLevels:[
+  {label:'Reference price · October 29, 2026',value:`$${arWatchPlan.referencePrice.toFixed(2)} · not a fill`},
+  {label:'Technical invalidation / proposed stop',value:`$${arWatchPlan.stop.toFixed(2)} · no order placed`},
+  {label:'Initial target',value:`$${arWatchPlan.target.toFixed(2)}`},
+  {label:'Potential upside',value:((arWatchPlan.target-arWatchPlan.referencePrice)/arWatchPlan.referencePrice*100).toFixed(2)+'%'},
+  {label:'Potential downside to invalidation',value:((arWatchPlan.referencePrice-arWatchPlan.stop)/arWatchPlan.referencePrice*100).toFixed(2)+'%'},
+  {label:'Reward / risk at reference',value:arRewardRisk()},
+  {label:'Reward / risk at $41.28',value:arRewardRisk(41.28)},
+  {label:'Position',value:'WATCHING · No position'}
+ ]
+});

@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,12);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,13);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,12);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,12);
+ assert.equal(d.getPublishedOpportunities().length,13);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,13);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
@@ -255,4 +255,32 @@ test('decision presentation separates proposed levels from executed trades and u
  assert.deepEqual(p.compactLevels(closed)[2],{label:'Per-share result',value:'$-1'});
  assert.equal(p.rewardRisk(closed),undefined);
  assert.equal(p.compactLevels({...closed,trade:{...closed.trade,quantity:10}})[2].value,'$-10');
+});
+
+test('AR remains a unique watch with reference-only levels and no execution or P&L',()=>{
+ const data=require('../lib/premium-opportunities.ts'),presentation=require('../lib/opportunity-presentation.ts');
+ const ar=data.getPublishedOpportunity('antero-resources-013');assert.ok(ar);
+ assert.equal(data.opportunities.filter(o=>o.ticker==='AR').length,1);
+ assert.equal(ar.tradeStatus,'Watching');assert.equal(ar.trade,undefined);assert.equal(ar.optionPosition,undefined);assert.equal(ar.wheel,undefined);
+ assert.equal(ar.notification.subject,'New Opportunity Watch: Antero Resources (AR)');assert.equal(data.getOpportunityUpdates(ar.id).length,0);
+ assert.equal(m.realizedTradeResult(ar),null);
+ assert.equal(presentation.rewardRisk(ar),'3.39:1');
+ assert.equal(presentation.compactLevels(ar)[0].label,'Reference price');
+ assert.match(presentation.compactLevels(ar)[0].value,/not a fill/);
+ assert.equal(ar.originalResearchAt,'2026-10-27');assert.equal(ar.updatedAt,'2026-10-29');
+ assert.equal(require('../lib/ar-watch-plan.ts').arRewardRisk(41.28),'2.91:1');
+});
+
+
+test('AR publication notification renders readable watch levels and the correct opportunity link',()=>{
+ const {opportunities}=require('../lib/premium-opportunities.ts');
+ const events=require('../lib/email/events.ts').researchEvents([],opportunities,[]);
+ const matches=events.filter(e=>e.key==='OPPORTUNITY_PUBLISHED:opportunity-013');
+ assert.equal(matches.length,1);
+ const email=require('../lib/email/templates.ts').renderResearchEmail(matches[0],'https://saccofinancial.com');
+ assert.equal(new URL(email.url).pathname,'/premium/opportunities/antero-resources-013');
+ for(const text of ['$41.14','$40.00','$45.00','3.39:1','I have not opened a position.','Manage Email Preferences'])assert.ok(email.text.includes(text),text);
+ assert.ok((email.html.match(/margin:0 0 20px/g)||[]).length>=5);
+ assert.match(email.html,/MY WATCH LEVELS<\/strong><br>/);
+ assert.ok(email.text.includes('not personalized investment advice'));
 });
