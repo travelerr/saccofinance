@@ -257,18 +257,20 @@ test('decision presentation separates proposed levels from executed trades and u
  assert.equal(p.compactLevels({...closed,trade:{...closed.trade,quantity:10}})[2].value,'$-10');
 });
 
-test('AR remains a unique watch with reference-only levels and no execution or P&L',()=>{
+test('AR entry preserves one canonical opportunity and original research with proposed stop only',()=>{
  const data=require('../lib/premium-opportunities.ts'),presentation=require('../lib/opportunity-presentation.ts');
  const ar=data.getPublishedOpportunity('antero-resources-013');assert.ok(ar);
  assert.equal(data.opportunities.filter(o=>o.ticker==='AR').length,1);
- assert.equal(ar.tradeStatus,'Watching');assert.equal(ar.trade,undefined);assert.equal(ar.optionPosition,undefined);assert.equal(ar.wheel,undefined);
- assert.equal(ar.notification.subject,'New Opportunity Watch: Antero Resources (AR)');assert.equal(data.getOpportunityUpdates(ar.id).length,0);
- assert.equal(m.realizedTradeResult(ar),null);
- assert.equal(presentation.rewardRisk(ar),'3.39:1');
- assert.equal(presentation.compactLevels(ar)[0].label,'Reference price');
- assert.match(presentation.compactLevels(ar)[0].value,/not a fill/);
- assert.equal(ar.originalResearchAt,'2026-10-27');assert.equal(ar.updatedAt,'2026-10-29');
- assert.equal(require('../lib/ar-watch-plan.ts').arRewardRisk(41.28),'2.91:1');
+ assert.equal(ar.tradeStatus,'Active');assert.equal(ar.trade.quantity,100);assert.equal(ar.trade.entryPrice,41.66);
+ assert.equal(ar.trade.stopPrice,undefined);assert.equal(ar.trade.proposedStopPrice,39.75);assert.equal(ar.trade.firstTargetPrice,45);
+ assert.equal(m.realizedTradeResult(ar),null);assert.equal(presentation.rewardRisk(ar),'1.75:1');
+ assert.equal(presentation.compactLevels(ar)[0].label,'Actual entry');
+ assert.equal(presentation.compactLevels(ar)[1].label,'Proposed stop');
+ assert.equal(ar.originalResearchAt,'2026-10-27');assert.equal(ar.publishedAt,'2026-10-29');assert.equal(ar.updatedAt,'2026-10-30');
+ assert.ok(ar.researchSections.some(s=>s.title.includes('Original October 29')));
+ const updates=data.getOpportunityUpdates(ar.id);assert.equal(updates.length,1);assert.equal(updates[0].tradeStatusBefore,'Watching');
+ assert.equal(Math.round((ar.trade.entryPrice-ar.trade.proposedStopPrice)*ar.trade.quantity),191);
+ assert.equal(Math.round((ar.trade.firstTargetPrice-ar.trade.entryPrice)*ar.trade.quantity),334);
 });
 
 
@@ -283,4 +285,17 @@ test('AR publication notification renders readable watch levels and the correct 
  assert.ok((email.html.match(/margin:0 0 20px/g)||[]).length>=5);
  assert.match(email.html,/MY WATCH LEVELS<\/strong><br>/);
  assert.ok(email.text.includes('not personalized investment advice'));
+});
+
+
+test('AR position email is separate from its watch notification and contains readable execution details',()=>{
+ const data=require('../lib/premium-opportunities.ts');
+ const events=require('../lib/email/events.ts').researchEvents([],data.opportunities,data.opportunityUpdates);
+ const matches=events.filter(e=>e.key==='OPPORTUNITY_MATERIAL_UPDATE:opportunity-013:opportunity-013-entry-2026-10-30');assert.equal(matches.length,1);
+ const email=require('../lib/email/templates.ts').renderResearchEmail(matches[0],'https://saccofinancial.com');
+ assert.equal(email.subject,'New Position Opened: Antero Resources (AR)');
+ assert.equal(new URL(email.url).pathname,'/premium/opportunities/antero-resources-013');
+ for(const text of ['Shares: 100','Entry: $41.66','Stop Reference: $39.75','First Target: $45.00','1.75:1','not confirmed a stop order','Manage Email Preferences'])assert.ok(email.text.includes(text),text);
+ assert.ok(matches[0].preview.includes('100 shares'));
+ assert.ok((email.html.match(/margin:0 0 20px/g)||[]).length>5);
 });
