@@ -1,5 +1,5 @@
 import PaymentMethods from '@/components/premium/payment-methods';
-import {trialOfferEnabled} from '@/lib/billing/trial-offer';
+import {trialOfferDays} from '@/lib/billing/trial-offer';
 import Link from 'next/link';
 import {redirect} from 'next/navigation';
 import PlanForm from './plan-form';
@@ -9,7 +9,7 @@ import {billingEnabled,billingMode} from '@/lib/billing/model';
 export const dynamic='force-dynamic';
 export const metadata={title:'Join Premium | Sacco Financial',robots:{index:false,follow:false}};
 export default async function Page({searchParams}:{searchParams:Promise<{error?:string;checkout?:string;plan?:string}>}){
- if(!billingEnabled())redirect('/premium/login');const params=await searchParams;const trial=await trialOfferEnabled();
+ if(!billingEnabled())redirect('/premium/login');const params=await searchParams;const trial=await trialOfferDays();
  const errors:Record<string,string>={trial:'This email cannot claim another trial, or a checkout is already pending. Sign in to manage your account or retry the original checkout.',details:'Choose a plan and accept the Terms to continue.',guest:'Checkout is temporarily unavailable. Please try again shortly.',busy:'Another checkout request is finishing. Please try again in a moment.',pending:'Your checkout could not switch plans yet. Please try again.',billing:'Checkout is temporarily unavailable. Please try again.'};
  return <main id="main-content" className={`container ${styles.page}`}><header className={styles.header}><Eyebrow>Sacco Premium / Membership</Eyebrow><h1>Your research starts here.</h1><p>Choose the billing option that works for you. Both plans include the complete Premium research library and tools.</p></header>
  {billingMode()==='test'&&<p className={styles.message}>Sandbox checkout. Test payments only; no real charges.</p>}

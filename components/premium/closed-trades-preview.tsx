@@ -5,7 +5,7 @@ import {ArrowLeft,ArrowRight} from 'lucide-react';
 import type {ClosedTradePreview} from '@/lib/public-closed-trades';
 import {premiumDate} from '@/lib/premium-content';
 import styles from './closed-trades-preview.module.css';
-export default function ClosedTradesPreview({trades,join,trial=false}:{trades:ClosedTradePreview[];join:string;trial?:boolean}){
+export default function ClosedTradesPreview({trades,join,trial=0}:{trades:ClosedTradePreview[];join:string;trial?:number}){
  const rail=useRef<HTMLUListElement>(null);
  if(!trades.length)return null;
  function move(direction:number){const el=rail.current;if(el)el.scrollBy({left:direction*(el.firstElementChild?.getBoundingClientRect().width||280)+direction*16,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
