@@ -1,408 +1,408 @@
 {
   "schemaVersion": 1,
   "source": "Yahoo Finance",
-  "generatedAt": "2026-10-29T22:48:57.411027-04:00",
-  "checkedDate": "2026-10-29",
-  "asOf": "2026-10-28",
-  "previousAsOf": "2026-10-21",
+  "generatedAt": "2026-10-30T22:39:01.600582-04:00",
+  "checkedDate": "2026-10-30",
+  "asOf": "2026-10-29",
+  "previousAsOf": "2026-10-22",
   "fundCount": 24,
   "benchmark": "SPY",
   "periods": {
     "1w": {
       "label": "1 week",
-      "startDate": "2026-10-21",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": -0.10089760180295171,
+      "startDate": "2026-10-22",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 0.7068384763070146,
       "rows": [
         {
-          "ticker": "CIBR",
-          "name": "Cybersecurity",
-          "return": 4.644624302429712,
-          "relative": 4.745521904232664,
+          "ticker": "XAR",
+          "name": "Aerospace & Defense \u00b7 XAR",
+          "return": 7.777928595772021,
+          "relative": 7.071090119465007,
           "rank": 1,
-          "rankChange": 16
+          "rankChange": 14
         },
         {
-          "ticker": "FCG",
-          "name": "Natural Gas Equities",
-          "return": 3.3269321835059706,
-          "relative": 3.4278297853089224,
+          "ticker": "SMH",
+          "name": "Semiconductors",
+          "return": 7.322061548071357,
+          "relative": 6.615223071764342,
           "rank": 2,
-          "rankChange": 4
+          "rankChange": 19
         },
         {
-          "ticker": "XBI",
-          "name": "Biotech",
-          "return": 3.0959521961849923,
-          "relative": 3.196849797987944,
+          "ticker": "UFO",
+          "name": "Space",
+          "return": 5.834609737678109,
+          "relative": 5.127771261371095,
           "rank": 3,
-          "rankChange": -2
+          "rankChange": 9
         },
         {
-          "ticker": "IGV",
-          "name": "Software",
-          "return": 2.839555206718236,
-          "relative": 2.940452808521188,
+          "ticker": "NLR",
+          "name": "Nuclear & Uranium",
+          "return": 5.052844729552897,
+          "relative": 4.346006253245882,
           "rank": 4,
+          "rankChange": 15
+        },
+        {
+          "ticker": "ITA",
+          "name": "Aerospace & Defense \u00b7 ITA",
+          "return": 4.802429347320358,
+          "relative": 4.095590871013344,
+          "rank": 5,
           "rankChange": 5
         },
         {
           "ticker": "URA",
           "name": "Uranium",
-          "return": 2.8129395821688385,
-          "relative": 2.9138371839717903,
-          "rank": 5,
-          "rankChange": 9
+          "return": 4.7814639507753,
+          "relative": 4.074625474468285,
+          "rank": 6,
+          "rankChange": 12
         },
         {
           "ticker": "SEA",
           "name": "Shipping & Air Cargo",
-          "return": 2.4816406365873345,
-          "relative": 2.582538238390286,
-          "rank": 6,
-          "rankChange": 15
-        },
-        {
-          "ticker": "XHB",
-          "name": "Homebuilders & Suppliers",
-          "return": 2.4790824104705234,
-          "relative": 2.579980012273475,
+          "return": 4.552723277698867,
+          "relative": 3.8458848013918523,
           "rank": 7,
-          "rankChange": -3
-        },
-        {
-          "ticker": "KRE",
-          "name": "Regional Banks",
-          "return": 2.1098807785612017,
-          "relative": 2.2107783803641534,
-          "rank": 8,
-          "rankChange": -5
-        },
-        {
-          "ticker": "KBE",
-          "name": "Banks",
-          "return": 2.0839755432235485,
-          "relative": 2.1848731450265,
-          "rank": 9,
-          "rankChange": -4
-        },
-        {
-          "ticker": "SMH",
-          "name": "Semiconductors",
-          "return": 1.970535380381011,
-          "relative": 2.0714329821839628,
-          "rank": 10,
-          "rankChange": 9
-        },
-        {
-          "ticker": "REMX",
-          "name": "Rare Earths & Strategic Metals",
-          "return": 1.8362367656913126,
-          "relative": 1.9371343674942643,
-          "rank": 11,
-          "rankChange": 12
-        },
-        {
-          "ticker": "NLR",
-          "name": "Nuclear & Uranium",
-          "return": 1.7813597165369677,
-          "relative": 1.8822573183399194,
-          "rank": 12,
           "rankChange": 4
         },
         {
-          "ticker": "UFO",
-          "name": "Space",
-          "return": 1.5748016714081325,
-          "relative": 1.6756992732110843,
-          "rank": 13,
-          "rankChange": -6
-        },
-        {
-          "ticker": "BOTZ",
-          "name": "Robotics & AI",
-          "return": 1.3099095704382835,
-          "relative": 1.4108071722412352,
-          "rank": 14,
-          "rankChange": 6
-        },
-        {
-          "ticker": "XAR",
-          "name": "Aerospace & Defense \u00b7 XAR",
-          "return": 1.051022432763915,
-          "relative": 1.1519200345668668,
-          "rank": 15,
-          "rankChange": -5
-        },
-        {
-          "ticker": "ITA",
-          "name": "Aerospace & Defense \u00b7 ITA",
-          "return": 0.9475738717382276,
-          "relative": 1.0484714735411793,
-          "rank": 16,
-          "rankChange": -3
-        },
-        {
-          "ticker": "XLE",
-          "name": "Energy",
-          "return": 0.4254596105516706,
-          "relative": 0.5263572123546223,
-          "rank": 17,
-          "rankChange": -5
-        },
-        {
-          "ticker": "XLP",
-          "name": "Consumer Staples",
-          "return": -0.30995783557468126,
-          "relative": -0.20906023377172955,
-          "rank": 18,
-          "rankChange": -10
-        },
-        {
-          "ticker": "LIT",
-          "name": "Lithium & Batteries",
-          "return": -0.8069653956864098,
-          "relative": -0.7060677938834581,
-          "rank": 19,
-          "rankChange": 5
+          "ticker": "XBI",
+          "name": "Biotech",
+          "return": 4.055654129014852,
+          "relative": 3.348815652707837,
+          "rank": 8,
+          "rankChange": -1
         },
         {
           "ticker": "COPX",
           "name": "Copper Miners",
-          "return": -1.5252433519778563,
-          "relative": -1.4243457501749046,
-          "rank": 20,
-          "rankChange": 2
+          "return": 3.787781179400329,
+          "relative": 3.0809427030933145,
+          "rank": 9,
+          "rankChange": 15
+        },
+        {
+          "ticker": "FCG",
+          "name": "Natural Gas Equities",
+          "return": 3.3816401380367678,
+          "relative": 2.674801661729753,
+          "rank": 10,
+          "rankChange": -5
+        },
+        {
+          "ticker": "BOTZ",
+          "name": "Robotics & AI",
+          "return": 2.2643753269865563,
+          "relative": 1.5575368506795417,
+          "rank": 11,
+          "rankChange": 5
+        },
+        {
+          "ticker": "CIBR",
+          "name": "Cybersecurity",
+          "return": 2.1301454074620585,
+          "relative": 1.423306931155044,
+          "rank": 12,
+          "rankChange": -4
+        },
+        {
+          "ticker": "REMX",
+          "name": "Rare Earths & Strategic Metals",
+          "return": 2.1124034589546703,
+          "relative": 1.4055649826476557,
+          "rank": 13,
+          "rankChange": 9
+        },
+        {
+          "ticker": "XHB",
+          "name": "Homebuilders & Suppliers",
+          "return": 2.086693304944598,
+          "relative": 1.3798548286375834,
+          "rank": 14,
+          "rankChange": -11
+        },
+        {
+          "ticker": "XLE",
+          "name": "Energy",
+          "return": 1.687138367318597,
+          "relative": 0.9802998910115823,
+          "rank": 15,
+          "rankChange": -9
         },
         {
           "ticker": "SLX",
           "name": "Steel",
-          "return": -1.8672603461483472,
-          "relative": -1.7663627443453955,
-          "rank": 21,
-          "rankChange": -10
+          "return": 1.3405401956364305,
+          "relative": 0.6337017193294159,
+          "rank": 16,
+          "rankChange": -3
         },
         {
-          "ticker": "GDX",
-          "name": "Gold Miners",
-          "return": -3.1941930736500534,
-          "relative": -3.0932954718471017,
-          "rank": 22,
-          "rankChange": -20
+          "ticker": "KBE",
+          "name": "Banks",
+          "return": 0.9570062826897541,
+          "relative": 0.2501678063827395,
+          "rank": 17,
+          "rankChange": -13
+        },
+        {
+          "ticker": "KRE",
+          "name": "Regional Banks",
+          "return": 0.6214568781711893,
+          "relative": -0.08538159813582524,
+          "rank": 18,
+          "rankChange": -16
+        },
+        {
+          "ticker": "LIT",
+          "name": "Lithium & Batteries",
+          "return": 0.4284744894950565,
+          "relative": -0.27836398681195806,
+          "rank": 19,
+          "rankChange": 4
         },
         {
           "ticker": "TAN",
           "name": "Solar",
-          "return": -3.7124101975387513,
-          "relative": -3.6115125957357996,
+          "return": -0.4111201335393222,
+          "relative": -1.1179586098463368,
+          "rank": 20,
+          "rankChange": -3
+        },
+        {
+          "ticker": "GDX",
+          "name": "Gold Miners",
+          "return": -0.4406911489686638,
+          "relative": -1.1475296252756784,
+          "rank": 21,
+          "rankChange": -1
+        },
+        {
+          "ticker": "IGV",
+          "name": "Software",
+          "return": -0.6898454668681331,
+          "relative": -1.3966839431751477,
+          "rank": 22,
+          "rankChange": -13
+        },
+        {
+          "ticker": "XLP",
+          "name": "Consumer Staples",
+          "return": -2.0113319275035346,
+          "relative": -2.718170403810549,
           "rank": 23,
-          "rankChange": -8
+          "rankChange": -22
         },
         {
           "ticker": "ICLN",
           "name": "Clean Energy",
-          "return": -4.545454545454541,
-          "relative": -4.444556943651589,
+          "return": -2.968463164167512,
+          "relative": -3.6753016404745265,
           "rank": 24,
-          "rankChange": -6
+          "rankChange": -10
         }
       ]
     },
     "1m": {
       "label": "1 month",
-      "startDate": "2026-09-28",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": 0.8751207971712471,
+      "startDate": "2026-09-29",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 0.6752123870855664,
       "rows": [
         {
           "ticker": "FCG",
           "name": "Natural Gas Equities",
-          "return": 11.571669726550127,
-          "relative": 10.69654892937888,
+          "return": 12.394954742209062,
+          "relative": 11.719742355123497,
           "rank": 1,
           "rankChange": 2
         },
         {
           "ticker": "XLE",
           "name": "Energy",
-          "return": 10.225440628259165,
-          "relative": 9.350319831087917,
+          "return": 11.650955577311706,
+          "relative": 10.97574319022614,
           "rank": 2,
-          "rankChange": -1
-        },
-        {
-          "ticker": "SEA",
-          "name": "Shipping & Air Cargo",
-          "return": 6.430712611520706,
-          "relative": 5.555591814349459,
-          "rank": 3,
-          "rankChange": 2
-        },
-        {
-          "ticker": "CIBR",
-          "name": "Cybersecurity",
-          "return": 6.147339542206298,
-          "relative": 5.272218745035051,
-          "rank": 4,
-          "rankChange": 2
-        },
-        {
-          "ticker": "IGV",
-          "name": "Software",
-          "return": 6.146261347032822,
-          "relative": 5.271140549861575,
-          "rank": 5,
           "rankChange": -1
         },
         {
           "ticker": "XLP",
           "name": "Consumer Staples",
-          "return": 5.542048646385167,
-          "relative": 4.66692784921392,
-          "rank": 6,
-          "rankChange": -4
+          "return": 7.733661513819179,
+          "relative": 7.0584491267336125,
+          "rank": 3,
+          "rankChange": -1
         },
         {
-          "ticker": "KRE",
-          "name": "Regional Banks",
-          "return": 2.2111941759226816,
-          "relative": 1.3360733787514345,
-          "rank": 7,
-          "rankChange": 1
-        },
-        {
-          "ticker": "KBE",
-          "name": "Banks",
-          "return": 1.7674409141836156,
-          "relative": 0.8923201170123685,
-          "rank": 8,
-          "rankChange": 2
+          "ticker": "SEA",
+          "name": "Shipping & Air Cargo",
+          "return": 7.658504427324542,
+          "relative": 6.983292040238975,
+          "rank": 4,
+          "rankChange": 0
         },
         {
           "ticker": "XHB",
           "name": "Homebuilders & Suppliers",
-          "return": 0.6885900800937428,
-          "relative": -0.18653071707750435,
-          "rank": 9,
-          "rankChange": -2
+          "return": 4.434356366126591,
+          "relative": 3.759143979041024,
+          "rank": 5,
+          "rankChange": 4
         },
         {
-          "ticker": "XBI",
-          "name": "Biotech",
-          "return": 0.5746720471086597,
-          "relative": -0.3004487500625874,
-          "rank": 10,
-          "rankChange": 1
+          "ticker": "KRE",
+          "name": "Regional Banks",
+          "return": 4.339107403473363,
+          "relative": 3.663895016387797,
+          "rank": 6,
+          "rankChange": 0
+        },
+        {
+          "ticker": "KBE",
+          "name": "Banks",
+          "return": 4.1203151777733815,
+          "relative": 3.445102790687815,
+          "rank": 7,
+          "rankChange": 0
+        },
+        {
+          "ticker": "CIBR",
+          "name": "Cybersecurity",
+          "return": 2.9714609620713484,
+          "relative": 2.296248574985782,
+          "rank": 8,
+          "rankChange": 0
+        },
+        {
+          "ticker": "IGV",
+          "name": "Software",
+          "return": 2.613571534020198,
+          "relative": 1.9383591469346317,
+          "rank": 9,
+          "rankChange": -4
         },
         {
           "ticker": "ITA",
           "name": "Aerospace & Defense \u00b7 ITA",
-          "return": -0.7263638791800808,
-          "relative": -1.601484676351328,
-          "rank": 11,
-          "rankChange": 1
-        },
-        {
-          "ticker": "SLX",
-          "name": "Steel",
-          "return": -2.5461197917544753,
-          "relative": -3.4212405889257225,
-          "rank": 12,
-          "rankChange": -3
-        },
-        {
-          "ticker": "BOTZ",
-          "name": "Robotics & AI",
-          "return": -3.1312332916970664,
-          "relative": -4.006354088868314,
-          "rank": 13,
+          "return": 2.388915397561431,
+          "relative": 1.7137030104758644,
+          "rank": 10,
           "rankChange": 0
-        },
-        {
-          "ticker": "UFO",
-          "name": "Space",
-          "return": -3.789678641126293,
-          "relative": -4.66479943829754,
-          "rank": 14,
-          "rankChange": 2
         },
         {
           "ticker": "XAR",
           "name": "Aerospace & Defense \u00b7 XAR",
-          "return": -3.9327070403748388,
-          "relative": -4.8078278375460854,
-          "rank": 15,
-          "rankChange": 3
+          "return": 0.913531304927484,
+          "relative": 0.2383189178419176,
+          "rank": 11,
+          "rankChange": 4
         },
         {
-          "ticker": "GDX",
-          "name": "Gold Miners",
-          "return": -4.482879131604934,
-          "relative": -5.357999928776181,
-          "rank": 16,
-          "rankChange": 1
+          "ticker": "XBI",
+          "name": "Biotech",
+          "return": 0.6249574279681314,
+          "relative": -0.05025495911743505,
+          "rank": 12,
+          "rankChange": -1
+        },
+        {
+          "ticker": "SLX",
+          "name": "Steel",
+          "return": -1.1803717288627391,
+          "relative": -1.8555841159483055,
+          "rank": 13,
+          "rankChange": -1
+        },
+        {
+          "ticker": "UFO",
+          "name": "Space",
+          "return": -1.6501578935819938,
+          "relative": -2.3253702806675602,
+          "rank": 14,
+          "rankChange": 2
+        },
+        {
+          "ticker": "BOTZ",
+          "name": "Robotics & AI",
+          "return": -5.164595410997352,
+          "relative": -5.839807798082918,
+          "rank": 15,
+          "rankChange": -2
         },
         {
           "ticker": "TAN",
           "name": "Solar",
-          "return": -4.697675483171326,
-          "relative": -5.5727962803425735,
-          "rank": 17,
-          "rankChange": 2
+          "return": -5.180750596798534,
+          "relative": -5.8559629838841,
+          "rank": 16,
+          "rankChange": 1
         },
         {
           "ticker": "SMH",
           "name": "Semiconductors",
-          "return": -5.38991455627571,
-          "relative": -6.265035353446957,
-          "rank": 18,
-          "rankChange": -4
+          "return": -7.452634648939749,
+          "relative": -8.127847036025315,
+          "rank": 17,
+          "rankChange": 1
         },
         {
           "ticker": "ICLN",
           "name": "Clean Energy",
-          "return": -6.305767398089312,
-          "relative": -7.180888195260559,
-          "rank": 19,
+          "return": -7.760144801510716,
+          "relative": -8.435357188596281,
+          "rank": 18,
           "rankChange": -4
         },
         {
           "ticker": "NLR",
           "name": "Nuclear & Uranium",
-          "return": -7.675294087949447,
-          "relative": -8.550414885120695,
+          "return": -8.363740287613675,
+          "relative": -9.038952674699242,
+          "rank": 19,
+          "rankChange": 3
+        },
+        {
+          "ticker": "GDX",
+          "name": "Gold Miners",
+          "return": -8.689792175018152,
+          "relative": -9.365004562103717,
           "rank": 20,
+          "rankChange": 0
+        },
+        {
+          "ticker": "URA",
+          "name": "Uranium",
+          "return": -10.789209780334797,
+          "relative": -11.464422167420363,
+          "rank": 21,
           "rankChange": 2
         },
         {
           "ticker": "LIT",
           "name": "Lithium & Batteries",
-          "return": -8.186877932813951,
-          "relative": -9.061998729985199,
-          "rank": 21,
-          "rankChange": -1
-        },
-        {
-          "ticker": "URA",
-          "name": "Uranium",
-          "return": -8.921011053496164,
-          "relative": -9.796131850667411,
+          "return": -11.088418715058147,
+          "relative": -11.763631102143712,
           "rank": 22,
-          "rankChange": 1
+          "rankChange": -3
         },
         {
           "ticker": "COPX",
           "name": "Copper Miners",
-          "return": -9.887403347358736,
-          "relative": -10.762524144529984,
+          "return": -11.207301655162627,
+          "relative": -11.882514042248193,
           "rank": 23,
           "rankChange": -2
         },
         {
           "ticker": "REMX",
           "name": "Rare Earths & Strategic Metals",
-          "return": -15.697227477843157,
-          "relative": -16.572348275014406,
+          "return": -18.675724830740847,
+          "relative": -19.350937217826413,
           "rank": 24,
           "rankChange": 0
         }
@@ -410,199 +410,199 @@
     },
     "3m": {
       "label": "3 months",
-      "startDate": "2026-07-28",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": 4.503929284848107,
+      "startDate": "2026-07-29",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 5.731693579253383,
       "rows": [
-        {
-          "ticker": "IGV",
-          "name": "Software",
-          "return": 21.93288859288294,
-          "relative": 17.428959308034834,
-          "rank": 1,
-          "rankChange": 0
-        },
         {
           "ticker": "CIBR",
           "name": "Cybersecurity",
-          "return": 20.881627309372863,
-          "relative": 16.377698024524754,
-          "rank": 2,
-          "rankChange": 3
+          "return": 18.259973515037142,
+          "relative": 12.52827993578376,
+          "rank": 1,
+          "rankChange": 1
         },
         {
           "ticker": "XLE",
           "name": "Energy",
-          "return": 19.605464572298324,
-          "relative": 15.101535287450217,
-          "rank": 3,
-          "rankChange": -1
-        },
-        {
-          "ticker": "FCG",
-          "name": "Natural Gas Equities",
-          "return": 17.713656221389652,
-          "relative": 13.209726936541545,
-          "rank": 4,
-          "rankChange": 2
+          "return": 17.848954501004922,
+          "relative": 12.117260921751539,
+          "rank": 2,
+          "rankChange": 1
         },
         {
           "ticker": "SEA",
           "name": "Shipping & Air Cargo",
-          "return": 16.285401262091305,
-          "relative": 11.781471977243198,
-          "rank": 5,
-          "rankChange": -1
+          "return": 17.278513058445654,
+          "relative": 11.546819479192271,
+          "rank": 3,
+          "rankChange": 1
         },
         {
-          "ticker": "GDX",
-          "name": "Gold Miners",
-          "return": 13.124913062837496,
-          "relative": 8.62098377798939,
-          "rank": 6,
+          "ticker": "IGV",
+          "name": "Software",
+          "return": 16.888598040772873,
+          "relative": 11.15690446151949,
+          "rank": 4,
           "rankChange": -3
+        },
+        {
+          "ticker": "FCG",
+          "name": "Natural Gas Equities",
+          "return": 12.661076782859082,
+          "relative": 6.929383203605699,
+          "rank": 5,
+          "rankChange": 1
         },
         {
           "ticker": "SMH",
           "name": "Semiconductors",
-          "return": 7.188445823113754,
-          "relative": 2.6845165382656466,
+          "return": 11.39383236491378,
+          "relative": 5.662138785660398,
+          "rank": 6,
+          "rankChange": 10
+        },
+        {
+          "ticker": "GDX",
+          "name": "Gold Miners",
+          "return": 10.547780574173892,
+          "relative": 4.816086994920509,
           "rank": 7,
-          "rankChange": 5
+          "rankChange": 0
         },
         {
           "ticker": "XBI",
           "name": "Biotech",
-          "return": 5.160899846800859,
-          "relative": 0.6569705619527522,
+          "return": 6.679730497873293,
+          "relative": 0.94803691861991,
           "rank": 8,
-          "rankChange": 2
-        },
-        {
-          "ticker": "COPX",
-          "name": "Copper Miners",
-          "return": 0.40512964138554874,
-          "relative": -4.098799643462558,
-          "rank": 9,
           "rankChange": 0
         },
         {
           "ticker": "XLP",
           "name": "Consumer Staples",
-          "return": 0.40331422996549016,
-          "relative": -4.100615054882617,
+          "return": 1.6024951574131974,
+          "relative": -4.129198421840186,
+          "rank": 9,
+          "rankChange": -4
+        },
+        {
+          "ticker": "COPX",
+          "name": "Copper Miners",
+          "return": -0.315206022712633,
+          "relative": -6.046899601966016,
           "rank": 10,
-          "rankChange": -3
+          "rankChange": 4
         },
         {
           "ticker": "BOTZ",
           "name": "Robotics & AI",
-          "return": 0.1471431363570197,
-          "relative": -4.3567861484910875,
+          "return": -0.7719778321691795,
+          "relative": -6.503671411422562,
           "rank": 11,
-          "rankChange": 0
+          "rankChange": 1
         },
         {
           "ticker": "SLX",
           "name": "Steel",
-          "return": -2.8541358609443734,
-          "relative": -7.35806514579248,
+          "return": -2.2483781370391864,
+          "relative": -7.980071716292569,
           "rank": 12,
-          "rankChange": -4
-        },
-        {
-          "ticker": "KRE",
-          "name": "Regional Banks",
-          "return": -5.559711667214062,
-          "relative": -10.063640952062169,
-          "rank": 13,
-          "rankChange": 0
+          "rankChange": -3
         },
         {
           "ticker": "UFO",
           "name": "Space",
-          "return": -5.809159799702335,
-          "relative": -10.313089084550441,
+          "return": -2.6507495474854315,
+          "relative": -8.382443126738814,
+          "rank": 13,
+          "rankChange": 2
+        },
+        {
+          "ticker": "XHB",
+          "name": "Homebuilders & Suppliers",
+          "return": -2.71658096555929,
+          "relative": -8.448274544812673,
           "rank": 14,
-          "rankChange": 1
+          "rankChange": -1
+        },
+        {
+          "ticker": "KRE",
+          "name": "Regional Banks",
+          "return": -3.8133691063831576,
+          "relative": -9.545062685636541,
+          "rank": 15,
+          "rankChange": -5
         },
         {
           "ticker": "KBE",
           "name": "Banks",
-          "return": -6.100183410741289,
-          "relative": -10.604112695589397,
-          "rank": 15,
-          "rankChange": -1
+          "return": -4.039887739035675,
+          "relative": -9.771581318289059,
+          "rank": 16,
+          "rankChange": -5
         },
         {
           "ticker": "URA",
           "name": "Uranium",
-          "return": -6.161749624822821,
-          "relative": -10.665678909670929,
-          "rank": 16,
-          "rankChange": 4
-        },
-        {
-          "ticker": "LIT",
-          "name": "Lithium & Batteries",
-          "return": -6.376942228414462,
-          "relative": -10.88087151326257,
+          "return": -4.7974392726535475,
+          "relative": -10.52913285190693,
           "rank": 17,
-          "rankChange": -1
+          "rankChange": 3
         },
         {
           "ticker": "ICLN",
           "name": "Clean Energy",
-          "return": -8.430236619894494,
-          "relative": -12.934165904742601,
+          "return": -6.994672200050223,
+          "relative": -12.726365779303606,
           "rank": 18,
           "rankChange": 1
         },
         {
           "ticker": "NLR",
           "name": "Nuclear & Uranium",
-          "return": -9.562843022654855,
-          "relative": -14.066772307502962,
+          "return": -7.078867438263192,
+          "relative": -12.810561017516575,
           "rank": 19,
-          "rankChange": 2
+          "rankChange": 3
         },
         {
-          "ticker": "XHB",
-          "name": "Homebuilders & Suppliers",
-          "return": -10.14425902162941,
-          "relative": -14.648188306477516,
+          "ticker": "LIT",
+          "name": "Lithium & Batteries",
+          "return": -8.690439650447058,
+          "relative": -14.42213322970044,
           "rank": 20,
-          "rankChange": -3
-        },
-        {
-          "ticker": "ITA",
-          "name": "Aerospace & Defense \u00b7 ITA",
-          "return": -15.10293538725822,
-          "relative": -19.606864672106326,
-          "rank": 21,
-          "rankChange": -3
-        },
-        {
-          "ticker": "TAN",
-          "name": "Solar",
-          "return": -16.537676546292634,
-          "relative": -21.041605831140743,
-          "rank": 22,
-          "rankChange": 1
+          "rankChange": -2
         },
         {
           "ticker": "XAR",
           "name": "Aerospace & Defense \u00b7 XAR",
-          "return": -17.217915075465307,
-          "relative": -21.721844360313412,
+          "return": -8.792133013785664,
+          "relative": -14.523826593039047,
+          "rank": 21,
+          "rankChange": 0
+        },
+        {
+          "ticker": "ITA",
+          "name": "Aerospace & Defense \u00b7 ITA",
+          "return": -9.189694268062032,
+          "relative": -14.921387847315415,
+          "rank": 22,
+          "rankChange": -5
+        },
+        {
+          "ticker": "TAN",
+          "name": "Solar",
+          "return": -13.632550248315345,
+          "relative": -19.36424382756873,
           "rank": 23,
-          "rankChange": -1
+          "rankChange": 0
         },
         {
           "ticker": "REMX",
           "name": "Rare Earths & Strategic Metals",
-          "return": -17.763653373118395,
-          "relative": -22.2675826579665,
+          "return": -18.423902130182825,
+          "relative": -24.155595709436206,
           "rank": 24,
           "rankChange": 0
         }
@@ -610,199 +610,199 @@
     },
     "6m": {
       "label": "6 months",
-      "startDate": "2026-04-28",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": 9.067489820547369,
+      "startDate": "2026-04-29",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 8.667676342380748,
       "rows": [
         {
           "ticker": "CIBR",
           "name": "Cybersecurity",
-          "return": 60.85765793549882,
-          "relative": 51.790168114951456,
+          "return": 54.845016144315714,
+          "relative": 46.17733980193496,
           "rank": 1,
           "rankChange": 0
         },
         {
           "ticker": "IGV",
           "name": "Software",
-          "return": 31.683507148556544,
-          "relative": 22.616017328009175,
+          "return": 27.799103951521055,
+          "relative": 19.131427609140307,
           "rank": 2,
           "rankChange": 0
         },
         {
           "ticker": "SEA",
           "name": "Shipping & Air Cargo",
-          "return": 23.746595145608197,
-          "relative": 14.679105325060828,
+          "return": 25.335654005515295,
+          "relative": 16.667977663134547,
           "rank": 3,
           "rankChange": 1
         },
         {
           "ticker": "XBI",
           "name": "Biotech",
-          "return": 20.207849477692097,
-          "relative": 11.140359657144728,
+          "return": 22.532883628108745,
+          "relative": 13.865207285727998,
           "rank": 4,
           "rankChange": 2
         },
         {
           "ticker": "XLE",
           "name": "Energy",
-          "return": 20.175789620391637,
-          "relative": 11.108299799844268,
+          "return": 17.93475175670387,
+          "relative": 9.267075414323124,
           "rank": 5,
           "rankChange": -2
         },
         {
           "ticker": "SMH",
           "name": "Semiconductors",
-          "return": 15.565642553113769,
-          "relative": 6.4981527325664,
+          "return": 12.428439490521725,
+          "relative": 3.7607631481409776,
           "rank": 6,
-          "rankChange": -1
-        },
-        {
-          "ticker": "FCG",
-          "name": "Natural Gas Equities",
-          "return": 7.208863822316358,
-          "relative": -1.8586259982310107,
-          "rank": 7,
-          "rankChange": 0
+          "rankChange": 1
         },
         {
           "ticker": "XLP",
           "name": "Consumer Staples",
-          "return": 5.9432232608193525,
-          "relative": -3.1242665597280164,
-          "rank": 8,
-          "rankChange": 0
+          "return": 7.785583892680048,
+          "relative": -0.8820924497006999,
+          "rank": 7,
+          "rankChange": -2
         },
         {
           "ticker": "KRE",
           "name": "Regional Banks",
-          "return": 3.6589691267076896,
-          "relative": -5.408520693839679,
-          "rank": 9,
+          "return": 6.7702508544219775,
+          "relative": -1.8974254879587704,
+          "rank": 8,
           "rankChange": 0
         },
         {
           "ticker": "KBE",
           "name": "Banks",
-          "return": 2.717966874411215,
-          "relative": -6.349522946136154,
+          "return": 5.636139766647319,
+          "relative": -3.031536575733429,
+          "rank": 9,
+          "rankChange": 1
+        },
+        {
+          "ticker": "FCG",
+          "name": "Natural Gas Equities",
+          "return": 3.7886687264497176,
+          "relative": -4.87900761593103,
           "rank": 10,
+          "rankChange": -1
+        },
+        {
+          "ticker": "ITA",
+          "name": "Aerospace & Defense \u00b7 ITA",
+          "return": 0.7314603774304818,
+          "relative": -7.936215964950266,
+          "rank": 11,
           "rankChange": 1
         },
         {
           "ticker": "SLX",
           "name": "Steel",
-          "return": -0.8116583353371731,
-          "relative": -9.879148155884542,
-          "rank": 11,
-          "rankChange": -1
-        },
-        {
-          "ticker": "COPX",
-          "name": "Copper Miners",
-          "return": -2.0319141950311925,
-          "relative": -11.09940401557856,
+          "return": 0.2275683760048164,
+          "relative": -8.440107966375932,
           "rank": 12,
-          "rankChange": 0
-        },
-        {
-          "ticker": "ITA",
-          "name": "Aerospace & Defense \u00b7 ITA",
-          "return": -3.7385800275524517,
-          "relative": -12.80606984809982,
-          "rank": 13,
-          "rankChange": 1
-        },
-        {
-          "ticker": "GDX",
-          "name": "Gold Miners",
-          "return": -5.184102010191194,
-          "relative": -14.251591830738562,
-          "rank": 14,
           "rankChange": -1
         },
         {
           "ticker": "XHB",
           "name": "Homebuilders & Suppliers",
-          "return": -7.725402474970366,
-          "relative": -16.792892295517735,
+          "return": -1.9768989230033007,
+          "relative": -10.644575265384049,
+          "rank": 13,
+          "rankChange": 0
+        },
+        {
+          "ticker": "COPX",
+          "name": "Copper Miners",
+          "return": -2.0224800324452397,
+          "relative": -10.690156374825987,
+          "rank": 14,
+          "rankChange": 2
+        },
+        {
+          "ticker": "GDX",
+          "name": "Gold Miners",
+          "return": -5.671537138037353,
+          "relative": -14.3392134804181,
           "rank": 15,
+          "rankChange": 0
+        },
+        {
+          "ticker": "XAR",
+          "name": "Aerospace & Defense \u00b7 XAR",
+          "return": -5.718532495233175,
+          "relative": -14.386208837613923,
+          "rank": 16,
           "rankChange": 1
         },
         {
           "ticker": "BOTZ",
           "name": "Robotics & AI",
-          "return": -9.593684582617845,
-          "relative": -18.661174403165212,
-          "rank": 16,
-          "rankChange": -1
-        },
-        {
-          "ticker": "XAR",
-          "name": "Aerospace & Defense \u00b7 XAR",
-          "return": -11.674646783388354,
-          "relative": -20.742136603935723,
+          "return": -10.429391025100331,
+          "relative": -19.09706736748108,
           "rank": 17,
-          "rankChange": 1
+          "rankChange": -3
         },
         {
           "ticker": "UFO",
           "name": "Space",
-          "return": -17.345026660654916,
-          "relative": -26.412516481202285,
+          "return": -15.790468979103856,
+          "relative": -24.458145321484604,
           "rank": 18,
-          "rankChange": 3
+          "rankChange": 1
         },
         {
           "ticker": "ICLN",
           "name": "Clean Energy",
-          "return": -20.401849618711342,
-          "relative": -29.46933943925871,
+          "return": -22.61627039005599,
+          "relative": -31.28394673243674,
           "rank": 19,
-          "rankChange": -2
-        },
-        {
-          "ticker": "LIT",
-          "name": "Lithium & Batteries",
-          "return": -24.842443508147515,
-          "relative": -33.90993332869488,
-          "rank": 20,
-          "rankChange": 0
+          "rankChange": -1
         },
         {
           "ticker": "TAN",
           "name": "Solar",
-          "return": -28.878860982485165,
-          "relative": -37.94635080303253,
+          "return": -26.621523362540145,
+          "relative": -35.28919970492089,
+          "rank": 20,
+          "rankChange": 0
+        },
+        {
+          "ticker": "LIT",
+          "name": "Lithium & Batteries",
+          "return": -28.056943397514576,
+          "relative": -36.724619739895324,
           "rank": 21,
-          "rankChange": -2
+          "rankChange": 0
         },
         {
           "ticker": "NLR",
           "name": "Nuclear & Uranium",
-          "return": -31.96541189646994,
-          "relative": -41.03290171701731,
+          "return": -30.626634196814862,
+          "relative": -39.29431053919561,
           "rank": 22,
           "rankChange": 0
         },
         {
           "ticker": "URA",
           "name": "Uranium",
-          "return": -32.60188171568386,
-          "relative": -41.669371536231225,
+          "return": -32.46360061842958,
+          "relative": -41.131276960810325,
           "rank": 23,
           "rankChange": 0
         },
         {
           "ticker": "REMX",
           "name": "Rare Earths & Strategic Metals",
-          "return": -44.48984124065124,
-          "relative": -53.55733106119861,
+          "return": -47.85233754029803,
+          "relative": -56.52001388267878,
           "rank": 24,
           "rankChange": 0
         }
@@ -810,199 +810,199 @@
     },
     "9m": {
       "label": "9 months",
-      "startDate": "2026-01-28",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": 11.924064635334952,
+      "startDate": "2026-01-29",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 11.718233668406075,
       "rows": [
         {
           "ticker": "CIBR",
           "name": "Cybersecurity",
-          "return": 51.31274081712554,
-          "relative": 39.388676181790586,
+          "return": 51.34570904207079,
+          "relative": 39.62747537366471,
           "rank": 1,
           "rankChange": 0
         },
         {
           "ticker": "XLE",
           "name": "Energy",
-          "return": 39.473689528775544,
-          "relative": 27.549624893440594,
+          "return": 38.72844132244913,
+          "relative": 27.010207654043054,
           "rank": 2,
           "rankChange": 0
         },
         {
           "ticker": "SEA",
           "name": "Shipping & Air Cargo",
-          "return": 39.36031858200828,
-          "relative": 27.436253946673332,
+          "return": 38.719839628115494,
+          "relative": 27.00160595970942,
           "rank": 3,
           "rankChange": 0
         },
         {
           "ticker": "SMH",
           "name": "Semiconductors",
-          "return": 36.252784546765305,
-          "relative": 24.328719911430355,
+          "return": 34.52529164819558,
+          "relative": 22.8070579797895,
           "rank": 4,
           "rankChange": 0
         },
         {
           "ticker": "FCG",
           "name": "Natural Gas Equities",
-          "return": 30.715523934187527,
-          "relative": 18.791459298852573,
+          "return": 28.17201215428429,
+          "relative": 16.453778485878214,
           "rank": 5,
           "rankChange": 0
         },
         {
           "ticker": "XBI",
           "name": "Biotech",
-          "return": 25.19025506002661,
-          "relative": 13.26619042469166,
+          "return": 24.621183682062675,
+          "relative": 12.9029500136566,
           "rank": 6,
           "rankChange": 0
         },
         {
           "ticker": "IGV",
           "name": "Software",
-          "return": 15.321440850136515,
-          "relative": 3.3973762148015627,
+          "return": 17.03722522785378,
+          "relative": 5.318991559447706,
           "rank": 7,
+          "rankChange": 0
+        },
+        {
+          "ticker": "XLP",
+          "name": "Consumer Staples",
+          "return": 9.43490320708349,
+          "relative": -2.283330461322585,
+          "rank": 8,
           "rankChange": 0
         },
         {
           "ticker": "KRE",
           "name": "Regional Banks",
-          "return": 8.245004538075463,
-          "relative": -3.679060097259489,
-          "rank": 8,
-          "rankChange": 2
-        },
-        {
-          "ticker": "XLP",
-          "name": "Consumer Staples",
-          "return": 7.523149427365583,
-          "relative": -4.400915207969369,
+          "return": 7.390338485309034,
+          "relative": -4.327895183097041,
           "rank": 9,
-          "rankChange": 0
+          "rankChange": 1
         },
         {
           "ticker": "KBE",
           "name": "Banks",
-          "return": 5.958397654314473,
-          "relative": -5.965666981020479,
+          "return": 5.5233451175808135,
+          "relative": -6.194888550825262,
           "rank": 10,
           "rankChange": 1
         },
         {
           "ticker": "SLX",
           "name": "Steel",
-          "return": 5.8105567070304565,
-          "relative": -6.113507928304496,
+          "return": 4.443762535227647,
+          "relative": -7.274471133178428,
           "rank": 11,
-          "rankChange": -3
+          "rankChange": -2
         },
         {
           "ticker": "XHB",
           "name": "Homebuilders & Suppliers",
-          "return": -9.742151540487187,
-          "relative": -21.66621617582214,
+          "return": -7.352597421678519,
+          "relative": -19.070831090084596,
           "rank": 12,
-          "rankChange": 7
-        },
-        {
-          "ticker": "BOTZ",
-          "name": "Robotics & AI",
-          "return": -10.379005237458827,
-          "relative": -22.303069872793778,
-          "rank": 13,
-          "rankChange": 1
+          "rankChange": 2
         },
         {
           "ticker": "ITA",
           "name": "Aerospace & Defense \u00b7 ITA",
-          "return": -10.881119307747056,
-          "relative": -22.805183943082007,
-          "rank": 14,
-          "rankChange": 3
+          "return": -7.707534855698861,
+          "relative": -19.425768524104935,
+          "rank": 13,
+          "rankChange": 2
         },
         {
           "ticker": "UFO",
           "name": "Space",
-          "return": -14.152125522075831,
-          "relative": -26.076190157410785,
+          "return": -11.3405182494681,
+          "relative": -23.058751917874176,
+          "rank": 14,
+          "rankChange": 3
+        },
+        {
+          "ticker": "BOTZ",
+          "name": "Robotics & AI",
+          "return": -11.915931732235997,
+          "relative": -23.634165400642072,
           "rank": 15,
-          "rankChange": 0
+          "rankChange": 1
+        },
+        {
+          "ticker": "ICLN",
+          "name": "Clean Energy",
+          "return": -15.007496440856638,
+          "relative": -26.725730109262713,
+          "rank": 16,
+          "rankChange": -4
+        },
+        {
+          "ticker": "XAR",
+          "name": "Aerospace & Defense \u00b7 XAR",
+          "return": -15.235199218622874,
+          "relative": -26.95343288702895,
+          "rank": 17,
+          "rankChange": 3
         },
         {
           "ticker": "LIT",
           "name": "Lithium & Batteries",
-          "return": -15.750732639904951,
-          "relative": -27.674797275239904,
-          "rank": 16,
+          "return": -16.86775320876358,
+          "relative": -28.585986877169656,
+          "rank": 18,
           "rankChange": 0
         },
         {
           "ticker": "COPX",
           "name": "Copper Miners",
-          "return": -16.18712439679395,
-          "relative": -28.111189032128905,
-          "rank": 17,
-          "rankChange": -4
-        },
-        {
-          "ticker": "ICLN",
-          "name": "Clean Energy",
-          "return": -17.013808560660404,
-          "relative": -28.93787319599536,
-          "rank": 18,
-          "rankChange": -6
-        },
-        {
-          "ticker": "XAR",
-          "name": "Aerospace & Defense \u00b7 XAR",
-          "return": -20.002989520401716,
-          "relative": -31.92705415573667,
+          "return": -19.17868637850122,
+          "relative": -30.896920046907294,
           "rank": 19,
-          "rankChange": 2
+          "rankChange": -6
         },
         {
           "ticker": "GDX",
           "name": "Gold Miners",
-          "return": -25.151574351630725,
-          "relative": -37.07563898696568,
+          "return": -24.680497034053538,
+          "relative": -36.398730702459616,
           "rank": 20,
-          "rankChange": -2
+          "rankChange": -1
         },
         {
           "ticker": "TAN",
           "name": "Solar",
-          "return": -28.556486913912604,
-          "relative": -40.48055154924756,
+          "return": -26.134528600581564,
+          "relative": -37.85276226898764,
           "rank": 21,
-          "rankChange": -1
-        },
-        {
-          "ticker": "URA",
-          "name": "Uranium",
-          "return": -40.86717614464522,
-          "relative": -52.79124077998017,
-          "rank": 22,
           "rankChange": 0
         },
         {
           "ticker": "NLR",
           "name": "Nuclear & Uranium",
-          "return": -41.60126500257331,
-          "relative": -53.52532963790826,
+          "return": -39.7689984633348,
+          "relative": -51.48723213174088,
+          "rank": 22,
+          "rankChange": 1
+        },
+        {
+          "ticker": "URA",
+          "name": "Uranium",
+          "return": -39.794370270849285,
+          "relative": -51.51260393925536,
           "rank": 23,
-          "rankChange": 0
+          "rankChange": -1
         },
         {
           "ticker": "REMX",
           "name": "Rare Earths & Strategic Metals",
-          "return": -44.267842140060885,
-          "relative": -56.191906775395836,
+          "return": -43.66513491458308,
+          "relative": -55.38336858298915,
           "rank": 24,
           "rankChange": 0
         }
@@ -1010,199 +1010,199 @@
     },
     "12m": {
       "label": "12 months",
-      "startDate": "2025-10-28",
-      "endDate": "2026-10-28",
-      "benchmarkReturn": 13.62067790458541,
+      "startDate": "2025-10-29",
+      "endDate": "2026-10-29",
+      "benchmarkReturn": 13.132329760453043,
       "rows": [
         {
           "ticker": "XLE",
           "name": "Energy",
-          "return": 61.1759103050689,
-          "relative": 47.55523240048349,
+          "return": 60.59323488406285,
+          "relative": 47.460905123609805,
           "rank": 1,
-          "rankChange": 0
-        },
-        {
-          "ticker": "SMH",
-          "name": "Semiconductors",
-          "return": 56.82199860388417,
-          "relative": 43.20132069929876,
-          "rank": 2,
           "rankChange": 0
         },
         {
           "ticker": "SEA",
           "name": "Shipping & Air Cargo",
-          "return": 54.443595358309715,
-          "relative": 40.8229174537243,
+          "return": 55.07687217762942,
+          "relative": 41.94454241717638,
+          "rank": 2,
+          "rankChange": 1
+        },
+        {
+          "ticker": "SMH",
+          "name": "Semiconductors",
+          "return": 52.8492680720978,
+          "relative": 39.71693831164475,
           "rank": 3,
-          "rankChange": 0
+          "rankChange": -1
         },
         {
           "ticker": "FCG",
           "name": "Natural Gas Equities",
-          "return": 49.6548557955514,
-          "relative": 36.03417789096599,
+          "return": 48.459503792501614,
+          "relative": 35.327174032048575,
           "rank": 4,
           "rankChange": 0
         },
         {
           "ticker": "XBI",
           "name": "Biotech",
-          "return": 41.23769292966304,
-          "relative": 27.61701502507763,
+          "return": 42.81490199582545,
+          "relative": 29.682572235372408,
           "rank": 5,
           "rankChange": 0
         },
         {
           "ticker": "CIBR",
           "name": "Cybersecurity",
-          "return": 38.9621425568117,
-          "relative": 25.34146465222629,
+          "return": 38.03072016368041,
+          "relative": 24.898390403227364,
           "rank": 6,
-          "rankChange": 2
+          "rankChange": 0
         },
         {
           "ticker": "SLX",
           "name": "Steel",
-          "return": 29.04685661037596,
-          "relative": 15.426178705790552,
+          "return": 27.80890261757325,
+          "relative": 14.676572857120206,
           "rank": 7,
-          "rankChange": -1
-        },
-        {
-          "ticker": "COPX",
-          "name": "Copper Miners",
-          "return": 27.585197486801704,
-          "relative": 13.964519582216294,
-          "rank": 8,
-          "rankChange": -1
+          "rankChange": 0
         },
         {
           "ticker": "KRE",
           "name": "Regional Banks",
-          "return": 21.18748218557467,
-          "relative": 7.56680428098926,
-          "rank": 9,
+          "return": 24.720401533122672,
+          "relative": 11.588071772669629,
+          "rank": 8,
           "rankChange": 1
         },
         {
-          "ticker": "GDX",
-          "name": "Gold Miners",
-          "return": 19.06463524661386,
-          "relative": 5.443957342028451,
-          "rank": 10,
+          "ticker": "COPX",
+          "name": "Copper Miners",
+          "return": 24.035079144892535,
+          "relative": 10.902749384439492,
+          "rank": 9,
           "rankChange": -1
         },
         {
           "ticker": "KBE",
           "name": "Banks",
-          "return": 16.938142935684162,
-          "relative": 3.3174650310987523,
-          "rank": 11,
+          "return": 20.45336193262004,
+          "relative": 7.321032172166998,
+          "rank": 10,
           "rankChange": 0
         },
         {
           "ticker": "XLP",
           "name": "Consumer Staples",
-          "return": 13.761534276104603,
-          "relative": 0.1408563715191935,
+          "return": 18.307593238430787,
+          "relative": 5.175263477977744,
+          "rank": 11,
+          "rankChange": 0
+        },
+        {
+          "ticker": "GDX",
+          "name": "Gold Miners",
+          "return": 15.267600333905706,
+          "relative": 2.1352705734526634,
           "rank": 12,
           "rankChange": 0
         },
         {
           "ticker": "UFO",
           "name": "Space",
-          "return": 8.973127564764226,
-          "relative": -4.6475503398211835,
+          "return": 10.92238834126289,
+          "relative": -2.2099414191901534,
           "rank": 13,
           "rankChange": 1
         },
         {
           "ticker": "LIT",
           "name": "Lithium & Batteries",
-          "return": 4.572547850265685,
-          "relative": -9.048130054319724,
+          "return": -1.0988728653449242,
+          "relative": -14.231202625797968,
           "rank": 14,
           "rankChange": -1
         },
         {
-          "ticker": "IGV",
-          "name": "Software",
-          "return": -4.102993647429731,
-          "relative": -17.72367155201514,
-          "rank": 15,
-          "rankChange": 2
-        },
-        {
           "ticker": "ITA",
           "name": "Aerospace & Defense \u00b7 ITA",
-          "return": -4.265003226923836,
-          "relative": -17.885681131509244,
-          "rank": 16,
-          "rankChange": 0
-        },
-        {
-          "ticker": "ICLN",
-          "name": "Clean Energy",
-          "return": -5.771806842118055,
-          "relative": -19.392484746703467,
-          "rank": 17,
-          "rankChange": -2
+          "return": -1.2010193955142467,
+          "relative": -14.33334915596729,
+          "rank": 15,
+          "rankChange": 1
         },
         {
           "ticker": "XHB",
           "name": "Homebuilders & Suppliers",
-          "return": -8.451666782399103,
-          "relative": -22.072344686984515,
-          "rank": 18,
-          "rankChange": 3
+          "return": -2.6529115839393325,
+          "relative": -15.785241344392375,
+          "rank": 16,
+          "rankChange": 2
         },
         {
           "ticker": "XAR",
           "name": "Aerospace & Defense \u00b7 XAR",
-          "return": -10.012395634978766,
-          "relative": -23.633073539564176,
+          "return": -6.034935217887627,
+          "relative": -19.16726497834067,
+          "rank": 17,
+          "rankChange": 2
+        },
+        {
+          "ticker": "IGV",
+          "name": "Software",
+          "return": -6.274740823820468,
+          "relative": -19.407070584273512,
+          "rank": 18,
+          "rankChange": -1
+        },
+        {
+          "ticker": "ICLN",
+          "name": "Clean Energy",
+          "return": -8.461239892135296,
+          "relative": -21.59356965258834,
           "rank": 19,
-          "rankChange": 0
+          "rankChange": -4
         },
         {
           "ticker": "BOTZ",
           "name": "Robotics & AI",
-          "return": -10.157573413741494,
-          "relative": -23.7782513183269,
+          "return": -11.99924302601556,
+          "relative": -25.131572786468602,
           "rank": 20,
-          "rankChange": -2
+          "rankChange": 1
         },
         {
           "ticker": "TAN",
           "name": "Solar",
-          "return": -15.417958933072107,
-          "relative": -29.038636837657517,
+          "return": -15.267486423680388,
+          "relative": -28.39981618413343,
           "rank": 21,
           "rankChange": -1
         },
         {
           "ticker": "REMX",
           "name": "Rare Earths & Strategic Metals",
-          "return": -19.09063433849112,
-          "relative": -32.711312243076534,
+          "return": -22.73660112504423,
+          "relative": -35.86893088549728,
           "rank": 22,
           "rankChange": 0
         },
         {
           "ticker": "URA",
           "name": "Uranium",
-          "return": -30.398436962557874,
-          "relative": -44.01911486714329,
+          "return": -33.725591005270935,
+          "relative": -46.857920765723975,
           "rank": 23,
           "rankChange": 0
         },
         {
           "ticker": "NLR",
           "name": "Nuclear & Uranium",
-          "return": -35.83192654149534,
-          "relative": -49.452604446080755,
+          "return": -37.922989614129186,
+          "relative": -51.055319374582226,
           "rank": 24,
           "rankChange": 0
         }
