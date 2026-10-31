@@ -2978,3 +2978,94 @@ opportunities[arEntryIndex]={...arOriginal,title:'Antero Resources (AR) — New 
  researchSections:[{title:'Original October 29 Watching thesis',body:[arOriginal.setupThesis,arOriginal.nextCondition,arOriginal.justinsTake].join('\n\n')},...(arOriginal.researchSections||[]).map(section=>({...section,title:'Original October 29 watch research — '+section.title}))]
 };
 opportunityUpdates.push({id:'opportunity-013-entry-2026-10-30',opportunityId:'opportunity-013',publishedAt:'2026-10-30',eventDate:'2026-10-30',publicationState:'published',tradeStatusBefore:'Watching',tradeStatusAfter:'Active',trade:{...arEntryTrade},title:'New Position Opened — 100 Shares at $41.66',explanation:arEntryText,notification:{subject:'New Position Opened: Antero Resources (AR)',preview:'I entered 100 shares of AR as I continue focusing on opportunities outside the volatile AI trade.',headline:'Antero Resources (AR) — New Position Opened',summary:arEntryEmail,cta:'VIEW ANTERO OPPORTUNITY'}});
+
+weeklyOutlooks.push({
+  "id": "weekly-outlook-007",
+  "slug": "issue-007",
+  "title": "The AI Selloff: A Deeper Correction or Healthy Rotation?",
+  "weekOf": "2026-11-02",
+  "weekEnd": "2026-11-06",
+  "publishedAt": "2026-10-31",
+  "publicationState": "published",
+  "marketPosture": "Selective / Following sector strength",
+  "summary": "I'm watching AI earnings, the midterms and Friday's jobs report while following strength in energy, healthcare, enterprise software and cybersecurity.",
+  "marketContext": "",
+  "sectorFocus": "",
+  "gamePlan": "",
+  "opportunityIds": [
+    "opportunity-011",
+    "opportunity-010",
+    "opportunity-013"
+  ],
+  "articleMarkdown": "## AI Is Selling Off. I'm Watching Where the Money Goes.\n\nThe Nasdaq's pullback is putting the AI trade under pressure. My chart review puts the decline at roughly **8% from the October 6 high**, with the 200-day moving average approaching as an important area to watch. Those are approximate observations from my script; I haven't independently reconciled the index, peak and moving-average series, so I am not treating them as precise trading levels.\n\nI'm leaning toward **sector rotation rather than a market-wide collapse**. That is my interpretation, not a guarantee that other sectors will hold up if technology keeps falling.\n\n## A Healthy Reset—or a Deeper Problem?\n\nTaking profits after a huge rally would be understandable. What concerns me more is whether earnings and cash flow can justify the expectations built into AI stocks. Intel's recent disappointment and the spending questions around Amazon and Alphabet keep that issue front and center in my research.\n\nI still believe in AI's long-term potential. But a powerful theme doesn't make every stock attractive at every price. **I'm not trying to catch falling knives.**\n\n## The Broader Market Looks More Encouraging\n\nThe breadth reading in my commentary is approximately **63% of S&P 500 stocks in uptrends**, compared with roughly 40% previously in negative trends. I haven't independently confirmed the source, lookback or definition of an uptrend, so I treat those figures as an unverified screen observation—not an apples-to-apples measure of improvement.\n\nWhat matters to my trading is whether participation continues broadening beyond a few technology giants. Strength in healthcare, energy and consumer businesses would be healthier than relying on the same handful of stocks. I want that rotation to show up in durable price structures, not just a brief bounce.\n\n## My Calendar for November 2–6\n\nAll times are Eastern. Company calendars and economic schedules can change.\n\n| Day | Events I'm watching | My focus |\n| --- | --- | --- |\n| Monday, November 2 | Palantir after the close; Apple after the close is reported, pending direct company confirmation | Enterprise AI demand and the consumer. |\n| Tuesday, November 3 | Midterm elections; September JOLTS at 10 a.m.; AMD and Super Micro after the close; Arista's earnings event | AI compute, servers, networking and labor demand. |\n| Wednesday, November 4 | Qualcomm and Arm after the close | Semiconductor demand and guidance. |\n| Thursday, November 5 | Preliminary Q3 productivity and costs at 8:30 a.m. | Productivity and labor-cost pressure ahead of payrolls. |\n| Friday, November 6 | October employment report at 8:30 a.m. | Hiring, unemployment and wages—and the implications for rates. |\n\nTuesday's election could change expectations around policy and spending. I'm focused on the market reaction, not politics. Results may take time to settle, and the end of voting doesn't guarantee an immediate end to uncertainty.\n\n## December Is Still an Open Question\n\nThe Fed held its target range at **3.75%–4.00% on October 28**. Its next scheduled meeting is December 8–9. I'm watching the possibility of additional tightening, but I haven't verified current futures odds and am not calling a hike the market's base case.\n\nFriday's jobs report matters because resilient hiring and persistent wage pressure could complicate the inflation outlook. Higher rates can also make expensive growth-stock valuations harder to justify. I want to see the data before drawing a conclusion.\n\n## Where I'm Finding Opportunities\n\nMy focus remains **energy, healthcare, enterprise software and cybersecurity**. I start with sector strength, then evaluate the individual company's fundamentals, technical structure and risk.\n\nZscaler, Centene and Antero Resources are examples of that process. My completed Zscaler swing trade remains closed; the current position details and updates live on the Opportunity Board. This Outlook does not change any entry, stop or target.\n\nFor AI stocks, I want support to form, consolidation to develop and buyers to return. Alphabet, Amazon, Intel and Nvidia may eventually offer attractive swing setups. I don't need to predict whether that happens next week or next month. **I can wait for confirmation while researching the sectors already showing strength.**\n\n## My Plan for the Week\n\nI'm watching whether earnings rebuild confidence in AI, whether the jobs data changes the rate outlook, and whether broader participation survives the technology selloff. I'll remain selective and manage risk rather than buy simply because a stock is down.\n\nThe correction could create opportunity. First, I want the setup.\n",
+  "sourceCheckedAt": "2026-10-31",
+  "promotion": {
+    "headline": "TrendSpider Halloween offer",
+    "url": "https://trendspider.com?_go=justin-4f7fc2",
+    "cta": "View TrendSpider offer",
+    "body": "TrendSpider is one of the tools I use to evaluate technical setups. Its Halloween promotion advertises up to 48% off annual plans for the first 12 months, plus two free months of Sidekick Plus, valued at $258, with all plans.",
+    "features": [],
+    "conclusion": "Bonus activation is required, and eligibility and renewal terms apply. I may earn a commission if you purchase through my affiliate link.",
+    "terms": "My supplied promotion schedule ends Monday, November 2, 2026; I couldn't independently confirm the deadline. Check TrendSpider's current terms before purchasing.",
+    "disclosure": "Affiliate link: I may earn a commission if you purchase.",
+    "emailBody": "The Halloween offer includes up to 48% off annual plans for the first 12 months and two free months of Sidekick Plus (a $258 value). Bonus activation and eligibility terms apply. My supplied deadline is November 2; that deadline remains unconfirmed. I may earn a commission through this affiliate link.",
+    "placement": "bottom"
+  },
+  "sources": [
+    {
+      "label": "BLS — November economic release calendar",
+      "url": "https://www.bls.gov/schedule/2026/11_sched.htm"
+    },
+    {
+      "label": "Federal Reserve — October 28 policy decision",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm"
+    },
+    {
+      "label": "Federal Reserve — meeting calendar",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    },
+    {
+      "label": "FEC — November 3 federal election date",
+      "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/"
+    },
+    {
+      "label": "Palantir — November 2 earnings announcement",
+      "url": "https://investors.palantir.com/news-details/2026/Palantir-Announces-Date-of-Third-Quarter-2026-Earnings-Release-and-Webcast/"
+    },
+    {
+      "label": "AMD — earnings announcement",
+      "url": "https://ir.amd.com/news-events/press-releases/detail/1300/amd-to-report-fiscal-third-quarter-2026-financial-results"
+    },
+    {
+      "label": "Super Micro — earnings calendar",
+      "url": "https://ir.supermicro.com/events-and-presentations/"
+    },
+    {
+      "label": "Arista — earnings calendar",
+      "url": "https://investors.arista.com/Events/"
+    },
+    {
+      "label": "Qualcomm — November 4 announcement",
+      "url": "https://investor.qualcomm.com/news-events/press-releases/news-details/2026/Qualcomm-Schedules-Fourth-Quarter-and-Fiscal-2026-Earnings-Release-and-Conference-Call/default.aspx"
+    },
+    {
+      "label": "Arm — November 4 announcement",
+      "url": "https://newsroom.arm.com/news/arm-announces-earnings-release-date-for-second-quarter-fiscal-year-ending-2027"
+    },
+    {
+      "label": "Apple — reported date, direct confirmation pending",
+      "url": "https://www.macrumors.com/2026/10/06/apple-q4-2026-earnings-nov-2/"
+    },
+    {
+      "label": "TrendSpider — promotion pricing and terms; deadline not confirmed",
+      "url": "https://trendspider.com/pricing/"
+    }
+  ],
+  "notification": {
+    "subject": "The AI Selloff — Is This Rotation or Something Bigger?",
+    "preview": "AI earnings, the midterms, Friday's jobs report, and where I'm finding opportunities outside AI.",
+    "cta": "READ THIS WEEK'S MARKET OUTLOOK"
+  },
+  "notificationSummary": "The AI selloff is painful, but I'm watching whether strength elsewhere points to rotation rather than a broad market breakdown.\n\nWHAT I'M WATCHING\nAI and semiconductor earnings, Tuesday's midterms, and Friday's October jobs report could all move the market. December's Fed decision is still an open question.\n\nWHERE I'M FINDING OPPORTUNITIES\nI'm focused on energy, healthcare, enterprise software and cybersecurity. I want strong sectors, sound businesses and a clearly defined risk level.\n\nMY OUTLOOK\nI'm not buying AI stocks simply because they're down. I want support, consolidation and evidence that buyers are returning.\n\nThe full Outlook includes my Monday–Friday calendar, trading approach and source notes, including the figures that remain unconfirmed.",
+  "disclosure": "The positions discussed reflect my personal trading activity, not subscriber performance. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Stops do not guarantee execution prices. This content is educational and informational and does not constitute personalized investment advice."
+});
