@@ -33,7 +33,9 @@
     "prestart": "node scripts/check-node-version.cjs",
     "preemail:lambda:build": "node scripts/check-node-version.cjs",
     "preemail:worker": "node scripts/check-node-version.cjs",
-    "test:node": "node --test scripts/test-node-version.cjs"
+    "test:node": "node --test scripts/test-node-version.cjs",
+    "test:annual-upgrade": "node --test scripts/test-annual-upgrade.cjs",
+    "test:annual-upgrade:sandbox": "node scripts/test-annual-upgrade-sandbox.cjs --run"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1134.0",

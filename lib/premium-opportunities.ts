@@ -2843,6 +2843,48 @@ Justin Sacco`,
 opportunities.push({
   "id": "opportunity-013",
   "slug": "antero-resources-013",
+  "charts": [
+  {
+    "src": "/api/premium/chart/ar-tradingview-2026-10-29",
+    "width": 3286,
+    "height": 1776,
+    "source": "TradingView",
+    "placement": "setup",
+    "asOf": "2026-10-29",
+    "caption": "My October 29 breakout chart. The planning overlay predates my October 30 entry; its entry, stop, quantity and reward-to-risk are not my current position details.",
+    "alt": "Antero Resources (AR) TradingView research snapshot from 2026-10-29"
+  },
+  {
+    "src": "/api/premium/chart/ar-trendspider-2026-10-26",
+    "width": 1286,
+    "height": 844,
+    "source": "TrendSpider",
+    "placement": "confirmation",
+    "asOf": "2026-10-26",
+    "caption": "My October 26 stage-analysis and RSI snapshot, showing the developing breakout from the prior base.",
+    "alt": "Antero Resources (AR) TrendSpider research snapshot from 2026-10-26"
+  },
+  {
+    "src": "/api/premium/chart/ar-seeking-alpha-2026-10-26",
+    "width": 2556,
+    "height": 1272,
+    "source": "Seeking Alpha",
+    "placement": "fundamentals",
+    "asOf": "2026-10-26",
+    "caption": "My October 26 ratings and factor-grade snapshot. These are dated research observations, not live ratings.",
+    "alt": "Antero Resources (AR) Seeking Alpha research snapshot from 2026-10-26"
+  },
+  {
+    "src": "/api/premium/chart/ar-investingpro-2026-10-26",
+    "width": 2284,
+    "height": 1556,
+    "source": "InvestingPro",
+    "placement": "fundamentals",
+    "asOf": "2026-10-26",
+    "caption": "My October 26 valuation and financial-health snapshot. Model fair value and analyst targets are separate from my $45 swing target; the earnings date shown predates the reported results.",
+    "alt": "Antero Resources (AR) InvestingPro research snapshot from 2026-10-26"
+  }
+],
   notification: {
     subject: 'New Opportunity Watch: Antero Resources (AR)',
     preview: "I'm watching AR's $40 breakout with approximately 3.4:1 reward-to-risk at my reference price.",
@@ -2904,7 +2946,7 @@ I'm waiting for a successful retest or consolidation above $40. My full thesis, 
     },
     {
       "title": "Fundamental ratings — original research snapshots",
-      "body": "My original October 27 research notes record InvestingPro fair value of $46.75, approximately 12.5% upside from the screenshot's $41.54 price, and an average analyst target of $49.64 across 22 analysts. Financial Health was 4/5 (Great Performance), with low valuation uncertainty.\n\nSeeking Alpha ratings in the same research brief were SA Analysts Strong Buy (4.66), Wall Street Buy (4.22), and Quant Buy (4.40). Factor grades were Growth A+, Profitability B, Valuation C, and Momentum C+.\n\nThese figures are historical observations from my supplied research notes, not continuously updated ratings. The screenshots' individual capture dates are not documented in this entry. Analyst targets and modeled fair values are not my $45 swing target."
+      "body": "My original October 27 research notes record InvestingPro fair value of $46.75, approximately 12.5% upside from the screenshot's $41.54 price, and an average analyst target of $49.64 across 22 analysts. Financial Health was 4/5 (Great Performance), with low valuation uncertainty.\n\nSeeking Alpha ratings in the same research brief were SA Analysts Strong Buy (4.66), Wall Street Buy (4.22), and Quant Buy (4.40). Factor grades were Growth A+, Profitability B, Valuation C, and Momentum C+.\n\nThese figures are historical observations from my supplied research notes, not continuously updated ratings. The attached ratings screenshots were captured on October 26, 2026. Analyst targets and modeled fair values are not my $45 swing target."
     },
     {
       "title": "Institutional activity — Q2 2026 reported holdings",
@@ -2995,9 +3037,10 @@ weeklyOutlooks.push({
   "opportunityIds": [
     "opportunity-011",
     "opportunity-010",
-    "opportunity-013"
+    "opportunity-013",
+    "opportunity-009"
   ],
-  "articleMarkdown": "## AI Is Selling Off. I'm Watching Where the Money Goes.\n\nThe Nasdaq's pullback is putting the AI trade under pressure. My chart review puts the decline at roughly **8% from the October 6 high**, with the 200-day moving average approaching as an important area to watch. Those are approximate observations from my script; I haven't independently reconciled the index, peak and moving-average series, so I am not treating them as precise trading levels.\n\nI'm leaning toward **sector rotation rather than a market-wide collapse**. That is my interpretation, not a guarantee that other sectors will hold up if technology keeps falling.\n\n## A Healthy Reset—or a Deeper Problem?\n\nTaking profits after a huge rally would be understandable. What concerns me more is whether earnings and cash flow can justify the expectations built into AI stocks. Intel's recent disappointment and the spending questions around Amazon and Alphabet keep that issue front and center in my research.\n\nI still believe in AI's long-term potential. But a powerful theme doesn't make every stock attractive at every price. **I'm not trying to catch falling knives.**\n\n## The Broader Market Looks More Encouraging\n\nThe breadth reading in my commentary is approximately **63% of S&P 500 stocks in uptrends**, compared with roughly 40% previously in negative trends. I haven't independently confirmed the source, lookback or definition of an uptrend, so I treat those figures as an unverified screen observation—not an apples-to-apples measure of improvement.\n\nWhat matters to my trading is whether participation continues broadening beyond a few technology giants. Strength in healthcare, energy and consumer businesses would be healthier than relying on the same handful of stocks. I want that rotation to show up in durable price structures, not just a brief bounce.\n\n## My Calendar for November 2–6\n\nAll times are Eastern. Company calendars and economic schedules can change.\n\n| Day | Events I'm watching | My focus |\n| --- | --- | --- |\n| Monday, November 2 | Palantir after the close; Apple after the close is reported, pending direct company confirmation | Enterprise AI demand and the consumer. |\n| Tuesday, November 3 | Midterm elections; September JOLTS at 10 a.m.; AMD and Super Micro after the close; Arista's earnings event | AI compute, servers, networking and labor demand. |\n| Wednesday, November 4 | Qualcomm and Arm after the close | Semiconductor demand and guidance. |\n| Thursday, November 5 | Preliminary Q3 productivity and costs at 8:30 a.m. | Productivity and labor-cost pressure ahead of payrolls. |\n| Friday, November 6 | October employment report at 8:30 a.m. | Hiring, unemployment and wages—and the implications for rates. |\n\nTuesday's election could change expectations around policy and spending. I'm focused on the market reaction, not politics. Results may take time to settle, and the end of voting doesn't guarantee an immediate end to uncertainty.\n\n## December Is Still an Open Question\n\nThe Fed held its target range at **3.75%–4.00% on October 28**. Its next scheduled meeting is December 8–9. I'm watching the possibility of additional tightening, but I haven't verified current futures odds and am not calling a hike the market's base case.\n\nFriday's jobs report matters because resilient hiring and persistent wage pressure could complicate the inflation outlook. Higher rates can also make expensive growth-stock valuations harder to justify. I want to see the data before drawing a conclusion.\n\n## Where I'm Finding Opportunities\n\nMy focus remains **energy, healthcare, enterprise software and cybersecurity**. I start with sector strength, then evaluate the individual company's fundamentals, technical structure and risk.\n\nZscaler, Centene and Antero Resources are examples of that process. My completed Zscaler swing trade remains closed; the current position details and updates live on the Opportunity Board. This Outlook does not change any entry, stop or target.\n\nFor AI stocks, I want support to form, consolidation to develop and buyers to return. Alphabet, Amazon, Intel and Nvidia may eventually offer attractive swing setups. I don't need to predict whether that happens next week or next month. **I can wait for confirmation while researching the sectors already showing strength.**\n\n## My Plan for the Week\n\nI'm watching whether earnings rebuild confidence in AI, whether the jobs data changes the rate outlook, and whether broader participation survives the technology selloff. I'll remain selective and manage risk rather than buy simply because a stock is down.\n\nThe correction could create opportunity. First, I want the setup.\n",
+  "articleMarkdown": "## AI Is Selling Off. I'm Watching Where the Money Goes.\n\nThe Nasdaq's pullback is putting the AI trade under pressure. My chart review puts the decline at roughly **8% from the October 6 high**, with the 200-day moving average approaching as an important area to watch. Those are approximate observations from my script; I haven't independently reconciled the index, peak and moving-average series, so I am not treating them as precise trading levels.\n\nI'm leaning toward **sector rotation rather than a market-wide collapse**. That is my interpretation, not a guarantee that other sectors will hold up if technology keeps falling.\n\n## A Healthy Reset—or a Deeper Problem?\n\nTaking profits after a huge rally would be understandable. What concerns me more is whether earnings and cash flow can justify the expectations built into AI stocks. Intel's recent disappointment and the spending questions around Amazon and Alphabet keep that issue front and center in my research.\n\nI still believe in AI's long-term potential. But a powerful theme doesn't make every stock attractive at every price. **I'm not trying to catch falling knives.**\n\n## The Broader Market Looks More Encouraging\n\nThe breadth reading in my commentary is approximately **63% of S&P 500 stocks in uptrends**, compared with roughly 40% previously in negative trends. I haven't independently confirmed the source, lookback or definition of an uptrend, so I treat those figures as an unverified screen observation—not an apples-to-apples measure of improvement.\n\nWhat matters to my trading is whether participation continues broadening beyond a few technology giants. Strength in healthcare, energy and consumer businesses would be healthier than relying on the same handful of stocks. I want that rotation to show up in durable price structures, not just a brief bounce.\n\n## My Calendar for November 2–6\n\nAll times are Eastern. Company calendars and economic schedules can change.\n\n| Day | Events I'm watching | My focus |\n| --- | --- | --- |\n| Monday, November 2 | Palantir after the close; Apple after the close | Enterprise AI demand and the consumer. |\n| Tuesday, November 3 | Midterm elections; September JOLTS at 10 a.m.; AMD and Super Micro after the close; Arista's earnings event | AI compute, servers, networking and labor demand. |\n| Wednesday, November 4 | Qualcomm and Arm after the close | Semiconductor demand and guidance. |\n| Thursday, November 5 | Preliminary Q3 productivity and costs at 8:30 a.m.; Workiva earnings after the close, call at 5 p.m. | Labor-cost pressure and the earnings risk in my small WK position. |\n| Friday, November 6 | October employment report at 8:30 a.m. | Hiring, unemployment and wages—and the implications for rates. |\n\nTuesday's election could change expectations around policy and spending. I'm focused on the market reaction, not politics. Results may take time to settle, and the end of voting doesn't guarantee an immediate end to uncertainty.\n\n## December Is Still an Open Question\n\nThe Fed held its target range at **3.75%–4.00% on October 28**. Its next scheduled meeting is December 8–9. I'm watching the possibility of additional tightening, but I haven't verified current futures odds and am not calling a hike the market's base case.\n\nFriday's jobs report matters because resilient hiring and persistent wage pressure could complicate the inflation outlook. Higher rates can also make expensive growth-stock valuations harder to justify. I want to see the data before drawing a conclusion.\n\n## Where I'm Finding Opportunities\n\nMy focus remains **energy, healthcare, enterprise software and cybersecurity**. I start with sector strength, then evaluate the individual company's fundamentals, technical structure and risk.\n\nZscaler, Centene and Antero Resources are examples of that process. My completed Zscaler swing trade remains closed; the current position details and updates live on the Opportunity Board. This Outlook does not change any entry, stop or target.\n\nFor AI stocks, I want support to form, consolidation to develop and buyers to return. Alphabet, Amazon, Intel and Nvidia may eventually offer attractive swing setups. I don't need to predict whether that happens next week or next month. **I can wait for confirmation while researching the sectors already showing strength.**\n\n## MY RECENT TRADES & WHAT I'M WATCHING\n\n### Antero Resources (AR)\n\nLast week, I opened **100 shares at $41.66**. My initial profit target is **$45**, with a preliminary stop-loss reference around **$39.75**; I haven't confirmed a stop order.\n\nThis trade fits my focus on energy, particularly natural gas, as I avoid the worst of the AI-related volatility.\n\n### Centene (CNC)\n\nI opened a starter position following earnings, initially purchasing **five shares at $67.80**. My latest confirmed Opportunity Board record is **15 shares total at the same $67.80 average entry**. The initial five shares are not my current position size.\n\nBetter-than-expected earnings and higher full-year adjusted EPS guidance strengthened my turnaround thesis. Elevated medical costs and declining membership remain important risks.\n\nMy **$75 target** and preliminary **$65 stop reference** remain unchanged in the latest record; a stop order has not been confirmed. I keep subsequent purchases, average-entry changes and risk-management updates on the Opportunity Board.\n\n### Workiva (WK)\n\nI'm watching **Thursday, November 5 earnings after the close**, with the company's call scheduled for 5 p.m. Eastern. This remains a small position: **five shares at a $75.78 average cost**, with my latest documented **$80 stop and $89 target**.\n\nI never got the entry I was hoping for. My initial inclination is to close before earnings rather than take an unpredictable earnings reaction, but **I haven't made that decision or confirmed an exit**.\n\nI'll review expectations and the technical structure first. If I close, I'll document the actual transaction on the Opportunity Board. Until then, Workiva remains active.\n\n### How These Trades Fit My Outlook\n\nI'm following strength in energy, healthcare, enterprise software and cybersecurity while AI and Big Tech face selling pressure. I'm not avoiding technology permanently: this correction could create attractive setups, but I want stabilization and improving technical structures before committing capital.\n\n## My Plan for the Week\n\nI'm watching whether earnings rebuild confidence in AI, whether the jobs data changes the rate outlook, and whether broader participation survives the technology selloff. I'll remain selective and manage risk rather than buy simply because a stock is down.\n\nThe correction could create opportunity. First, I want the setup.\n",
   "sourceCheckedAt": "2026-10-31",
   "promotion": {
     "headline": "TrendSpider Halloween offer",
@@ -3006,7 +3049,7 @@ weeklyOutlooks.push({
     "body": "TrendSpider is one of the tools I use to evaluate technical setups. Its Halloween promotion advertises up to 48% off annual plans for the first 12 months, plus two free months of Sidekick Plus, valued at $258, with all plans.",
     "features": [],
     "conclusion": "Bonus activation is required, and eligibility and renewal terms apply. I may earn a commission if you purchase through my affiliate link.",
-    "terms": "My supplied promotion schedule ends Monday, November 2, 2026; I couldn't independently confirm the deadline. Check TrendSpider's current terms before purchasing.",
+    "terms": "Check TrendSpider's current terms before purchasing.",
     "disclosure": "Affiliate link: I may earn a commission if you purchase.",
     "emailBody": "The Halloween offer includes up to 48% off annual plans for the first 12 months and two free months of Sidekick Plus (a $258 value). Bonus activation and eligibility terms apply. My supplied deadline is November 2; that deadline remains unconfirmed. I may earn a commission through this affiliate link.",
     "placement": "bottom"
@@ -3059,6 +3102,10 @@ weeklyOutlooks.push({
     {
       "label": "TrendSpider — promotion pricing and terms; deadline not confirmed",
       "url": "https://trendspider.com/pricing/"
+    },
+    {
+      "label": "Workiva — November 5 earnings call",
+      "url": "https://investor.workiva.com/news-events/events"
     }
   ],
   "notification": {
@@ -3066,6 +3113,6 @@ weeklyOutlooks.push({
     "preview": "AI earnings, the midterms, Friday's jobs report, and where I'm finding opportunities outside AI.",
     "cta": "READ THIS WEEK'S MARKET OUTLOOK"
   },
-  "notificationSummary": "The AI selloff is painful, but I'm watching whether strength elsewhere points to rotation rather than a broad market breakdown.\n\nWHAT I'M WATCHING\nAI and semiconductor earnings, Tuesday's midterms, and Friday's October jobs report could all move the market. December's Fed decision is still an open question.\n\nWHERE I'M FINDING OPPORTUNITIES\nI'm focused on energy, healthcare, enterprise software and cybersecurity. I want strong sectors, sound businesses and a clearly defined risk level.\n\nMY OUTLOOK\nI'm not buying AI stocks simply because they're down. I want support, consolidation and evidence that buyers are returning.\n\nThe full Outlook includes my Monday–Friday calendar, trading approach and source notes, including the figures that remain unconfirmed.",
+  "notificationSummary": "The AI selloff is painful, but I'm watching whether strength elsewhere points to rotation rather than a broad market breakdown.\n\nWHAT I'M WATCHING\nAI and semiconductor earnings, Tuesday's midterms, and Friday's October jobs report could all move the market. December's Fed decision is still an open question.\n\nWHERE I'M FINDING OPPORTUNITIES\nI'm focused on energy, healthcare, enterprise software and cybersecurity. I want strong sectors, sound businesses and a clearly defined risk level.\n\nMY LATEST TRADES\n\n**AR:** I opened 100 shares at $41.66.\n\n**CNC:** I opened a starter position following earnings; my latest confirmed holding is 15 shares.\n\n**WK:** I'm evaluating whether to exit before Thursday's earnings. No exit is confirmed.\n\n[View my current positions and updates](/premium/opportunities).\n\nMY OUTLOOK\nI'm not buying AI stocks simply because they're down. I want support, consolidation and evidence that buyers are returning.\n\nThe full Outlook includes my Monday–Friday calendar, trading approach and source notes, including the figures that remain unconfirmed.",
   "disclosure": "The positions discussed reflect my personal trading activity, not subscriber performance. Investing involves risk, including loss of principal. Past performance does not guarantee future results. Stops do not guarantee execution prices. This content is educational and informational and does not constitute personalized investment advice."
 });

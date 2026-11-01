@@ -148,6 +148,6 @@ test('Issue 007 is latest, preserves the archive, and prepares one unsent newsle
  assert.ok(email.html.indexOf('READ THIS WEEK')<email.html.indexOf('TrendSpider Halloween offer'));
  assert.equal((email.html.match(/background:#8fd8f2/g)||[]).length,1);
  assert.match(email.html,/rel="noopener sponsored"/);assert.match(email.html,/Unsubscribe/);assert.match(email.text,/loss of principal/);
- assert.match(o.articleMarkdown,/unverified/);assert.match(o.promotion.terms,/couldn't independently confirm/);
+ assert.match(o.articleMarkdown,/unverified/);assert.match(o.promotion.terms,/Check TrendSpider's current terms/);
  assert.match(fs.readFileSync(path.join(__dirname,'../app/premium/issue-007/page.tsx'),'utf8'),/await requirePremium\(\)/);
 });

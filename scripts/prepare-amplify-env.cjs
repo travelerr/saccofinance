@@ -18,7 +18,7 @@ if(site.protocol!=='https:' || site.origin!=='https://saccofinancial.com')throw 
 const project=new URL(env.NEXT_PUBLIC_SUPABASE_URL);
 if(project.protocol!=='https:' || !project.hostname.endsWith('.supabase.co'))throw new Error('Invalid Supabase project URL');
 if(!env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_'))throw new Error('Use the Supabase publishable key, never a secret or service-role key');
-for(const key of ['STRIPE_MODE','STRIPE_BILLING_ENABLED','STRIPE_MONTHLY_PRICE_ID','STRIPE_ANNUAL_PRICE_ID','STRIPE_PORTAL_CONFIGURATION_ID','BILLING_SECRETS_ARN','BILLING_AWS_REGION']){const value=process.env[key]?.trim();if(value){if(/[\r\n]/.test(value))throw new Error('Invalid billing environment setting');values.push([key,value]);}}
+for(const key of ['STRIPE_MODE','STRIPE_BILLING_ENABLED','STRIPE_MONTHLY_PRICE_ID','STRIPE_ANNUAL_PRICE_ID','STRIPE_PORTAL_CONFIGURATION_ID','STRIPE_UPGRADE_PORTAL_CONFIGURATION_ID','BILLING_SECRETS_ARN','BILLING_AWS_REGION']){const value=process.env[key]?.trim();if(value){if(/[\r\n]/.test(value))throw new Error('Invalid billing environment setting');values.push([key,value]);}}
 if(process.env.STRIPE_BILLING_ENABLED==='true'){
  for(const key of ['STRIPE_MODE','STRIPE_MONTHLY_PRICE_ID','STRIPE_ANNUAL_PRICE_ID','STRIPE_PORTAL_CONFIGURATION_ID','BILLING_SECRETS_ARN','BILLING_AWS_REGION'])if(!process.env[key]?.trim())throw new Error(`Missing production billing setting: ${key}`);
  if(!['test','live'].includes(process.env.STRIPE_MODE))throw new Error('Invalid Stripe billing mode');

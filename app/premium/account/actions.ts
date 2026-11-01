@@ -30,3 +30,11 @@ export async function keepSubscription(form:FormData){
 import {changeRenewal} from '@/lib/billing/retention';
 
 function billingError(error:unknown){return error instanceof Error&&error.message==='LOCAL_BILLING_FIXTURE'?'fixture':'billing';}
+
+export async function upgradeAnnual(form:FormData){
+ const user=await member();let url:string;
+ try{url=await annualUpgradeUrl(user.id,String(form.get('subscription')||''));}
+ catch(error){redirect('/premium/account?error='+(error instanceof Error&&error.message==='LOCAL_BILLING_FIXTURE'?'fixture':'upgrade'));}
+ redirect(url);
+}
+import {annualUpgradeUrl} from '@/lib/billing/annual-upgrade';
