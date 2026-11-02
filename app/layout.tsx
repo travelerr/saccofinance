@@ -93,18 +93,10 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      {
-        url: "/images/logo.png",
-        type: "image/png",
-        sizes: "500x500",
-      },
+      { url: "/icons/financial/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+      { url: "/icons/financial/icon-32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      {
-        url: "/images/logo.png",
-        sizes: "500x500",
-      },
-    ],
+    apple: [{ url: "/icons/financial/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 

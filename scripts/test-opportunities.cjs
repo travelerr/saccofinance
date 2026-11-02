@@ -88,7 +88,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,26);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,30);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
