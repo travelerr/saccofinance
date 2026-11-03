@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 52">
+  <g stroke="#4a291e" stroke-width="1.7" stroke-linejoin="round">
+    <!-- A scalloped fan stays low while the curious head rises above it. -->
+    <path fill="#bb5e30" d="M31 49C15 50 3 44 4 38q0-5 8-4Q1 25 7 21q3-3 10 2Q9 10 16 8q5-2 10 9Q23 3 30 4q6 0 7 13Q40 6 46 10q5 4-2 17l-5 21Z"/>
+    <path d="m9 37 20 8M10 23l21 20M17 11l15 30M30 7l4 32" fill="none" stroke="#f6b958" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="32" cy="45" rx="18" ry="12" fill="#895032"/>
+    <path d="M34 46c5-7 2-15 2-21-1-8 4-15 12-15 6 0 10 5 10 11 0 7-5 10-8 13l-1 12q-6 7-15 0Z" fill="#d98c61"/>
+    <path d="M52 27c3 1 5 5 4 8-1 5-6 4-6 0l1-8Z" fill="#d94739"/>
+    <path d="m55 21 8 4-9 3Z" fill="#ffbd44"/>
+    <ellipse cx="51" cy="19" rx="4" ry="4.5" fill="#fff6dc"/>
+  </g>
+  <circle cx="52" cy="19" r="2" fill="#30241d"/><circle cx="52.6" cy="18.3" r=".7" fill="#fff"/>
+</svg>

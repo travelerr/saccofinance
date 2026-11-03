@@ -7,10 +7,10 @@ export const premiumToolsAnnouncement: ResearchEvent = {
   entityId: 'premium-tools-2026-11-03',
   updateId: null,
   publishedAt: '2026-11-03',
-  subject: 'New in Premium: an expanded Sector Gauge and a position sizing calculator',
-  preview: 'Explore sector leadership, size a trade, and scan the latest research more easily.',
+  subject: 'What’s new in Sacco Premium',
+  preview: 'An expanded Sector Gauge, a position sizing calculator, easier-to-scan research, and two video lessons.',
   label: 'PREMIUM MEMBER UPDATE',
-  headline: 'Three updates inside Sacco Premium',
+  headline: 'Four updates inside Sacco Premium',
   summary: `Hi everyone,
 
 **Sector Gauge**
@@ -22,9 +22,12 @@ On Tools I Use, enter your planned entry, stop and risk budget to see how many w
 **Weekly Outlooks and Opportunities**
 I’ve put my take and the key decisions up front so you can scan them quickly. Expand the original research or trade history whenever you want the full detail.
 
+**Learning Library**
+The first two lessons are ready to watch. In Lesson 1, I walk through how I find stocks. In Lesson 2, I apply that process to a stock opportunity in real time. I’ll add more videos to the library over time.
+
 Justin
 Sacco Financial`,
-  cta: 'EXPLORE THE SECTOR GAUGE',
-  path: '/premium/market-strength',
+  cta: 'OPEN YOUR PREMIUM DASHBOARD',
+  path: '/premium/dashboard',
   details: [],
 };

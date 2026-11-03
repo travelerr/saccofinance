@@ -48,3 +48,22 @@
 @media(max-width:600px){.mobileJoin.stickyPlans{padding:8px 12px calc(10px + env(safe-area-inset-bottom));flex-wrap:nowrap}.stickyChoices{width:100%;gap:10px}.mobileJoin .stickyValue{font-size:9px;letter-spacing:0}.mobileJoin .stickyChoices :global(.button){min-height:56px;padding:9px 6px}.mobileJoin .stickyChoices :global(.button) strong{font-size:14px}.mobileJoin .stickyChoices :global(.button) span{font-size:12px}}
 
 .heroCommunity{display:grid;gap:5px;margin-top:24px;padding-left:13px;border-left:3px solid var(--brand-cyan);max-width:440px}.heroCommunity strong{font-size:14px;font-weight:700;line-height:1.5;color:var(--brand-text)}.heroCommunity span{font-size:12px;line-height:1.6;color:var(--brand-muted)}.heroCommunity+.planChoice{margin-top:20px}
+
+.headerPlans{display:flex;align-items:center;gap:8px}
+.headerPlans :is(.headerAnnual,.headerMonthly){display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:32px;padding:4px 10px;text-align:center;border-radius:7px;border:1px solid var(--brand-cyan);font:800 14px/1.15 var(--brand-body);cursor:pointer}
+.headerPlans .headerAnnual{background:var(--brand-cyan);color:var(--brand-bg)}
+.headerPlans .headerMonthly{background:var(--brand-surface);color:var(--brand-text)}
+.headerPlans small{font:750 11px/1.25 var(--brand-body)}
+
+.memberVoice{margin:clamp(24px,5vw,64px) 0}
+.memberVoice figure{margin:0;padding:clamp(18px,2.5vw,32px);border:1px solid var(--brand-line);border-radius:18px;background:var(--brand-surface)}
+.memberVoice h2{font-size:clamp(20px,2vw,26px);margin:0 0 14px}
+.quoteStars{display:flex;gap:5px;color:#f5ad00;margin-bottom:14px}
+.memberVoice blockquote{margin:0;font:550 clamp(20px,2.5vw,32px)/1.22 var(--brand-body);color:var(--brand-text)}
+.memberVoice figcaption{margin-top:12px;color:var(--brand-muted);font-size:15px}
+@media(max-width:740px){
+ :global(.brand-header-inner):has(.headerPlans){display:flex;flex-wrap:wrap;height:auto;padding-block:7px;row-gap:6px}
+ :global(.brand-header-inner):has(.headerPlans) :global(.theme-toggle){margin-inline-start:auto}
+ .headerPlans{order:10;flex:0 0 100%;display:grid;grid-template-columns:1fr 1fr}
+ .headerPlans :is(.headerAnnual,.headerMonthly){width:100%;min-height:36px;padding:4px;font-size:12px}
+}

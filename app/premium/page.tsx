@@ -1,3 +1,4 @@
+import SiteHeader from '@/components/site-header';
 import PublicGaugeCard from '@/components/premium/public-gauge-card';
 import snapshot from '@/data/market-strength/latest.json';
 import {sectors, ranking} from '@/lib/gauge-explorer';
@@ -16,7 +17,7 @@ import {redirect} from 'next/navigation';
 import {premiumAccess} from '@/lib/premium-access';
 import Link from 'next/link';
 import Image from 'next/image';
-import {ArrowUpRight,Check,LockKeyhole,Play,Mail} from 'lucide-react';
+import {ArrowUpRight,Check,LockKeyhole,Play,Mail,Star} from 'lucide-react';
 import {Eyebrow,SectionHeader} from '@/components/brand/editorial';
 import {billingEnabled,billingMode} from '@/lib/billing/model';
 import {pageMetadata} from '@/lib/page-metadata';
@@ -36,6 +37,11 @@ const gaugeSamples = periodKeys.flatMap(key => {
  const frame = snapshot.periods[key];
  return [{key,label:frame.label,ticker:leader.ticker,sector:leader.name,gain,benchmark:frame.benchmarkReturn}];
 });
+const testimonials = [{
+  quote: 'Appreciate your time putting all this together. Sacco Premium is worth it guys!',
+  credit: 'Sacco Premium member',
+}];
+
 const process=[
  ['Market','Start with the broader environment and the catalysts ahead.'],
  ['Sector','Find where leadership is developing across sectors and themes.'],
@@ -67,8 +73,14 @@ export default async function Premium(){
  const outlook=weeklyOutlooks.filter(o=>o.publicationState==='published').sort((a,b)=>b.weekOf.localeCompare(a.weekOf))[0];
  // Only deliberately selected public fields leave the canonical member records.
  const trades=publicClosedTrades(getPublishedOpportunities());const latest=trades[0];
- return <PremiumPlanProvider><main id="main-content" className={`container ${styles.page}`}>
-  <nav className={styles.sectionNav} aria-label="Explore Premium"><span>SACCO <b>PREMIUM</b></span><div><a href="#inside">What’s inside</a><a href="#process">The process</a><a href="#record">Closed trades</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div></nav>
+ return <PremiumPlanProvider><SiteHeader plans={enabled && <div className={styles.headerPlans} aria-label="Membership plans">
+    <CheckoutButton href="/premium/join?plan=annual" className={styles.headerAnnual}>Join annual <small>$100/year</small></CheckoutButton>
+    {trial ? <Link className={styles.headerMonthly} href="/premium/join?plan=monthly">Start {trial}-day trial <small>then $10/month</small></Link>
+     : <CheckoutButton href="/premium/join?plan=monthly" className={styles.headerMonthly}>Join monthly <small>$10/month</small></CheckoutButton>}
+   </div>}/><main id="main-content" className={`container ${styles.page}`}>
+  <nav className={styles.sectionNav} aria-label="Explore Premium"><span>SACCO <b>PREMIUM</b></span><div><a href="#inside">What’s inside</a><a href="#process">The process</a><a href="#record">Closed trades</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+
+  </nav>
   <div className={styles.introLayout}>
    <section className={styles.hero}>
     <div id="premium-hero-copy" className={styles.heroCopy}><Eyebrow>Independent research / Documented decisions</Eyebrow>
@@ -108,6 +120,10 @@ export default async function Premium(){
    ['03 / Follow an idea','Open an Opportunity','Read the thesis, the technical setup, and the conditions that would invalidate it.'],
    ['04 / Learn the method','Watch a lesson','See the process in action, then return to the board as the research develops.'],
   ].map(([step,h,p])=><article key={step}><Eyebrow>{step}</Eyebrow><h3>{h}</h3><p>{p}</p></article>)}</div></section>
+  {testimonials.length > 0 && <section id="member-review" className={styles.memberVoice} aria-labelledby="testimonials-title">
+   <h2 id="testimonials-title">Testimonials</h2>
+   {testimonials.map(({quote,credit})=><figure key={quote}><div className={styles.quoteStars} aria-hidden="true">{Array.from({length:5},(_,i)=><Star key={i} size={18} strokeWidth={1.6}/>)}</div><blockquote>“{quote}”</blockquote><figcaption>— {credit}</figcaption></figure>)}
+  </section>}
   <section id="pricing" className={styles.block}><SectionHeader label="One membership / Two billing options" title="Same full access. Your choice of plan."/><div className={styles.plans}>{['monthly','annual'].map(plan=><article className={plan==='annual'?styles.best:''} key={plan}>{plan==='annual'&&<span className={styles.badge}>Best Value · 2 months free</span>}<Eyebrow>{plan==='monthly'?'Monthly':'Annual'}</Eyebrow><h3>{plan==='monthly'?'$10':'$8.33'}<span> / month</span></h3><p className={styles.planTerms}>{plan==='annual'?<><strong>Billed $100/year.</strong> Save $20 versus 12 monthly payments.</>:trial?`${trial} days free, then $10/month. New monthly members only. Card required.`:'Billed $10/month.'}</p><ul>{included.map(item=><li key={item}><Check size={17} aria-hidden="true"/>{item}</li>)}</ul><CheckoutButton trial={trial} className="button" href={enabled?`/premium/join?plan=${plan}`:'/premium/login'}>{!enabled?'Member sign in':plan==='annual'?'Join annual — $100/year':joinLabel}<ArrowUpRight size={17}/></CheckoutButton></article>)}</div><div className={styles.billing}><LockKeyhole size={18} aria-hidden="true"/><div><strong>Secure checkout through Stripe.</strong><PaymentMethods/><p>Renews automatically until canceled. Cancel through Account &amp; Billing. Payments are generally non-refundable. Review the final amount and terms at checkout. <Link href="/terms">Terms →</Link></p></div></div></section>
   <section className={`${styles.block} ${styles.creator}`}><Image src="/images/headshot.jpg" alt="Justin Sacco, founder of Sacco Financial" width={1200} height={900} sizes="(max-width: 700px) 100vw, 35vw"/><div><Eyebrow>Justin Sacco / Founder, Sacco Financial</Eyebrow><h2>The research I wanted to follow.</h2><p>Premium is where I turn my market research into a repeatable process—and document it as it develops.</p><p>You’ll see what I’m looking at, why it matters, what would make me act, and when I put my own money behind an idea.</p><p>Free videos introduce the stories I’m investigating. Premium is where you can stay with the research after the video ends.</p><JoinButtons join={join} trial={trial}/></div></section>
   {sampleEnabled()&&<SampleForm/>}

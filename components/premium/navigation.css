@@ -22,3 +22,13 @@
 .premium-product-header .premium-menu-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:13px 14px;margin-bottom:14px;background:var(--brand-surface);border:1px solid var(--brand-line);border-radius:9px;color:var(--brand-text);font:600 13px/1.5 var(--brand-body,sans-serif);cursor:pointer}.premium-menu-toggle>span{display:flex;gap:9px;align-items:center}.premium-menu-toggle>span:last-child{color:var(--brand-muted);font-size:12px}
 .premium-product-header :is(.premium-tabs,.premium-subnav){display:none!important}.premium-product-header :is(.premium-tabs,.premium-subnav)[data-open=true]{display:grid!important;grid-template-columns:1fr;gap:4px;overflow:visible;padding:0 0 14px;white-space:normal}.premium-product-header :is(.premium-tabs,.premium-subnav) a{padding:13px 14px;font-size:14px;min-height:44px;box-sizing:border-box}
 }
+
+/* The wordmark masks the turkey as it ducks back down. */
+.premium-product-label .holiday-wordmark{position:relative;isolation:isolate}
+.holiday-wordmark strong{position:relative}
+.holiday-turkey{position:absolute;width:43px;height:33px;right:12%;bottom:87%;pointer-events:none;overflow:hidden}
+.holiday-turkey::before{content:'';display:block;width:100%;height:100%;transform-origin:bottom center;background:url('/images/premium/thanksgiving-turkey.svg') center bottom/contain no-repeat;animation:turkey-peek 9s ease-in-out infinite;clip-path:inset(0 0 1px)}
+.premium-workspace .premium-product-label:has(.holiday-wordmark){padding-top:32px}
+@keyframes turkey-peek{0%,36%,100%{transform:translateY(95%) rotate(-8deg);opacity:0}8%,26%{transform:translateY(0) rotate(4deg);opacity:1}15%{transform:translateY(1px) rotate(-5deg);opacity:1}}
+@media(max-width:900px){.holiday-turkey{width:35px;height:27px}.premium-workspace .premium-product-label:has(.holiday-wordmark){padding-top:26px}}
+@media(prefers-reduced-motion:reduce){.holiday-turkey::before{animation:none;transform:rotate(3deg)}}
