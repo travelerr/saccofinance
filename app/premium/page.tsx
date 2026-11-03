@@ -1,3 +1,7 @@
+import PublicGaugeCard from '@/components/premium/public-gauge-card';
+import snapshot from '@/data/market-strength/latest.json';
+import {sectors, ranking} from '@/lib/gauge-explorer';
+import {periodKeys} from '@/lib/market-strength';
 import JoinButtons from '@/components/premium/join-buttons';
 import PaymentMethods from '@/components/premium/payment-methods';
 import SampleForm from '@/components/premium/sample-form';
@@ -22,6 +26,16 @@ import styles from './sales.module.css';
 
 export const dynamic='force-dynamic';
 export const metadata=pageMetadata('Sacco Premium — The Research Process','Follow Justin Sacco’s documented research, from market leadership to stock setups and completed trades. $10/month or $100/year.','/premium');
+const gaugeSamples = periodKeys.flatMap(key => {
+ const {current} = snapshot.expanded[key];
+ const ranks = ranking(sectors,current);
+ const leader = sectors.find(sector => ranks.get(sector.ticker) === 1);
+ if (!leader) return [];
+ const gain = (current as Record<string,number|null>)[leader.ticker];
+ if (gain == null) return [];
+ const frame = snapshot.periods[key];
+ return [{key,label:frame.label,ticker:leader.ticker,sector:leader.name,gain,benchmark:frame.benchmarkReturn}];
+});
 const process=[
  ['Market','Start with the broader environment and the catalysts ahead.'],
  ['Sector','Find where leadership is developing across sectors and themes.'],
@@ -32,10 +46,10 @@ const process=[
 ];
 const features=[
  ['01 / Weekly Outlook','Start with the market.','My view of the week ahead: the narratives that matter, upcoming catalysts, and what would change my perspective.',['Market context and sector leadership','Earnings and economic catalysts','A clear closing game plan'],'A new perspective each week'],
- ['02 / Sector Gauge','Find the leadership.','Compare 24 sector and theme ETF proxies across six timeframes, with absolute returns and relative performance against SPY.',['Leaders and laggards','Six timeframes, including vs. SPY','Dated historical data, not live signals'],'Check the data date inside the tool'],
+ ['02 / Sector Gauge','Find the leadership.','Compare 11 broad sectors and 46 industries and themes across six timeframes, with absolute returns and relative performance against SPY.',['Leaders and laggards','Six timeframes, including vs. SPY','Dated historical data, not live signals'],'Check the data date inside the tool'],
  ['03 / Opportunity Board','Follow the research.','See why an idea surfaced, what I’m waiting for, and what could change my mind. Follow the decisions when I take a trade.',['Technical setups and business research','Entries, stops, and targets when documented','Dated updates and closed trades'],'New ideas when the process qualifies them'],
 ];
-const included=['Weekly Outlook and research archive','Sector Gauge: 24 ETF proxies, six timeframes','Opportunity Board and dated trade updates','Closed trades and risk-management history','Learning Library and member dashboard'];
+const included=['Weekly Outlook and research archive','Sector Gauge: 11 sectors, 46 industries and themes, six timeframes','Opportunity Board and dated trade updates','Closed trades and risk-management history','Learning Library and member dashboard'];
 const faqs=[
  ['Is Sacco Premium a signals service?','No. Premium is documented research, not a command to copy trades. I explain why an opportunity surfaced, what I’m waiting for, and what would invalidate it. It is educational and informational, not personalized investment advice.'],
  ['How often are Opportunities added?','There is no forced schedule. Some weeks, nothing makes the board. An idea has to survive sector analysis, technical review, fundamental research, risk analysis, and my own judgment.'],
@@ -73,7 +87,7 @@ export default async function Premium(){
     <aside className={styles.heroResearch} aria-label="Selected public research preview">
      <div className={styles.previewTop}><strong>THE RESEARCH DESK</strong><span>Inside Premium</span></div>
      <div className={styles.deskBody}>{outlook&&<><Eyebrow>Weekly Outlook · {premiumDate(outlook.weekOf)}</Eyebrow><h2>{outlook.title}</h2><p>{outlook.summary}</p><div className={styles.posture}><span>Market posture</span><strong>{outlook.marketPosture}</strong></div></>}
-      <div className={styles.gaugePreview}><Eyebrow>Sector Gauge / A look at the tool</Eyebrow><div className={styles.periods}>{['1W','1M','3M','6M','9M','12M'].map(t=><span key={t}>{t}</span>)}</div><div className={styles.gaugeRows}>{[['Compare','Absolute return / vs. SPY'],['Investigate','Sector and theme ETF proxies'],['Focus','Leaders, laggards, rank changes']].map(([a,b])=><div key={a}><strong>{a}</strong><span>{b}</span></div>)}</div></div>
+      <div className={styles.gaugePreview}><Eyebrow>Sector Gauge / A look at the tool</Eyebrow><PublicGaugeCard samples={gaugeSamples} asOf={snapshot.asOf}/></div>
       {latest&&<><Eyebrow>Documented trades</Eyebrow><div className={styles.deskTrade}><div><span>Most recent closed trade</span><strong>{latest.ticker} · {premiumDate(latest.closedAt)}</strong></div><strong className={latest.returnPct!==null&&latest.returnPct<0?styles.loss:styles.gain}>{latest.returnPct===null?'Not available':`${latest.approximate?'≈ ':''}${latest.returnPct>0?'+':''}${latest.returnPct.toFixed(2)}%`}</strong></div></>}
      </div>
     </aside>

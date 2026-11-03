@@ -10,8 +10,8 @@ import styles from './layout.module.css';
 export const metadata:Metadata={title:'Sector Gauge | Premium',robots:{index:false,follow:false}};
 export const dynamic='force-dynamic';
 export default async function Page(){
- await requirePremium();
+ const member=await requirePremium();
  let initial:StrengthSnapshot|null=null;
  try{initial=JSON.parse(await readFile(path.join(process.cwd(),'data/market-strength/latest.json'),'utf8'));}catch{}
- return <main id="main-content" className="container"><StartHereVisit step="sector-gauge"/><section className={`sf-site ${styles.content}`}><MarketStrength initial={initial}/></section></main>;
+ return <main id="main-content" className="container"><StartHereVisit step="sector-gauge"/><section className={`sf-site ${styles.content}`}><MarketStrength initial={initial} memberId={member.id}/></section></main>;
 }

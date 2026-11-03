@@ -1,4 +1,11 @@
 .premium-tools-page{padding-block:40px 64px}
 .premium-tools-page>h1{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:0 0 28px}
-.premium-tools-page .tools-i-use{padding-top:0;margin-top:0}
+.premium-tools-page .tools-i-use{padding-top:clamp(16px,2vw,24px);margin-top:0}
 .premium-tools-page .tool-card{border-radius:12px}
+
+.sizing{margin:24px 0 40px;border:1px solid var(--brand-line);border-radius:14px;padding:clamp(16px,3vw,32px);background:var(--brand-surface);color:var(--brand-text)}
+.sizing h2{font-size:clamp(23px,3vw,34px);line-height:1.15;margin:7px 0}.sizing p,.sizing-field small{color:var(--brand-muted);line-height:1.5}.sizing p.sizing-kicker,.sizing-kicker{color:var(--brand-cyan);font:650 11px var(--brand-mono);text-transform:uppercase;letter-spacing:.12em}
+.sizing-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;margin:22px 0}.sizing-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.sizing-field{display:grid;align-content:start;gap:5px;font-size:14px;font-weight:600}.sizing-field input{min-width:0;width:100%;box-sizing:border-box;background:var(--brand-bg);border:1px solid var(--brand-line);border-radius:6px;color:var(--brand-text);padding:10px;font-size:16px}.sizing-field small{font-size:12px;font-weight:400}
+.sizing-switch,.sizing-actions{display:flex;gap:8px;flex-wrap:wrap}.sizing-switch{margin-bottom:16px}.sizing-actions{margin-top:16px}.sizing button{font-size:13px;font-weight:650;cursor:pointer;border:1px solid var(--brand-line);border-radius:6px;padding:8px 12px}.sizing button[aria-pressed=true]{color:var(--brand-bg);background:var(--brand-cyan)}
+.sizing-result{align-self:start;border:1px solid var(--brand-line);border-top:3px solid var(--brand-cyan);border-radius:9px;padding:18px;background:var(--brand-bg)}.sizing-result>strong{display:block;font-size:34px;margin:4px 0 12px}.sizing-result>strong small{font-size:16px}.sizing-result dl{margin:0}.sizing-result dl div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--brand-line);font-size:14px}.sizing-result dd{font-weight:700;margin:0}.sizing-result p,.sizing details p{font-size:13px}.sizing details summary{cursor:pointer;font-weight:650}
+@media(max-width:700px){.sizing-layout{grid-template-columns:1fr;gap:16px}}@media(max-width:400px){.sizing-fields{gap:10px}.sizing-field{font-size:13px}}

@@ -36,4 +36,18 @@ class CalculationTests(unittest.TestCase):
             self.assertEqual([r['return'] for r in rows],sorted([r['return'] for r in rows],reverse=True))
             for row in rows:self.assertAlmostEqual(row['relative'],row['return']-period['benchmarkReturn'])
         self.assertLess(data['asOf'],data['checkedDate'])
+    def test_expanded_peers_and_comparison_dates(self):
+        catalog=json.loads((m.DEST.parent/'catalog.json').read_text())
+        snapshot=json.loads(m.DEST.read_text())
+        self.assertEqual([sum(g['kind']==kind for g in catalog) for kind in ('Sector','Industry','Theme','Alternate')],[11,31,15,1])
+        self.assertEqual({g['ticker'] for g in catalog if g['original']},{t for t,_ in m.GROUPS})
+        for key, period in snapshot['expanded'].items():
+            for side in ('current','previous'):
+                self.assertEqual(set(period[side]),{g['ticker'] for g in catalog})
+            old_rows=snapshot['periods'][key]['rows']
+            previous=sorted(old_rows,key=lambda r:(-period['previous'][r['ticker']],r['ticker']))
+            old_ranks={r['ticker']:i for i,r in enumerate(previous,1)}
+            for r in old_rows:
+                self.assertAlmostEqual(period['current'][r['ticker']],r['return'])
+                self.assertEqual(old_ranks[r['ticker']]-r['rank'],r['rankChange'])
 if __name__=='__main__':unittest.main()

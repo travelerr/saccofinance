@@ -22,7 +22,7 @@ GROUPS = [
  ('SLX','Steel'),('XLE','Energy'),('FCG','Natural Gas Equities'),
  ('SEA','Shipping & Air Cargo'),('KBE','Banks'),('KRE','Regional Banks'),
  ('XBI','Biotech'),('XHB','Homebuilders & Suppliers'),('XLP','Consumer Staples')]
-PERIODS = [('1w','1 week',0),('1m','1 month',1),('3m','3 months',3),('6m','6 months',6),('9m','9 months',9),('12m','12 months',12)]
+PERIODS = [('1m','1 month',1),('2m','2 months',2),('3m','3 months',3),('6m','6 months',6),('9m','9 months',9),('12m','12 months',12)]
 
 def lookback(day, months):
     if not months:
@@ -44,7 +44,7 @@ def fetch(ticker, cutoff):
                 day=dt.datetime.fromtimestamp(timestamp,ET).date()
                 if day <= cutoff and isinstance(price,(int,float)) and math.isfinite(price) and price>0:
                     history[day]=price
-            if len(history)<270:
+            if not history:
                 raise ValueError(f'Insufficient adjusted history for {ticker}')
             return ticker,history
         except Exception:
@@ -69,27 +69,35 @@ def calculate(histories, asof):
 def main():
     now=dt.datetime.now(ET)
     cutoff=now.date()-dt.timedelta(days=1)
-    tickers=[t for t,_ in GROUPS]+['SPY']
+    catalog=json.loads((DEST.parent/'catalog.json').read_text())
+    tickers=[g['ticker'] for g in catalog]+['SPY']
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
         histories=dict(pool.map(lambda t:fetch(t,cutoff),tickers))
-    common=sorted(set.intersection(*(set(h) for h in histories.values())))
+    legacy={t:histories[t] for t in ['SPY']+[t for t,_ in GROUPS]}
+    common=sorted(set.intersection(*(set(h) for h in legacy.values())))
     if not common: raise ValueError('No common trading date')
     asof=common[-1]
     if (cutoff-asof).days>5: raise ValueError('Source history is stale; keeping previous snapshot')
     prior=max(d for d in common if d<=asof-dt.timedelta(days=7))
-    periods=calculate(histories,asof)
-    previous=calculate(histories,prior)
+    periods=calculate(legacy,asof)
+    previous=calculate(legacy,prior)
     for key in periods:
         ranks={r['ticker']:r['rank'] for r in previous[key]['rows']}
         for row in periods[key]['rows']:
             row['rankChange']=ranks[row['ticker']]-row['rank']
-    snapshot={'schemaVersion':1,'source':'Yahoo Finance','generatedAt':now.isoformat(),
+    def returns(period):
+        start=dt.date.fromisoformat(period['startDate'])
+        end=dt.date.fromisoformat(period['endDate'])
+        return {t:(h[end]/h[start]-1)*100 if start in h and end in h else None
+                for t,h in histories.items() if t!='SPY'}
+    expanded={key:{'current':returns(periods[key]),'previous':returns(previous[key])} for key in periods}
+    snapshot={'expanded':expanded,'schemaVersion':2,'source':'Yahoo Finance','generatedAt':now.isoformat(),
       'checkedDate':str(now.date()),'asOf':str(asof),'previousAsOf':str(prior),'fundCount':len(GROUPS),
       'benchmark':'SPY','periods':periods}
     DEST.parent.mkdir(parents=True,exist_ok=True)
     temp=DEST.with_suffix('.tmp')
     temp.write_text(json.dumps(snapshot,indent=2,allow_nan=False)+'\n')
     os.replace(temp,DEST)
-    print(f'Saved {len(GROUPS)} ETFs + SPY through {asof}; all six periods validated.')
+    print(f'Saved {len(catalog)} ETFs + SPY through {asof}; all six periods validated.')
 
 if __name__=='__main__': main()

@@ -1,0 +1,40 @@
+.gauge-explorer{color:var(--brand-text);--gx-border:1px solid var(--brand-line)}
+.gauge-explorer :is(button,select){font:inherit;cursor:pointer}
+.gx-tabs,.gx-tools,.gx-head,.gx-tools>div{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.gx-tabs{margin:24px 0}
+.gx-tabs button,.gx-tools button,.gx-head button,.gx-head select{border:var(--gx-border);border-radius:7px;background:var(--brand-surface);color:var(--brand-text);padding:8px 13px;font-weight:650}
+.gx-tabs button small{margin-left:8px;font:600 11px var(--brand-mono);opacity:.8}
+.gx-tabs button[aria-pressed=true],.gx-tools button[aria-pressed=true]{background:var(--brand-cyan);color:var(--brand-bg);border-color:var(--brand-cyan)}
+.brand .sf-site .gauge-explorer h2{font:700 clamp(20px,3vw,28px)/1.2 var(--brand-body);letter-spacing:-.025em;margin:3px 0 6px;color:var(--brand-text)}
+.brand .sf-site .gauge-explorer p{font-size:14px;line-height:1.5;color:var(--brand-muted);margin:6px 0 12px}
+.brand .sf-site .gauge-explorer .gx-label{font:700 11px/1.4 var(--brand-mono);letter-spacing:.11em;color:var(--brand-cyan);text-transform:uppercase;margin:0}
+.gx-lead ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;gap:10px;margin:12px 0 24px;padding:0}
+.gx-lead li,.gx-board{border:var(--gx-border);border-radius:10px;background:var(--brand-surface);padding:16px}
+.gx-lead li{display:grid;gap:4px;border-top:2px solid var(--brand-cyan)}
+.gx-lead li strong{font-size:16px}.gx-lead li small,.gx-name small,.gx-head label{color:var(--brand-muted);font-size:12px}
+.gx-head,.gx-tools{justify-content:space-between}.gx-head label{display:flex;gap:8px;align-items:center}
+.gx-tools{padding:12px 0;border-top:var(--gx-border);margin-top:16px}.gx-tools button{font-size:13px}
+.gx-board table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.gx-board :is(th,td){text-align:right;padding:7px 5px;border-bottom:var(--gx-border);white-space:nowrap}
+.gx-board th:first-child,.gx-board .gx-detail{text-align:left;white-space:normal}
+.gx-board thead th{font:600 12px var(--brand-mono);color:var(--brand-muted)}
+.gx-name{display:flex;align-items:center;gap:12px;text-align:left;color:var(--brand-text);min-height:42px;font-weight:650}
+.gx-name:hover,.gx-detail a,.gx-detail button{color:var(--brand-cyan);text-decoration:underline}
+.gx-name>span:first-child{width:1.5em;color:var(--brand-muted);font:12px var(--brand-mono)}
+.gx-name small{display:block;font-weight:500}.gx-star{width:36px;height:40px;color:var(--brand-muted)}.gx-star[aria-pressed=true]{color:var(--brand-cyan)}
+.gx-up{color:#8ce3aa}.gx-down{color:#ffa499}html[data-theme=light] .gx-up{color:#196638}html[data-theme=light] .gx-down{color:#a03023}
+.gx-detail{background:var(--brand-bg);padding:16px!important}.gx-detail a{font-weight:650}
+@media(max-width:650px){
+.gx-tabs{gap:4px}.gx-tabs button{font-size:12px;padding:9px 7px}.gx-tabs small{display:none}
+.gx-lead ol{grid-template-columns:1fr;gap:5px}.gx-lead li{grid-template-columns:70px 1fr;align-items:center;gap:2px 6px;padding:7px 10px;border-top:var(--gx-border)}.gx-lead li small{grid-column:2;font-size:11px}.gx-lead li strong{font-size:14px}
+.gx-board{padding:12px 8px}.gx-board table{font-size:12px}.gx-name{gap:3px;font-size:12px}.gx-name small{font-size:10px}.gx-name>span:first-child{width:1.2em}.gx-board :is(th,td){padding:6px 2px}.gx-board thead th{font-size:10px}.gx-star{width:26px}.gx-extra{display:none}.gx-tools button{padding:7px}.gx-tools>div{gap:3px}
+}
+.gx-lead{scroll-margin-top:175px}
+.gx-frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.gx-frame{min-width:0;border:var(--gx-border);border-radius:8px;padding:10px;background:var(--brand-bg)}
+.gx-frame header{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.brand .sf-site .gx-frame h3{margin:0;font:700 18px var(--brand-body);color:var(--brand-text)}
+.gx-frame header small,.gx-tools label{color:var(--brand-muted);font-size:12px}
+.gx-tools select{font:inherit;padding:6px 8px;color:var(--brand-text);background:var(--brand-surface);border:var(--gx-border);border-radius:6px}
+.gx-frame .gx-name{font-size:13px;gap:5px;line-height:1.25}.gx-frame .gx-name small{font-size:10px}
+.gx-frame td,.gx-frame thead th{font-size:12px}.gx-frame .gx-star{width:25px}
