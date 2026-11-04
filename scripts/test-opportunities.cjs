@@ -184,7 +184,7 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
- assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['WK','AR','EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events.filter(x=>x.type==='OPPORTUNITY_MATERIAL_UPDATE'&&x.path==='/premium/opportunities/zscaler-001')[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
@@ -208,7 +208,7 @@ test('SMCI buyback closes the short put with a 241 dollar loss and no new notifi
 test('WK confirmed accumulation preserves unknown dates and suppresses its update email',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('workiva-009');
  assert.ok(o);assert.equal(d.opportunities.filter(x=>x.ticker==='WK').length,1);
- assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,75.78);assert.equal(o.trade.enteredAt,undefined);assert.equal(o.trade.documentedAt,'2026-10-20');assert.equal(o.trade.stopPrice,80);assert.equal(o.trade.firstTargetPrice,89);assert.equal(d.getOpportunityUpdates(o.id)[0].suppressNotification,true);assert.ok(!require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).some(e=>['opportunity-009-holding-2026-10-20','opportunity-009-levels-2026-10-20'].includes(e.updateId)));assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,75.78);assert.equal(o.trade.enteredAt,undefined);assert.equal(o.trade.documentedAt,'2026-10-20');assert.equal(o.trade.stopPrice,80);assert.equal(o.trade.firstTargetPrice,89);assert.equal(d.getOpportunityUpdates(o.id)[0].suppressNotification,true);assert.ok(!require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).some(e=>['opportunity-009-holding-2026-10-20','opportunity-009-levels-2026-10-20'].includes(e.updateId)));assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o).realizedDollarPnL,46);
  assert.deepEqual(o.proposedLevels.slice(2,5).map(x=>x.value),['$72–$73','$64.93','$88.97']);
  assert.ok(o.articleSections.every(s=>! /\b(we|our|us)\b/i.test(s.body)));
  assert.equal(o.notification.subject,'New Opportunity Watch: Workiva (WK)');assert.match(o.notification.summary,/I have NOT entered this trade/);
@@ -259,7 +259,7 @@ test('decision presentation separates proposed levels from executed trades and u
 
 test('AR entry preserves one canonical opportunity and original research with proposed stop only',()=>{
  const data=require('../lib/premium-opportunities.ts'),presentation=require('../lib/opportunity-presentation.ts');
- const ar=data.getPublishedOpportunity('antero-resources-013');assert.ok(ar);
+ const current=data.getPublishedOpportunity('antero-resources-013');assert.ok(current);const ar={...current,tradeStatus:'Active',trade:data.getOpportunityUpdates(current.id)[0].trade,updatedAt:'2026-10-30'};
  assert.equal(data.opportunities.filter(o=>o.ticker==='AR').length,1);
  assert.equal(ar.tradeStatus,'Active');assert.equal(ar.trade.quantity,100);assert.equal(ar.trade.entryPrice,41.66);
  assert.equal(ar.trade.stopPrice,undefined);assert.equal(ar.trade.proposedStopPrice,39.75);assert.equal(ar.trade.firstTargetPrice,45);
@@ -268,7 +268,7 @@ test('AR entry preserves one canonical opportunity and original research with pr
  assert.equal(presentation.compactLevels(ar)[1].label,'Proposed stop');
  assert.equal(ar.originalResearchAt,'2026-10-27');assert.equal(ar.publishedAt,'2026-10-29');assert.equal(ar.updatedAt,'2026-10-30');
  assert.ok(ar.researchSections.some(s=>s.title.includes('Original October 29')));
- const updates=data.getOpportunityUpdates(ar.id);assert.equal(updates.length,1);assert.equal(updates[0].tradeStatusBefore,'Watching');
+ const updates=data.getOpportunityUpdates(ar.id);assert.equal(updates.length,2);assert.equal(updates[0].tradeStatusBefore,'Watching');
  assert.equal(Math.round((ar.trade.entryPrice-ar.trade.proposedStopPrice)*ar.trade.quantity),191);
  assert.equal(Math.round((ar.trade.firstTargetPrice-ar.trade.entryPrice)*ar.trade.quantity),334);
 });
@@ -298,4 +298,10 @@ test('AR position email is separate from its watch notification and contains rea
  for(const text of ['Shares: 100','Entry: $41.66','Stop Reference: $39.75','First Target: $45.00','1.75:1','not confirmed a stop order','Manage Email Preferences'])assert.ok(email.text.includes(text),text);
  assert.ok(matches[0].preview.includes('100 shares'));
  assert.ok((email.html.match(/margin:0 0 20px/g)||[]).length>5);
+});
+
+test('November 4 confirmed fills close WK and AR and activate WAY without inventing a stop order',()=>{
+ const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');
+ for(const [slug,exit,pnl] of [['workiva-009',84.98,46],['antero-resources-013',39.25,-241]]){const o=d.getPublishedOpportunity(slug);assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.exitPrice,exit);assert.ok(Math.abs(m.realizedTradeResult(o).realizedDollarPnL-pnl)<0.000001);assert.equal(d.getOpportunityUpdates(o.id).at(-1).tradeStatusAfter,'Closed');}
+ const way=d.getPublishedOpportunity('waystar-014');assert.equal(way.tradeStatus,'Active');assert.equal(way.trade.quantity,20);assert.equal(way.trade.entryPrice,28.57);assert.equal(way.trade.stopPrice,undefined);assert.equal(way.trade.proposedStopPrice,24.5);assert.equal(p.rewardRisk(way),'1.58:1');assert.equal(m.realizedTradeResult(way),null);assert.equal(d.getOpportunityUpdates(way.id).length,1);
 });

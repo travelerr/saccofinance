@@ -12,7 +12,7 @@ test('every published issue has five editorial summary fields and a dated calend
  assert.equal(JSON.stringify(weeklyOutlooks),before);
 });
 test('current position summary follows canonical changes, preserves proposed stops, and does not reopen closed trades',()=>{
- const ar=opportunities.find(o=>o.id==='opportunity-013');assert.match(currentPositionSummary(ar),/100 shares.*41.66/);assert.match(currentPositionSummary(ar),/proposed.*39.75.*no stop order/);
+ const current=opportunities.find(o=>o.id==='opportunity-013');assert.match(currentPositionSummary(current),/closed/);const ar={...current,tradeStatus:'Active'};assert.match(currentPositionSummary(ar),/100 shares.*41.66/);assert.match(currentPositionSummary(ar),/proposed.*39.75.*no stop order/);
  const changed={...ar,trade:{...ar.trade,quantity:50,entryPrice:42,stopPrice:41,proposedStopPrice:undefined}};
  assert.match(currentPositionSummary(changed),/50 shares.*\$42.*documented stop is \$41/);
  assert.doesNotMatch(currentPositionSummary(changed),/39.75|100 shares/);
