@@ -22,7 +22,7 @@ I purchased 20 shares at $28.57, for a total cost of $571.40.
 My original proposed stop reference is $24.50 and my initial target is $35. At my actual fill, those levels imply approximately 1.58:1 reward-to-risk. The stop remains preliminary; I haven’t confirmed a stop order.
 
 **Centene (CNC) — Stop set to $73**
-I’m still holding 15 shares at a $67.80 average entry. As CNC approaches my $75 target, I’ve set my stop to $73 to help protect the developing gain. The position remains open; no gain has been realized.
+I’m still holding 15 shares at a $67.80 average entry. As CNC approaches my $75 target, I’ve set my stop to $73 to help protect the developing gain. Although $75 is my original target, I plan to keep trailing the stop as the stock advances and see how far it can run. The key risk I’m watching is an overnight gap down, which could result in a fill below my stop. The position remains open; no gain has been realized.
 
 The complete research, current levels, and chronological updates are on the Opportunity Board.
 
