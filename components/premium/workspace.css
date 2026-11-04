@@ -173,3 +173,6 @@ html[data-theme=light] .workspace-sector-negative{color:#a53124}
 .brand .workspace-panel .outlook-posture{border-left:4px solid #d2a44b;padding:20px;background:rgba(210,164,75,.08)}
 .brand .workspace-panel .outlook-posture>p:not(.eyebrow):not(.support-note){font-size:clamp(21px,2vw,28px);font-weight:750;line-height:1.3;color:#f2ca7b;margin:10px 0 0}
 html[data-theme=light] .brand .workspace-panel .outlook-posture>p:not(.eyebrow):not(.support-note){color:#77500c}
+
+/* Inactive board tabs have no partial underline inherited from text-link. */
+.brand .premium-workspace .opportunity-controls .actions button[aria-pressed=false]{border:1px solid transparent;box-shadow:none;text-decoration:none}

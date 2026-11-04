@@ -3125,3 +3125,158 @@ const epamClosedTrade={...epamBeforeClose.trade,stopPrice:145,exitedAt:'2026-11-
 const epamCloseText="I've closed my EPAM position at $144.64. My final stop was $145, and the actual exit was $0.36 below that level.\n\nI held 15 shares from my $116 entry. The completed trade earned $28.64 per share: $429.60 in realized profit, or +24.69%, before fees and taxes.\n\nGiven the market volatility, I'm locking in gains while I can. The original first target was $145; my confirmed exit was just below it. I'm satisfied with securing the gain rather than continuing to expose this position to the volatility.\n\nEPAM remains on my research radar, and I may consider another entry if a fresh setup develops. This trade is finished, and I haven't opened a replacement position. Any future entry will be documented separately.\n\nThese are my personal trade results, not subscriber performance. Past performance does not guarantee future results.";
 opportunities[epamClosingIndex]={...epamBeforeClose,tradeStatus:'Closed',trade:epamClosedTrade,updatedAt:'2026-11-02',addedToArchiveAt:'2026-11-02',riskUpdate:undefined,closingCommentary:epamCloseText,justinsTake:epamCloseText,summary:'I closed all 15 EPAM shares at $144.64 from my $116 entry, realizing $429.60 (+24.69%) before fees and taxes. My final stop was $145. I may revisit EPAM if a new setup develops.',nextStepSummary:'This EPAM trade is closed. I may consider a fresh entry after reviewing the technical structure.',nextCondition:'Any future EPAM position will be documented separately; no new entry is confirmed.',riskInvalidation:'The position is closed; the $145 stop and original targets are historical levels.'};
 opportunityUpdates.push({id:'opportunity-007-close-2026-11-02',opportunityId:'opportunity-007',publishedAt:'2026-11-02',eventDate:'2026-11-02',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Closed',trade:epamClosedTrade,title:'Position Closed at $144.64 — Locking In a 24.69% Gain',explanation:epamCloseText});
+
+// November 4 research watch only. No transaction or holdings recorded.
+opportunities.push({
+  "id": "opportunity-014",
+  "slug": "waystar-014",
+  "ticker": "WAY",
+  "company": "Waystar Holding Corp.",
+  "title": "Waystar — Healthcare Technology on My Watchlist",
+  "publicationState": "published",
+  "publishedAt": "2026-11-04",
+  "updatedAt": "2026-11-04",
+  "tradeStatus": "Watching",
+  "technicalStage": "Developing Stage 2",
+  "sector": "Healthcare Technology",
+  "strategy": "Potential Swing Trade",
+  "etfTickers": [
+    "IHF"
+  ],
+  "discoveryChain": [
+    "Healthcare",
+    "IHF",
+    "WAY",
+    "Developing Stage 2"
+  ],
+  "summary": "I found Waystar through healthcare strength and IHF. I'm watching the breakout around $27.25–$27.65 after earnings; I have not opened a position.",
+  "whySurfaced": "This one took me a lot of digging.\n\nI've been using the new Sacco Premium Sector Gauge to identify opportunities outside the volatile AI trade, and that's what led me to Waystar (WAY).\n\nHealthcare is leading the 11 major sectors in my current review. When I drilled into healthcare, IHF (Healthcare Providers and Insurers) stood out. I went through its holdings and eventually landed on Waystar, at approximately 0.41% of the ETF in my research snapshot.\n\nThe more I researched this company, the more I liked what I found. The fundamentals are encouraging, earnings are behind us, and the technical setup is almost exactly what I'm looking for.",
+  "setupThesis": "The stock spent much of 2026 declining before establishing a bottom and beginning to recover. Since then, I've seen higher lows and improving price action.\n\nIn my chart review, the 50-day moving average crossed above the 200-day around September 30, and price is above both averages. My TrendSpider chart identifies a Stage 2 transition, with RSI around 52.\n\nThe recent earnings reaction tested resistance around $27.25–$27.65. The revenue chart also shows the consistent upward stair-step pattern I like to see. Improving fundamentals, technical momentum, and relative sector strength are the combination I'm looking for.",
+  "fundamentalCase": "Waystar provides cloud-based software that helps healthcare organizations manage payments, billing, and revenue collection.\n\nThe company reported earnings on November 2. Its release confirms non-GAAP diluted EPS of $0.44 (GAAP EPS was $0.16) and revenue of $325.6 million, up 21% year over year. The approximately $0.36 EPS estimate comes from the earnings figures I'm reviewing, rather than the company's release.\n\nI like the consistent revenue growth. With this earnings report behind us, one major near-term uncertainty has passed.\n\nMy Seeking Alpha research snapshot shows Analysts: Buy; Wall Street: Strong Buy; Quant: Buy. Factor grades are Growth B−, Profitability A, Momentum B+, Revisions B−, and Valuation C.\n\nInvestingPro rates financial health favorably and estimates fair value at $31.04. Analyst targets range from $28 to $44. The supplied research views put the average around $34–$34.50. These dated estimates support my research but are not guarantees.",
+  "nextCondition": "I'm watching the $27.25–$27.65 area closely. The stock pushed through this resistance region and has been attempting to hold that breakout despite earnings volatility.\n\nI want buyers to keep defending this level rather than see price fall back into its previous range. My preliminary entry is around $27.65, proposed stop $24.50, and initial target $35 near previous resistance.\n\nThat implies 26.6% upside, 11.4% downside, and 2.33:1 reward-to-risk before fees and slippage. The target is slightly above the roughly $34–$34.50 analyst averages. These are research levels, not executed orders. If the breakout fails, I'll reassess rather than force an entry.",
+  "nextStepSummary": "I'm watching buyers defend $27.25–$27.65 before considering an entry.",
+  "thesisChanges": "Valuation: InvestingPro flags an elevated earnings multiple and a high P/E relative to near-term growth.\n\nEarnings expectations: Revisions have not been uniformly positive; my InvestingPro snapshot notes 13 downward revisions for the upcoming period.\n\nTechnical failure: Losing the $27.25 breakout area and breaking down toward the moving averages would make this less attractive. The supplied daily chart shows a recent $24.10 low, so my proposed $24.50 stop is above that intraday low and could be reached on a retest. Stops do not guarantee execution prices.\n\nSector strength can change. I'll continue monitoring healthcare and IHF through the Sector Gauge.",
+  "justinsTake": "Waystar is one of my higher-priority opportunities. It checks several boxes: improving fundamentals, recent earnings behind us, a developing Stage 2 uptrend, favorable RSI, and relative sector strength.\n\nBut I haven't purchased shares yet. I want the breakout structure to hold before committing capital.\n\nIf I enter, I'll publish my actual entry, position size, stop, and targets on the Opportunity Board. For now, WAY remains on my watchlist.",
+  "entryFramework": "Around $27.65, conditional on the breakout holding.",
+  "riskInvalidation": "Proposed $24.50 stop if entered. I will reassess a failed breakout; no stop order exists.",
+  "targets": [
+    "$35 initial target"
+  ],
+  "nextCatalyst": "Post-earnings breakout confirmation and healthcare / IHF relative strength.",
+  "proposedLevels": [
+    {
+      "label": "Reference price",
+      "value": "$27.66 · November 3 close"
+    },
+    {
+      "label": "Position status",
+      "value": "Watching — no position"
+    },
+    {
+      "label": "Potential entry",
+      "value": "$27.65"
+    },
+    {
+      "label": "Proposed stop",
+      "value": "$24.50"
+    },
+    {
+      "label": "Initial target",
+      "value": "$35.00"
+    },
+    {
+      "label": "Potential upside",
+      "value": "26.6%"
+    },
+    {
+      "label": "Potential downside",
+      "value": "11.4%"
+    },
+    {
+      "label": "Reward-to-risk",
+      "value": "2.33:1"
+    }
+  ],
+  "articleSections": [
+    {
+      "title": "My Take",
+      "body": "This one took me a lot of digging.\n\nI've been using the new Sacco Premium Sector Gauge to identify opportunities outside the volatile AI trade, and that's what led me to Waystar (WAY).\n\nHealthcare is leading the 11 major sectors in my current review. When I drilled into healthcare, IHF (Healthcare Providers and Insurers) stood out. I went through its holdings and eventually landed on Waystar, at approximately 0.41% of the ETF in my research snapshot.\n\nThe more I researched this company, the more I liked what I found. The fundamentals are encouraging, earnings are behind us, and the technical setup is almost exactly what I'm looking for."
+    },
+    {
+      "title": "Why I Like the Business",
+      "body": "Waystar provides cloud-based software that helps healthcare organizations manage payments, billing, and revenue collection.\n\nThe company reported earnings on November 2. Its release confirms non-GAAP diluted EPS of $0.44 (GAAP EPS was $0.16) and revenue of $325.6 million, up 21% year over year. The approximately $0.36 EPS estimate comes from the earnings figures I'm reviewing, rather than the company's release.\n\nI like the consistent revenue growth. With this earnings report behind us, one major near-term uncertainty has passed.\n\nMy Seeking Alpha research snapshot shows Analysts: Buy; Wall Street: Strong Buy; Quant: Buy. Factor grades are Growth B−, Profitability A, Momentum B+, Revisions B−, and Valuation C.\n\nInvestingPro rates financial health favorably and estimates fair value at $31.04. Analyst targets range from $28 to $44. The supplied research views put the average around $34–$34.50. These dated estimates support my research but are not guarantees.",
+      "chartPlacement": "fundamentals",
+      "sources": [
+        {
+          "label": "Waystar Q3 2026 results — November 2",
+          "url": "https://www.waystar.com/news/waystar-reports-third-quarter-2026-results/"
+        }
+      ]
+    },
+    {
+      "title": "The Technical Setup",
+      "body": "The stock spent much of 2026 declining before establishing a bottom and beginning to recover. Since then, I've seen higher lows and improving price action.\n\nIn my chart review, the 50-day moving average crossed above the 200-day around September 30, and price is above both averages. My TrendSpider chart identifies a Stage 2 transition, with RSI around 52.\n\nThe recent earnings reaction tested resistance around $27.25–$27.65. The revenue chart also shows the consistent upward stair-step pattern I like to see. Improving fundamentals, technical momentum, and relative sector strength are the combination I'm looking for.",
+      "chartPlacement": "setup"
+    },
+    {
+      "title": "My Potential Entry",
+      "body": "I'm watching the $27.25–$27.65 area closely. The stock pushed through this resistance region and has been attempting to hold that breakout despite earnings volatility.\n\nI want buyers to keep defending this level rather than see price fall back into its previous range. My preliminary entry is around $27.65, proposed stop $24.50, and initial target $35 near previous resistance.\n\nThat implies 26.6% upside, 11.4% downside, and 2.33:1 reward-to-risk before fees and slippage. The target is slightly above the roughly $34–$34.50 analyst averages. These are research levels, not executed orders. If the breakout fails, I'll reassess rather than force an entry."
+    },
+    {
+      "title": "Risks I'm Watching",
+      "body": "Valuation: InvestingPro flags an elevated earnings multiple and a high P/E relative to near-term growth.\n\nEarnings expectations: Revisions have not been uniformly positive; my InvestingPro snapshot notes 13 downward revisions for the upcoming period.\n\nTechnical failure: Losing the $27.25 breakout area and breaking down toward the moving averages would make this less attractive. The supplied daily chart shows a recent $24.10 low, so my proposed $24.50 stop is above that intraday low and could be reached on a retest. Stops do not guarantee execution prices.\n\nSector strength can change. I'll continue monitoring healthcare and IHF through the Sector Gauge."
+    },
+    {
+      "title": "My Plan",
+      "body": "Waystar is one of my higher-priority opportunities. It checks several boxes: improving fundamentals, recent earnings behind us, a developing Stage 2 uptrend, favorable RSI, and relative sector strength.\n\nBut I haven't purchased shares yet. I want the breakout structure to hold before committing capital.\n\nIf I enter, I'll publish my actual entry, position size, stop, and targets on the Opportunity Board. For now, WAY remains on my watchlist."
+    }
+  ],
+  "charts": [
+    {
+      "src": "/api/premium/chart/way-tradingview-2026-11-04",
+      "asOf": "2026-11-04",
+      "alt": "Waystar TradingView research: Daily chart with moving averages and breakout structure. The drawn tool uses $27.64 / $24.57 and 2.4:1; my written plan uses $27.65 / $24.50 and 2.33:1.",
+      "caption": "Daily chart with moving averages and breakout structure. The drawn tool uses $27.64 / $24.57 and 2.4:1; my written plan uses $27.65 / $24.50 and 2.33:1.",
+      "placement": "setup",
+      "source": "TradingView"
+    },
+    {
+      "src": "/api/premium/chart/way-trendspider-2026-11-04",
+      "asOf": "2026-11-04",
+      "alt": "Waystar TrendSpider research: Stage analysis, revenue growth annotations and RSI.",
+      "caption": "Stage analysis, revenue growth annotations and RSI.",
+      "placement": "setup",
+      "source": "TrendSpider"
+    },
+    {
+      "src": "/api/premium/chart/way-revenue-2026-11-04",
+      "asOf": "2026-11-04",
+      "alt": "Waystar Research snapshot research: Revenue, EPS and analyst targets; average target shown here is $34.09.",
+      "caption": "Revenue, EPS and analyst targets; average target shown here is $34.09.",
+      "placement": "fundamentals",
+      "source": "Research snapshot"
+    },
+    {
+      "src": "/api/premium/chart/way-investingpro-2026-11-04",
+      "asOf": "2026-11-04",
+      "alt": "Waystar InvestingPro research: Financial health, $31.04 model fair value and $34.50 analyst average.",
+      "caption": "Financial health, $31.04 model fair value and $34.50 analyst average.",
+      "placement": "fundamentals",
+      "source": "InvestingPro"
+    },
+    {
+      "src": "/api/premium/chart/way-seeking-alpha-2026-11-04",
+      "asOf": "2026-11-04",
+      "alt": "Waystar Seeking Alpha research: Analyst ratings and factor grades captured November 4.",
+      "caption": "Analyst ratings and factor grades captured November 4.",
+      "placement": "fundamentals",
+      "source": "Seeking Alpha"
+    }
+  ],
+  "notification": {
+    "subject": "New Opportunity Watch: Waystar (WAY)",
+    "preview": "I'm watching a healthcare technology breakout with approximately 2.33:1 reward-to-risk.",
+    "summary": "I've added Waystar to my Opportunity Board after researching healthcare strength through the Sector Gauge and IHF.\n\n**Why I'm watching**\nEarnings are behind us, the business is growing, and I'm monitoring a developing Stage 2 breakout.\n\n**My preliminary levels**\nPotential entry: $27.65\nProposed stop: $24.50\nInitial target: $35\nReward-to-risk: 2.33:1\n\n**I have not opened a position.** I want buyers to keep defending the breakout before committing capital. The full research includes my charts and the risks I'm monitoring.",
+    "cta": "VIEW WAYSTAR OPPORTUNITY"
+  }
+});
