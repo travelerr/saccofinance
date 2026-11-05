@@ -75,7 +75,8 @@ test('SPCX remains a waiting Stage 1 setup without any trade or invented researc
  assert.equal(s.setupRange,'~$105–$150');assert.equal(s.entryFramework,'~$122');assert.equal(s.confirmation,'~$150');assert.equal(s.riskInvalidation,'~$105');
  assert.match(s.nextAreaToWatch,/172.*only after a confirmed breakout.*not an active trade target/);
  assert.equal(s.charts.length,2);assert.ok(s.charts.every(c=>c.asOf===undefined));
- const u=d.getOpportunityUpdates(s.id);assert.equal(u.length,2);assert.equal(u[0].eventDate,undefined);assert.equal(u[0].trade,undefined);
+ assert.equal(m.isCurrentOpportunity(s),false);assert.equal(s.boardPlacement,'off-board');
+ const u=d.getOpportunityUpdates(s.id);assert.equal(u.length,3);assert.equal(u[0].eventDate,undefined);assert.equal(u[0].trade,undefined);
  assert.match(u[0].explanation,/original research\/video date is not established/);
 });
 test('unknown entry requires explicit accumulation evidence; an unassigned stage never infers a trade',()=>{

@@ -22,7 +22,7 @@ export type Opportunity={
  sector:string;etfTickers?:string[];technicalStage:string|null;whySurfaced:string;
  setupThesis:string;nextCondition:string;fundamentalCase:string;
  riskUpdate?:{date:string;previousStop:number;title:string;warning:string};nextCatalyst?:string;
- boardPlacement?:'long-term';
+ boardPlacement?:'long-term'|'off-board';
  positionOrigin?:'Legacy'|'Sacco Premium';strategy?:'Swing Trade'|'Potential Swing Trade'|'Cash-Secured Put'|'Wheel Strategy'|'Turnaround / Stage 1 → Stage 2 candidate';wheel?:{fills:WheelFill[];currentCallId?:string;ownershipFramework:string;process:string};originalResearchAt?:string;followUp?:string;closingCommentary?:string;companyNote?:string;discoveryLabel?:string;preferredAddZone?:string;fundamentalHeading?:string;technicalConfirmation?:string;
  researchSections?:{title:string;body:string;sources?:{label:string;url:string}[];table?:{headers:string[];rows:string[][]}}[];showTradeScenarios?:boolean;
  summary?:string;nextStepSummary?:string;discoveryChain?:string[];primaryRisks?:{title:string;explanation:string}[];
@@ -68,7 +68,7 @@ export function getPublishedOpportunities(records:Opportunity[]){
  return records.filter(isPublishableOpportunity).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt));
 }
 export function getPublishedOpportunity(slug:string,records:Opportunity[]){return getPublishedOpportunities(records).find(record=>record.slug===slug);}
-export function isCurrentOpportunity(record:Opportunity){return record.boardPlacement!=='long-term'&&record.tradeStatus!=='Invalidated'&&record.tradeStatus!=='Closed';}
+export function isCurrentOpportunity(record:Opportunity){return !record.boardPlacement&&record.tradeStatus!=='Invalidated'&&record.tradeStatus!=='Closed';}
 export function filterOpportunities(records:Opportunity[],view:'current'|'archive'|'holdings',tradeStatus:OpportunityStatus|'All'){
  return records.filter(record=>(view==='holdings'?record.boardPlacement==='long-term':view==='current'?isCurrentOpportunity(record):record.tradeStatus==='Closed'||record.tradeStatus==='Invalidated')&&(tradeStatus==='All'||record.tradeStatus===tradeStatus));
 }

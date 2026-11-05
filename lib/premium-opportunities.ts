@@ -3336,3 +3336,29 @@ opportunityUpdates.push({
   title: 'Stop Raised to $75',
   explanation: cncNovember5Text,
 });
+
+const spaceXUpdate = "I’ve been watching $122 as a possible entry in SpaceX for a while. As of November 5, SpaceX doesn’t fit my swing-trade setup, so I’m taking it off the board. I see SpaceX as a long-term investment, but so much future growth is already priced in that I find it hard to value today.\n\nAround $122, I’d consider picking up my first shares for the long term. With the market this volatile, I may wait even if it gets there. I haven’t bought shares.";
+const spaceX = opportunities.find(record => record.slug === 'spacex-003');
+if (!spaceX || spaceX.trade) throw new Error('Expected SpaceX research without an open position');
+spaceX.boardPlacement = 'off-board';
+spaceX.updatedAt = '2026-11-05';
+spaceX.summary = spaceXUpdate.split('\n\n')[0];
+spaceX.justinsTake = spaceXUpdate;
+opportunityUpdates.push({
+  id: 'opportunity-003-long-term-outlook-2026-11-05',
+  opportunityId: spaceX.id,
+  publishedAt: '2026-11-05',
+  eventDate: '2026-11-05',
+  publicationState: 'published',
+  tradeStatusBefore: 'Watching',
+  tradeStatusAfter: 'Watching',
+  title: 'Why I’m Taking SpaceX Off My Swing-Trade Board',
+  explanation: spaceXUpdate,
+  notification: {
+    subject: 'Why I’m Taking SpaceX Off My Swing-Trade Board',
+    preview: 'Where $122 fits into my long-term thinking on SpaceX.',
+    headline: 'My SpaceX outlook',
+    summary: spaceXUpdate,
+    cta: 'READ THE SPACEX UPDATE',
+  },
+});
