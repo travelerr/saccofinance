@@ -3307,3 +3307,32 @@ const cncRaisedStopTrade={...cncBeforeStop.trade,stopPrice:73,proposedStopPrice:
 const cncStopText="I've set my Centene stop to $73 as the stock approaches my $75 target.\n\nI'm still holding 15 shares from my $67.80 average entry. The new stop is above my cost basis and is intended to protect the developing gain. My original target is $75, and CNC is approaching that level, but my plan is to keep trailing the stop as the stock advances rather than exit simply because it reaches $75. I want to protect the trade while giving it room to keep running. The main risk I’m watching is an overnight gap down: the stock could open below my stop and fill at a lower price. I’ll keep monitoring that risk as the trade develops.\n\nThe position remains open. No profit has been realized, and the $75 target has not been confirmed as reached. Stops do not guarantee execution at the selected price; gaps or slippage can result in a different fill.";
 opportunities[cncStopIndex]={...cncBeforeStop,trade:cncRaisedStopTrade,updatedAt:'2026-11-04',summary:"I'm holding 15 CNC shares at $67.80 and have set my stop to $73 as the stock approaches my $75 target.",nextStepSummary:'Monitor the $73 stop; I plan to trail it higher as CNC advances, while monitoring overnight gap risk.',nextCondition:'My current stop is $73. The original $75 target remains a reference; I plan to keep trailing the stop as the stock advances rather than exit automatically at $75. An overnight gap could result in a fill below my stop.',riskInvalidation:'Confirmed stop set at $73. A price move alone does not document an exit; stops do not guarantee their fill price.',justinsTake:cncStopText};
 opportunityUpdates.push({id:'opportunity-010-stop-2026-11-04',opportunityId:'opportunity-010',publishedAt:'2026-11-04',eventDate:'2026-11-04',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:cncRaisedStopTrade,title:'Stop Set to $73 as CNC Approaches the $75 Target',explanation:cncStopText});
+
+const cncNovember5Text = "I raised my Centene stop from $73 to $75. I’m still holding 15 shares from my $67.80 average entry. My stop is now at my original target, and I plan to keep trailing it if CNC advances. An overnight gap could still give me a fill below $75.";
+const cncNovember5Trade = {
+  ...cncRaisedStopTrade,
+  stopPrice: 75,
+  documentation: cncRaisedStopTrade.documentation + ' On November 5, 2026 Justin raised the stop to $75.',
+};
+opportunities[cncStopIndex] = {
+  ...opportunities[cncStopIndex],
+  updatedAt: '2026-11-05',
+  trade: cncNovember5Trade,
+  summary: "I’m holding 15 CNC shares at a $67.80 average entry. My current stop is $75.",
+  nextStepSummary: 'I plan to keep trailing the stop if CNC advances.',
+  nextCondition: 'My stop is now at my original $75 target. I’m monitoring overnight gap risk.',
+  riskInvalidation: 'My stop is set at $75. A gap down could result in a lower fill.',
+  justinsTake: cncNovember5Text,
+};
+opportunityUpdates.push({
+  id: 'opportunity-010-stop-2026-11-05',
+  opportunityId: 'opportunity-010',
+  publishedAt: '2026-11-05',
+  eventDate: '2026-11-05',
+  publicationState: 'published',
+  tradeStatusBefore: 'Active',
+  tradeStatusAfter: 'Active',
+  trade: cncNovember5Trade,
+  title: 'Stop Raised to $75',
+  explanation: cncNovember5Text,
+});
