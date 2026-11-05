@@ -185,7 +185,7 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
- assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['WK','AR','EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['CNC','WK','AR','EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events.filter(x=>x.type==='OPPORTUNITY_MATERIAL_UPDATE'&&x.path==='/premium/opportunities/zscaler-001')[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
@@ -225,12 +225,12 @@ test('RKLB closure preserves prior stops and reports only documented per-share l
 
 test('CNC starter entry preserves research and distinguishes a proposed stop from an order',()=>{
  const d=require('../lib/premium-opportunities.ts'),o=d.getPublishedOpportunity('centene-010');
- assert.equal(o.id,'opportunity-010');assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryPrice,67.8);assert.equal(o.trade.quantity,15);assert.equal(o.trade.entryPrice*o.trade.quantity,1017);assert.equal(o.trade.stopPrice,75);assert.equal(o.trade.proposedStopPrice,undefined);assert.equal(o.trade.firstTargetPrice,75);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,8);assert.ok(o.articleSections[2].body.includes('50-day ABOVE the 200-day'));assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),undefined);assert.equal(require('../lib/opportunity-presentation.ts').compactLevels(o)[1].label,'Current stop');
+ assert.equal(o.id,'opportunity-010');assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.entryPrice,67.8);assert.equal(o.trade.quantity,15);assert.equal(o.trade.entryPrice*o.trade.quantity,1017);assert.equal(o.trade.stopPrice,75);assert.equal(o.trade.proposedStopPrice,undefined);assert.equal(o.trade.firstTargetPrice,75);assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o).realizedDollarPnL,108.75);
+ assert.equal(o.charts.length,6);assert.equal(o.articleSections.length,8);assert.ok(o.articleSections[2].body.includes('50-day ABOVE the 200-day'));assert.equal(require('../lib/opportunity-presentation.ts').rewardRisk(o),undefined);assert.equal(require('../lib/opportunity-presentation.ts').compactLevels(o)[1].label,'Exit');
  assert.equal((75-64)/(64-60),2.75);assert.equal(((75-64)/64*100).toFixed(2),'17.19');
  assert.deepEqual(o.charts.filter(c=>c.affiliateTool).map(c=>c.affiliateTool),['trendspider','seeking_alpha','investing_pro']);
- assert.ok(d.getPublishedOpportunities().some(item=>item.id===o.id));assert.ok(m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(!m.filterOpportunities(d.opportunities,'archive','All').includes(o));
- const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,4);const initial=e.find(x=>!x.updateId),update=e.find(x=>x.updateId==='opportunity-010-entry-2026-10-27');assert.equal(update.path,'/premium/opportunities/centene-010');assert.match(initial.summary,/NOT purchased CNC/);assert.match(update.summary,/Shares: 15/);assert.match(update.summary,/2.57:1/);assert.match(update.summary,/no stop order confirmed/);
+ assert.ok(d.getPublishedOpportunities().some(item=>item.id===o.id));assert.ok(!m.filterOpportunities(d.opportunities,'current','All').includes(o));assert.ok(m.filterOpportunities(d.opportunities,'archive','All').includes(o));
+ const e=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);assert.equal(e.length,5);const initial=e.find(x=>!x.updateId),update=e.find(x=>x.updateId==='opportunity-010-entry-2026-10-27');assert.equal(update.path,'/premium/opportunities/centene-010');assert.match(initial.summary,/NOT purchased CNC/);assert.match(update.summary,/Shares: 15/);assert.match(update.summary,/2.57:1/);assert.match(update.summary,/no stop order confirmed/);
 });
 
 test('second ZS entry is separate from the profitable closed trade',()=>{
@@ -307,9 +307,11 @@ test('November 4 confirmed fills close WK and AR and activate WAY without invent
  const way=d.getPublishedOpportunity('waystar-014');assert.equal(way.tradeStatus,'Active');assert.equal(way.trade.quantity,20);assert.equal(way.trade.entryPrice,28.57);assert.equal(way.trade.stopPrice,undefined);assert.equal(way.trade.proposedStopPrice,24.5);assert.equal(p.rewardRisk(way),'1.58:1');assert.equal(m.realizedTradeResult(way),null);assert.equal(d.getOpportunityUpdates(way.id).length,1);
 });
 
-test('CNC stop is confirmed without recording an exit or rewriting the original entry',()=>{
- const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');const o=d.getPublishedOpportunity('centene-010');
- assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.stopPrice,75);assert.equal(o.trade.firstTargetPrice,75);assert.equal(o.trade.exitPrice,undefined);assert.equal(m.realizedTradeResult(o),null);assert.equal(p.rewardRisk(o),undefined);
- const history=d.getOpportunityUpdates(o.id);assert.equal(history.find(u=>u.id==='opportunity-010-entry-2026-10-27').trade.proposedStopPrice,65);assert.equal(history.at(-2).trade.stopPrice,73);assert.equal(history.at(-1).trade.stopPrice,75);assert.equal(history.at(-1).tradeStatusAfter,'Active');
- assert.doesNotMatch(p.decisionFor(o).condition,/preliminary|not confirmed/);
+test('CNC closes after the documented stop raises',()=>{
+ const d=require('../lib/premium-opportunities.ts'),o=d.getPublishedOpportunity('centene-010');
+ const history=d.getOpportunityUpdates(o.id);
+ assert.equal(history.find(u=>u.id==='opportunity-010-entry-2026-10-27').trade.proposedStopPrice,65);
+ assert.deepEqual(history.slice(-3).map(u=>[u.trade.stopPrice,u.tradeStatusAfter]),[[73,'Active'],[75,'Active'],[75,'Closed']]);
+ assert.equal(o.trade.exitPrice,75.05);
+ assert.equal(m.realizedTradeResult(o).realizedPercentReturn.toFixed(2),'10.69');
 });

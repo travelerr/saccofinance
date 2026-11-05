@@ -3362,3 +3362,46 @@ opportunityUpdates.push({
     cta: 'READ THE SPACEX UPDATE',
   },
 });
+
+const cncExitText = 'My $75 stop triggered, and I sold all 15 Centene shares at $75.05. From my $67.80 average entry, I earned $7.25 per share, for a realized gain of $108.75 (+10.69%) before fees and taxes.';
+const cncMarketWatch = 'I’m holding off on new trades for now. Over the next couple of days and through the weekend, I’ll be watching whether selling in tech spreads further into the broader market, whether prices start to stabilize, and which sectors attract buyers. That will help me decide when to take another swing trade.';
+const cncExitTrade = {
+  ...cncNovember5Trade,
+  exitedAt: '2026-11-05',
+  exitPrice: 75.05,
+  exitReason: 'Stop triggered',
+  documentation: cncNovember5Trade.documentation + ' The $75 stop subsequently triggered and all 15 shares sold at $75.05.',
+};
+opportunities[cncStopIndex] = {
+  ...opportunities[cncStopIndex],
+  tradeStatus: 'Closed',
+  trade: cncExitTrade,
+  updatedAt: '2026-11-05',
+  addedToArchiveAt: '2026-11-05',
+  closingCommentary: cncExitText,
+  summary: cncExitText,
+  justinsTake: cncExitText,
+  nextStepSummary: cncMarketWatch,
+  nextCondition: 'I closed the full position.',
+  riskInvalidation: 'My final stop was $75.',
+  riskUpdate: undefined,
+};
+opportunityUpdates.push({
+  id: 'opportunity-010-close-2026-11-05',
+  opportunityId: 'opportunity-010',
+  publishedAt: '2026-11-05',
+  eventDate: '2026-11-05',
+  publicationState: 'published',
+  tradeStatusBefore: 'Active',
+  tradeStatusAfter: 'Closed',
+  trade: cncExitTrade,
+  title: 'Centene closed at $75.05',
+  explanation: [cncExitText, cncMarketWatch].join('\n\n'),
+  notification: {
+    subject: 'Centene closed at $75.05 — what I’m watching next',
+    preview: 'My CNC stop filled, and I’m taking a few days to watch how the market handles the tech selloff.',
+    headline: 'My Centene trade is closed',
+    summary: [cncExitText, '**What I’m watching next**', cncMarketWatch].join('\n\n'),
+    cta: 'VIEW THE CLOSED TRADE',
+  },
+});
