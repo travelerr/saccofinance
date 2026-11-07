@@ -129,7 +129,7 @@
 .workspace-start-here p{font-size:15px;line-height:1.65;margin:0}
 .workspace-start-here nav{display:grid;gap:12px;align-content:center}
 .workspace-start-here nav a{font-size:15px;font-weight:650;text-decoration:underline;text-underline-offset:4px;line-height:1.6}
-.workspace-start-here button{position:absolute;right:12px;top:12px;width:40px;height:40px;border:1px solid var(--brand-line);border-radius:8px;background:var(--brand-surface);color:inherit;font-size:24px;cursor:pointer}
+.workspace-start-here button{position:absolute;right:12px;top:12px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;border:1px solid var(--brand-line);border-radius:8px;background:var(--brand-surface);color:inherit;font-size:24px;cursor:pointer}
 @media(max-width:720px){.workspace-start-here{grid-template-columns:1fr;padding:24px 56px 24px 20px;gap:16px}}
 /* A welcome notice, visually distinct from ordinary research cards. */
 .brand .workspace-start-here{border:2px solid #d2a44b;border-left:7px solid #c58921;background:#fff3d6;color:#32270f;box-shadow:0 8px 24px rgba(121,83,17,.12);padding-top:28px;padding-bottom:24px}
@@ -176,3 +176,36 @@ html[data-theme=light] .brand .workspace-panel .outlook-posture>p:not(.eyebrow):
 
 /* Inactive board tabs have no partial underline inherited from text-link. */
 .brand .premium-workspace .opportunity-controls .actions button[aria-pressed=false]{border:1px solid transparent;box-shadow:none;text-decoration:none}
+
+.brand .workspace-start-expectations {
+ margin-top: 20px;
+ padding: 18px;
+ border: 1px solid #e6b6ae;
+ border-left: 4px solid #b42318;
+ border-radius: 8px;
+ background: #fffaf7;
+}
+.brand .workspace-start-expectations h3 {
+ margin: 0 0 10px;
+ font-size: 17px;
+ font-weight: 800;
+ letter-spacing: .04em;
+ color: #b42318;
+}
+.brand .workspace-start-expectations p + p { margin-top: 12px; }
+.brand .workspace-start-expectations > a {
+ display: inline-block;
+ margin-top: 12px;
+ color: #4e370a;
+ font-size: 14px;
+ font-weight: 650;
+ text-decoration: underline;
+ text-underline-offset: 3px;
+}
+
+.brand .workspace-start-here .workspace-start-completed {
+ display: inline-block;
+ margin-left: 6px;
+ color: #176b36;
+ font-weight: 750;
+}

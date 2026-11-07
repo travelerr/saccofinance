@@ -4,7 +4,7 @@ import {createSupabaseServerClient} from '@/lib/supabase/server';
 import {revalidatePath} from 'next/cache';
 export async function completeStartHereStep(step:string){
  const user=await requirePremium();
- if(!['sector-gauge','opportunity','outlook'].includes(step))return {saved:false};
+ if(!['learning-library','sector-gauge','opportunity','outlook'].includes(step))return {saved:false};
  const client=await createSupabaseServerClient();
  if(!client)return {saved:false};
  const {error}=await client.from('premium_start_here_progress').upsert({user_id:user.id,step},{onConflict:'user_id,step',ignoreDuplicates:true});

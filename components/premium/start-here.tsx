@@ -1,14 +1,22 @@
 'use client';
 import {useEffect,useState} from 'react';
 import Link from 'next/link';
+import {X} from 'lucide-react';
 export default function StartHere({userId,lessonComplete=false,completedSteps=[]}:{userId:string;lessonComplete?:boolean;completedSteps?:string[]}){
  const [visible,setVisible]=useState(false);
  const key='sacco-premium-start-here-v1:'+userId;
  useEffect(()=>{try{setVisible(localStorage.getItem(key)!=='dismissed');}catch{setVisible(true);}},[key]);
- if(!visible||(lessonComplete&&['sector-gauge','opportunity','outlook'].every(step=>completedSteps.includes(step))))return null;
+ const libraryComplete=lessonComplete||completedSteps.includes('learning-library');
+ if(!visible||(libraryComplete&&['sector-gauge','opportunity','outlook'].every(step=>completedSteps.includes(step))))return null;
  return <section className="workspace-start-here" aria-labelledby="start-here-heading">
-  <div><p className="workspace-start-label">NEW TO PREMIUM? START HERE</p><h2 id="start-here-heading">New to Premium? Start Here.</h2><p>Start with my complete research walkthrough, then explore the tools and research inside Premium.</p></div>
-  <nav aria-label="Getting started"><Link href="/premium/learn/lesson-1">1. Watch Lesson 1: How I Find Stocks {lessonComplete?'✓ Completed':'→'}<small>Learn my complete research process and how everything inside Premium connects.</small></Link><Link href="/premium/market-strength">2. Explore the Sector Gauge {completedSteps.includes('sector-gauge')?'✓ Completed':'→'}<small>See which areas of the market are showing strength.</small></Link><Link href="/premium/opportunities">3. Open Your First Opportunity {completedSteps.includes('opportunity')?'✓ Completed':'→'}<small>See how research becomes a potential setup or actual trade.</small></Link><Link href="/premium/weekly-outlook">4. Read the Latest Weekly Outlook {completedSteps.includes('outlook')?'✓ Completed':'→'}<small>Understand the current market conditions and upcoming catalysts.</small></Link></nav><p className="workspace-start-dismiss-note">You can dismiss this notice with the × when you’re ready.</p>
-  <button type="button" aria-label="Dismiss getting started guide" onClick={()=>{try{localStorage.setItem(key,'dismissed');}catch{}setVisible(false);}}>×</button>
+  <div><p className="workspace-start-label">NEW TO PREMIUM? START HERE</p><h2 id="start-here-heading">New to Premium? Start Here.</h2><p>Welcome to Sacco Premium! Take some time to explore the research, tools, and lessons while you get settled in.</p>
+  <div className="workspace-start-expectations">
+   <h3>IMPORTANT</h3>
+   <p><strong>Welcome aboard! New opportunities are published when I find setups that meet my criteria, so there’s no set schedule. Take time to explore Premium while you wait for the next one.</strong></p>
+   <p><strong>Make sure opportunity email notifications are enabled so you hear when the next setup is published.</strong> Earlier alerts aren’t resent when you join; existing research and trade history are available on the Opportunity Board.</p>
+   <Link href="/premium/account">Check my email preferences →</Link>
+  </div></div>
+  <nav aria-label="Getting started"><Link href="/premium/learn">1. Explore the Learning Library {libraryComplete?<span className="workspace-start-completed">✓ Completed</span>:'→'}<small>Explore videos and guides covering my research process.</small></Link><Link href="/premium/weekly-outlook">2. Read the Latest Weekly Outlook {completedSteps.includes('outlook')?<span className="workspace-start-completed">✓ Completed</span>:'→'}<small>Understand the current market conditions and upcoming catalysts.</small></Link><Link href="/premium/market-strength">3. Explore the Sector Gauge {completedSteps.includes('sector-gauge')?<span className="workspace-start-completed">✓ Completed</span>:'→'}<small>See which areas of the market are showing strength.</small></Link><Link href="/premium/opportunities">4. Open Your First Opportunity {completedSteps.includes('opportunity')?<span className="workspace-start-completed">✓ Completed</span>:'→'}<small>See how research becomes a potential setup or actual trade.</small></Link></nav><p className="workspace-start-dismiss-note">You can dismiss this notice with the × when you’re ready.</p>
+  <button type="button" aria-label="Dismiss getting started guide" onClick={()=>{try{localStorage.setItem(key,'dismissed');}catch{}setVisible(false);}}><X size={20} aria-hidden="true"/></button>
  </section>;
 }
