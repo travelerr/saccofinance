@@ -131,7 +131,7 @@
 .workspace-start-here nav{display:grid;gap:12px;align-content:start}
 .workspace-start-here nav a{font-size:15px;font-weight:650;text-decoration:underline;text-underline-offset:4px;line-height:1.6}
 .workspace-start-here button{position:absolute;right:12px;top:12px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;border:1px solid var(--brand-line);border-radius:8px;background:var(--brand-surface);color:inherit;font-size:24px;cursor:pointer}
-@media(max-width:720px){.workspace-start-here{grid-template-columns:1fr;padding:24px 56px 24px 20px;gap:16px}}
+@media(max-width:720px){.workspace-start-here{grid-template-columns:1fr;padding:24px 20px;gap:16px}.workspace-start-here .workspace-start-label{padding-right:40px;min-height:28px}}
 /* A welcome notice, visually distinct from ordinary research cards. */
 .brand .workspace-start-here{border:2px solid #d2a44b;border-left:7px solid #c58921;background:#fff3d6;color:#32270f;box-shadow:0 8px 24px rgba(121,83,17,.12);padding-top:28px;padding-bottom:24px}
 .brand .workspace-start-here .workspace-start-label{color:#77500c;font-size:13px;font-weight:800;letter-spacing:.1em}
