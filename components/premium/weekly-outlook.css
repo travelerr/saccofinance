@@ -27,3 +27,5 @@
  .outlook-calendar-table td::before{content:attr(data-label);display:block;font-weight:700;margin-bottom:.35rem}
 }
 @media(max-width:640px){.outlook-calendar-table caption{display:block;width:100%}}
+
+.outlook-inline-chart{margin:28px 0;width:100%}.outlook-inline-chart img{display:block;width:100%;height:auto;border-radius:10px}.outlook-inline-chart figcaption{font-size:14px;line-height:1.6;margin-top:12px;color:var(--brand-muted)}

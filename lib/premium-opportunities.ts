@@ -1,3 +1,4 @@
+import {weeklyOutlook008} from './weekly-outlook-008';
 import {arWatchPlan,arRewardRisk} from './ar-watch-plan';
 import 'server-only';
 import {getPublishedOpportunities as selectPublished,getPublishedOpportunity as selectOpportunity,getOpportunityUpdates as selectUpdates,type Opportunity,type OpportunityUpdate,type WeeklyOutlook} from './premium-content';
@@ -3405,3 +3406,5 @@ opportunityUpdates.push({
     cta: 'VIEW THE CLOSED TRADE',
   },
 });
+
+weeklyOutlooks.push(weeklyOutlook008);

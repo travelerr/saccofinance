@@ -1,3 +1,4 @@
+import {researchImagePaths} from './research-images';
 /** Versioned, server-rendered email content. No research catalog or template dependency. */
 export const unsubscribePlaceholderToken='0'.repeat(64);
 export type EmailSnapshot={version:1;subject:string;html:string;text:string;url:string;preferences:string};
@@ -17,10 +18,25 @@ export function validateEmailSnapshot(value:unknown,origin:string):asserts value
  const placeholder=unsubscribePlaceholder(origin);
  if(!s.html.includes(escape(placeholder))||!s.text.includes(placeholder))return fail();
  // Internal links and the exact approved TrendSpider affiliate destination are accepted. Content is produced by the trusted server renderer.
- const allowed=[s.url,s.preferences,placeholder,'https://trendspider.com?_go=justin-4f7fc2'].map(escape);
+ const imageUrls=researchImagePaths.map(path=>new URL(path,base.origin).href);
+ const allowed=[...imageUrls,s.url,s.preferences,placeholder,'https://trendspider.com?_go=justin-4f7fc2'].map(escape);
  const links=[...s.html.matchAll(/\bhref="([^"]*)"/gi)];
  if(!links.length||links.some(m=>!allowed.includes(m[1])))return fail();
- if(/<(script|iframe|form|object|embed|base)\b|\bon\w+\s*=|\bsrc\s*=|javascript:|url\s*\(/i.test(s.html))return fail();
+ const imageTags=[...s.html.matchAll(/<img\b[^>]*>/gi)];
+ if(imageTags.length>6)return fail();
+ for(const [tag] of imageTags){
+  const src=tag.match(/\bsrc="([^"]+)"/i);
+  if(!src||!imageUrls.map(escape).includes(src[1]))return fail();
+  // Only the renderer's static image attributes are accepted; reject srcset, handlers,
+  // unquoted/duplicate attributes, alternate protocols and hidden tracking images.
+  const attrs=[...tag.matchAll(/\s([a-z]+)="([^"]*)"/gi)];
+  if(new Set(attrs.map(a=>a[1].toLowerCase())).size!==attrs.length)return fail();
+  if(attrs.some(a=>!['src','alt','width','style'].includes(a[1].toLowerCase())))return fail();
+  if(tag.replace(/^<img/i,'').replace(/\s[a-z]+="[^"]*"/gi,'').replace(/>$/,'').trim())return fail();
+  if(!attrs.some(a=>a[1]==='width'&&a[2]==='552')||!attrs.some(a=>a[1]==='style'&&a[2]==='display:block;width:100%;max-width:552px;height:auto;border:0'))return fail();
+ }
+ const withoutImages=s.html.replace(/<img\b[^>]*>/gi,'');
+ if(/<(script|iframe|form|object|embed|base)\b|\bon\w+\s*=|\bsrc\s*=|javascript:|url\s*\(/i.test(withoutImages))return fail();
 }
 export function personalizeEmailSnapshot(value:unknown,origin:string,unsubscribe:string){
  validateEmailSnapshot(value,origin);
