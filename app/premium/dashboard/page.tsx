@@ -1,3 +1,4 @@
+import SaveLoginNotice from '@/components/premium/save-login-notice';
 import {startHereProgress} from '@/lib/onboarding/progress';
 import {learningProgress} from '@/lib/learning/progress';
 import '../learn/learn.css';
@@ -29,7 +30,7 @@ export default async function Dashboard(){
  let snapshot:StrengthSnapshot|null=null;
  try{snapshot=JSON.parse(await readFile(path.join(process.cwd(),'data/market-strength/latest.json'),'utf8'));}catch{}
  return <main id="main-content" className="container premium-dashboard">
- {user.is_anonymous&&<section className="section"><Eyebrow>Your membership is ready</Eyebrow><h3>Save your login.</h3><p>You have access in this browser. Use your welcome email to save your login and set a password for future visits.</p><Link className="text-link" href="/premium/account/setup">Set up my login</Link></section>}
+ {user.is_anonymous&&<SaveLoginNotice/>}
  <PremiumResearchHeader kind="Dashboard" title="Your research dashboard" summary="The latest perspective, the market backdrop, and the opportunities worth following. All in one place."/>
  <StartHere userId={user.id} lessonComplete={lessonComplete} completedSteps={completedSteps}/>
 

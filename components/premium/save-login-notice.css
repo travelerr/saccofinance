@@ -1,0 +1,9 @@
+.brand .save-login-notice{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:20px;margin:24px 0 32px;padding:26px;border:2px solid #d2a44b;border-left:6px solid #b77710;border-radius:12px;background:#fff3d6;color:#32270f;box-shadow:0 6px 20px rgba(121,83,17,.12)}
+.brand .save-login-notice .save-login-icon{color:#865609;align-self:start;margin-top:4px}
+.brand .save-login-notice .save-login-label{margin:0 0 8px;color:#77500c;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.brand .save-login-notice h2{margin:0 0 10px;color:#32270f;font-size:clamp(24px,3vw,30px);line-height:1.2}
+.brand .save-login-notice p{margin:0;color:#32270f;font-size:15px;line-height:1.6;max-width:720px}
+.brand .save-login-notice .save-login-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;background:#075e70;border:2px solid #075e70;color:#fff;font-weight:750;text-decoration:none;white-space:nowrap;border-radius:8px}
+.brand .save-login-notice .save-login-button:hover{background:#064b59;border-color:#064b59}
+.brand .save-login-notice .save-login-button:focus-visible{outline:3px solid #865609;outline-offset:4px}
+@media(max-width:720px){.brand .save-login-notice{grid-template-columns:28px minmax(0,1fr);gap:14px;padding:20px;margin:20px 0 24px}.brand .save-login-notice .save-login-button{grid-column:1/-1;white-space:normal;text-align:center}}

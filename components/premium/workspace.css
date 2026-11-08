@@ -127,7 +127,8 @@
 .workspace-start-here .workspace-start-label{font-size:12px;font-weight:750;letter-spacing:.12em;margin:0 0 8px;color:var(--brand-muted)}
 .workspace-start-here h2{font-size:22px;margin:0 0 8px}
 .workspace-start-here p{font-size:15px;line-height:1.65;margin:0}
-.workspace-start-here nav{display:grid;gap:12px;align-content:center}
+.workspace-start-here .workspace-start-intro{grid-column:1/-1}
+.workspace-start-here nav{display:grid;gap:12px;align-content:start}
 .workspace-start-here nav a{font-size:15px;font-weight:650;text-decoration:underline;text-underline-offset:4px;line-height:1.6}
 .workspace-start-here button{position:absolute;right:12px;top:12px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;border:1px solid var(--brand-line);border-radius:8px;background:var(--brand-surface);color:inherit;font-size:24px;cursor:pointer}
 @media(max-width:720px){.workspace-start-here{grid-template-columns:1fr;padding:24px 56px 24px 20px;gap:16px}}
@@ -178,7 +179,7 @@ html[data-theme=light] .brand .workspace-panel .outlook-posture>p:not(.eyebrow):
 .brand .premium-workspace .opportunity-controls .actions button[aria-pressed=false]{border:1px solid transparent;box-shadow:none;text-decoration:none}
 
 .brand .workspace-start-expectations {
- margin-top: 20px;
+ margin-top: 0;
  padding: 18px;
  border: 1px solid #e6b6ae;
  border-left: 4px solid #b42318;
