@@ -20,17 +20,24 @@ test('getting-started progress is durable, idempotent, account-isolated and not 
 test('banner requires all four actions; automatic tracking is mounted on actual detail content',()=>{
  const source=fs.readFileSync('components/premium/start-here.tsx','utf8');
  const ts=require('typescript'),Module=require('node:module'),original=Module._load;
- const visible=[];let state=false;
- Module._load=function(id,...args){if(id==='react/jsx-runtime')return {jsx:(type,props)=>({type,props}),jsxs:(type,props)=>({type,props})};if(id==='react')return {useState:()=>[state,()=>{}],useEffect:()=>{}};if(id==='next/link')return ()=>null;if(id==='lucide-react')return {X:()=>null};return original.call(this,id,...args);};
+ let state=false,previewState=null,hookIndex=0;
+ Module._load=function(id,...args){if(id==='react/jsx-runtime')return {jsx:(type,props)=>({type,props}),jsxs:(type,props)=>({type,props})};if(id==='react')return {useState:()=>[hookIndex++===0?state:previewState,()=>{}],useEffect:()=>{}};if(id==='next/link')return ()=>null;if(id==='lucide-react')return {X:()=>null};return original.call(this,id,...args);};
  try{
  const m=new Module('start-here',module);m.filename=__filename;m.paths=module.paths;
  m._compile(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText,__filename);
- const render=m.exports.default;state=true;
+ const render=props=>{hookIndex=0;return m.exports.default(props);};state=true;
  for(let mask=0;mask<16;mask++){
  const props={userId:'a',completedSteps:['learning-library','sector-gauge','opportunity','outlook'].filter((_,i)=>mask&(1<<i))};
  assert.equal(render(props)===null,mask===15);
  }
  state=false;assert.equal(render({userId:'a'}),null);
+ previewState='on';
+ const complete={userId:'a',completedSteps:['learning-library','sector-gauge','opportunity','outlook']};
+ assert.notEqual(render({...complete,adminPreviewAllowed:true}),null);
+ assert.equal(render({...complete,adminPreviewAllowed:false}),null);
+ previewState='off';state=true;
+ assert.equal(render({userId:'a',adminPreviewAllowed:true}),null);
+ assert.notEqual(render({userId:'a',adminPreviewAllowed:false}),null);
  }finally{Module._load=original;}
  assert.match(fs.readFileSync('components/premium/start-here-visit.tsx','utf8'),/useEffect/);
  assert.doesNotMatch(fs.readFileSync('app/premium/opportunities/page.tsx','utf8'),/StartHereVisit/);

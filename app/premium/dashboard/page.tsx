@@ -1,3 +1,4 @@
+import {isResearchAdmin} from '@/lib/email/policy';
 import SaveLoginNotice from '@/components/premium/save-login-notice';
 import {startHereProgress} from '@/lib/onboarding/progress';
 import {learningProgress} from '@/lib/learning/progress';
@@ -32,7 +33,7 @@ export default async function Dashboard(){
  return <main id="main-content" className="container premium-dashboard">
  {user.is_anonymous&&<SaveLoginNotice/>}
  <PremiumResearchHeader kind="Dashboard" title="Your research dashboard" summary="The latest perspective, the market backdrop, and the opportunities worth following. All in one place."/>
- <StartHere userId={user.id} lessonComplete={lessonComplete} completedSteps={completedSteps}/>
+ <StartHere adminPreviewAllowed={isResearchAdmin(user,process.env.RESEARCH_ADMIN_USER_IDS||'')} userId={user.id} lessonComplete={lessonComplete} completedSteps={completedSteps}/>
 
  <nav className="workspace-overview" aria-label="Research overview">
   <Link href="/premium/weekly-outlook"><Newspaper size={24}/><div><span>Weekly Outlook</span><strong>{outlook?`Issue ${researchNumber(outlook.id)?.replace('#','')}`:'Coming soon'}</strong><small>{outlook?`Week of ${premiumDate(outlook.weekOf)}`:'Market context and the week ahead'}</small></div></Link>
