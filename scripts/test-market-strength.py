@@ -8,6 +8,14 @@ spec=importlib.util.spec_from_file_location('strength',Path(__file__).with_name(
 m=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 class CalculationTests(unittest.TestCase):
+    def test_completed_session_cutoff(self):
+        for hour in (9, 15, 16, 17):
+            self.assertEqual(m.completed_session_cutoff(dt.datetime(2026,11,6,hour,59,tzinfo=m.ET)),dt.date(2026,11,5))
+        self.assertEqual(m.completed_session_cutoff(dt.datetime(2026,11,6,18,tzinfo=m.ET)),dt.date(2026,11,6))
+        # Scheduled UTC runs remain after the cutoff in both DST and standard time.
+        for month, day in ((7,6),(11,6)):
+            self.assertEqual(m.completed_session_cutoff(dt.datetime(2026,month,day,23,30,tzinfo=dt.timezone.utc)),dt.date(2026,month,day))
+        self.assertEqual(m.completed_session_cutoff(dt.datetime(2026,11,7,9,tzinfo=m.ET)),dt.date(2026,11,6))
     def test_month_end_and_leap_year(self):
         self.assertEqual(m.lookback(dt.date(2024,3,31),1),dt.date(2024,2,29))
         self.assertEqual(m.lookback(dt.date(2025,3,31),1),dt.date(2025,2,28))
@@ -35,7 +43,7 @@ class CalculationTests(unittest.TestCase):
             self.assertEqual([r['rank'] for r in rows],list(range(1,25)))
             self.assertEqual([r['return'] for r in rows],sorted([r['return'] for r in rows],reverse=True))
             for row in rows:self.assertAlmostEqual(row['relative'],row['return']-period['benchmarkReturn'])
-        self.assertLess(data['asOf'],data['checkedDate'])
+        self.assertLessEqual(data['asOf'],data['checkedDate'])
     def test_expanded_peers_and_comparison_dates(self):
         catalog=json.loads((m.DEST.parent/'catalog.json').read_text())
         snapshot=json.loads(m.DEST.read_text())

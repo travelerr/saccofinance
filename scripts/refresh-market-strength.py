@@ -66,9 +66,18 @@ def calculate(histories, asof):
           'rows':[{'ticker':t,'name':n,'return':values[t],'relative':values[t]-values['SPY'],'rank':rank+1} for rank,(t,n) in enumerate(ranked)]}
     return output
 
+def completed_session_cutoff(now):
+    """Allow today's daily bar only after 6 p.m. Eastern (two hours after close).
+
+    Yahoo's actual common history determines the session on holidays/weekends;
+    this date ceiling prevents intraday refreshes from using an unfinished bar.
+    """
+    local=now.astimezone(ET)
+    return local.date() if local.hour >= 18 else local.date()-dt.timedelta(days=1)
+
 def main():
     now=dt.datetime.now(ET)
-    cutoff=now.date()-dt.timedelta(days=1)
+    cutoff=completed_session_cutoff(now)
     catalog=json.loads((DEST.parent/'catalog.json').read_text())
     tickers=[g['ticker'] for g in catalog]+['SPY']
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:

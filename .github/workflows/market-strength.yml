@@ -2,7 +2,8 @@ name: Refresh market strength
 
 on:
   schedule:
-    - cron: '30 23 * * 1-5'
+    # 6:30 p.m. EST / 7:30 p.m. EDT. Weekend runs catch late Friday data.
+    - cron: '30 23 * * *'
   workflow_dispatch:
 
 permissions:
