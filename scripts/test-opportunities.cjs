@@ -30,7 +30,7 @@ test('updates retain unchanged statuses, sort chronologically and hide drafts or
 });
 test('ZS current position and Dashboard/board share canonical server-only selectors',()=>{
  const data=require('../lib/premium-opportunities.ts');
- assert.equal(data.opportunities.length,14);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
+ assert.equal(data.opportunities.length,15);assert.equal(data.getOpportunityUpdates('opportunity-001').length,5);
  const zs=data.getPublishedOpportunity('zscaler-001');assert.ok(zs);assert.equal(zs.id,'opportunity-001');
  assert.equal(zs.tradeStatus,'Closed');assert.equal(zs.technicalStage,'Stage 1 → Stage 2');
  assert.deepEqual([zs.trade.entryPrice,zs.trade.stopPrice,zs.trade.firstTargetPrice],[190.07,210,220]);
@@ -51,8 +51,8 @@ test('technical-stage edits never change Active trade status or current visibili
 
 test('the three backfilled records preserve explicit trade facts and omit unavailable facts',()=>{
  const d=require('../lib/premium-opportunities.ts');
- assert.equal(d.getPublishedOpportunities().length,14);
- assert.equal(new Set(d.opportunities.map(o=>o.id)).size,14);
+ assert.equal(d.getPublishedOpportunities().length,15);
+ assert.equal(new Set(d.opportunities.map(o=>o.id)).size,15);
  const r=d.getPublishedOpportunity('rocket-lab-002');
  assert.equal(r.id,'opportunity-002');assert.equal(r.tradeStatus,'Closed');assert.equal(r.technicalStage,null);
  assert.deepEqual([r.trade.enteredAt,r.trade.entryPrice,r.trade.stopPrice,r.trade.firstTargetPrice],['2026-09-04',64,60.5,85]);
@@ -89,7 +89,7 @@ test('unknown entry requires explicit accumulation evidence; an unassigned stage
 });
 test('all chart assets use the authenticated route and the Dashboard does not truncate the board',()=>{
  const path=require('node:path');const d=require('../lib/premium-opportunities.ts');
- const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,35);
+ const figures=d.opportunities.flatMap(o=>o.charts||(o.chart?[o.chart]:[]));assert.equal(figures.length,40);
  const route=fs.readFileSync(path.join(__dirname,'../app/api/premium/chart/[name]/route.ts'),'utf8');
  for(const figure of figures){const name=figure.src.split('/').pop();assert.match(figure.src,/^\/api\/premium\/chart\//);assert.ok(fs.existsSync(path.join(__dirname,'../data/premium-assets',name+'.png')));assert.ok(route.includes("'"+name+"'"));}
  assert.match(route,/premiumAccess\(\)/);assert.match(route,/private, no-store/);
@@ -314,4 +314,16 @@ test('CNC closes after the documented stop raises',()=>{
  assert.deepEqual(history.slice(-3).map(u=>[u.trade.stopPrice,u.tradeStatusAfter]),[[73,'Active'],[75,'Active'],[75,'Closed']]);
  assert.equal(o.trade.exitPrice,75.05);
  assert.equal(m.realizedTradeResult(o).realizedPercentReturn.toFixed(2),'10.69');
+});
+
+test('UHS remains conditional research with no execution and matching chart risk/reward',()=>{
+ const data=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');
+ const o=data.getPublishedOpportunity('universal-health-services-015');
+ assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);
+ assert.equal(data.getOpportunityUpdates(o.id).length,0);assert.equal(data.opportunities.filter(x=>x.ticker==='UHS').length,1);
+ assert.equal(p.rewardRisk(o),`${((227.50-182.59)/(182.59-169.17)).toFixed(2)}:1`);
+ assert.deepEqual(p.compactLevels(o).map(x=>x.value),['$182.59','$169.17','$227.50']);
+ assert.equal(o.charts.length,5);assert.equal(o.charts[0].source,'TradingView');
+ for(const c of o.charts)assert.ok(c.width>0&&c.height>0);
+ assert.match(o.researchSections[0].body,/192.41/);assert.match(o.researchSections[0].body,/193.82/);
 });
