@@ -20,7 +20,7 @@
     "test:local": "node scripts/test-local-stack.cjs",
     "email:test": "node scripts/research-email-test.cjs",
     "analytics:preview": "node scripts/analytics-preview.cjs",
-    "test:analytics": "node --test scripts/test-analytics.cjs scripts/test-analytics-reporting.cjs scripts/test-retention-report.cjs scripts/test-member-engagement.cjs",
+    "test:analytics": "node --test scripts/test-analytics.cjs scripts/test-analytics-reporting.cjs scripts/test-retention-report.cjs scripts/test-member-engagement.cjs scripts/test-member-engagement-route.cjs scripts/test-member-engagement-db.cjs",
     "email:worker": "node scripts/research-email-worker.cjs",
     "email:lambda:build": "node scripts/build-email-lambda.cjs",
     "test:email-lambda": "node --test scripts/test-email-lambda.cjs",

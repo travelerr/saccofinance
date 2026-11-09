@@ -2,5 +2,5 @@
 import {hasConsent} from './browser';
 export function recordMemberEngagement(activity:'visit'|'dashboard'|'opportunity'|'sector_view'|'sector_use'){
  if(!hasConsent()||(navigator as Navigator&{globalPrivacyControl?:boolean}).globalPrivacyControl)return;
- void fetch('/api/analytics/member-engagement',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({activity}),keepalive:true}).catch(()=>{});
+ void fetch('/api/analytics/member-engagement',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({activity}),keepalive:true}).then(response=>{if(!response.ok)console.warn('Member engagement was not recorded (HTTP '+response.status+').');}).catch(()=>{console.warn('Member engagement was not recorded (network unavailable).');});
 }
