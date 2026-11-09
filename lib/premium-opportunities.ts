@@ -1,3 +1,4 @@
+import {dgOpportunity} from './dg-opportunity';
 import {uhsOpportunity} from './uhs-opportunity';
 import {weeklyOutlook008} from './weekly-outlook-008';
 import {arWatchPlan,arRewardRisk} from './ar-watch-plan';
@@ -3412,3 +3413,5 @@ weeklyOutlooks.push(weeklyOutlook008);
 
 // New conditional research only; no trade execution or subscriber send.
 opportunities.push(uhsOpportunity);
+
+opportunities.push(dgOpportunity);

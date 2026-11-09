@@ -2,7 +2,7 @@
 export const opportunityStatuses=['Watching','Developing','Confirmed','Active','Invalidated','Closed'] as const;
 export type OpportunityStatus=typeof opportunityStatuses[number];
 export type PublicationState='draft'|'published'|'archived';
-export type TradeEntry={enteredAt?:string;documentedAt?:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution';documentation:string;quantity?:number;stopPrice?:number;proposedStopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
+export type TradeEntry={enteredAt?:string;documentedAt?:string;entryPrice?:number;entryType?:'accumulation'|'put-assignment'|'option-execution'|'user-reported';reportedApproximateCost?:number;documentation:string;quantity?:number;stopPrice?:number;proposedStopPrice?:number;firstTargetPrice?:number;secondTargetPrice?:number};
 export type TradeExit={exitedAt:string;exitPrice:number;exitTime?:string;exitReason?:string;documentation:string};
 type OpportunityLifecycle=
  | {tradeStatus:'Watching'|'Developing'|'Confirmed'|'Invalidated';trade?:TradeEntry}
@@ -59,7 +59,7 @@ export type WeeklyOutlook={
 };
 const text=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0;
 const date=(value:unknown)=>text(value)&&Number.isFinite(Date.parse(value));
-function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&(date(trade.enteredAt)||(trade.enteredAt===undefined&&trade.entryType==='accumulation'&&date(trade.documentedAt)))&&((typeof trade.entryPrice==='number'&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0)||(trade.entryType==='accumulation'&&trade.entryPrice===undefined))&&text(trade.documentation));}
+function hasEntry(trade:TradeEntry|undefined){return Boolean(trade&&(date(trade.enteredAt)||(trade.enteredAt===undefined&&trade.entryType==='accumulation'&&date(trade.documentedAt)))&&((typeof trade.entryPrice==='number'&&Number.isFinite(trade.entryPrice)&&trade.entryPrice>0)||(trade.entryType==='accumulation'&&trade.entryPrice===undefined)||(trade.entryType==='user-reported'&&trade.entryPrice===undefined&&trade.quantity===undefined&&Number.isFinite(trade.reportedApproximateCost)&&Number(trade.reportedApproximateCost)>0))&&text(trade.documentation));}
 function hasExit(trade:(TradeEntry & Partial<TradeExit>)|undefined){return Boolean(hasEntry(trade)&&trade&&date(trade.exitedAt)&&Number.isFinite(trade.exitPrice)&&Number(trade.exitPrice)>0&&(trade.enteredAt?Date.parse(trade.exitedAt!)>=Date.parse(trade.enteredAt):Date.parse(trade.exitedAt!)>=Date.parse(trade.documentedAt!)));}
 export function isPublishableOpportunity(record:Opportunity):boolean{
  const required=[record.id,record.slug,record.ticker,record.company,record.title,record.sector,record.whySurfaced,record.setupThesis,record.nextCondition,record.fundamentalCase,record.thesisChanges,record.justinsTake];
