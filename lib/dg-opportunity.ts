@@ -22,19 +22,21 @@ export const dgOpportunity:Opportunity={
     "enteredAt": "2026-11-09",
     "entryType": "user-reported",
     "reportedApproximateCost": 3000,
-    "documentation": "Justin reported purchasing approximately $3,000 of DG on November 9, 2026. Exact fill price and quantity are pending confirmation. Chart levels are planning references, not execution records. No stop order is confirmed.",
+    "documentation": "Justin confirmed a $134.19 fill on November 9, 2026 for a reported $3,000 purchase, approximately 22.35 shares. Share quantity is rounded, not an exact broker quantity. The original $134.60 chart entry remains a historical planning reference. No stop order is confirmed.",
     "proposedStopPrice": 130.1,
-    "firstTargetPrice": 149.23
+    "firstTargetPrice": 149.23,
+    "entryPrice": 134.19,
+    "reportedApproximateQuantity": 22.35
   },
-  "summary": "I've opened approximately $3,000 of DG as consumer staples shows relative strength. Exact fill and share count are pending confirmation.",
+  "summary": "I've opened approximately $3,000 of DG at $134.19, approximately 22.35 shares, as consumer staples shows relative strength.",
   "nextStepSummary": "I'm watching whether DG can hold its developing Stage 2 structure, with a proposed stop around $130 and an initial target around $149.",
   "whySurfaced": "I've been working through a shortlist of healthcare and consumer staples stocks while the AI trade struggles to stabilize. In my November 9 Sector Gauge review, consumer staples ranked second, and Dollar General stood out.\n\nI purchased approximately $3,000 of shares. I like the combination of improving technical momentum, relative sector strength and recovering earnings expectations. I also see a possible consumer-policy tailwind, but I'm treating that as a possibility, not a guaranteed outcome.",
   "setupThesis": "My chart review shows a developing Weinstein Stage 2 transition identified around October 14, followed by the 50-day moving average crossing above the 200-day around October 28. After months of base-building, DG broke higher and pulled back.\n\nPrice remains above both major moving averages in the supplied snapshot, with RSI around 53. I'm looking for the breakout to hold rather than buying an already mature uptrend.",
-  "nextCondition": "My chart uses a $134.60 planned entry reference, $130.10 proposed stop and $149.23 initial target: approximately 3.25:1 planned reward-to-risk. The chart entry is not my confirmed fill.\n\nI will calculate actual reward-to-risk once my execution price is confirmed. My stop is a proposed risk reference, not a confirmed broker order, and gaps or slippage can produce a worse exit.",
+  "nextCondition": "My confirmed entry is $134.19. With a $130.10 proposed stop and $149.23 initial target, that gives approximately 3.68:1 reward-to-risk: 3.05% potential downside and 11.21% potential upside.\n\nThe chart retains my original $134.60 planning reference and 3.25:1 planned ratio; those are not my executed entry or current ratio. My stop is a proposed risk reference, not a confirmed broker order, and gaps or slippage can produce a worse exit.",
   "fundamentalCase": "My November 9 Seeking Alpha snapshot rates DG Buy from SA Analysts, Buy from Wall Street and Hold from Quant. Factor grades are Valuation D−, Growth C−, Profitability B, Momentum B+ and Revisions A.\n\nThe weak valuation grade and modest growth deserve attention. Still, improving revisions, momentum and profitability support my recovery thesis. The five-year chart shows increasing revenue and EPS recovering from earlier lows.",
   "thesisChanges": "A failed breakout, loss of support around $130 or deteriorating consumer staples leadership would prompt me to reassess. I'm also watching consumer spending, margins and operating expenses.",
   "justinsTake": "This is an actual position, not just a watchlist idea. I'm watching whether DG can maintain its developing Stage 2 structure. If it strengthens, I'll reassess as the trade develops; if the structure fails, I'll manage the downside according to my risk plan.",
-  "entryFramework": "Actual purchase reported; exact execution price and quantity pending confirmation.",
+  "entryFramework": "Confirmed entry $134.19; approximately 22.35 shares for a reported $3,000 purchase.",
   "riskInvalidation": "Proposed stop $130.10; no broker order confirmed.",
   "nextCatalyst": "December 3, 2026 earnings date shown in the supplied InvestingPro research; not independently confirmed.",
   "researchSections": [
@@ -64,7 +66,7 @@ export const dgOpportunity:Opportunity={
     },
     {
       "label": "Actual fill / share quantity",
-      "value": "Pending confirmation"
+      "value": "$134.19 · approximately 22.35 shares"
     },
     {
       "label": "Chart entry reference",
@@ -84,13 +86,13 @@ export const dgOpportunity:Opportunity={
     },
     {
       "label": "Actual reward-to-risk",
-      "value": "Pending execution price confirmation"
+      "value": "3.68:1 · based on confirmed entry and proposed stop"
     }
   ],
   "notification": {
     "subject": "New Position: Dollar General (DG)",
     "preview": "I've opened approximately $3,000 of DG as consumer staples shows relative strength.",
-    "summary": "I've opened approximately $3,000 of Dollar General on November 9. My exact fill price and share count are pending confirmation.\n\n**Why DG**\n\nI'm focusing on healthcare and consumer staples while the AI trade stabilizes. DG's developing Stage 2 structure, improving earnings revisions and sector strength caught my attention.\n\n**My preliminary plan**\n\nProposed stop: $130.10 — no stop order confirmed.\n\nInitial target: $149.23.\n\nThe chart's $134.60 entry and 3.25:1 reward-to-risk are planning references, not my confirmed execution. I'll calculate actual reward-to-risk once the fill is confirmed.\n\nI'm watching for the breakout to hold, while keeping valuation, consumer spending and earnings risks in mind.",
+    "summary": "I've opened approximately $3,000 of Dollar General on November 9. My confirmed entry is $134.19, for approximately 22.35 shares.\n\n**Why DG**\n\nI'm focusing on healthcare and consumer staples while the AI trade stabilizes. DG's developing Stage 2 structure, improving earnings revisions and sector strength caught my attention.\n\n**My preliminary plan**\n\nProposed stop: $130.10 — no stop order confirmed.\n\nInitial target: $149.23.\n\nReward-to-risk from my $134.19 fill: approximately 3.68:1. The chart retains my original $134.60 planning reference, not my actual entry.\n\nI'm watching for the breakout to hold, while keeping valuation, consumer spending and earnings risks in mind.",
     "cta": "VIEW DOLLAR GENERAL OPPORTUNITY"
   },
   "charts": [

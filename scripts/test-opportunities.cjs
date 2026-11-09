@@ -328,16 +328,15 @@ test('UHS remains conditional research with no execution and matching chart risk
  assert.match(o.researchSections[0].body,/192.41/);assert.match(o.researchSections[0].body,/193.82/);
 });
 
- test('DG records a reported purchase without inventing execution or actual return metrics',()=>{
+test('DG confirmed fill updates risk/reward while rounded shares remain approximate',()=>{
  const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts'),o=d.getPublishedOpportunity('dollar-general-016');
  assert.equal(d.opportunities.filter(x=>x.ticker==='DG').length,1);
- assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.enteredAt,'2026-11-09');assert.equal(o.trade.reportedApproximateCost,3000);
- assert.equal(o.trade.entryPrice,undefined);assert.equal(o.trade.quantity,undefined);assert.equal(o.trade.stopPrice,undefined);
- assert.equal(p.rewardRisk(o),undefined);assert.equal(m.realizedTradeResult(o),null);
- assert.equal(p.compactLevels(o)[0].value,'Pending confirmation');assert.match(p.currentPositionSummary(o),/approximately \$3,000/);
- assert.equal(o.charts.length,5);
- for(const cost of [undefined,0,-1,NaN])assert.equal(m.isPublishableOpportunity({...o,trade:{...o.trade,reportedApproximateCost:cost}}),false);
- assert.equal(m.isPublishableOpportunity({...o,trade:{...o.trade,documentation:''}}),false);
+ assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryPrice,134.19);assert.equal(o.trade.reportedApproximateQuantity,22.35);
+ assert.equal(o.trade.quantity,undefined);assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.reportedApproximateCost,3000);
+ assert.equal(p.rewardRisk(o),'3.68:1');assert.equal(m.realizedTradeResult(o),null);
+ assert.equal(p.compactLevels(o)[0].value,'$134.19');assert.match(p.currentPositionSummary(o),/approximately 22.35 shares/);
+ const pending={...o,trade:{...o.trade,entryPrice:undefined}};
+ for(const cost of [undefined,0,-1,NaN])assert.equal(m.isPublishableOpportunity({...pending,trade:{...pending.trade,reportedApproximateCost:cost}}),false);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);
- assert.equal(events.length,1);assert.match(events[0].summary,/not my confirmed execution/);
- });
+ assert.equal(events.length,1);assert.match(events[0].summary,/3.68:1/);assert.doesNotMatch(events[0].summary,/pending confirmation/);
+});
