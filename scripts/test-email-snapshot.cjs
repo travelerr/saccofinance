@@ -12,9 +12,9 @@ test('future content and template remain frozen; unsubscribe links and headers a
  const a=personalizeEmailSnapshot(s,origin,first),b=personalizeEmailSnapshot(s,origin,second);
  assert.ok(a.html.includes('A later template design'));assert.ok(a.html.includes(first));assert.ok(!a.html.includes(second));assert.ok(b.text.includes(second));assert.equal(a.headers['List-Unsubscribe'],'<'+first+'>');assert.equal(a.headers['List-Unsubscribe-Post'],'List-Unsubscribe=One-Click');assert.ok(s.html.includes(unsubscribePlaceholder(origin)));
 });
-test('invalid versions, foreign links, missing opt-out and executable markup fail closed',()=>{
+test('invalid versions, unsafe links, missing opt-out and executable markup fail closed',()=>{
  for(const change of [{version:2},{subject:'Injected\r\nBcc: x'},{url:'https://evil.example/premium/issue-999'},{html:'<p>No unsubscribe</p>'}])assert.throws(()=>validateEmailSnapshot({...snapshot(),...change},origin),/INVALID_EMAIL_SNAPSHOT/);
- for(const extra of ['<a href="https://evil.example">click</a>','<script>alert(1)</script>','<img src="https://evil.example">'])assert.throws(()=>validateEmailSnapshot({...snapshot(),html:snapshot().html+extra},origin),/INVALID_EMAIL_SNAPSHOT/);
+ for(const extra of ['<a href="javascript:alert(1)">click</a>','<script>alert(1)</script>','<img src="https://evil.example">'])assert.throws(()=>validateEmailSnapshot({...snapshot(),html:snapshot().html+extra},origin),/INVALID_EMAIL_SNAPSHOT/);
  assert.throws(()=>personalizeEmailSnapshot(snapshot(),origin,'https://evil.example/email/unsubscribe?token='+'a'.repeat(64)),/INVALID_UNSUBSCRIBE_URL/);
  assert.throws(()=>validateEmailSnapshot(undefined,origin),/INVALID_EMAIL_SNAPSHOT/);
 });
@@ -28,12 +28,12 @@ test('worker processes an unpublished future snapshot without loading catalog or
  try{const worker=require(workerPath);assert.equal((await worker.processNextResearchEmail()).status,'dry_run');assert.deepEqual(transitions,['dry_run']);delete job.event_snapshot.delivery;assert.equal((await worker.processNextResearchEmail()).status,'cancelled');assert.equal(transitions.at(-1),'cancelled');}finally{Module._load=previous;delete require.cache[workerPath];for(const [k,v] of [['AUTH_SITE_URL',oldOrigin],['RESEARCH_EMAIL_FROM',oldSender]])if(v===undefined)delete process.env[k];else process.env[k]=v;}
 });
 
-test('approved affiliate snapshot accepts only the exact referral URL and retains personal unsubscribe',()=>{
+test('affiliate snapshots accept future HTTPS destinations and retain personal unsubscribe',()=>{
  const {weeklyOutlooks,opportunities,opportunityUpdates}=require('../lib/premium-opportunities.ts');
  const e=require('../lib/email/events.ts').researchEvents(weeklyOutlooks,opportunities,opportunityUpdates).find(e=>e.entityId==='weekly-outlook-005');
  const s={version:1,...renderResearchEmail(e,origin,unsubscribePlaceholder(origin))};validateEmailSnapshot(s,origin);
  const exact='https://trendspider.com?_go=justin-4f7fc2';assert.ok(s.html.includes(exact));
- for(const bad of ['https://trendspider.com','https://trendspider.com?_go=another','https://trendspider.com?_go=justin-4f7fc2&redirect=evil'])assert.throws(()=>validateEmailSnapshot({...s,html:s.html.replace(exact,bad)},origin),/INVALID_EMAIL_SNAPSHOT/);
+ for(const bad of ['https://trendspider.com','https://trendspider.com?_go=another','https://trendspider.com?_go=justin-4f7fc2&redirect=evil'])assert.doesNotThrow(()=>validateEmailSnapshot({...s,html:s.html.replace(exact,bad)},origin));
  assert.ok(personalizeEmailSnapshot(s,origin,origin+'/email/unsubscribe?token='+'a'.repeat(64)).html.includes(exact));
 });
 
@@ -61,3 +61,12 @@ test('announcement migration is repeatable, preserves records, and keeps event v
  await assert.rejects(db.exec("insert into research_notification_log values('OPPORTUNITY_MATERIAL_UPDATE',null)"));
  }finally{await db.close();}
 });
+
+ test('future links and more than six new images need no worker catalog update',()=>{
+ const charts=Array.from({length:8},(_,i)=>({id:'new-'+i,src:i%2?'https://cdn.example.com/new/image-'+i+'.png':'/images/future/image-'+i+'.jpg',alt:'Future image',caption:'Caption'}));
+ const e={...event,charts,summary:charts.map(c=>'{{chart:'+c.id+'}}').join('\n\n')+'\n\n[Watch on YouTube](https://www.youtube.com/watch?v=new&feature=share)\n\n[Visit tools](/premium/tools)'};
+ const s={version:1,...renderResearchEmail(e,origin,unsubscribePlaceholder(origin))};
+ validateEmailSnapshot(s,origin);assert.equal((s.html.match(/<img /g)||[]).length,8);assert.ok(!s.html.includes('Open full-size chart'));assert.ok(s.html.includes('href="https://www.youtube.com/watch?v=new&amp;feature=share"'));
+ for(const src of ['javascript:alert(1)','data:image/png;base64,xxx','https://user:pass@example.com/a.png','http://example.com/a.png','//example.com/a.png'])assert.throws(()=>renderResearchEmail({...e,charts:[{...charts[0],src}]},origin,unsubscribePlaceholder(origin)));
+ for(const extra of ['<a href=javascript:alert(1)>x</a>',"<a href='javascript:alert(1)'>x</a>",'<a href="&#106;avascript:alert(1)">x</a>'])assert.throws(()=>validateEmailSnapshot({...s,html:s.html+extra},origin));
+ });

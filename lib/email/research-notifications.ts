@@ -1,3 +1,4 @@
+import {masterclassesAnnouncement} from './masterclasses-announcement';
 import {tradingRecapNovember4} from './trading-recap-2026-11-04';
 import {aggregateEmailJobs} from './queue-progress';
 import 'server-only';
@@ -13,7 +14,7 @@ import {resolveResearchRecipientRecords} from './recipient-resolution';
 import {emailSecrets} from './secrets';
 import {researchSendMode} from './policy';
 import {unsubscribePlaceholder,validateEmailSnapshot,type EmailSnapshot} from './snapshot';
-export const availableResearchEvents=()=>[tradingRecapNovember4,premiumToolsAnnouncement,learningLibraryAnnouncement,...researchEvents(weeklyOutlooks,opportunities,opportunityUpdates)].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.key.localeCompare(b.key));
+export const availableResearchEvents=()=>[masterclassesAnnouncement,tradingRecapNovember4,premiumToolsAnnouncement,learningLibraryAnnouncement,...researchEvents(weeklyOutlooks,opportunities,opportunityUpdates)].sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.key.localeCompare(b.key));
 export function notificationTemplate(key:string){
  const event=availableResearchEvents().find(e=>e.key===key);if(!event)throw new Error('PUBLISHED_EVENT_REQUIRED');
  return {event,email:renderResearchEmail(event,process.env.AUTH_SITE_URL||'http://localhost:3082')};

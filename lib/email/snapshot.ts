@@ -1,4 +1,4 @@
-import {researchImagePaths} from './research-images';
+import {emailContentUrl} from './research-images';
 /** Versioned, server-rendered email content. No research catalog or template dependency. */
 export const unsubscribePlaceholderToken='0'.repeat(64);
 export type EmailSnapshot={version:1;subject:string;html:string;text:string;url:string;preferences:string};
@@ -17,16 +17,23 @@ export function validateEmailSnapshot(value:unknown,origin:string):asserts value
  if(s.preferences!==new URL('/premium/account#research-notifications',origin).href)return fail();
  const placeholder=unsubscribePlaceholder(origin);
  if(!s.html.includes(escape(placeholder))||!s.text.includes(placeholder))return fail();
- // Internal links and the exact approved TrendSpider affiliate destination are accepted. Content is produced by the trusted server renderer.
- const imageUrls=researchImagePaths.map(path=>new URL(path,base.origin).href);
- const allowed=[...imageUrls,s.url,s.preferences,placeholder,'https://trendspider.com?_go=justin-4f7fc2'].map(escape);
+ // Snapshots come from the trusted server renderer. Allow future content URLs
+ // without bundling individual destinations or image paths into the worker.
+ const decode=(v:string)=>v.replace(/&(?:amp|quot|apos|lt|gt|#39|#x[0-9a-f]+|#[0-9]+);/gi,e=>{
+  const named:Record<string,string>={'&amp;':'&','&quot;':'"','&apos;':"'",'&lt;':'<','&gt;':'>','&#39;':"'"};
+  if(named[e.toLowerCase()])return named[e.toLowerCase()];
+  const n=e.slice(2,-1);const code=n[0].toLowerCase()==='x'?parseInt(n.slice(1),16):parseInt(n,10);
+  return code<=0x10ffff?String.fromCodePoint(code):'\u0000';
+ });
+ const validUrl=(v:string)=>{try{emailContentUrl(decode(v),origin);return true;}catch{return false;}};
  const links=[...s.html.matchAll(/\bhref="([^"]*)"/gi)];
- if(!links.length||links.some(m=>!allowed.includes(m[1])))return fail();
+ if(!links.length||links.some(m=>!validUrl(m[1])))return fail();
+ // Reject alternate/unquoted URL attributes rather than overlooking them.
+ if(s.html.replace(/\bhref="[^"]*"/gi,'').match(/\bhref\s*=/i))return fail();
  const imageTags=[...s.html.matchAll(/<img\b[^>]*>/gi)];
- if(imageTags.length>6)return fail();
  for(const [tag] of imageTags){
   const src=tag.match(/\bsrc="([^"]+)"/i);
-  if(!src||!imageUrls.map(escape).includes(src[1]))return fail();
+  if(!src||!validUrl(src[1]))return fail();
   // Only the renderer's static image attributes are accepted; reject srcset, handlers,
   // unquoted/duplicate attributes, alternate protocols and hidden tracking images.
   const attrs=[...tag.matchAll(/\s([a-z]+)="([^"]*)"/gi)];
