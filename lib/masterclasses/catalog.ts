@@ -6,7 +6,7 @@ export const masterclasses:Masterclass[]=[{
  id:'how-i-find-my-next-stock-trade',title:'How I Find My Next Stock Trade',
  description:"Join me for our first Sacco Premium Live Masterclass, where I'll walk through my process for finding potential stock trades, from identifying leading sectors to researching individual companies, evaluating technical setups, and managing risk.",
  startsAt:'2026-11-18T19:00:00-05:00',status:'scheduled',videoId:'TvkPU-F4Xv0',
- thumbnail:'/images/premium/masterclasses/finding-my-next-trade.jpg',
+ thumbnail:'/images/premium/masterclasses/finding-my-next-trade-nov18.png',
 }];
 export const masterclassDate=(value:string)=>new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'long',month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'}).format(new Date(value));
 export function masterclassLibrary(events:Masterclass[],now=Date.now()){
