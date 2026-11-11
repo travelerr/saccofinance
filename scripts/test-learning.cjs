@@ -5,7 +5,7 @@ require.extensions['.ts']=(m,f)=>m._compile(ts.transpileModule(fs.readFileSync(f
 const {lessons,chapterSeconds}=require('../lib/learning/catalog.ts');
 const {renderOnboardingEmail}=require('../lib/email/onboarding-template.ts');
 test('lesson chapters and welcome introduction preserve existing email actions',()=>{
- assert.deepEqual(lessons.map(l=>l.id),['lesson-1','lesson-2']);assert.equal(lessons[0].videoId,'0mrQeujmpMw');
+ assert.deepEqual(lessons.map(l=>l.id),['lesson-1','lesson-2','lesson-3']);assert.equal(lessons[0].videoId,'0mrQeujmpMw');
  const times=lessons[0].chapters.map(([t])=>chapterSeconds(t));assert.equal(times[0],0);assert.equal(times.at(-1),1430);assert.deepEqual(times,[...times].sort((a,b)=>a-b));
  assert.equal(lessons[1].videoId,'h4E7riAuERs');assert.deepEqual(lessons[1].chapters.map(([t])=>chapterSeconds(t)),[0,120,280,400,595,680,875,1005,1100,1240,1350,1480,1600,1680,1800,1935]);
  const welcome=renderOnboardingEmail(0,'https://saccofinancial.com');

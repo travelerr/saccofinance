@@ -40,6 +40,13 @@ export default async function Dashboard(){
   <Link href="/premium/opportunities"><Compass size={24}/><div><span>Current opportunities</span><strong>{current.length} research files</strong><small>Active positions and setups to watch</small></div></Link>
   <Link href="/premium/market-strength"><ChartNoAxesCombined size={24}/><div><span>Sector Gauge</span><strong>{snapshot?`${snapshot.fundCount} ETF proxies`:'Explore sectors'}</strong><small>{snapshot?`Data through ${formatDate(snapshot.asOf)}`:'Compare strength across six timeframes'}</small></div></Link>
  </nav>
+ <aside className="lesson-announcement">
+  <div>
+   <h2>Lesson 3 Now Available!</h2>
+   <p>Learn how I plan entries, stops, profit targets, and position sizing using a real stock example.</p>
+  </div>
+  <Link className="text-link" href="/premium/learn/lesson-3">Watch Lesson 3</Link>
+ </aside>
  <div className="workspace-feature-grid">
  <section className="workspace-panel"><Eyebrow>Latest Weekly Outlook</Eyebrow>{outlook?<><h2>{outlook.title}</h2><p>{outlook.summary}</p><p className="support-note">Published {premiumDate(outlook.publishedAt)}</p><div className="outlook-posture"><Eyebrow>Market posture</Eyebrow><p>{outlook.marketPosture}</p>{outlook.secondaryPosture&&<p className="support-note">{outlook.secondaryPosture}</p>}</div><Link className="button" style={{marginTop:24}} href="/premium/weekly-outlook">Read Weekly Outlook</Link></>:<p>No published Weekly Outlook yet.</p>}</section>
  <section className="workspace-panel workspace-panel-secondary"><Eyebrow>The market backdrop</Eyebrow><h2>Follow the leadership.</h2><p>Compare sector strength before exploring an individual setup.</p><SectorGaugePreview initial={snapshot}/><p className="workspace-gauge-note">Total returns include distributions. Δ rank compares with the previous week.</p><Link className="text-link" href="/premium/market-strength">Explore Sector Gauge</Link></section>

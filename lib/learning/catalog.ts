@@ -6,5 +6,23 @@ export const lessons = [{
  id:'lesson-2', number:2, thumbnail:'/images/learning/lesson-2.png', title:'Finding a Stock Opportunity — A Real-Time Walkthrough', videoId:'h4E7riAuERs', duration:'About 33 minutes',
  description:"Watch me work through the stock research process in real time, with no stock picked in advance. I start with the broader market, narrow the search to sectors showing strength, and work through ETF holdings until SAP catches my attention.\n\nFrom there, I walk through the chart, higher lows, support and resistance, moving averages, and a first check of the company's fundamentals using InvestingPro, Seeking Alpha, and TrendSpider. Then I map out a possible entry, stop loss, and profit target—and explain why a stock can look promising while still needing a pullback before the risk-to-reward makes sense.\n\nThis lesson brings the process together in one live walkthrough: finding an idea, testing the setup, avoiding FOMO, and planning how to manage a trade if it develops. Use the chapters below to revisit each step before doing your own research.",
  chapters:[['00:00','Introduction — Finding a Trade From Scratch'],['02:00','Analyzing the Broader Market'],['04:40','Using the Sector Gauge'],['06:40','Reviewing ETF Charts'],['09:55','Finding Stocks Through ETF Holdings'],['11:20','Evaluating Individual Stock Charts'],['14:35','Discovering the SAP Opportunity'],['16:45','Identifying Support and Resistance'],['18:20','Recognizing the Technical Setup'],['20:40','Checking Moving Averages'],['22:30','Reviewing Company Fundamentals'],['24:40','Analyzing Revenue and Financial Health'],['26:40','Calculating Reward-to-Risk'],['28:00','Finding a Better Entry Price'],['30:00','Managing Stops and Profit Targets'],['32:15','Final Trade Assessment and Next Steps']]
+}, {
+ id:'lesson-3', number:3, thumbnail:'/images/learning/lesson-3.png',
+ title:'How I Plan My Trades — Entries, Stops, Targets & Position Sizing',
+ videoId:'CQ9AVHHvXkk', duration:'About 13 minutes',
+ description:`In this lesson, I walk through how I build a trading plan after identifying a potential stock opportunity.
+
+Using Disney (DIS) as a real-world example, I'll show you how I determine entry prices, set stop losses and profit targets, evaluate risk-to-reward ratios, and decide when it's better to wait for a pullback rather than chase a stock.
+
+I'll also demonstrate the Sacco Premium Position Sizing Calculator to show how I determine how many shares to buy based on the amount I'm willing to risk.
+
+The goal is simple: Know your potential risk and reward before entering a trade, rather than making decisions based on emotion.`,
+ chapters:[
+  ['00:00','Why I trade with a plan'],
+  ['02:57','The Disney setup'],
+  ['04:04','Evaluating profit targets'],
+  ['06:56','Choosing a stop and assessing reward-to-risk'],
+  ['11:20','Using the Position Sizing Calculator']
+ ]
 }] as const;
 export function chapterSeconds(time:string){const [minutes,seconds]=time.split(':').map(Number);return minutes*60+seconds;}

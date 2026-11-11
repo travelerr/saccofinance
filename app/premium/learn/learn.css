@@ -18,3 +18,20 @@
 .learn-guide p{font-size:14px;color:var(--brand-muted);margin:0;max-width:650px}
 .learn-guide-download{display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap}
 @media(max-width:700px){.learn-guide{grid-template-columns:minmax(0,1fr);gap:14px;padding:20px}.learn-guide-icon{display:none}.learn-guide-download{justify-self:start}.brand .learn-guide h2{font-size:21px}}
+
+.lesson-announcement {
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ flex-wrap:wrap;
+ gap:8px 20px;
+ margin-block:16px;
+ padding:12px 18px;
+ border:1px solid var(--brand-line);
+ border-inline-start:3px solid var(--brand-cyan);
+ border-radius:10px;
+ background:var(--brand-surface);
+}
+.lesson-announcement h2 {margin:0;font-size:17px}
+.lesson-announcement p {margin:3px 0 0;font-size:14px;color:var(--brand-muted)}
+.lesson-announcement .text-link {white-space:nowrap}
