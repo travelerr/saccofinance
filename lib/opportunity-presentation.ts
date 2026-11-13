@@ -18,7 +18,11 @@ export function decisionFor(o:Opportunity):Decision{
  if(o.id==='opportunity-014'&&o.tradeStatus==='Active')return {...decisions[o.id],ratio:undefined};
  const result=realizedTradeResult(o);
  if(o.tradeStatus==='Closed')return {plan:o.optionPosition?'I bought back the short put; no open position remains.':'I have closed this trade. Any future position will be a separately documented opportunity.',condition:'This trade is complete. Any new position requires a separately documented decision.',catalyst:`Closed ${premiumDate(o.trade.exitedAt)} · ${o.trade.exitReason||'Documented exit'}`,why:['I’m preserving the original thesis and my complete trade history below.'],support:[result?`My documented result was ${money(result.realizedDollarPnL)} before fees and taxes.`:o.optionPosition?`My documented option result was ${money(o.optionPosition.realizedProfit??undefined)} before fees and taxes.`:'My entry and exit are documented; total dollar P&L is unavailable without share quantity.'],risks:['My original research and historical levels are not current trade instructions.','Past results do not guarantee future outcomes.']};
- return decisions[o.id]||{plan:o.nextStepSummary||o.nextCondition,condition:o.thesisChanges,catalyst:o.nextCatalyst||'No dated catalyst documented.',why:[o.whySurfaced.split('\n\n')[0]],support:[o.setupThesis.split('\n\n')[0]],risks:[o.thesisChanges.split('\n\n')[0]]};
+ const level = (label:string) => o.proposedLevels?.find(item => item.label === label)?.value;
+ return decisions[o.id]||{
+  entry:level('Potential entry'), stop:level('Proposed stop'),
+  target:level('Initial target'), ratio:o.trade ? undefined : level('Reward-to-risk'),
+  plan:o.nextStepSummary||o.nextCondition,condition:o.thesisChanges,catalyst:o.nextCatalyst||'No dated catalyst documented.',why:[o.whySurfaced.split('\n\n')[0]],support:[o.setupThesis.split('\n\n')[0]],risks:[o.thesisChanges.split('\n\n')[0]]};
 }
 export function compactLevels(o:Opportunity){
  const d=decisionFor(o),t=o.trade,p=o.optionPosition;

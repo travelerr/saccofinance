@@ -21,13 +21,13 @@ export const admaOpportunity: Opportunity = {
   nextCondition: "I want buyers to defend the $12.30 area and the 50-day average to cross above the 200-day. If both develop, I’ll reassess the entry.",
   nextStepSummary: "I’m waiting for support near $12.30 and a moving-average crossover.",
   entryFramework: "My preferred entry is around $12.30. My initial target near $16.40 corresponds to a previous trading high.",
-  riskInvalidation: "My chart marks a proposed stop at $10.24. From $12.30, that puts $2.06 per share at risk for $4.10 of potential upside, or 1.99:1. These are preliminary research levels.",
+  riskInvalidation: "My proposed stop is $10.20. From $12.30, that puts $2.10 per share at risk for $4.10 of potential upside, or 1.95:1. These are preliminary research levels.",
   proposedLevels: [
     {label:'Reference price',value:'$13.24 · November 12 close'},
     {label:'Potential entry',value:'$12.30'},
-    {label:'Proposed stop',value:'$10.24'},
+    {label:'Proposed stop',value:'$10.20'},
     {label:'Initial target',value:'$16.40'},
-    {label:'Reward-to-risk',value:'1.99:1'},
+    {label:'Reward-to-risk',value:'1.95:1'},
   ],
   fundamentalCase: "The five-year chart shows revenue trending higher. Seeking Alpha grades profitability A and momentum A−, while growth earns D+, valuation C+ and earnings revisions B−. I see that tension in the ratings too. Wall Street rates ADMA Buy, while Seeking Alpha analysts and Quant both rate it Hold.",
   researchSections: [{
