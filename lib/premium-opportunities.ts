@@ -1,3 +1,4 @@
+import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
 import {uhsOpportunity} from './uhs-opportunity';
 import {weeklyOutlook008} from './weekly-outlook-008';
@@ -3415,3 +3416,4 @@ weeklyOutlooks.push(weeklyOutlook008);
 opportunities.push(uhsOpportunity);
 
 opportunities.push(dgOpportunity);
+opportunities.push(admaOpportunity);
