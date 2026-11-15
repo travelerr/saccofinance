@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {outlookBriefs} from '@/lib/outlook-briefs';
 import OutlookBrief from './outlook-brief';
 import './research-brief.css';
 import StartHereVisit from '@/components/premium/start-here-visit';
@@ -23,7 +24,7 @@ function ApprovedArticle({outlook,references}:{outlook:WeeklyOutlook;references:
   return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part,i)=>{
    if(part.startsWith('**')&&part.endsWith('**'))return <strong key={i}>{inline(part.slice(2,-2))}</strong>;
    if(part.startsWith('*')&&part.endsWith('*'))return <em key={i}>{inline(part.slice(1,-1))}</em>;
-   return part.split(/(ServiceNow|Zscaler|Rocket Lab|Workiva|EPAM|MSTR|SMCI|RKLB|SPCX|WK|NOW|ZS|AR|CNC|WAY)\b/g).map((word,j)=>{
+   return part.split(/(ServiceNow|Zscaler|Rocket Lab|Workiva|EPAM|MSTR|SMCI|RKLB|SPCX|WK|NOW|ZS|AR|CNC|WAY|ADMA|UHS|DG)\b/g).map((word,j)=>{
     const opportunity=references.find(o=>o.ticker===word||o.company===word);
     return opportunity?<Link key={`${i}-${j}`} href={`/premium/opportunities/${opportunity.slug}`}>{word}</Link>:word;
    });
@@ -70,7 +71,7 @@ export default function WeeklyOutlookResearch({outlook,sampleOpportunities}:{out
  <PremiumResearchHeader kind="Weekly Outlook" identifier={`Issue ${researchNumber(outlook.id)}`} title={outlook.title} metadata={[{label:'Week',value:`${premiumDate(outlook.weekOf)}${outlook.weekEnd?` – ${premiumDate(outlook.weekEnd)}`:''}`},{label:'Published',value:premiumDate(outlook.publishedAt)}]}/>
 
  <OutlookBrief outlook={outlook} opportunities={opportunities}/>
- <details className="research-full-archive" open={Boolean(outlook.charts?.length)}><summary>Complete original Outlook &amp; research sources</summary><div className="research-archive-body"><p className="research-date-note">Original editorial research and dated commentary. Linked Opportunity records show subsequent position changes.</p>
+ <details className="research-full-archive" open={Boolean(outlook.charts?.length) || !outlookBriefs[outlook.id]}><summary>Complete original Outlook &amp; research sources</summary><div className="research-archive-body"><p className="research-date-note">Original editorial research and dated commentary. Linked Opportunity records show subsequent position changes.</p>
  {outlook.articleMarkdown?<ApprovedArticle outlook={outlook} references={opportunities}/>:<>
  <section className="section"><SectionHeader label="01" title="The Read"/><Prose text={outlook.read||outlook.summary||outlook.marketContext}/></section>
  <section className="section"><SectionHeader label="02" title={outlook.marketHeading||"Market Context"}/>{!!outlook.marketLevels?.length&&<dl className="premium-research-metadata outlook-levels">{outlook.marketLevels.map(level=><div key={level.index}><dt>{level.index} / Support</dt><dd>{level.support.toLocaleString('en-US')}</dd></div>)}</dl>}<Prose text={outlook.marketContext}/>{outlook.macroWatch&&<aside className="outlook-macro"><Eyebrow>What I’m watching</Eyebrow><h3>{outlook.macroWatch.title}</h3><Prose text={outlook.macroWatch.body}/></aside>}</section>

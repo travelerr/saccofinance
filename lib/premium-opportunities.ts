@@ -1,6 +1,7 @@
 import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
 import {uhsOpportunity} from './uhs-opportunity';
+import {weeklyOutlook009} from './weekly-outlook-009';
 import {weeklyOutlook008} from './weekly-outlook-008';
 import {arWatchPlan,arRewardRisk} from './ar-watch-plan';
 import 'server-only';
@@ -3410,7 +3411,7 @@ opportunityUpdates.push({
   },
 });
 
-weeklyOutlooks.push(weeklyOutlook008);
+weeklyOutlooks.push(weeklyOutlook008, weeklyOutlook009);
 
 // New conditional research only; no trade execution or subscriber send.
 opportunities.push(uhsOpportunity);
