@@ -7,7 +7,7 @@ const destinations=[
  ['Notifications','/premium/admin/notifications'],
  ['Sample requests','/premium/admin/leads'],
  ['Membership offers','/premium/admin/offers'],
- ['Outlook email preview','/premium/admin/outlook-008-preview'],
+ ['Outlook email preview','/premium/admin/outlook-009-preview'],
 ] as const;
 export default function AdminNavigation(){
  const pathname=usePathname();
