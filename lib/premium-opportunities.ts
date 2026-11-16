@@ -1,3 +1,4 @@
+import {rareOpportunity} from './rare-opportunity';
 import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
 import {uhsOpportunity} from './uhs-opportunity';
@@ -3418,3 +3419,5 @@ opportunities.push(uhsOpportunity);
 
 opportunities.push(dgOpportunity);
 opportunities.push(admaOpportunity);
+
+opportunities.push(rareOpportunity);
