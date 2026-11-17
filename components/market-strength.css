@@ -18,3 +18,6 @@
 html[data-theme=light] .brand .sf-site .strength-leader-cards h3,html[data-theme=light] .strength-leader-count strong{color:#132033}
 html[data-theme=light] .brand .sf-site .strength-leader-count,html[data-theme=light] .strength-leader-periods span{color:#435268}
 @media(max-width:700px){.strength-leader-cards{grid-template-columns:1fr;gap:8px}.strength-leader-cards>li{padding:12px 14px;row-gap:6px}.brand .sf-site .strength-leaders>header h2{font-size:21px}.strength-leaders{margin:20px 0}.strength-leader-count strong{font-size:20px}}
+
+/* Keep the page title readable in both themes despite the legacy editorial heading color. */
+.brand .sf-site .strength-heading h1{color:var(--brand-text)}
