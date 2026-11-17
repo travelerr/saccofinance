@@ -1,4 +1,5 @@
 import {isResearchAdmin} from '@/lib/email/policy';
+import {masterclasses, masterclassLibrary, masterclassDate} from '@/lib/masterclasses/catalog';
 import SaveLoginNotice from '@/components/premium/save-login-notice';
 import {startHereProgress} from '@/lib/onboarding/progress';
 import {learningProgress} from '@/lib/learning/progress';
@@ -23,6 +24,7 @@ export const metadata=pageMetadata('Premium Dashboard','The Sacco Premium resear
 export const dynamic='force-dynamic';
 export default async function Dashboard(){
  const user=await requirePremium();
+ const {upcoming}=masterclassLibrary(masterclasses);
  const progress=await learningProgress(user.id);
  const completedSteps=await startHereProgress(user.id);
  const lessonComplete=progress.completed.includes('lesson-1');
@@ -40,6 +42,13 @@ export default async function Dashboard(){
   <Link href="/premium/opportunities"><Compass size={24}/><div><span>Current opportunities</span><strong>{current.length} research files</strong><small>Active positions and setups to watch</small></div></Link>
   <Link href="/premium/market-strength"><ChartNoAxesCombined size={24}/><div><span>Sector Gauge</span><strong>{snapshot?`${snapshot.fundCount} ETF proxies`:'Explore sectors'}</strong><small>{snapshot?`Data through ${formatDate(snapshot.asOf)}`:'Compare strength across six timeframes'}</small></div></Link>
  </nav>
+ {upcoming&&<aside className="lesson-announcement">
+  <div>
+   <h2>Live masterclass · {upcoming.title}</h2>
+   <p><time dateTime={upcoming.startsAt}>{masterclassDate(upcoming.startsAt)}</time> · Join me for live Q&amp;A.</p>
+  </div>
+  <a className="text-link" href={`https://youtube.com/live/${upcoming.videoId}`}>Watch on YouTube</a>
+ </aside>}
  <aside className="lesson-announcement">
   <div>
    <h2>Lesson 3 Now Available!</h2>
