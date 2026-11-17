@@ -6,7 +6,7 @@ test('zero-payment checkout requires explicit trial metadata before server-side 
 test('SQL offer toggle, frozen checkout, claim isolation, webhook ordering and trial purchase claiming',async()=>{const db=new PGlite();try{
  const guest='11111111-1111-4111-8111-111111111111',member='22222222-2222-4222-8222-222222222222',other='33333333-3333-4333-8333-333333333333';
  await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,is_anonymous boolean default false);create function auth.uid() returns uuid language sql as 'select null::uuid';insert into auth.users values('${guest}',null,null,true),('${member}','trial@example.invalid',now(),false),('${other}',null,null,true);`);
- for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
+ for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
  const reserve=async(user,plan='monthly',email='trial@example.invalid',prior=false)=>(await db.query("select * from reserve_premium_offer($1,'test',$2,$3,$4)",[user,plan,email,prior])).rows[0];
  assert.equal((await reserve(guest)).checkout_trial_days,0);
  await db.exec("update premium_trial_settings set enabled=true where mode='test'");assert.equal((await reserve(guest)).checkout_trial_days,0);
@@ -34,3 +34,26 @@ test('SQL offer toggle, frozen checkout, claim isolation, webhook ordering and t
  await db.exec("update billing_customers set checkout_expires_at=now()-interval '1 hour';update premium_trial_claims set expires_at=now()-interval '1 hour'");await assert.rejects(reserve(other),/TRIAL_UNAVAILABLE/);
  await db.exec('set role authenticated');await assert.rejects(db.query("update premium_trial_settings set enabled=true"));await assert.rejects(db.query("select * from reserve_premium_offer($1,'test','monthly','x@example.invalid',false)",[other]));
 }finally{await db.close()}});
+
+test('private offer grants 30 days with public offer off, enforces eligibility and service-only access',async()=>{
+ const db=new PGlite();try{
+ const users=Array.from({length:5},(_,i)=>`00000000-0000-4000-8000-00000000000${i}`);
+ await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,is_anonymous boolean default false);create function auth.uid() returns uuid language sql as 'select null::uuid';`);
+ for(const id of users)await db.query('insert into auth.users(id) values($1)',[id]);
+ for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
+ const reserve=async(i,email='invite@example.invalid',plan='monthly',prior=false)=>(await db.query("select * from reserve_premium_offer($1,'live',$2,$3,$4,true)",[users[i],plan,email,prior])).rows[0];
+ const r=await reserve(0);assert.equal(r.checkout_trial_days,30);assert.equal((await reserve(0)).checkout_token,r.checkout_token);
+ assert.equal((await db.query("select enabled from premium_trial_settings where mode='live'")).rows[0].enabled,false);
+ assert.equal((await db.query("select * from reserve_premium_offer($1,'live','monthly','public@example.invalid',false)",[users[1]])).rows[0].checkout_trial_days,0);
+ await assert.rejects(reserve(1,'public@example.invalid'),/TRIAL_UNAVAILABLE/);
+ await assert.rejects(reserve(2),/TRIAL_UNAVAILABLE/);
+ await assert.rejects(reserve(2,'other@example.invalid','annual'),/TRIAL_UNAVAILABLE/);
+ await assert.rejects(reserve(2,'other@example.invalid','monthly',true),/TRIAL_UNAVAILABLE/);
+ await assert.rejects(reserve(2,'invalid'),/TRIAL_EMAIL_REQUIRED/);
+ await db.exec("update premium_trial_claims set used=true,expires_at=now()-interval '1 hour'");await assert.rejects(reserve(2),/TRIAL_UNAVAILABLE/);
+ await db.query("update auth.users set email='manual@example.invalid' where id=$1",[users[3]]);
+ await db.query("insert into premium_memberships(user_id,enabled,access_source) values($1,true,'manual')",[users[3]]);
+ await assert.rejects(reserve(3,'manual@example.invalid'),/TRIAL_UNAVAILABLE/);
+ for(const role of ['anon','authenticated']){await db.exec('set role '+role);await assert.rejects(reserve(4,'new@example.invalid'),/permission denied/);await db.exec('reset role');}
+ }finally{await db.close();}
+});

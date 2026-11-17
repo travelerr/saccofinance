@@ -29,3 +29,14 @@ Before production activation, complete a sandbox checkout with a test card and e
 4. Perform the approved production rollout and use the admin setting to enable the offer when desired. Turning OFF does not revoke existing trials.
 
 No Stripe price changes, discounts or separate trial products are needed.
+
+
+## Private 30-day invitation (November 17, 2026)
+
+The unlisted `/premium/join?offer=…` link offers 30 free days on the monthly plan only. It requires a card and renews at $10/month unless canceled. It does not turn on or change the public trial setting. Do not add this link to navigation or public marketing. Anyone who receives or is forwarded the link can use it, subject to the existing new-member eligibility checks; it is not bound to a recipient.
+
+Only a SHA-256 digest is stored in `lib/billing/private-offer.ts`. Keep the original URL privately. To revoke the link for future checkouts, replace the digest and deploy. Already-created Stripe checkouts retain their promised terms until they expire; existing subscriptions are unaffected. Query strings are excluded from analytics, and the join page suppresses referrers.
+
+Before deploying the private-link code, apply `supabase/migrations/202611170001_private_trial_invitation.sql`. It adds a service-role-only function overload, preserves the existing public checkout function, and changes no tables or public offer settings. Invitations fail closed if the migration is missing. The server validates the invitation again on submission, restricts it to monthly, and rejects a reservation unless it contains 30 trial days. A conflicting paid checkout must expire successfully before its reservation can be replaced.
+
+Validation: `node --test scripts/test-premium-trials.cjs scripts/test-checkout-switch.cjs`. Exercise the private checkout in Stripe test mode before rollout and verify that ordinary `/premium/join` retains its public terms. Never submit a live test payment or send the invitation automatically.

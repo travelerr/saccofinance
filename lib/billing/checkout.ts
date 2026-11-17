@@ -1,3 +1,4 @@
+import {validPrivateOffer} from './private-offer';
 import {randomUUID} from 'node:crypto';
 import {localDevelopment} from '../local-development';
 import {checkoutAnalytics} from '@/lib/analytics/server';
@@ -24,16 +25,18 @@ export async function portalUrl(userId:string,subscriptionId?:string){
  const session=await stripe.billingPortal.sessions.create({customer,configuration,return_url:authOrigin()+'/premium/account?billing=return'});
  return session.url;
 }
-export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string,direct=false){
+export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string,direct=false,offerToken?:string){
+ const privateOffer=offerToken!==undefined;
+ if(privateOffer&&(!validPrivateOffer(offerToken)||plan!=='monthly'))throw new Error('TRIAL_UNAVAILABLE');
  const services=await billingServices();
  const token=randomUUID();
  const {data:locked,error}=await services.admin.rpc('acquire_billing_checkout_lock',{p_user:user.id,p_mode:services.mode,p_token:token});
  if(error)throw new Error('BILLING_DATABASE');
  if(!locked)throw new Error('CHECKOUT_BUSY');
- try{return await lockedCheckoutUrl(user,plan,trialEmail,direct,services);}
+ try{return await lockedCheckoutUrl(user,plan,trialEmail,direct,services,privateOffer,offerToken);}
  finally{await services.admin.from('billing_checkout_locks').delete().eq('user_id',user.id).eq('mode',services.mode).eq('token',token);}
 }
-async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|undefined,direct:boolean,services:Awaited<ReturnType<typeof billingServices>>){
+async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|undefined,direct:boolean,services:Awaited<ReturnType<typeof billingServices>>,privateOffer:boolean,offerToken?:string){
  const {stripe,admin,mode}=services;await checkedPrice(stripe,plan);
  const analytics=await checkoutAnalytics(user);
  if(user.is_anonymous){const {data,error}=await admin.from('billing_purchase_claims').select('claimed_user_id').eq('original_user_id',user.id).eq('mode',mode).not('claimed_user_id','is',null).maybeSingle();if(error)throw new Error('BILLING_DATABASE');if(data)throw new Error('GUEST_CLAIMED');}
@@ -50,7 +53,7 @@ async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|un
   for(const existing of open.data.filter(s=>s.mode==='subscription'&&s.metadata?.sacco_user_id===user.id)){
    const items=await stripe.checkout.sessions.listLineItems(existing.id,{limit:2});
    const samePlan=items.data.length===1&&items.data[0].price?.id===priceId(plan);
-   if(samePlan&&existing.url){
+   if(samePlan&&existing.url&&(!privateOffer||existing.metadata?.sacco_trial_days==='30')){
     if(direct&&existing.consent_collection?.terms_of_service!=='required')throw new Error('CHECKOUT_LEGACY');
     try{await stripe.checkout.sessions.update(existing.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}
     return existing.url;
@@ -62,9 +65,9 @@ async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|un
   }
  }
  // Retire the old offer only after all conflicting Stripe sessions are expired.
- const {data:previous,error:readError}=await admin.from('billing_customers').select('checkout_token,checkout_plan').eq('user_id',user.id).eq('mode',mode).maybeSingle();
+ const {data:previous,error:readError}=await admin.from('billing_customers').select('checkout_token,checkout_plan,checkout_trial_days').eq('user_id',user.id).eq('mode',mode).maybeSingle();
  if(readError)throw new Error('BILLING_DATABASE');
- if(previous?.checkout_token&&previous.checkout_plan!==plan){
+ if(previous?.checkout_token&&(previous.checkout_plan!==plan||(privateOffer&&previous.checkout_trial_days!==30))){
   const {error:claimError}=await admin.from('premium_trial_claims').update({expires_at:new Date().toISOString()}).eq('user_id',user.id).eq('mode',mode).eq('checkout_token',previous.checkout_token).eq('used',false);
   if(claimError)throw new Error('BILLING_DATABASE');
   const {error:resetError}=await admin.from('billing_customers').update({checkout_expires_at:null}).eq('user_id',user.id).eq('mode',mode).eq('checkout_token',previous.checkout_token);
@@ -72,7 +75,7 @@ async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|un
  }
  // Also check prior Stripe customers by email before granting a new trial.
  if(email){const customers=await stripe.customers.list({email,limit:100});if(customers.has_more)throw Error('BILLING_UNAVAILABLE');for(const c of customers.data){const previous=await stripe.subscriptions.list({customer:c.id,status:'all',limit:1});if(previous.data.length)priorCustomer=true;}}
- const {data:record,error}=await admin.rpc('reserve_premium_offer',{p_user:user.id,p_mode:mode,p_plan:plan,p_email:email,p_prior_customer:priorCustomer});
+ const {data:record,error}=await admin.rpc('reserve_premium_offer',{p_user:user.id,p_mode:mode,p_plan:plan,p_email:email,p_prior_customer:priorCustomer,...(privateOffer?{p_private_offer:true}:{})});
  if(error||!record)throw new Error(error?.message.includes('TRIAL_')?'TRIAL_UNAVAILABLE':'BILLING_DATABASE');
  let customer=record.stripe_customer_id as string|null;
  if(!customer){
@@ -83,11 +86,11 @@ async function lockedCheckoutUrl(user:User,plan:BillingPlan,trialEmail:string|un
  const selected=record.checkout_plan as BillingPlan;if(selected!==plan)throw new Error('CHECKOUT_PENDING');
  const guest=user.is_anonymous===true;
  const trialDays=record.checkout_trial_days;
- if(![0,7,30].includes(trialDays))throw new Error('TRIAL_UNAVAILABLE');
+ if(![0,7,30].includes(trialDays)||(privateOffer&&trialDays!==30))throw new Error('TRIAL_UNAVAILABLE');
  const trial=trialDays>0;
  if(trial)await stripe.customers.update(customer,{email:record.checkout_email});
  const metadata={sacco_user_id:user.id,sacco_plan:selected,sacco_trial_days:String(trialDays),...(guest?{guest_checkout:'true'}:{})};
- const session=await stripe.checkout.sessions.create({mode:'subscription',...(direct?{consent_collection:{terms_of_service:'required' as const},custom_text:{terms_of_service_acceptance:{message:`I agree to the [Terms](https://saccofinancial.com/terms) and acknowledge the [Privacy Policy](https://saccofinancial.com/privacy).`}}}:{}),customer,client_reference_id:user.id,line_items:[{price:priceId(selected),quantity:1}],payment_method_types:['card'],allow_promotion_codes:false,metadata,payment_method_collection:'always',expires_at:Math.floor(new Date(record.checkout_expires_at).getTime()/1000),subscription_data:{metadata,...(trial?{trial_period_days:trialDays,trial_settings:{end_behavior:{missing_payment_method:'cancel' as const}}}:{})},success_url:authOrigin()+(guest?'/premium/welcome?session_id={CHECKOUT_SESSION_ID}':'/premium/account?checkout=success'),cancel_url:authOrigin()+(guest?(direct?'/premium#pricing':'/premium/join?checkout=canceled'):'/premium/account?checkout=canceled')},{idempotencyKey:`sacco-checkout-${mode}-${record.checkout_token}${direct?'-direct':''}`});
+ const session=await stripe.checkout.sessions.create({mode:'subscription',...(direct?{consent_collection:{terms_of_service:'required' as const},custom_text:{terms_of_service_acceptance:{message:`I agree to the [Terms](https://saccofinancial.com/terms) and acknowledge the [Privacy Policy](https://saccofinancial.com/privacy).`}}}:{}),customer,client_reference_id:user.id,line_items:[{price:priceId(selected),quantity:1}],payment_method_types:['card'],allow_promotion_codes:false,metadata,payment_method_collection:'always',expires_at:Math.floor(new Date(record.checkout_expires_at).getTime()/1000),subscription_data:{metadata,...(trial?{trial_period_days:trialDays,trial_settings:{end_behavior:{missing_payment_method:'cancel' as const}}}:{})},success_url:authOrigin()+(guest?'/premium/welcome?session_id={CHECKOUT_SESSION_ID}':'/premium/account?checkout=success'),cancel_url:authOrigin()+(privateOffer?'/premium/join?checkout=canceled&offer='+encodeURIComponent(offerToken!):(guest?(direct?'/premium#pricing':'/premium/join?checkout=canceled'):'/premium/account?checkout=canceled'))},{idempotencyKey:`sacco-checkout-${mode}-${record.checkout_token}${direct?'-direct':''}`});
  if(!session.url)throw new Error('BILLING_UNAVAILABLE');
  // Keep optional telemetry out of Stripe's idempotent create payload.
  try{await stripe.checkout.sessions.update(session.id,{metadata:analytics});}catch{/* Analytics cannot block checkout. */}

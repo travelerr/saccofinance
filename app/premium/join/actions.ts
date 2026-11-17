@@ -1,4 +1,5 @@
 'use server';
+import {validPrivateOffer} from '@/lib/billing/private-offer';
 import {recordSampleCheckout} from '@/lib/sample/attribution';
 import {redirect} from 'next/navigation';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
@@ -10,9 +11,12 @@ export async function beginCheckout(form:FormData){return runCheckout(form,false
 export async function beginDirectCheckout(form:FormData){return runCheckout(form,true);}
 async function runCheckout(form:FormData,direct:boolean){
  if(!billingEnabled())redirect('/premium/login');
+ const offerToken=form.has('offer')?String(form.get('offer')):undefined;
+ if(offerToken!==undefined&&!validPrivateOffer(offerToken))redirect('/premium/join?error=trial');
+ const offerQuery=offerToken?'&offer='+encodeURIComponent(offerToken):'';
  const plan=String(form.get('plan')) as BillingPlan;
- if(!['monthly','annual'].includes(plan)||(!direct&&!form.get('terms')))redirect('/premium/join?error=details');
- const client=await createSupabaseServerClient();if(!client)redirect('/premium/join?error=billing');
+ if(!['monthly','annual'].includes(plan)||(!direct&&!form.get('terms')))redirect('/premium/join?error=details'+offerQuery);
+ const client=await createSupabaseServerClient();if(!client)redirect('/premium/join?error=billing'+offerQuery);
  const access=await premiumAccess();if(access.allowed)redirect('/premium/dashboard');
  let url:string;
  try{
@@ -21,8 +25,8 @@ async function runCheckout(form:FormData,direct:boolean){
   const {error}=await admin.from('billing_purchase_claims').select('id').limit(0);if(error)throw new Error('BILLING_DATABASE');
   let user=access.user;
   if(!user){const result=await client.auth.signInAnonymously();if(result.error||!result.data.user)throw new Error('GUEST_AUTH_UNAVAILABLE');user=result.data.user;}
-  url=await checkoutUrl(user,plan,String(form.get('email')||''),direct);
- }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='CHECKOUT_LEGACY')redirect('/premium/join?plan='+plan);if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='TRIAL_UNAVAILABLE'?'trial':reason==='CHECKOUT_BUSY'?'busy':reason==='CHECKOUT_PENDING'?'pending':'billing'));}
+  url=await checkoutUrl(user,plan,String(form.get('email')||''),direct,offerToken);
+ }catch(error){const reason=error instanceof Error?error.message:'';if(reason==='CHECKOUT_LEGACY')redirect('/premium/join?plan='+plan+offerQuery);if(reason==='GUEST_CLAIMED')redirect('/premium/login?next=/premium/account');redirect('/premium/join?error='+(reason==='GUEST_AUTH_UNAVAILABLE'?'guest':reason==='TRIAL_UNAVAILABLE'?'trial':reason==='CHECKOUT_BUSY'?'busy':reason==='CHECKOUT_PENDING'?'pending':'billing')+offerQuery);}
  if(url.startsWith('https://checkout.stripe.com/')){try{await recordSampleCheckout();}catch{/* Optional attribution cannot interrupt checkout. */}}
  redirect(url);
 }
