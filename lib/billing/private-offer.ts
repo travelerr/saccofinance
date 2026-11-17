@@ -1,9 +1,13 @@
 import 'server-only';
-import {createHash,timingSafeEqual} from 'node:crypto';
+import {timingSafeEqual} from 'node:crypto';
+import {billingServices} from './server';
 
-// Unlisted invitation: only the digest is stored in source. Rotate to revoke the link.
-const invitationDigest = '785187b19f9145c84ca3bea33ecec038e9a1bd353c32bc5c663eac957162d6d4';
-export function validPrivateOffer(token: unknown): token is string {
- if(typeof token !== 'string' || token.length !== 43)return false;
- return timingSafeEqual(createHash('sha256').update(token).digest(), Buffer.from(invitationDigest,'hex'));
+export async function validPrivateOffer(token: unknown): Promise<boolean> {
+ if(typeof token !== 'string' || !/^[A-Za-z0-9_-]{43}$/.test(token))return false;
+ try {
+  const {admin,mode}=await billingServices();
+  const {data,error}=await admin.from('premium_trial_settings').select('private_offer_enabled,private_offer_token').eq('mode',mode).single();
+  const expected=data?.private_offer_token;
+  return !error && data?.private_offer_enabled===true && typeof expected==='string' && expected.length===43 && timingSafeEqual(Buffer.from(token),Buffer.from(expected));
+ } catch { return false; }
 }

@@ -35,8 +35,15 @@ No Stripe price changes, discounts or separate trial products are needed.
 
 The unlisted `/premium/join?offer=…` link offers 30 free days on the monthly plan only. It requires a card and renews at $10/month unless canceled. It does not turn on or change the public trial setting. Do not add this link to navigation or public marketing. Anyone who receives or is forwarded the link can use it, subject to the existing new-member eligibility checks; it is not bound to a recipient.
 
-Only a SHA-256 digest is stored in `lib/billing/private-offer.ts`. Keep the original URL privately. To revoke the link for future checkouts, replace the digest and deploy. Already-created Stripe checkouts retain their promised terms until they expire; existing subscriptions are unaffected. Query strings are excluded from analytics, and the join page suppresses referrers.
+The invitation token and its independent enabled flag are stored in the service-role-only `premium_trial_settings` table. Admins can copy the link and turn it On or Off at `/premium/admin/offers`. The existing link is preserved when toggling. The page, checkout submission, and checkout service read the current private setting; the reservation function also rejects private requests while disabled. No deployment is needed to toggle it. Already-created Stripe checkouts retain their promised terms until they expire; existing subscriptions are unaffected. Query strings are excluded from analytics, and the join page suppresses referrers.
 
 Before deploying the private-link code, apply `supabase/migrations/202611170001_private_trial_invitation.sql`. It adds a service-role-only function overload, preserves the existing public checkout function, and changes no tables or public offer settings. Invitations fail closed if the migration is missing. The server validates the invitation again on submission, restricts it to monthly, and rejects a reservation unless it contains 30 trial days. A conflicting paid checkout must expire successfully before its reservation can be replaced.
 
 Validation: `node --test scripts/test-premium-trials.cjs scripts/test-checkout-switch.cjs`. Exercise the private checkout in Stripe test mode before rollout and verify that ordinary `/premium/join` retains its public terms. Never submit a live test payment or send the invitation automatically.
+
+
+### Admin controls rollout
+
+Apply `202611170002_private_offer_controls.sql` before deploying the admin controls. It adds two columns to the existing protected settings table and checks the private flag in the reservation function. Populate `private_offer_token` with the existing invitation token using service-role access (never commit the token to source). Keep the public `enabled` setting unchanged. The new private enabled flag defaults to true to preserve the existing invitation during rollout, while missing tokens fail closed.
+
+Checks: `node --test scripts/test-private-offer-controls.cjs scripts/test-premium-trials.cjs scripts/test-checkout-switch.cjs`. The private Stripe sandbox script also verifies disabling blocks checkout and re-enabling restores the existing session. No payments or emails are submitted.

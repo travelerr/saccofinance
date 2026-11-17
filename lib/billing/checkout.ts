@@ -27,7 +27,7 @@ export async function portalUrl(userId:string,subscriptionId?:string){
 }
 export async function checkoutUrl(user:User,plan:BillingPlan,trialEmail?:string,direct=false,offerToken?:string){
  const privateOffer=offerToken!==undefined;
- if(privateOffer&&(!validPrivateOffer(offerToken)||plan!=='monthly'))throw new Error('TRIAL_UNAVAILABLE');
+ if(privateOffer&&(!await validPrivateOffer(offerToken)||plan!=='monthly'))throw new Error('TRIAL_UNAVAILABLE');
  const services=await billingServices();
  const token=randomUUID();
  const {data:locked,error}=await services.admin.rpc('acquire_billing_checkout_lock',{p_user:user.id,p_mode:services.mode,p_token:token});

@@ -6,7 +6,7 @@ test('zero-payment checkout requires explicit trial metadata before server-side 
 test('SQL offer toggle, frozen checkout, claim isolation, webhook ordering and trial purchase claiming',async()=>{const db=new PGlite();try{
  const guest='11111111-1111-4111-8111-111111111111',member='22222222-2222-4222-8222-222222222222',other='33333333-3333-4333-8333-333333333333';
  await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,is_anonymous boolean default false);create function auth.uid() returns uuid language sql as 'select null::uuid';insert into auth.users values('${guest}',null,null,true),('${member}','trial@example.invalid',now(),false),('${other}',null,null,true);`);
- for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
+ for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql','202611170002_private_offer_controls.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
  const reserve=async(user,plan='monthly',email='trial@example.invalid',prior=false)=>(await db.query("select * from reserve_premium_offer($1,'test',$2,$3,$4)",[user,plan,email,prior])).rows[0];
  assert.equal((await reserve(guest)).checkout_trial_days,0);
  await db.exec("update premium_trial_settings set enabled=true where mode='test'");assert.equal((await reserve(guest)).checkout_trial_days,0);
@@ -40,9 +40,12 @@ test('private offer grants 30 days with public offer off, enforces eligibility a
  const users=Array.from({length:5},(_,i)=>`00000000-0000-4000-8000-00000000000${i}`);
  await db.exec(`create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,is_anonymous boolean default false);create function auth.uid() returns uuid language sql as 'select null::uuid';`);
  for(const id of users)await db.query('insert into auth.users(id) values($1)',[id]);
- for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
+ for(const f of ['202609160001_premium_memberships.sql','202609170001_premium_billing.sql','202609170002_payment_first.sql','202609170003_scheduled_cancellation.sql','202610110002_premium_trials.sql','202610300001_trial_offer_durations.sql','202611170001_private_trial_invitation.sql','202611170002_private_offer_controls.sql'])await db.exec(fs.readFileSync('supabase/migrations/'+f,'utf8'));
  const reserve=async(i,email='invite@example.invalid',plan='monthly',prior=false)=>(await db.query("select * from reserve_premium_offer($1,'live',$2,$3,$4,true)",[users[i],plan,email,prior])).rows[0];
- const r=await reserve(0);assert.equal(r.checkout_trial_days,30);assert.equal((await reserve(0)).checkout_token,r.checkout_token);
+ const r=await reserve(0);assert.equal(r.checkout_trial_days,30);
+ await db.exec("update premium_trial_settings set private_offer_enabled=false where mode='live'");await assert.rejects(reserve(0),/TRIAL_UNAVAILABLE/);await assert.rejects(reserve(4,'off@example.invalid'),/TRIAL_UNAVAILABLE/);
+ assert.equal((await db.query("select checkout_trial_days from billing_customers where user_id=$1 and mode='live'",[users[0]])).rows[0].checkout_trial_days,30);
+ await db.exec("update premium_trial_settings set private_offer_enabled=true where mode='live'");assert.equal((await reserve(0)).checkout_token,r.checkout_token);
  assert.equal((await db.query("select enabled from premium_trial_settings where mode='live'")).rows[0].enabled,false);
  assert.equal((await db.query("select * from reserve_premium_offer($1,'live','monthly','public@example.invalid',false)",[users[1]])).rows[0].checkout_trial_days,0);
  await assert.rejects(reserve(1,'public@example.invalid'),/TRIAL_UNAVAILABLE/);

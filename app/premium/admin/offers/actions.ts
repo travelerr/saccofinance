@@ -13,3 +13,13 @@ export async function saveTrialOffer(form:FormData){
  for(const path of ['/premium','/premium/join','/premium/account','/premium/admin/offers'])revalidatePath(path);
  redirect('/premium/admin/offers?saved=1');
 }
+
+export async function savePrivateOffer(form:FormData){
+ const user=await requireOffersAdmin();const value=String(form.get('privateOffer')||'');
+ if(!['on','off'].includes(value))throw Error('Choose On or Off.');
+ const {admin,mode}=await billingServices();
+ const {data,error}=await admin.from('premium_trial_settings').update({private_offer_enabled:value==='on',updated_at:new Date().toISOString(),updated_by:user.id}).eq('mode',mode).select('mode').single();
+ if(error||!data)throw Error('Private offer could not be saved.');
+ revalidatePath('/premium/admin/offers');revalidatePath('/premium/join');
+ redirect('/premium/admin/offers?saved=1');
+}

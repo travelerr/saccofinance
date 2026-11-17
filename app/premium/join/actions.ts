@@ -12,7 +12,7 @@ export async function beginDirectCheckout(form:FormData){return runCheckout(form
 async function runCheckout(form:FormData,direct:boolean){
  if(!billingEnabled())redirect('/premium/login');
  const offerToken=form.has('offer')?String(form.get('offer')):undefined;
- if(offerToken!==undefined&&!validPrivateOffer(offerToken))redirect('/premium/join?error=trial');
+ if(offerToken!==undefined&&!await validPrivateOffer(offerToken))redirect('/premium/join?error=trial');
  const offerQuery=offerToken?'&offer='+encodeURIComponent(offerToken):'';
  const plan=String(form.get('plan')) as BillingPlan;
  if(!['monthly','annual'].includes(plan)||(!direct&&!form.get('terms')))redirect('/premium/join?error=details'+offerQuery);
