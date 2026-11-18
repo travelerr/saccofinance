@@ -61,3 +61,34 @@ Sacco Financial`,
  path: '/premium/masterclasses',
  details: [],
 };
+
+// Separate reminder identity preserves send history for the earlier announcement.
+const tonightId = 'masterclass-tonight-2026-11-18';
+export const masterclassTonightReminder: ResearchEvent = {
+ type: 'LEARNING_LIBRARY_ANNOUNCEMENT',
+ key: `LEARNING_LIBRARY_ANNOUNCEMENT:${tonightId}`,
+ entityId: tonightId,
+ updateId: null,
+ publishedAt: '2026-11-18',
+ subject: 'We’re going live tonight at 7 p.m. Eastern!',
+ preview: 'Join our first Sacco Premium Live Masterclass: How I Find My Next Stock Trade.',
+ label: 'LIVE TONIGHT · 7 P.M. EASTERN',
+ headline: first.title,
+ summary: `Hey everyone,
+
+Quick reminder: our first Sacco Premium Live Masterclass starts **tonight, Wednesday, November 18, at 7 p.m. Eastern!**
+
+I’ll walk through how I find stock opportunities, evaluate technical setups, and plan entries, stops, targets, and risk. Bring your questions—we’ll have live Q&A through YouTube chat.
+
+[Join the YouTube livestream](https://youtube.com/live/${first.videoId})
+
+Can’t make it live? The recording will be available in the Masterclasses library afterward.
+
+See you there!
+
+Justin
+Sacco Financial`,
+ cta: 'OPEN THE MASTERCLASS',
+ path: '/premium/masterclasses',
+ details: [],
+};
