@@ -4,8 +4,8 @@ const {masterclasses,masterclassLibrary,masterclassDate}=require('../lib/masterc
 const first=masterclasses[0];
 test('scheduled stream remains visible during the session; only ready recordings enter library',()=>{
  const now=Date.parse(first.startsAt)+3600000;
- assert.equal(masterclassLibrary([first],now).upcoming.id,first.id);
- const completed={...first,status:'completed'};
+ assert.equal(masterclassLibrary([{...first,status:'scheduled',recordingId:undefined}],now).upcoming.id,first.id);
+ const completed={...first,status:'completed',recordingId:undefined};
  assert.equal(masterclassLibrary([completed],now).recordings.length,0);
  const recorded={...completed,recordingId:first.videoId};
  assert.equal(masterclassLibrary([recorded],now).recordings.length,1);
@@ -23,4 +23,13 @@ test('announcement renders a valid unsent snapshot with thumbnail, member destin
  assert.ok(snapshot.html.includes(first.thumbnail));
  assert.ok(snapshot.html.includes('/premium/masterclasses'));
  assert.ok(snapshot.html.includes(unsubscribePlaceholder(origin)));
+});
+
+test('November replay starts at two minutes and December session has its own pending livestream',()=>{
+ const library=masterclassLibrary(masterclasses,Date.parse('2026-11-19T12:00:00-05:00'));
+ assert.equal(library.recordings[0].recordingId,'TvkPU-F4Xv0');
+ assert.equal(library.recordings[0].recordingStartSeconds,120);
+ assert.equal(library.upcoming.startsAt,'2026-12-17T19:00:00-05:00');
+ assert.equal(library.upcoming.videoId,undefined);
+ assert.match(masterclassDate(library.upcoming.startsAt),/Thursday, December 17, 2026.*7:00 PM EST/);
 });
