@@ -1,4 +1,4 @@
-import {rareOpportunity} from './rare-opportunity';
+import {rareOpportunity,rareStopUpdateText} from './rare-opportunity';
 import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
 import {uhsOpportunity,uhsEntryTrade,uhsEntryText} from './uhs-opportunity';
@@ -3433,3 +3433,10 @@ sapWithdrawn.summary=sapWithdrawn.nextStepSummary;
 
 // User-reported entry documented November 20; execution date was not supplied.
 opportunityUpdates.push({id:'opportunity-015-entry-2026-11-20',opportunityId:'opportunity-015',publishedAt:'2026-11-20',publicationState:'published',tradeStatusBefore:'Watching',tradeStatusAfter:'Active',trade:uhsEntryTrade,title:'Small Position Opened — 5 Shares at $179',explanation:uhsEntryText,notification:{subject:'UHS: Small Position Opened at $179',headline:'UHS — SMALL POSITION OPENED',summary:uhsEntryText,cta:'VIEW THE POSITION'}});
+
+
+opportunityUpdates.push({
+ id:'opportunity-018-stop-2026-11-20',opportunityId:'opportunity-018',publishedAt:'2026-11-20',eventDate:'2026-11-20',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Active',trade:{...rareOpportunity.trade!},
+ title:'RARE Stop Raised to $16.00',explanation:rareStopUpdateText,
+ notification:{subject:'RARE Update: Stop Raised to $16.00',preview:'My stop now matches my entry. I’m holding 50 shares with a $24 target.',headline:'RARE — STOP RAISED TO $16',summary:rareStopUpdateText,cta:'VIEW THE RARE UPDATE'},
+});

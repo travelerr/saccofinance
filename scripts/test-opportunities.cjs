@@ -1,6 +1,6 @@
 // Load the repository's TypeScript model using its existing TypeScript dependency.
 const fs=require('node:fs');const ts=require('typescript');const assert=require('node:assert/strict');const {test}=require('node:test');
-require.extensions['.ts']=(module,filename)=>module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8').replace("import 'server-only';",''),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,filename);
+require.extensions['.ts']=(module,filename)=>module._compile(ts.transpileModule(fs.readFileSync(filename,'utf8').replace("import 'server-only';",''),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,filename);
 const m=require('../lib/premium-content.ts');
 // Synthetic model fixture only; never imported by the application or published.
 const base={id:'test-only-id',slug:'test-only',ticker:'TEST',company:'Test fixture',title:'Test fixture',publicationState:'published',publishedAt:'2026-01-01',updatedAt:'2026-01-02',sector:'Test',technicalStage:'Test',whySurfaced:'Test',setupThesis:'Test',nextCondition:'Test',fundamentalCase:'Test',thesisChanges:'Test',justinsTake:'Test',tradeStatus:'Watching'};
@@ -339,4 +339,13 @@ test('DG confirmed fill updates risk/reward while rounded shares remain approxim
  for(const cost of [undefined,0,-1,NaN])assert.equal(m.isPublishableOpportunity({...pending,trade:{...pending.trade,reportedApproximateCost:cost}}),false);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).filter(e=>e.entityId===o.id);
  assert.equal(events.length,1);assert.match(events[0].summary,/3.68:1/);assert.doesNotMatch(events[0].summary,/pending confirmation/);
+});
+
+test('RARE stop raise preserves the position and prepares a distinct valid email',()=>{
+ const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');const o=d.getPublishedOpportunity('ultragenyx-pharmaceutical-018');
+ assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,50);assert.equal(o.trade.entryPrice,16);assert.equal(o.trade.stopPrice,16);assert.equal(o.trade.proposedStopPrice,undefined);assert.equal(o.trade.firstTargetPrice,24);assert.equal(p.rewardRisk(o),undefined);assert.equal(m.realizedTradeResult(o),null);
+ assert.ok(o.researchSections.some(s=>s.title.includes('historical')&&s.body.includes('$15.15')));
+ const update=d.getOpportunityUpdates(o.id).find(u=>u.id==='opportunity-018-stop-2026-11-20');assert.equal(update.trade.stopPrice,16);
+ const event=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).find(e=>e.updateId===update.id);
+ const {renderResearchEmail}=require('../lib/email/templates.ts'),{validateEmailSnapshot,unsubscribePlaceholder}=require('../lib/email/snapshot.ts');const origin='https://saccofinancial.com';const snap={version:1,...renderResearchEmail(event,origin,unsubscribePlaceholder(origin))};validateEmailSnapshot(snap,origin);assert.match(snap.text,/gaps and slippage/);assert.match(snap.text,/50 shares/);assert.match(snap.text,/\$24.00/);
 });

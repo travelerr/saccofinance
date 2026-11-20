@@ -1,6 +1,6 @@
 import type {Opportunity} from './premium-content';
 
-export const rareOpportunity: Opportunity = {
+const originalRareOpportunity: Opportunity = {
   id: 'opportunity-018',
   slug: 'ultragenyx-pharmaceutical-018',
   ticker: 'RARE',
@@ -47,4 +47,19 @@ export const rareOpportunity: Opportunity = {
     alt: 'Daily RARE chart showing the September gap down and subsequent consolidation, with an earlier hypothetical trade overlay.',
     caption: 'The 7.65:1 overlay shows my earlier hypothetical setup. My actual $16.00 entry and revised $15.15 stop level and $24.00 target give 9.41:1.',
   }],
+};
+
+
+export const rareStopUpdateText='I raised my RARE stop to $16.00, matching my entry price. I’m still holding 50 shares from $16.00, and my target remains $24.00.\n\nThe new stop is intended to protect my original capital while leaving room for the recovery thesis to develop. A fill at $16.00 would be breakeven before fees, but gaps and slippage can produce a lower fill. The position remains open; no gain or loss has been realized.';
+export const rareOpportunity:Opportunity={
+ ...originalRareOpportunity,
+ updatedAt:'2026-11-20',
+ tradeStatus:'Active',
+ trade:{...originalRareOpportunity.trade!,proposedStopPrice:undefined,stopPrice:16,documentation:originalRareOpportunity.trade!.documentation+' On November 20, Justin reported raising his stop to $16.00. The $24.00 target is unchanged.'},
+ summary:'I’m holding 50 shares from $16.00 and have raised my stop to $16.00, matching my entry. My target remains $24.00.',
+ nextStepSummary:'Stop raised to $16.00. Holding 50 shares from $16.00 with a $24.00 target; gaps and slippage can still result in a loss.',
+ thesisChanges:'My stop is now $16.00. If the recovery fails, I’m managing the position against that level. A gap through the stop could result in a lower fill.',
+ justinsTake:rareStopUpdateText,
+ researchSections:[{title:'November 20 — Stop raised to entry',body:rareStopUpdateText},...(originalRareOpportunity.researchSections||[]).map(section=>({...section,title:'Original November 16 plan — historical',body:section.body}))],
+ charts:originalRareOpportunity.charts?.map(chart=>({...chart,caption:'Historical November 16 chart and scenario. My current stop is $16.00, matching my entry; my target remains $24.00.'})),
 };
