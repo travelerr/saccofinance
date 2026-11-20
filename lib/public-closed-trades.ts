@@ -7,6 +7,6 @@ export function publicClosedTrades(records:Opportunity[]):ClosedTradePreview[]{
   if(o.tradeStatus!=='Closed')throw new Error('Closed trade required');
   const option=o.optionPosition,entry=o.trade.entryPrice;
   const returnPct=option?(option.status==='Closed'&&option.realizedProfit!==null&&option.collateral>0?option.realizedProfit/option.collateral*100:null):(entry!==undefined&&entry>0?(o.trade.exitPrice-entry)/entry*100:null);
-  return {id:o.id,ticker:o.ticker,company:o.company,closedAt:o.trade.exitedAt,returnPct:returnPct!==null&&Number.isFinite(returnPct)?returnPct:null,basis:option?'Return on cash collateral':'Share-price return',approximate:/approximately|approximate entry/i.test(o.trade.documentation)};
+  return {id:o.id,ticker:o.ticker,company:o.company,closedAt:o.trade.exitedAt,returnPct:returnPct!==null&&Number.isFinite(returnPct)?returnPct:null,basis:option?'Return on cash collateral':'Share-price return',approximate:/approximate entry|(?:at|entry(?: price)?(?: of| is)?) approximately\b/i.test(o.trade.documentation)};
  });
 }
