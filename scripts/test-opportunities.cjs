@@ -245,9 +245,9 @@ test('second ZS entry is separate from the profitable closed trade',()=>{
 
 test('decision presentation separates proposed levels from executed trades and unknown P&L',()=>{
  const p=require('../lib/opportunity-presentation.ts');
- const watching={...base,id:'opportunity-012'};
- assert.equal(p.compactLevels(watching)[0].value,'$228–$232');
- assert.equal(p.rewardRisk(watching),'1.37:1 to T1 at $230');
+ const watching={...base,id:'opportunity-015'};
+ assert.equal(p.compactLevels(watching)[0].value,'$182.59');
+ assert.equal(p.rewardRisk(watching),'3.35:1');
  assert.equal(watching.trade,undefined);
  const active={...base,tradeStatus:'Active',trade:{...entry,stopPrice:8,firstTargetPrice:14}};
  assert.equal(p.compactLevels(active)[0].label,'Actual entry');

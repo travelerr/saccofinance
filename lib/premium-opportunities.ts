@@ -3421,3 +3421,11 @@ opportunities.push(dgOpportunity);
 opportunities.push(admaOpportunity);
 
 opportunities.push(rareOpportunity);
+
+
+// November 20: withdrawn research candidate, not a sale or a closed trade.
+const sapWithdrawn=opportunities.find(o=>o.id==='opportunity-012')!;
+sapWithdrawn.boardPlacement='off-board';
+sapWithdrawn.updatedAt='2026-11-20';
+sapWithdrawn.nextStepSummary="Removed from my Opportunity Board on November 20 after the recent decline. I’m no longer pursuing this setup. No position was opened; the original research remains below for reference.";
+sapWithdrawn.summary=sapWithdrawn.nextStepSummary;
