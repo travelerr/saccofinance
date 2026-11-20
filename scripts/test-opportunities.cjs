@@ -185,7 +185,7 @@ test('ZS verified close preserves all snapshots, realizes 200 dollars and prepar
  assert.deepEqual([o.trade.quantity,o.trade.entryPrice,o.trade.exitPrice,o.trade.stopPrice,o.trade.firstTargetPrice],[10,190.07,210.07,210,220]);assert.equal(o.trade.exitedAt,'2026-10-07');assert.equal(o.trade.exitReason,'Stop triggered');assert.equal(o.trade.secondTargetPrice,undefined);assert.equal(o.trade.exitTime,undefined);
  const result=m.realizedTradeResult(o);assert.equal(result.realizedDollarPnL,200);assert.equal(result.realizedPercentReturn.toFixed(1),'10.5');assert.equal(m.isCurrentOpportunity(o),false);assert.equal(o.riskUpdate,undefined);
  const history=d.getOpportunityUpdates(o.id);assert.equal(history.length,5);assert.deepEqual(history.slice(0,-1).map(u=>u.trade.stopPrice),[160,195,205,210]);assert.ok(history.slice(0,-1).every(u=>u.tradeStatusAfter==='Active'&&u.trade.exitPrice===undefined));assert.equal(history.at(-1).trade,o.trade);assert.match(o.justinsTake,/NOT REACHED/);
- assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['CNC','WK','AR','EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
+ assert.deepEqual(m.filterOpportunities(d.getPublishedOpportunities(),'archive','Closed').map(o=>o.ticker),['DG','RARE','CNC','WK','AR','EPAM','ZS','SMCI','RKLB','MSTR','ZS','NOW']);
  const events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);const e=events.find(e=>e.updateId===history.at(-1).id);assert.equal(events.filter(x=>x.type==='OPPORTUNITY_MATERIAL_UPDATE'&&x.path==='/premium/opportunities/zscaler-001')[0].key,e.key);assert.equal(events.filter(x=>x.key===e.key).length,1);assert.equal(e.subject,'Opportunity Closed: ZS +10.5%');assert.equal(e.cta,'VIEW THE COMPLETED ZSCALER TRADE');assert.equal(e.path,'/premium/opportunities/zscaler-001');
  const email=require('../lib/email/templates.ts').renderResearchEmail(e,'https://saccofinancial.com');assert.match(email.text,/200.00/);assert.match(email.text,/not subscriber performance/);assert.match(email.text,/before fees and taxes/);assert.doesNotMatch(email.text,/230|target achieved|guaranteed strategy/);
 });
@@ -329,7 +329,7 @@ test('UHS reported five-share entry updates the card and preserves historical re
 });
 
 test('DG confirmed fill updates risk/reward while rounded shares remain approximate',()=>{
- const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts'),o=d.getPublishedOpportunity('dollar-general-016');
+ const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts'),o=require('../lib/dg-opportunity.ts').dgOpportunity;
  assert.equal(d.opportunities.filter(x=>x.ticker==='DG').length,1);
  assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryPrice,134.19);assert.equal(o.trade.reportedApproximateQuantity,22.35);
  assert.equal(o.trade.quantity,undefined);assert.equal(o.trade.stopPrice,undefined);assert.equal(o.trade.reportedApproximateCost,3000);
@@ -342,10 +342,21 @@ test('DG confirmed fill updates risk/reward while rounded shares remain approxim
 });
 
 test('RARE stop raise preserves the position and prepares a distinct valid email',()=>{
- const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');const o=d.getPublishedOpportunity('ultragenyx-pharmaceutical-018');
+ const d=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');const o=require('../lib/rare-opportunity.ts').rareOpportunity;
  assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.quantity,50);assert.equal(o.trade.entryPrice,16);assert.equal(o.trade.stopPrice,16);assert.equal(o.trade.proposedStopPrice,undefined);assert.equal(o.trade.firstTargetPrice,24);assert.equal(p.rewardRisk(o),undefined);assert.equal(m.realizedTradeResult(o),null);
  assert.ok(o.researchSections.some(s=>s.title.includes('historical')&&s.body.includes('$15.15')));
  const update=d.getOpportunityUpdates(o.id).find(u=>u.id==='opportunity-018-stop-2026-11-20');assert.equal(update.trade.stopPrice,16);
  const event=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).find(e=>e.updateId===update.id);
  const {renderResearchEmail}=require('../lib/email/templates.ts'),{validateEmailSnapshot,unsubscribePlaceholder}=require('../lib/email/snapshot.ts');const origin='https://saccofinancial.com';const snap={version:1,...renderResearchEmail(event,origin,unsubscribePlaceholder(origin))};validateEmailSnapshot(snap,origin);assert.match(snap.text,/gaps and slippage/);assert.match(snap.text,/50 shares/);assert.match(snap.text,/\$24.00/);
+});
+
+test('November 20 RARE and DG exits archive both trades and use one combined email',()=>{
+ const d=require('../lib/premium-opportunities.ts'),events=require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates);
+ for(const [slug,price] of [['ultragenyx-pharmaceutical-018',16.67],['dollar-general-016',135.55]]){
+  const o=d.getPublishedOpportunity(slug);assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.exitPrice,price);assert.equal(o.trade.exitedAt,'2026-11-20');assert.ok(m.filterOpportunities(d.opportunities,'archive','All').some(x=>x.id===o.id));assert.ok(!m.filterOpportunities(d.opportunities,'holdings','All').some(x=>x.id===o.id));
+  const update=d.getOpportunityUpdates(o.id).find(u=>u.id===o.id+'-close-2026-11-20');assert.equal(update.suppressNotification,true);assert.ok(!events.some(e=>e.updateId===update.id));
+ }
+ const rare=d.getPublishedOpportunity('ultragenyx-pharmaceutical-018'),dg=d.getPublishedOpportunity('dollar-general-016');assert.equal(m.realizedTradeResult(rare).realizedDollarPnL,33.5);assert.equal(dg.trade.quantity,undefined);assert.equal(dg.trade.reportedApproximateQuantity,22.35);assert.equal(m.realizedTradeResult(dg),null);
+ const event=require('../lib/email/trading-recap-2026-11-20.ts').tradingRecapNovember20;
+ const {renderResearchEmail}=require('../lib/email/templates.ts'),{validateEmailSnapshot,unsubscribePlaceholder}=require('../lib/email/snapshot.ts'),origin='https://saccofinancial.com';const snap={version:1,...renderResearchEmail(event,origin,unsubscribePlaceholder(origin))};validateEmailSnapshot(snap,origin);assert.match(snap.text,/16.67/);assert.match(snap.text,/135.55/);assert.match(snap.text,/estimated dollar gain/);assert.match(snap.text,/intraday observation/);
 });

@@ -1,3 +1,4 @@
+import {rareCloseNovember20,dgCloseNovember20,marketExitNovember20} from './email/trading-recap-2026-11-20';
 import {rareOpportunity,rareStopUpdateText} from './rare-opportunity';
 import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
@@ -3440,3 +3441,13 @@ opportunityUpdates.push({
  title:'RARE Stop Raised to $16.00',explanation:rareStopUpdateText,
  notification:{subject:'RARE Update: Stop Raised to $16.00',preview:'My stop now matches my entry. I’m holding 50 shares with a $24 target.',headline:'RARE — STOP RAISED TO $16',summary:rareStopUpdateText,cta:'VIEW THE RARE UPDATE'},
 });
+
+
+// Two explicit full exits, with one combined member email rather than two sends.
+for(const close of [{id:'opportunity-018',price:16.67,text:rareCloseNovember20,ticker:'RARE'},{id:'opportunity-016',price:135.55,text:dgCloseNovember20,ticker:'Dollar General'}]){
+ const index=opportunities.findIndex(o=>o.id===close.id);
+ const previous=opportunities[index];
+ const trade={...previous.trade!,exitedAt:'2026-11-20',exitPrice:close.price,exitReason:'Position closed during the broader market sell-off',documentation:previous.trade!.documentation+' Justin reported closing the full position at $'+close.price.toFixed(2)+' on November 20. No execution time or stop-trigger mechanism was supplied.'};
+ opportunities[index]={...previous,tradeStatus:'Closed',trade,updatedAt:'2026-11-20',addedToArchiveAt:'2026-11-20',closingCommentary:close.text+'\n\n'+marketExitNovember20,summary:close.text,justinsTake:close.text+'\n\n'+marketExitNovember20,nextStepSummary:'Position fully closed. I’m waiting to reassess before repositioning.',nextCondition:'No open position remains. Any re-entry will be a new documented decision.',riskUpdate:undefined};
+ opportunityUpdates.push({id:close.id+'-close-2026-11-20',opportunityId:close.id,publishedAt:'2026-11-20',eventDate:'2026-11-20',publicationState:'published',tradeStatusBefore:'Active',tradeStatusAfter:'Closed',trade,title:close.ticker+' Closed at $'+close.price.toFixed(2),explanation:close.text+'\n\n'+marketExitNovember20,suppressNotification:true});
+}
