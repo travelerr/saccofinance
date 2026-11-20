@@ -210,3 +210,7 @@ html[data-theme=light] .brand .workspace-panel .outlook-posture>p:not(.eyebrow):
  color: #176b36;
  font-weight: 750;
 }
+
+.brand .workspace-panel .outlook-posture.outlook-posture-cautious{border-left-color:#ef5350;background:rgba(239,83,80,.08)}
+.brand .workspace-panel .outlook-posture.outlook-posture-cautious>p:not(.eyebrow):not(.support-note){color:#ff8585}
+html[data-theme=light] .brand .workspace-panel .outlook-posture.outlook-posture-cautious>p:not(.eyebrow):not(.support-note){color:#b42318}
