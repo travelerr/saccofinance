@@ -1,3 +1,4 @@
+import {currentMarketPosture} from '@/lib/current-market-posture';
 import SiteHeader from '@/components/site-header';
 import PublicGaugeCard from '@/components/premium/public-gauge-card';
 import snapshot from '@/data/market-strength/latest.json';
@@ -98,7 +99,7 @@ export default async function Premium(){
     </div>
     <aside className={styles.heroResearch} aria-label="Selected public research preview">
      <div className={styles.previewTop}><strong>THE RESEARCH DESK</strong><span>Inside Premium</span></div>
-     <div className={styles.deskBody}>{outlook&&<><Eyebrow>Weekly Outlook · {premiumDate(outlook.weekOf)}</Eyebrow><h2>{outlook.title}</h2><p>{outlook.summary}</p><div className={styles.posture}><span>Market posture</span><strong>{outlook.marketPosture}</strong></div></>}
+     <div className={styles.deskBody}>{outlook&&<><Eyebrow>Weekly Outlook · {premiumDate(outlook.weekOf)}</Eyebrow><h2>{outlook.title}</h2><p>{outlook.summary}</p><div className={styles.posture}><span>Market posture</span><strong>{currentMarketPosture.label}</strong></div></>}
       <div className={styles.gaugePreview}><Eyebrow>Sector Gauge / A look at the tool</Eyebrow><PublicGaugeCard samples={gaugeSamples} asOf={snapshot.asOf}/></div>
       {latest&&<><Eyebrow>Documented trades</Eyebrow><div className={styles.deskTrade}><div><span>Most recent closed trade</span><strong>{latest.ticker} · {premiumDate(latest.closedAt)}</strong></div><strong className={latest.returnPct!==null&&latest.returnPct<0?styles.loss:styles.gain}>{latest.returnPct===null?'Not available':`${latest.approximate?'≈ ':''}${latest.returnPct>0?'+':''}${latest.returnPct.toFixed(2)}%`}</strong></div></>}
      </div>
