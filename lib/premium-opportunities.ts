@@ -1,7 +1,7 @@
 import {rareOpportunity} from './rare-opportunity';
 import {admaOpportunity} from './adma-opportunity';
 import {dgOpportunity} from './dg-opportunity';
-import {uhsOpportunity} from './uhs-opportunity';
+import {uhsOpportunity,uhsEntryTrade,uhsEntryText} from './uhs-opportunity';
 import {weeklyOutlook009} from './weekly-outlook-009';
 import {weeklyOutlook008} from './weekly-outlook-008';
 import {arWatchPlan,arRewardRisk} from './ar-watch-plan';
@@ -3429,3 +3429,7 @@ sapWithdrawn.boardPlacement='off-board';
 sapWithdrawn.updatedAt='2026-11-20';
 sapWithdrawn.nextStepSummary="Removed from my Opportunity Board on November 20 after the recent decline. I’m no longer pursuing this setup. No position was opened; the original research remains below for reference.";
 sapWithdrawn.summary=sapWithdrawn.nextStepSummary;
+
+
+// User-reported entry documented November 20; execution date was not supplied.
+opportunityUpdates.push({id:'opportunity-015-entry-2026-11-20',opportunityId:'opportunity-015',publishedAt:'2026-11-20',publicationState:'published',tradeStatusBefore:'Watching',tradeStatusAfter:'Active',trade:uhsEntryTrade,title:'Small Position Opened — 5 Shares at $179',explanation:uhsEntryText,notification:{subject:'UHS: Small Position Opened at $179',headline:'UHS — SMALL POSITION OPENED',summary:uhsEntryText,cta:'VIEW THE POSITION'}});

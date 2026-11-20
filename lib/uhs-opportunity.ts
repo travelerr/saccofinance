@@ -1,7 +1,7 @@
-import type {Opportunity} from './premium-content';
+import type {Opportunity,TradeEntry} from './premium-content';
 
 // Justin's supplied November 9, 2026 research snapshot; no execution recorded.
-export const uhsOpportunity:Opportunity={
+const originalUhsOpportunity:Opportunity={
   "id": "opportunity-015",
   "slug": "universal-health-services-015",
   "ticker": "UHS",
@@ -139,4 +139,23 @@ export const uhsOpportunity:Opportunity={
       "height": 750
     }
   ]
+};
+
+
+export const uhsEntryTrade:TradeEntry={documentedAt:'2026-11-20',entryPrice:179,quantity:5,stopPrice:173,firstTargetPrice:201,entryType:'user-reported',documentation:'Justin reported buying 5 shares at $179, with a $173 stop and $201 target. Exact execution date/time was not supplied.'};
+export const uhsEntryText="I bought 5 shares of UHS at $179, for a total cost of $895. My stop is $173 and my target is $201. I’m keeping this position small because I’m highly cautious on the broader market and expect the potential for more downside.\n\nThese levels imply $6 per share of planned risk and $22 per share of potential upside: $30 of planned risk versus $110 of potential profit across 5 shares, or approximately 3.67:1 reward-to-risk before fees and slippage. A stop does not guarantee the execution price.";
+export const uhsOpportunity:Opportunity={
+ ...originalUhsOpportunity,
+ title:'UHS — Small Position Opened at $179',updatedAt:'2026-11-20',tradeStatus:'Active',trade:uhsEntryTrade,strategy:'Swing Trade',
+ summary:'I bought 5 shares at $179. My stop is $173 and my target is $201. I’m keeping the position small while highly cautious on the broader market.',
+ nextStepSummary:'Holding a small 5-share position at $179, with a $173 stop and $201 target. Managing risk while expecting potential further market downside.',
+ setupThesis:'I’ve entered a small position after the pullback. My current plan is based on my $179 fill, $173 stop and $201 target. The November 9 charts below preserve my original research; their scenario annotations are historical and do not represent these current trade levels.',
+ nextCondition:uhsEntryText,justinsTake:uhsEntryText,
+ entryFramework:'Actual purchase: 5 shares at $179; $895 total cost.',riskInvalidation:'My stop is $173. Gaps and slippage can produce a fill below that level.',
+ nextCatalyst:'Watch whether UHS holds support while broader market pressure continues; no scheduled catalyst is assumed.',
+ thesisChanges:'Further market weakness or a loss of support could undermine this setup. I’m keeping exposure small and managing the position against my $173 stop.',
+ primaryRisks:[{title:'Broader market downside',explanation:'I remain highly cautious and believe the market could move another 10–12% lower toward the next support area.'},{title:'Stop execution',explanation:'The $173 stop does not guarantee a fill; gaps and slippage can exceed the planned $30 risk.'},{title:'Mixed fundamentals',explanation:'Weak growth, valuation and revision grades in my original research temper conviction.'}],
+ proposedLevels:[{label:'Actual entry',value:'5 shares at $179 · $895 total'},{label:'Stop',value:'$173'},{label:'Initial target',value:'$201'},{label:'Planned risk / potential profit',value:'$30 / $110 · before fees and slippage'},{label:'Reward-to-risk',value:'3.67:1'}],
+ researchSections:[...(originalUhsOpportunity.researchSections||[]),{title:'Original November 9 watching thesis — historical',body:[originalUhsOpportunity.setupThesis,originalUhsOpportunity.nextCondition,originalUhsOpportunity.justinsTake].join('\n\n')}],
+ charts:originalUhsOpportunity.charts?.map(c=>({...c,caption:'Historical November 9 research, before my purchase. '+c.caption})),
 };

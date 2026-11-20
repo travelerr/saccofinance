@@ -209,7 +209,7 @@ test('SMCI buyback closes the short put with a 241 dollar loss and no new notifi
 test('WK confirmed accumulation preserves unknown dates and suppresses its update email',()=>{
  const d=require('../lib/premium-opportunities.ts');const o=d.getPublishedOpportunity('workiva-009');
  assert.ok(o);assert.equal(d.opportunities.filter(x=>x.ticker==='WK').length,1);
- assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,75.78);assert.equal(o.trade.enteredAt,undefined);assert.equal(o.trade.documentedAt,'2026-10-20');assert.equal(o.trade.stopPrice,80);assert.equal(o.trade.firstTargetPrice,89);assert.equal(d.getOpportunityUpdates(o.id)[0].suppressNotification,true);assert.ok(!require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).some(e=>['opportunity-009-holding-2026-10-20','opportunity-009-levels-2026-10-20'].includes(e.updateId)));assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o).realizedDollarPnL,46);
+ assert.equal(o.tradeStatus,'Closed');assert.equal(o.trade.quantity,5);assert.equal(o.trade.entryPrice,75.78);assert.equal(o.trade.enteredAt,undefined);assert.equal(m.isPublishableOpportunity({...o,trade:{...o.trade,documentedAt:undefined}}),false);assert.equal(o.trade.documentedAt,'2026-10-20');assert.equal(o.trade.stopPrice,80);assert.equal(o.trade.firstTargetPrice,89);assert.equal(d.getOpportunityUpdates(o.id)[0].suppressNotification,true);assert.ok(!require('../lib/email/events.ts').researchEvents(d.weeklyOutlooks,d.opportunities,d.opportunityUpdates).some(e=>['opportunity-009-holding-2026-10-20','opportunity-009-levels-2026-10-20'].includes(e.updateId)));assert.equal(o.optionPosition,undefined);assert.equal(m.realizedTradeResult(o).realizedDollarPnL,46);
  assert.deepEqual(o.proposedLevels.slice(2,5).map(x=>x.value),['$72–$73','$64.93','$88.97']);
  assert.ok(o.articleSections.every(s=>! /\b(we|our|us)\b/i.test(s.body)));
  assert.equal(o.notification.subject,'New Opportunity Watch: Workiva (WK)');assert.match(o.notification.summary,/I have NOT entered this trade/);
@@ -316,16 +316,16 @@ test('CNC closes after the documented stop raises',()=>{
  assert.equal(m.realizedTradeResult(o).realizedPercentReturn.toFixed(2),'10.69');
 });
 
-test('UHS remains conditional research with no execution and matching chart risk/reward',()=>{
+test('UHS reported five-share entry updates the card and preserves historical research',()=>{
  const data=require('../lib/premium-opportunities.ts'),p=require('../lib/opportunity-presentation.ts');
  const o=data.getPublishedOpportunity('universal-health-services-015');
- assert.equal(o.tradeStatus,'Watching');assert.equal(o.trade,undefined);assert.equal(o.optionPosition,undefined);
- assert.equal(data.getOpportunityUpdates(o.id).length,0);assert.equal(data.opportunities.filter(x=>x.ticker==='UHS').length,1);
- assert.equal(p.rewardRisk(o),`${((227.50-182.59)/(182.59-169.17)).toFixed(2)}:1`);
- assert.deepEqual(p.compactLevels(o).map(x=>x.value),['$182.59','$169.17','$227.50']);
- assert.equal(o.charts.length,5);assert.equal(o.charts[0].source,'TradingView');
- for(const c of o.charts)assert.ok(c.width>0&&c.height>0);
- assert.match(o.researchSections[0].body,/192.41/);assert.match(o.researchSections[0].body,/193.82/);
+ assert.equal(o.tradeStatus,'Active');assert.equal(o.trade.entryPrice,179);assert.equal(o.trade.quantity,5);assert.equal(o.trade.stopPrice,173);assert.equal(o.trade.firstTargetPrice,201);assert.equal(o.trade.enteredAt,undefined);assert.equal(m.isPublishableOpportunity({...o,trade:{...o.trade,documentedAt:undefined}}),false);
+ assert.equal(data.getOpportunityUpdates(o.id).length,1);assert.equal(data.opportunities.filter(x=>x.ticker==='UHS').length,1);
+ assert.equal(p.rewardRisk(o),'3.67:1');assert.deepEqual(p.compactLevels(o).map(x=>x.value),['$179','$173','$201']);
+ assert.doesNotMatch(p.decisionFor(o).plan,/haven't purchased|182.59/);
+ assert.equal(o.charts.length,5);assert.match(o.charts[0].caption,/Historical November 9/);
+ assert.ok(o.researchSections.some(s=>s.title.includes('Original November 9')&&s.body.includes('$182.59')));
+ assert.equal((o.trade.entryPrice-o.trade.stopPrice)*o.trade.quantity,30);assert.equal((o.trade.firstTargetPrice-o.trade.entryPrice)*o.trade.quantity,110);
 });
 
 test('DG confirmed fill updates risk/reward while rounded shares remain approximate',()=>{

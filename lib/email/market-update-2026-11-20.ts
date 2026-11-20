@@ -5,34 +5,34 @@ export const marketUpdateNovember20:ResearchEvent={
  type:'LEARNING_LIBRARY_ANNOUNCEMENT',
  key:'LEARNING_LIBRARY_ANNOUNCEMENT:market-update-watchlist-2026-11-20',
  entityId:'market-update-watchlist-2026-11-20',updateId:null,publishedAt:'2026-11-20T12:00:00-05:00',
- subject:'My Market Outlook: Highly Cautious — and What’s on My Radar',
- preview:'My current market view, the stocks I’m researching, and our December 17 live masterclass.',
- label:'SACCO PREMIUM MEMBER UPDATE',headline:'Staying patient. Preparing for opportunity.',
+ subject:'Market Update: Staying Cautious, My Watchlist & a Small UHS Position',
+ preview:'Why I’m highly cautious, the new Premium watchlist, and my five-share UHS position.',
+ label:'SACCO PREMIUM MEMBER UPDATE',headline:'A market update and a small UHS position',
  summary:`Hi everyone,
 
-**My market posture: Highly cautious**
+I wanted to share a quick market update and what I’m doing next in Sacco Premium.
 
-I’m becoming more defensive in how I’m approaching this market. My working expectation is a Nasdaq pullback in the 10–12% range before we find more meaningful support. That is my outlook, not a guaranteed outcome.
+Nvidia’s earnings and the Anthropic IPO are now behind us, but the market continues to move lower. I believe we have the potential to move another 10–12% lower toward the next area of support I’m watching. I can’t say that will happen for sure, but I don’t currently see a clear catalyst to support a sustained move higher.
 
-In my view, Nvidia’s earnings and the Anthropic IPO haven’t restored the confidence needed for a durable turn. I don’t currently see a clear bullish catalyst strong enough to change my stance. What concerns me is the selling pressure I’m seeing spread beyond technology and into the broader market.
+I’m also watching the expected December rate hike: 25 basis points, or potentially 50. The decision is not confirmed, and that uncertainty keeps me highly cautious on the market right now.
 
-December’s Fed decision is another risk I’m watching closely. I’m concerned about another rate hike, including the possibility of a larger 50-basis-point move. That is a risk scenario I’m considering, not a confirmed decision or a claim about market-implied odds.
+**A watchlist for Sacco Premium**
 
-A broader washout could eventually create attractive buying opportunities. For now, I want to protect capital, manage risk, and wait for evidence that a setup is ready. A lower price alone isn’t enough reason for me to buy.
+I’m adding a [watchlist to Sacco Premium](https://saccofinancial.com/premium/watchlist#radar-2026-11-20) and will update it with different setups as I work through them. This gives you a way to see what I’m looking at and follow the charts as those ideas develop. A name appearing on the watchlist doesn’t mean I’ve bought it; I’ll document actual positions separately on the Opportunity Board.
 
-**Your Premium watchlist: A look at what I’m researching**
+**A small position in UHS**
 
-You can now follow the stocks on my radar between trades through the [Premium Watchlist](https://saccofinancial.com/premium/watchlist#radar-2026-11-20). Each name opens to the chart I’m reviewing, so you can see the setups taking shape alongside me.
+I did buy 5 shares of Universal Health Services (UHS) at $179, for a total of $895. My price target is $201 and my stop is $173.
 
-My current research list includes JJSF, FDS, UHS, COCO, EL, CASY, BMRN, ALKS, GEHC, MDLZ and UNFI, with STZ still tentative.
+That gives me $22 per share of potential upside against $6 per share of planned risk, or approximately 3.67:1 reward-to-risk. Across the five shares, that’s $110 of potential profit versus $30 of planned risk before fees and slippage. A stop doesn’t guarantee the fill price.
 
-These are research candidates, not entry signals or announcements that I’ve opened positions. When a setup develops into a fuller trade plan or a documented position, I’ll share that on the Opportunity Board. The watchlist gives you a view into the work before that point.
+I’m keeping the position small because I’m highly cautious on the broader market. You can see the updated plan on the [UHS Opportunity page](https://saccofinancial.com/premium/opportunities/universal-health-services-015).
 
 **Next live masterclass: Thursday, December 17 at 7 p.m. Eastern**
 
-Mark your calendar for our next Sacco Premium live masterclass on December 17, 2026. I’ll share the topic and joining details as we get closer. You’ll find the session on the [Masterclasses page](https://saccofinancial.com/premium/masterclasses).
+Our next live masterclass is December 17, 2026. I’ll share the topic and joining details as we get closer on the [Masterclasses page](https://saccofinancial.com/premium/masterclasses).
 
-For now, patience is part of the process. I’m continuing to research so I’m prepared when better opportunities emerge.
+I’ll keep researching and sharing setups while staying patient and managing risk.
 
 Justin
 Sacco Financial`,
