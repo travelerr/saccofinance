@@ -21,3 +21,9 @@ export const watchlistEditions:WatchlistEdition[]=[{
  ],
 }];
 export const publishedWatchlists=()=>watchlistEditions.filter(e=>e.status==='published'&&e.candidates.length>0).sort((a,b)=>b.date.localeCompare(a.date));
+export const watchlistStockHref=(editionId:string,ticker:string)=>'/premium/watchlist/'+encodeURIComponent(editionId)+'/'+encodeURIComponent(ticker.toLowerCase());
+export function findWatchlistStock(editionId:string,ticker:string){
+ const edition=publishedWatchlists().find(e=>e.id===editionId);
+ const stock=edition?.candidates.find(s=>s.ticker.toLowerCase()===ticker.toLowerCase());
+ return edition&&stock?{edition,stock}:undefined;
+}
